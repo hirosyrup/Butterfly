@@ -9,7 +9,16 @@ import Foundation
 import Firebase
 
 class FirestoreSetup {
+    private let url: URL?
+    
+    init() {
+        self.url = SettingUserDefault().firebasePlistUrl()
+    }
+    
     func setup() {
-        FirebaseApp.configure()
+        guard let path = url?.path.removingPercentEncoding else { return }
+        if let options = FirebaseOptions(contentsOfFile: path) {
+            FirebaseApp.configure(options: options)
+        }
     }
 }

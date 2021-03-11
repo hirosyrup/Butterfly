@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		C3672F15941CC99555666025 /* Pods_Butterfly_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39E695FC21E914F41D36A055 /* Pods_Butterfly_iOS.framework */; };
 		FBA2883A25F8896600D1B3BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2883925F8896600D1B3BD /* AppDelegate.swift */; };
-		FBA2883C25F8896600D1B3BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2883B25F8896600D1B3BD /* ViewController.swift */; };
+		FBA2883C25F8896600D1B3BD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2883B25F8896600D1B3BD /* MainViewController.swift */; };
 		FBA2883E25F8896700D1B3BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBA2883D25F8896700D1B3BD /* Assets.xcassets */; };
 		FBA2884125F8896700D1B3BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBA2883F25F8896700D1B3BD /* Main.storyboard */; };
 		FBA5443225FA554200112066 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5443125FA554200112066 /* AppDelegate.swift */; };
@@ -20,6 +20,9 @@
 		FBA5443E25FA554200112066 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBA5443C25FA554200112066 /* LaunchScreen.storyboard */; };
 		FBA5447325FA55E500112066 /* FirestoreSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5447225FA55E500112066 /* FirestoreSetup.swift */; };
 		FBA5447425FA55E500112066 /* FirestoreSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5447225FA55E500112066 /* FirestoreSetup.swift */; };
+		FBA544AD25FA5D2400112066 /* PreferencesFirebaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA544AC25FA5D2400112066 /* PreferencesFirebaseViewController.swift */; };
+		FBA544B425FA61EA00112066 /* SettingUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA544B325FA61EA00112066 /* SettingUserDefault.swift */; };
+		FBA544C025FA667000112066 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA544BF25FA667000112066 /* PreferencesWindowController.swift */; };
 		FE979F1D6A67DA01DB4748E0 /* Pods_Butterfly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6B93144670685FE55D28ABD /* Pods_Butterfly.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,7 +34,7 @@
 		F30ACA8222B6B825B01A6E98 /* Pods-Butterfly-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Butterfly-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Butterfly-iOS/Pods-Butterfly-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		FBA2883625F8896600D1B3BD /* Butterfly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Butterfly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA2883925F8896600D1B3BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FBA2883B25F8896600D1B3BD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FBA2883B25F8896600D1B3BD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		FBA2883D25F8896700D1B3BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FBA2884025F8896700D1B3BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FBA2884225F8896700D1B3BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -45,6 +48,9 @@
 		FBA5443D25FA554200112066 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FBA5443F25FA554200112066 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBA5447225FA55E500112066 /* FirestoreSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreSetup.swift; sourceTree = "<group>"; };
+		FBA544AC25FA5D2400112066 /* PreferencesFirebaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesFirebaseViewController.swift; sourceTree = "<group>"; };
+		FBA544B325FA61EA00112066 /* SettingUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserDefault.swift; sourceTree = "<group>"; };
+		FBA544BF25FA667000112066 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 		FDD6B8BFAC0A461437292A6C /* Pods-Butterfly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Butterfly.release.xcconfig"; path = "Target Support Files/Pods-Butterfly/Pods-Butterfly.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,7 +97,8 @@
 		FBA0D99325F9D9F3003FBC86 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				FBA2883B25F8896600D1B3BD /* ViewController.swift */,
+				FBA544AB25FA5CFF00112066 /* Preferences */,
+				FBA2883B25F8896600D1B3BD /* MainViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -147,6 +154,7 @@
 		FBA5446725FA557D00112066 /* Butterfly-Models */ = {
 			isa = PBXGroup;
 			children = (
+				FBA544B225FA61CD00112066 /* Settings */,
 				FBA5446825FA55A300112066 /* Firestore */,
 			);
 			path = "Butterfly-Models";
@@ -158,6 +166,23 @@
 				FBA5447225FA55E500112066 /* FirestoreSetup.swift */,
 			);
 			path = Firestore;
+			sourceTree = "<group>";
+		};
+		FBA544AB25FA5CFF00112066 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				FBA544AC25FA5D2400112066 /* PreferencesFirebaseViewController.swift */,
+				FBA544BF25FA667000112066 /* PreferencesWindowController.swift */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
+		FBA544B225FA61CD00112066 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				FBA544B325FA61EA00112066 /* SettingUserDefault.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,8 +373,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBA544C025FA667000112066 /* PreferencesWindowController.swift in Sources */,
+				FBA544AD25FA5D2400112066 /* PreferencesFirebaseViewController.swift in Sources */,
 				FBA5447325FA55E500112066 /* FirestoreSetup.swift in Sources */,
-				FBA2883C25F8896600D1B3BD /* ViewController.swift in Sources */,
+				FBA544B425FA61EA00112066 /* SettingUserDefault.swift in Sources */,
+				FBA2883C25F8896600D1B3BD /* MainViewController.swift in Sources */,
 				FBA2883A25F8896600D1B3BD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
