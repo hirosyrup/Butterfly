@@ -97,6 +97,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FBA0D99325F9D9F3003FBC86 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FBA2883B25F8896600D1B3BD /* ViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		FBA2882D25F8896600D1B3BD = {
 			isa = PBXGroup;
 			children = (
@@ -122,8 +130,8 @@
 		FBA2883825F8896600D1B3BD /* Butterfly */ = {
 			isa = PBXGroup;
 			children = (
+				FBA0D99325F9D9F3003FBC86 /* ViewController */,
 				FBA2883925F8896600D1B3BD /* AppDelegate.swift */,
-				FBA2883B25F8896600D1B3BD /* ViewController.swift */,
 				FBA2883D25F8896700D1B3BD /* Assets.xcassets */,
 				FBA2883F25F8896700D1B3BD /* Main.storyboard */,
 				FBA2884225F8896700D1B3BD /* Info.plist */,
