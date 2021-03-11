@@ -7,37 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6E541A854730886D8E2E0660 /* Pods_Butterfly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E151347D68795946DF21FB6B /* Pods_Butterfly.framework */; };
+		C3672F15941CC99555666025 /* Pods_Butterfly_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39E695FC21E914F41D36A055 /* Pods_Butterfly_iOS.framework */; };
 		FBA2883A25F8896600D1B3BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2883925F8896600D1B3BD /* AppDelegate.swift */; };
 		FBA2883C25F8896600D1B3BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2883B25F8896600D1B3BD /* ViewController.swift */; };
 		FBA2883E25F8896700D1B3BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBA2883D25F8896700D1B3BD /* Assets.xcassets */; };
 		FBA2884125F8896700D1B3BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBA2883F25F8896700D1B3BD /* Main.storyboard */; };
-		FBA2884D25F8896800D1B3BD /* ButterflyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2884C25F8896800D1B3BD /* ButterflyTests.swift */; };
-		FBA2885825F8896800D1B3BD /* ButterflyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2885725F8896800D1B3BD /* ButterflyUITests.swift */; };
-		FBB956A825F92212007F6F8D /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = FBB956A725F92212007F6F8D /* GoogleSignIn */; };
+		FBA5443225FA554200112066 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5443125FA554200112066 /* AppDelegate.swift */; };
+		FBA5443425FA554200112066 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5443325FA554200112066 /* SceneDelegate.swift */; };
+		FBA5443625FA554200112066 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5443525FA554200112066 /* ViewController.swift */; };
+		FBA5443925FA554200112066 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBA5443725FA554200112066 /* Main.storyboard */; };
+		FBA5443B25FA554200112066 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBA5443A25FA554200112066 /* Assets.xcassets */; };
+		FBA5443E25FA554200112066 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBA5443C25FA554200112066 /* LaunchScreen.storyboard */; };
+		FBA5447325FA55E500112066 /* FirestoreSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5447225FA55E500112066 /* FirestoreSetup.swift */; };
+		FBA5447425FA55E500112066 /* FirestoreSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5447225FA55E500112066 /* FirestoreSetup.swift */; };
+		FE979F1D6A67DA01DB4748E0 /* Pods_Butterfly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6B93144670685FE55D28ABD /* Pods_Butterfly.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		FBA2884925F8896800D1B3BD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FBA2882E25F8896600D1B3BD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FBA2883525F8896600D1B3BD;
-			remoteInfo = Butterfly;
-		};
-		FBA2885425F8896800D1B3BD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FBA2882E25F8896600D1B3BD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FBA2883525F8896600D1B3BD;
-			remoteInfo = Butterfly;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		6B1CC6EEF47753C035FA2EE3 /* Pods-Butterfly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Butterfly.debug.xcconfig"; path = "Target Support Files/Pods-Butterfly/Pods-Butterfly.debug.xcconfig"; sourceTree = "<group>"; };
-		D54D5F4B7C36C40290821A3D /* Pods-Butterfly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Butterfly.release.xcconfig"; path = "Target Support Files/Pods-Butterfly/Pods-Butterfly.release.xcconfig"; sourceTree = "<group>"; };
-		E151347D68795946DF21FB6B /* Pods_Butterfly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Butterfly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		17389D7879DDB756C453740D /* Pods-Butterfly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Butterfly.debug.xcconfig"; path = "Target Support Files/Pods-Butterfly/Pods-Butterfly.debug.xcconfig"; sourceTree = "<group>"; };
+		35613D854FB62252F15EADAB /* Pods-Butterfly-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Butterfly-iOS.release.xcconfig"; path = "Target Support Files/Pods-Butterfly-iOS/Pods-Butterfly-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		39E695FC21E914F41D36A055 /* Pods_Butterfly_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Butterfly_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6B93144670685FE55D28ABD /* Pods_Butterfly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Butterfly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F30ACA8222B6B825B01A6E98 /* Pods-Butterfly-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Butterfly-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Butterfly-iOS/Pods-Butterfly-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		FBA2883625F8896600D1B3BD /* Butterfly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Butterfly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA2883925F8896600D1B3BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBA2883B25F8896600D1B3BD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -45,12 +36,16 @@
 		FBA2884025F8896700D1B3BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FBA2884225F8896700D1B3BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBA2884325F8896700D1B3BD /* Butterfly.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Butterfly.entitlements; sourceTree = "<group>"; };
-		FBA2884825F8896800D1B3BD /* ButterflyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ButterflyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FBA2884C25F8896800D1B3BD /* ButterflyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButterflyTests.swift; sourceTree = "<group>"; };
-		FBA2884E25F8896800D1B3BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FBA2885325F8896800D1B3BD /* ButterflyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ButterflyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FBA2885725F8896800D1B3BD /* ButterflyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButterflyUITests.swift; sourceTree = "<group>"; };
-		FBA2885925F8896800D1B3BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBA5442F25FA554200112066 /* Butterfly-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Butterfly-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBA5443125FA554200112066 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FBA5443325FA554200112066 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		FBA5443525FA554200112066 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FBA5443825FA554200112066 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FBA5443A25FA554200112066 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FBA5443D25FA554200112066 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FBA5443F25FA554200112066 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBA5447225FA55E500112066 /* FirestoreSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreSetup.swift; sourceTree = "<group>"; };
+		FDD6B8BFAC0A461437292A6C /* Pods-Butterfly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Butterfly.release.xcconfig"; path = "Target Support Files/Pods-Butterfly/Pods-Butterfly.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,22 +53,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E541A854730886D8E2E0660 /* Pods_Butterfly.framework in Frameworks */,
-				FBB956A825F92212007F6F8D /* GoogleSignIn in Frameworks */,
+				FE979F1D6A67DA01DB4748E0 /* Pods_Butterfly.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FBA2884525F8896800D1B3BD /* Frameworks */ = {
+		FBA5442C25FA554200112066 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FBA2885025F8896800D1B3BD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				C3672F15941CC99555666025 /* Pods_Butterfly_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,16 +71,19 @@
 		171FB13C0125FB0DE1CD2B8B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6B1CC6EEF47753C035FA2EE3 /* Pods-Butterfly.debug.xcconfig */,
-				D54D5F4B7C36C40290821A3D /* Pods-Butterfly.release.xcconfig */,
+				17389D7879DDB756C453740D /* Pods-Butterfly.debug.xcconfig */,
+				FDD6B8BFAC0A461437292A6C /* Pods-Butterfly.release.xcconfig */,
+				F30ACA8222B6B825B01A6E98 /* Pods-Butterfly-iOS.debug.xcconfig */,
+				35613D854FB62252F15EADAB /* Pods-Butterfly-iOS.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		CE54D56D83E46C6E82020AA2 /* Frameworks */ = {
+		1E63D902095BE873CF505A55 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E151347D68795946DF21FB6B /* Pods_Butterfly.framework */,
+				A6B93144670685FE55D28ABD /* Pods_Butterfly.framework */,
+				39E695FC21E914F41D36A055 /* Pods_Butterfly_iOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -108,12 +99,12 @@
 		FBA2882D25F8896600D1B3BD = {
 			isa = PBXGroup;
 			children = (
+				FBA5446725FA557D00112066 /* Butterfly-Models */,
 				FBA2883825F8896600D1B3BD /* Butterfly */,
-				FBA2884B25F8896800D1B3BD /* ButterflyTests */,
-				FBA2885625F8896800D1B3BD /* ButterflyUITests */,
+				FBA5443025FA554200112066 /* Butterfly-iOS */,
 				FBA2883725F8896600D1B3BD /* Products */,
 				171FB13C0125FB0DE1CD2B8B /* Pods */,
-				CE54D56D83E46C6E82020AA2 /* Frameworks */,
+				1E63D902095BE873CF505A55 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -121,8 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				FBA2883625F8896600D1B3BD /* Butterfly.app */,
-				FBA2884825F8896800D1B3BD /* ButterflyTests.xctest */,
-				FBA2885325F8896800D1B3BD /* ButterflyUITests.xctest */,
+				FBA5442F25FA554200112066 /* Butterfly-iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,22 +130,34 @@
 			path = Butterfly;
 			sourceTree = "<group>";
 		};
-		FBA2884B25F8896800D1B3BD /* ButterflyTests */ = {
+		FBA5443025FA554200112066 /* Butterfly-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				FBA2884C25F8896800D1B3BD /* ButterflyTests.swift */,
-				FBA2884E25F8896800D1B3BD /* Info.plist */,
+				FBA5443125FA554200112066 /* AppDelegate.swift */,
+				FBA5443325FA554200112066 /* SceneDelegate.swift */,
+				FBA5443525FA554200112066 /* ViewController.swift */,
+				FBA5443725FA554200112066 /* Main.storyboard */,
+				FBA5443A25FA554200112066 /* Assets.xcassets */,
+				FBA5443C25FA554200112066 /* LaunchScreen.storyboard */,
+				FBA5443F25FA554200112066 /* Info.plist */,
 			);
-			path = ButterflyTests;
+			path = "Butterfly-iOS";
 			sourceTree = "<group>";
 		};
-		FBA2885625F8896800D1B3BD /* ButterflyUITests */ = {
+		FBA5446725FA557D00112066 /* Butterfly-Models */ = {
 			isa = PBXGroup;
 			children = (
-				FBA2885725F8896800D1B3BD /* ButterflyUITests.swift */,
-				FBA2885925F8896800D1B3BD /* Info.plist */,
+				FBA5446825FA55A300112066 /* Firestore */,
 			);
-			path = ButterflyUITests;
+			path = "Butterfly-Models";
+			sourceTree = "<group>";
+		};
+		FBA5446825FA55A300112066 /* Firestore */ = {
+			isa = PBXGroup;
+			children = (
+				FBA5447225FA55E500112066 /* FirestoreSetup.swift */,
+			);
+			path = Firestore;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,59 +167,39 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBA2885C25F8896800D1B3BD /* Build configuration list for PBXNativeTarget "Butterfly" */;
 			buildPhases = (
-				8529D4BD226CB620E0D07C63 /* [CP] Check Pods Manifest.lock */,
+				491F585389D5E43F5DD37873 /* [CP] Check Pods Manifest.lock */,
 				FBA2883225F8896600D1B3BD /* Sources */,
 				FBA2883325F8896600D1B3BD /* Frameworks */,
 				FBA2883425F8896600D1B3BD /* Resources */,
-				CC1DA189054545F4DDB9FE69 /* [CP] Embed Pods Frameworks */,
+				15AD64FE99080A8D7F06AB00 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Butterfly;
-			packageProductDependencies = (
-				FBB956A725F92212007F6F8D /* GoogleSignIn */,
-			);
 			productName = Butterfly;
 			productReference = FBA2883625F8896600D1B3BD /* Butterfly.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FBA2884725F8896800D1B3BD /* ButterflyTests */ = {
+		FBA5442E25FA554200112066 /* Butterfly-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FBA2885F25F8896800D1B3BD /* Build configuration list for PBXNativeTarget "ButterflyTests" */;
+			buildConfigurationList = FBA5445C25FA554300112066 /* Build configuration list for PBXNativeTarget "Butterfly-iOS" */;
 			buildPhases = (
-				FBA2884425F8896800D1B3BD /* Sources */,
-				FBA2884525F8896800D1B3BD /* Frameworks */,
-				FBA2884625F8896800D1B3BD /* Resources */,
+				AB47AD88EF08B3557957281D /* [CP] Check Pods Manifest.lock */,
+				FBA5442B25FA554200112066 /* Sources */,
+				FBA5442C25FA554200112066 /* Frameworks */,
+				FBA5442D25FA554200112066 /* Resources */,
+				6115A65A5E573ACF7C9BEE2C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				FBA2884A25F8896800D1B3BD /* PBXTargetDependency */,
 			);
-			name = ButterflyTests;
-			productName = ButterflyTests;
-			productReference = FBA2884825F8896800D1B3BD /* ButterflyTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		FBA2885225F8896800D1B3BD /* ButterflyUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FBA2886225F8896800D1B3BD /* Build configuration list for PBXNativeTarget "ButterflyUITests" */;
-			buildPhases = (
-				FBA2884F25F8896800D1B3BD /* Sources */,
-				FBA2885025F8896800D1B3BD /* Frameworks */,
-				FBA2885125F8896800D1B3BD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FBA2885525F8896800D1B3BD /* PBXTargetDependency */,
-			);
-			name = ButterflyUITests;
-			productName = ButterflyUITests;
-			productReference = FBA2885325F8896800D1B3BD /* ButterflyUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
+			name = "Butterfly-iOS";
+			productName = "Butterfly-iOS";
+			productReference = FBA5442F25FA554200112066 /* Butterfly-iOS.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -225,19 +207,14 @@
 		FBA2882E25F8896600D1B3BD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1220;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					FBA2883525F8896600D1B3BD = {
 						CreatedOnToolsVersion = 12.4;
 					};
-					FBA2884725F8896800D1B3BD = {
-						CreatedOnToolsVersion = 12.4;
-						TestTargetID = FBA2883525F8896600D1B3BD;
-					};
-					FBA2885225F8896800D1B3BD = {
-						CreatedOnToolsVersion = 12.4;
-						TestTargetID = FBA2883525F8896600D1B3BD;
+					FBA5442E25FA554200112066 = {
+						CreatedOnToolsVersion = 12.2;
 					};
 				};
 			};
@@ -258,8 +235,7 @@
 			projectRoot = "";
 			targets = (
 				FBA2883525F8896600D1B3BD /* Butterfly */,
-				FBA2884725F8896800D1B3BD /* ButterflyTests */,
-				FBA2885225F8896800D1B3BD /* ButterflyUITests */,
+				FBA5442E25FA554200112066 /* Butterfly-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -274,24 +250,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FBA2884625F8896800D1B3BD /* Resources */ = {
+		FBA5442D25FA554200112066 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FBA2885125F8896800D1B3BD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				FBA5443E25FA554200112066 /* LaunchScreen.storyboard in Resources */,
+				FBA5443B25FA554200112066 /* Assets.xcassets in Resources */,
+				FBA5443925FA554200112066 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8529D4BD226CB620E0D07C63 /* [CP] Check Pods Manifest.lock */ = {
+		15AD64FE99080A8D7F06AB00 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Butterfly/Pods-Butterfly-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Butterfly/Pods-Butterfly-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Butterfly/Pods-Butterfly-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		491F585389D5E43F5DD37873 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -313,21 +302,43 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CC1DA189054545F4DDB9FE69 /* [CP] Embed Pods Frameworks */ = {
+		6115A65A5E573ACF7C9BEE2C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Butterfly/Pods-Butterfly-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Butterfly-iOS/Pods-Butterfly-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Butterfly/Pods-Butterfly-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Butterfly-iOS/Pods-Butterfly-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Butterfly/Pods-Butterfly-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Butterfly-iOS/Pods-Butterfly-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AB47AD88EF08B3557957281D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Butterfly-iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -337,41 +348,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBA5447325FA55E500112066 /* FirestoreSetup.swift in Sources */,
 				FBA2883C25F8896600D1B3BD /* ViewController.swift in Sources */,
 				FBA2883A25F8896600D1B3BD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FBA2884425F8896800D1B3BD /* Sources */ = {
+		FBA5442B25FA554200112066 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBA2884D25F8896800D1B3BD /* ButterflyTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FBA2884F25F8896800D1B3BD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FBA2885825F8896800D1B3BD /* ButterflyUITests.swift in Sources */,
+				FBA5443625FA554200112066 /* ViewController.swift in Sources */,
+				FBA5443225FA554200112066 /* AppDelegate.swift in Sources */,
+				FBA5443425FA554200112066 /* SceneDelegate.swift in Sources */,
+				FBA5447425FA55E500112066 /* FirestoreSetup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		FBA2884A25F8896800D1B3BD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FBA2883525F8896600D1B3BD /* Butterfly */;
-			targetProxy = FBA2884925F8896800D1B3BD /* PBXContainerItemProxy */;
-		};
-		FBA2885525F8896800D1B3BD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FBA2883525F8896600D1B3BD /* Butterfly */;
-			targetProxy = FBA2885425F8896800D1B3BD /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		FBA2883F25F8896700D1B3BD /* Main.storyboard */ = {
@@ -380,6 +374,22 @@
 				FBA2884025F8896700D1B3BD /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FBA5443725FA554200112066 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FBA5443825FA554200112066 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FBA5443C25FA554200112066 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FBA5443D25FA554200112066 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -502,7 +512,7 @@
 		};
 		FBA2885D25F8896800D1B3BD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6B1CC6EEF47753C035FA2EE3 /* Pods-Butterfly.debug.xcconfig */;
+			baseConfigurationReference = 17389D7879DDB756C453740D /* Pods-Butterfly.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -517,7 +527,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kiizankiizan.co.jp.Butterfly;
+				PRODUCT_BUNDLE_IDENTIFIER = com.koalab.Butterfly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -525,7 +535,7 @@
 		};
 		FBA2885E25F8896800D1B3BD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D54D5F4B7C36C40290821A3D /* Pods-Butterfly.release.xcconfig */;
+			baseConfigurationReference = FDD6B8BFAC0A461437292A6C /* Pods-Butterfly.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -540,93 +550,54 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kiizankiizan.co.jp.Butterfly;
+				PRODUCT_BUNDLE_IDENTIFIER = com.koalab.Butterfly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
-		FBA2886025F8896800D1B3BD /* Debug */ = {
+		FBA5445625FA554300112066 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F30ACA8222B6B825B01A6E98 /* Pods-Butterfly-iOS.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = L3KVSF9U8Y;
-				INFOPLIST_FILE = ButterflyTests/Info.plist;
+				INFOPLIST_FILE = "Butterfly-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
+					"@executable_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
-				PRODUCT_BUNDLE_IDENTIFIER = kiizankiizan.co.jp.ButterflyTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.koalab.Butterfly-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Butterfly.app/Contents/MacOS/Butterfly";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
-		FBA2886125F8896800D1B3BD /* Release */ = {
+		FBA5445725FA554300112066 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 35613D854FB62252F15EADAB /* Pods-Butterfly-iOS.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = L3KVSF9U8Y;
-				INFOPLIST_FILE = ButterflyTests/Info.plist;
+				INFOPLIST_FILE = "Butterfly-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
+					"@executable_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
-				PRODUCT_BUNDLE_IDENTIFIER = kiizankiizan.co.jp.ButterflyTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.koalab.Butterfly-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Butterfly.app/Contents/MacOS/Butterfly";
-			};
-			name = Release;
-		};
-		FBA2886325F8896800D1B3BD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = L3KVSF9U8Y;
-				INFOPLIST_FILE = ButterflyUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = kiizankiizan.co.jp.ButterflyUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = Butterfly;
-			};
-			name = Debug;
-		};
-		FBA2886425F8896800D1B3BD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = L3KVSF9U8Y;
-				INFOPLIST_FILE = ButterflyUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = kiizankiizan.co.jp.ButterflyUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = Butterfly;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -651,20 +622,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FBA2885F25F8896800D1B3BD /* Build configuration list for PBXNativeTarget "ButterflyTests" */ = {
+		FBA5445C25FA554300112066 /* Build configuration list for PBXNativeTarget "Butterfly-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FBA2886025F8896800D1B3BD /* Debug */,
-				FBA2886125F8896800D1B3BD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FBA2886225F8896800D1B3BD /* Build configuration list for PBXNativeTarget "ButterflyUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FBA2886325F8896800D1B3BD /* Debug */,
-				FBA2886425F8896800D1B3BD /* Release */,
+				FBA5445625FA554300112066 /* Debug */,
+				FBA5445725FA554300112066 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -681,14 +643,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		FBB956A725F92212007F6F8D /* GoogleSignIn */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FBB956A625F92212007F6F8D /* XCRemoteSwiftPackageReference "GoogleSignIn-Swift" */;
-			productName = GoogleSignIn;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FBA2882E25F8896600D1B3BD /* Project object */;
 }
