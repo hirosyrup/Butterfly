@@ -7,9 +7,10 @@
 
 import Cocoa
 
-class MainViewController: NSViewController {
+class MainViewController: NSViewController, PreferencesWindowControllerDelegate {
 
-    private let preferencesWindowController = PreferencesWindowController.create()
+    private let window = NSWindow()
+    private var preferencesWindowController: PreferencesWindowController?
     
     class func create() -> MainViewController {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
@@ -30,10 +31,15 @@ class MainViewController: NSViewController {
         }
     }
     
+    func willClose(vc: PreferencesWindowController) {
+        preferencesWindowController = nil
+    }
+    
     @IBAction func pushPreferences(_ sender: Any) {
-        if let window = preferencesWindowController.window {
-            NSApp.runModal(for: window)
-        }
+        let wc = PreferencesWindowController.create()
+        wc.delegate = self
+        wc.showWindow(window)
+        preferencesWindowController = wc
     }
 
     @IBAction func pushQuit(_ sender: Any) {

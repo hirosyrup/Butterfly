@@ -7,7 +7,13 @@
 
 import Cocoa
 
+protocol PreferencesWindowControllerDelegate: class {
+    func willClose(vc: PreferencesWindowController)
+}
+
 class PreferencesWindowController: NSWindowController, NSWindowDelegate {
+    weak var delegate: PreferencesWindowControllerDelegate?
+    
     class func create() -> PreferencesWindowController {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         let identifier = NSStoryboard.SceneIdentifier("PreferencesWindowController")
@@ -16,12 +22,11 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     
     override func windowDidLoad() {
         super.windowDidLoad()
-    
+        window?.animationBehavior = .documentWindow
         window?.delegate = self
     }
-
+    
     func windowWillClose(_ notification: Notification) {
-        NSApp.stopModal(withCode: .cancel)
-        window?.orderOut(self)
+        delegate?.willClose(vc: self)
     }
 }
