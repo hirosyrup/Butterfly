@@ -8,6 +8,8 @@
 import Foundation
 
 class SettingUserDefault {
+    static let shared = SettingUserDefault()
+    
     let userDefault = UserDefaults.standard
     
     let firebasePlistUrlKey = "firebasePlistUrl"

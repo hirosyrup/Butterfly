@@ -21,10 +21,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         constructPopover()
         FirestoreSetup().setup()
+        SignInOut.shared.listenAuthEvent()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        SignInOut.shared.unlistendAuthEvent()
     }
     
     private func constructPopover() {

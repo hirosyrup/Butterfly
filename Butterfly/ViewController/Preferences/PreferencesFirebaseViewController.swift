@@ -10,9 +10,11 @@ import Cocoa
 class PreferencesFirebaseViewController: NSViewController {
     @IBOutlet weak var plistNameLabel: NSTextField!
     
+    let settingUserDefault = SettingUserDefault.shared
+    
     override func viewDidLoad() {
-        if let plistUrl = SettingUserDefault().firebasePlistUrl() {
-            self.plistNameLabel.stringValue = plistUrl.lastPathComponent
+        if let plistUrl = settingUserDefault.firebasePlistUrl() {
+            plistNameLabel.stringValue = plistUrl.lastPathComponent
         }
     }
     
@@ -36,7 +38,7 @@ class PreferencesFirebaseViewController: NSViewController {
                     try! fileManager.copyItem(at: url, to: toUrl)
                     let fileName = url.lastPathComponent
                     self.plistNameLabel.stringValue = fileName
-                    SettingUserDefault().saveFirebasePlistUrl(url: toUrl)
+                    self.settingUserDefault.saveFirebasePlistUrl(url: toUrl)
                     FirestoreSetup().setup()
                 }
             }
