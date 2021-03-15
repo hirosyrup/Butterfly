@@ -7,6 +7,8 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class FirestoreSetup {
     private let url: URL?
@@ -19,6 +21,7 @@ class FirestoreSetup {
         guard let path = url?.path.removingPercentEncoding else { return }
         if let options = FirebaseOptions(contentsOfFile: path) {
             FirebaseApp.configure(options: options)
+            Firestore.firestore().settings = FirestoreSettings()
         }
     }
 }

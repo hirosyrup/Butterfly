@@ -178,34 +178,74 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hiQ-8P-jjf">
-                                <rect key="frame" x="20" y="207" width="410" height="73"/>
+                                <rect key="frame" x="20" y="75" width="410" height="205"/>
                                 <subviews>
-                                    <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hty-ed-iSW">
-                                        <rect key="frame" x="0.0" y="-27" width="100" height="100"/>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="hty-ed-iSW">
+                                        <rect key="frame" x="155" y="105" width="100" height="100"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="uS7-9r-0iC">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kf6-PJ-sD1">
-                                        <rect key="frame" x="130" y="52" width="150" height="21"/>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FnN-ru-2LW">
+                                        <rect key="frame" x="87" y="76" width="236" height="21"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kf6-PJ-sD1" customClass="EditableNSTextField" customModule="Butterfly" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="150" id="bnq-cU-gVV"/>
+                                                </constraints>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" placeholderString="User Name" drawsBackground="YES" id="PX6-GT-3z9">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="a94-hP-Iz3">
+                                                <rect key="frame" x="156" y="3" width="54" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" id="k6E-bc-fgn">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="trh-3o-cWe">
+                                                <rect key="frame" x="213" y="-2" width="26" height="26"/>
+                                                <buttonCell key="cell" type="round" bezelStyle="circular" image="pencil" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="sMg-Qk-9R4">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="pushEditUserName:" target="g1C-ll-sB6" id="TOR-lt-6zE"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="150" id="bnq-cU-gVV"/>
+                                            <constraint firstItem="trh-3o-cWe" firstAttribute="centerY" secondItem="FnN-ru-2LW" secondAttribute="centerY" id="Igu-uG-1Fe"/>
+                                            <constraint firstItem="a94-hP-Iz3" firstAttribute="centerY" secondItem="FnN-ru-2LW" secondAttribute="centerY" id="W8b-Hv-Eqf"/>
                                         </constraints>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" borderStyle="bezel" alignment="center" placeholderString="User Name" drawsBackground="YES" id="PX6-GT-3z9">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zui-pJ-ZhH">
-                                        <rect key="frame" x="97" y="28" width="216" height="16"/>
+                                        <rect key="frame" x="97" y="52" width="216" height="16"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Email verification is not completed." id="4ZZ-PX-GTn">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="IkX-9p-6nC">
+                                        <rect key="frame" x="197" y="28" width="16" height="16"/>
+                                    </progressIndicator>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hB8-Dr-FS4">
                                         <rect key="frame" x="163" y="-7" width="85" height="32"/>
                                         <buttonCell key="cell" type="push" title="Sign out" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Fey-5f-z9F">
@@ -222,8 +262,10 @@
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -231,7 +273,7 @@
                                 </customSpacing>
                             </stackView>
                             <box boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="N6U-gA-Rqp">
-                                <rect key="frame" x="20" y="67" width="410" height="140"/>
+                                <rect key="frame" x="20" y="-65" width="410" height="140"/>
                                 <view key="contentView" id="bB5-XF-yRn">
                                     <rect key="frame" x="1" y="1" width="408" height="138"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -326,8 +368,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="editUserNameButton" destination="trh-3o-cWe" id="BpE-cr-7Nc"/>
                         <outlet property="emailTextField" destination="icU-QP-g0e" id="eOq-jd-ZhL"/>
+                        <outlet property="fetchUserIndicator" destination="IkX-9p-6nC" id="R76-yh-eaZ"/>
                         <outlet property="iconImageButton" destination="hty-ed-iSW" id="2LA-kN-9DX"/>
+                        <outlet property="nameEditContainer" destination="FnN-ru-2LW" id="pBc-OJ-YiR"/>
                         <outlet property="noteLabel" destination="gHW-EH-dI1" id="PPA-nw-uS8"/>
                         <outlet property="passwordTextField" destination="anP-nO-71k" id="lkP-TD-YWP"/>
                         <outlet property="signInButton" destination="h2q-1y-5XO" id="3uo-NP-oPm"/>
@@ -336,6 +381,7 @@
                         <outlet property="signOutButton" destination="hB8-Dr-FS4" id="J0a-N4-tG5"/>
                         <outlet property="signUpButton" destination="WGH-xc-TYM" id="hF5-Cm-94E"/>
                         <outlet property="signUpIndicator" destination="lFh-1W-xIV" id="ghP-CV-mJq"/>
+                        <outlet property="userNameLabel" destination="a94-hP-Iz3" id="dLc-2c-qMM"/>
                         <outlet property="userNameTextField" destination="kf6-PJ-sD1" id="p0h-Qz-aMU"/>
                         <outlet property="verificationNoteLabel" destination="zui-pJ-ZhH" id="nbM-9c-bb9"/>
                     </connections>
@@ -346,6 +392,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="pencil" catalog="system" width="14" height="13"/>
         <image name="popUpButtonCell:Te8-aW-J6H:image" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T

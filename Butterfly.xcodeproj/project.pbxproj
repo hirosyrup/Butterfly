@@ -30,6 +30,16 @@
 		FBA5456825FE5BF100112066 /* AlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5456725FE5BF100112066 /* AlertBuilder.swift */; };
 		FBA5459025FE620700112066 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5458F25FE620700112066 /* SignIn.swift */; };
 		FBA5459C25FF975800112066 /* SignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5459B25FF975800112066 /* SignOut.swift */; };
+		FBA545CB25FFA28B00112066 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545CA25FFA28B00112066 /* UserData.swift */; };
+		FBA545D625FFA3AA00112066 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545CA25FFA28B00112066 /* UserData.swift */; };
+		FBA545D725FFA3AA00112066 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5455F25FE48AF00112066 /* SignUp.swift */; };
+		FBA545D825FFA3AA00112066 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5458F25FE620700112066 /* SignIn.swift */; };
+		FBA545D925FFA3AA00112066 /* SignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5459B25FF975800112066 /* SignOut.swift */; };
+		FBA545DA25FFA3AA00112066 /* AuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFCAAC425FF2FC900D66CC9 /* AuthUser.swift */; };
+		FBA545DE25FFA3D300112066 /* FirestoreUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545DD25FFA3D300112066 /* FirestoreUser.swift */; };
+		FBA545DF25FFA3D300112066 /* FirestoreUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545DD25FFA3D300112066 /* FirestoreUser.swift */; };
+		FBA545E425FFACEA00112066 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545E325FFACEA00112066 /* UserRepository.swift */; };
+		FBA545E525FFACEA00112066 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545E325FFACEA00112066 /* UserRepository.swift */; };
 		FBFCAAC525FF2FCA00D66CC9 /* AuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFCAAC425FF2FC900D66CC9 /* AuthUser.swift */; };
 		FE979F1D6A67DA01DB4748E0 /* Pods_Butterfly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6B93144670685FE55D28ABD /* Pods_Butterfly.framework */; };
 /* End PBXBuildFile section */
@@ -65,6 +75,9 @@
 		FBA5456725FE5BF100112066 /* AlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBuilder.swift; sourceTree = "<group>"; };
 		FBA5458F25FE620700112066 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		FBA5459B25FF975800112066 /* SignOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOut.swift; sourceTree = "<group>"; };
+		FBA545CA25FFA28B00112066 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		FBA545DD25FFA3D300112066 /* FirestoreUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreUser.swift; sourceTree = "<group>"; };
+		FBA545E325FFACEA00112066 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		FBFCAAC425FF2FC900D66CC9 /* AuthUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUser.swift; sourceTree = "<group>"; };
 		FDD6B8BFAC0A461437292A6C /* Pods-Butterfly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Butterfly.release.xcconfig"; path = "Target Support Files/Pods-Butterfly/Pods-Butterfly.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -172,6 +185,7 @@
 			children = (
 				FBA544B225FA61CD00112066 /* Settings */,
 				FBA5446825FA55A300112066 /* Firestore */,
+				FBA545EA25FFAD2900112066 /* Repository */,
 				FBA5455E25FE488D00112066 /* UseCase */,
 			);
 			path = "Butterfly-Models";
@@ -180,6 +194,7 @@
 		FBA5446825FA55A300112066 /* Firestore */ = {
 			isa = PBXGroup;
 			children = (
+				FBA545C925FFA27400112066 /* User */,
 				FBA5447225FA55E500112066 /* FirestoreSetup.swift */,
 			);
 			path = Firestore;
@@ -215,12 +230,37 @@
 		FBA5455E25FE488D00112066 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				FBA5455F25FE48AF00112066 /* SignUp.swift */,
-				FBA5458F25FE620700112066 /* SignIn.swift */,
-				FBA5459B25FF975800112066 /* SignOut.swift */,
+				FBA545E225FFACCB00112066 /* Preferences */,
 				FBFCAAC425FF2FC900D66CC9 /* AuthUser.swift */,
 			);
 			path = UseCase;
+			sourceTree = "<group>";
+		};
+		FBA545C925FFA27400112066 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				FBA545CA25FFA28B00112066 /* UserData.swift */,
+				FBA545DD25FFA3D300112066 /* FirestoreUser.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		FBA545E225FFACCB00112066 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				FBA5455F25FE48AF00112066 /* SignUp.swift */,
+				FBA5458F25FE620700112066 /* SignIn.swift */,
+				FBA5459B25FF975800112066 /* SignOut.swift */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
+		FBA545EA25FFAD2900112066 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				FBA545E325FFACEA00112066 /* UserRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -411,7 +451,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA5459C25FF975800112066 /* SignOut.swift in Sources */,
+				FBA545DE25FFA3D300112066 /* FirestoreUser.swift in Sources */,
 				FBFCAAC525FF2FCA00D66CC9 /* AuthUser.swift in Sources */,
+				FBA545E425FFACEA00112066 /* UserRepository.swift in Sources */,
+				FBA545CB25FFA28B00112066 /* UserData.swift in Sources */,
 				FBA544F325FD04BB00112066 /* EditableNSTextField.swift in Sources */,
 				FBA5456025FE48AF00112066 /* SignUp.swift in Sources */,
 				FBA544C025FA667000112066 /* PreferencesWindowController.swift in Sources */,
@@ -430,11 +473,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBA545D625FFA3AA00112066 /* UserData.swift in Sources */,
+				FBA545D725FFA3AA00112066 /* SignUp.swift in Sources */,
+				FBA545D825FFA3AA00112066 /* SignIn.swift in Sources */,
+				FBA545D925FFA3AA00112066 /* SignOut.swift in Sources */,
+				FBA545DF25FFA3D300112066 /* FirestoreUser.swift in Sources */,
+				FBA545DA25FFA3AA00112066 /* AuthUser.swift in Sources */,
 				FBA544FF25FD12EE00112066 /* SettingUserDefault.swift in Sources */,
 				FBA5443625FA554200112066 /* ViewController.swift in Sources */,
 				FBA5443225FA554200112066 /* AppDelegate.swift in Sources */,
 				FBA5443425FA554200112066 /* SceneDelegate.swift in Sources */,
 				FBA5447425FA55E500112066 /* FirestoreSetup.swift in Sources */,
+				FBA545E525FFACEA00112066 /* UserRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
