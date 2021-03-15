@@ -30,6 +30,10 @@ class SignInOut {
         }
     }
     
+    func isSignIn() -> Bool {
+        return AuthUser().currentUser() != nil
+    }
+    
     func unlistendAuthEvent() {
         if let _listener = listener {
             Auth.auth().removeStateDidChangeListener(_listener)

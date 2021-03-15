@@ -7,15 +7,25 @@
 
 import Cocoa
 
-class PreferencesUserViewController: NSViewController, NSTextFieldDelegate, SignUpDelegate, SignInOutNotification {
+class PreferencesUserViewController: NSViewController,
+                                     NSTextFieldDelegate,
+                                     SignUpDelegate,
+                                     SignInOutNotification,
+                                     PreferencesWindowNotificationProtocol {
     @IBOutlet weak var signInOutButton: NSButton!
     @IBOutlet weak var signUpButton: NSButton!
     @IBOutlet weak var noteLabel: NSTextField!
     @IBOutlet weak var emailTextField: EditableNSTextField!
     @IBOutlet weak var passwordTextField: NSSecureTextField!
+    @IBOutlet weak var signInContainer: NSBox!
+    @IBOutlet weak var verificationNoteLabel: NSTextField!
+    @IBOutlet weak var iconImageButton: NSButton!
+    @IBOutlet weak var userNameTextField: NSTextField!
     
+    private let settingUserDefault = SettingUserDefault.shared
     private let signUp = SignUp()
     private let signInOut = SignInOut.shared
+    private let windowNotification = PreferencesWindowNotification.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,15 +42,16 @@ class PreferencesUserViewController: NSViewController, NSTextFieldDelegate, Sign
     override func viewDidAppear() {
         super.viewDidAppear()
         signInOut.addObserver(observer: self)
+        windowNotification.addObserver(observer: self)
     }
     
     override func viewWillDisappear() {
         super.viewWillDisappear()
         signInOut.removeObserver(observer: self)
+        windowNotification.removeObserver(observer: self)
     }
     
     private func updateViewIfFirebaseSettingFinished() {
-        let settingUserDefault = SettingUserDefault.shared
         if settingUserDefault.firebasePlistUrl() != nil {
             emailTextField.isEnabled = true
             passwordTextField.isEnabled = true
@@ -50,7 +61,8 @@ class PreferencesUserViewController: NSViewController, NSTextFieldDelegate, Sign
             passwordTextField.isEnabled = false
             noteLabel.isHidden = false
         }
-        updateButtonsEnabled()
+        
+        updateContentViews()
     }
     
     private func updateButtonsEnabled() {
@@ -60,6 +72,26 @@ class PreferencesUserViewController: NSViewController, NSTextFieldDelegate, Sign
         } else {
             signInOutButton.isEnabled = true
             signUpButton.isEnabled = true
+        }
+    }
+    
+    private func updateContentViews() {
+        if settingUserDefault.firebasePlistUrl() == nil || !signInOut.isSignIn() {
+            iconImageButton.isHidden = true
+            userNameTextField.isHidden = true
+            verificationNoteLabel.isHidden = true
+            signInContainer.isHidden = false
+            updateButtonsEnabled()
+        } else {
+            iconImageButton.isHidden = false
+            userNameTextField.isHidden = false
+            signInContainer.isHidden = true
+            
+            if AuthUser().isEmailVerified() {
+                verificationNoteLabel.isHidden = true
+            } else {
+                verificationNoteLabel.isHidden = false
+            }
         }
     }
     
@@ -76,11 +108,15 @@ class PreferencesUserViewController: NSViewController, NSTextFieldDelegate, Sign
     }
     
     func didSignIn(obj: SignInOut) {
-        print("sign in")
+        updateContentViews()
     }
     
     func didSignOut(obj: SignInOut) {
-        print("sign out")
+        updateContentViews()
+    }
+    
+    func windowDidBecomeMain() {
+        updateContentViews()
     }
     
     @IBAction func pushSignInOut(_ sender: Any) {

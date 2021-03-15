@@ -23,6 +23,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         FirestoreSetup().setup()
         SignInOut.shared.listenAuthEvent()
     }
+    
+    func applicationWillBecomeActive(_ notification: Notification) {
+        AuthUser().reloadUser()
+    }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         SignInOut.shared.unlistendAuthEvent()

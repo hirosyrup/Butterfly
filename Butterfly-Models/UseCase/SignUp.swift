@@ -20,7 +20,7 @@ class SignUp: NSObject {
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if let _error = error {
                 self.delegate?.failedToSignUp(obj: self, error: _error)
-            } else if let user = Auth.auth().currentUser {
+            } else if let user = AuthUser().currentUser() {
                 user.sendEmailVerification { (error) in
                     if let _error = error {
                         self.delegate?.failedToSignUp(obj: self, error: _error)
