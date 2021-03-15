@@ -8,25 +8,23 @@
 import Foundation
 import FirebaseAuth
 
-protocol SignUpDelegate: class {
-    func didSendEmailVerification(obj: SignUp)
-    func failedToSignUp(obj: SignUp, error: Error)
-}
-
 class SignUp: NSObject {
-    weak var delegate: SignUpDelegate?
+    private var completion: ((Error?) -> Void)?
     
-    func send(email: String, password: String) {
+    func send(email: String, password: String, completion comp: @escaping (Error?) -> Void) {
+        completion = comp
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if let _error = error {
-                self.delegate?.failedToSignUp(obj: self, error: _error)
+                self.completion?(_error)
+                self.completion = nil
             } else if let user = AuthUser().currentUser() {
                 user.sendEmailVerification { (error) in
                     if let _error = error {
-                        self.delegate?.failedToSignUp(obj: self, error: _error)
+                        self.completion?(_error)
                     } else {
-                        self.delegate?.didSendEmailVerification(obj: self)
+                        self.completion?(nil)
                     }
+                    self.completion = nil
                 }
             }
         }

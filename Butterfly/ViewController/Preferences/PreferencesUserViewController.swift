@@ -9,10 +9,10 @@ import Cocoa
 
 class PreferencesUserViewController: NSViewController,
                                      NSTextFieldDelegate,
-                                     SignUpDelegate,
                                      AuthUserNotification {
-    @IBOutlet weak var signInOutButton: NSButton!
+    @IBOutlet weak var signInButton: NSButton!
     @IBOutlet weak var signUpButton: NSButton!
+    @IBOutlet weak var signOutButton: NSButton!
     @IBOutlet weak var noteLabel: NSTextField!
     @IBOutlet weak var emailTextField: EditableNSTextField!
     @IBOutlet weak var passwordTextField: NSSecureTextField!
@@ -20,16 +20,16 @@ class PreferencesUserViewController: NSViewController,
     @IBOutlet weak var verificationNoteLabel: NSTextField!
     @IBOutlet weak var iconImageButton: NSButton!
     @IBOutlet weak var userNameTextField: NSTextField!
+    @IBOutlet weak var signInIndicator: NSProgressIndicator!
+    @IBOutlet weak var signUpIndicator: NSProgressIndicator!
     
     private let settingUserDefault = SettingUserDefault.shared
-    private let signUp = SignUp()
     private let authUser = AuthUser.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        signUp.delegate = self
     }
     
     override func viewWillAppear() {
@@ -61,12 +61,18 @@ class PreferencesUserViewController: NSViewController,
         updateContentViews()
     }
     
-    private func updateButtonsEnabled() {
-        if emailTextField.stringValue.isEmpty || passwordTextField.stringValue.isEmpty {
-            signInOutButton.isEnabled = false
+    private func updateButtonsEnabled(isEnabled: Bool? = nil) {
+        if let _isEnabled = isEnabled {
+            signInButton.isEnabled = _isEnabled
+            signUpButton.isEnabled = _isEnabled
+            return
+        }
+        
+        if emailTextField.stringValue.isEmpty || passwordTextField.stringValue.isEmpty{
+            signInButton.isEnabled = false
             signUpButton.isEnabled = false
         } else {
-            signInOutButton.isEnabled = true
+            signInButton.isEnabled = true
             signUpButton.isEnabled = true
         }
     }
@@ -76,11 +82,13 @@ class PreferencesUserViewController: NSViewController,
             iconImageButton.isHidden = true
             userNameTextField.isHidden = true
             verificationNoteLabel.isHidden = true
+            signOutButton.isHidden = true
             signInContainer.isHidden = false
             updateButtonsEnabled()
         } else {
             iconImageButton.isHidden = false
             userNameTextField.isHidden = false
+            signOutButton.isHidden = false
             signInContainer.isHidden = true
             
             if authUser.isEmailVerified() {
@@ -95,14 +103,6 @@ class PreferencesUserViewController: NSViewController,
         updateButtonsEnabled()
     }
     
-    func didSendEmailVerification(obj: SignUp) {
-        AlertBuilder.createCompletionAlert(title: "Email Veriication", message: "An email confirming your email address has been sent.").runModal()
-    }
-    
-    func failedToSignUp(obj: SignUp, error: Error) {
-        AlertBuilder.createErrorAlert(title: "Error", message: "Failed to sign up. \(error.localizedDescription)").runModal()
-    }
-    
     func didUpdateUser(authUser: AuthUser) {
         updateContentViews()
     }
@@ -111,11 +111,37 @@ class PreferencesUserViewController: NSViewController,
         updateContentViews()
     }
     
-    @IBAction func pushSignInOut(_ sender: Any) {
-        
+    @IBAction func pushSignIn(_ sender: Any) {
+        signInIndicator.startAnimation(self)
+        updateButtonsEnabled(isEnabled: false)
+        SignIn().send(email: emailTextField.stringValue, password: passwordTextField.stringValue) { (error) in
+            self.signInIndicator.stopAnimation(self)
+            self.updateButtonsEnabled(isEnabled: true)
+            if let _error = error {
+                AlertBuilder.createErrorAlert(title: "Error", message: "Failed to sign in. \(_error.localizedDescription)").runModal()
+            } else {
+                self.updateContentViews()
+            }
+        }
+    }
+    
+    @IBAction func pushSignOut(_ sender: Any) {
+        if let error = SignOut().send() {
+            AlertBuilder.createErrorAlert(title: "Error", message: "Failed to sign out. \(error.localizedDescription)").runModal()
+        }
     }
     
     @IBAction func pushSignUp(_ sender: Any) {
-        signUp.send(email: emailTextField.stringValue, password: passwordTextField.stringValue)
+        signUpIndicator.startAnimation(self)
+        updateButtonsEnabled(isEnabled: false)
+        SignUp().send(email: emailTextField.stringValue, password: passwordTextField.stringValue) { (error) in
+            self.signUpIndicator.stopAnimation(self)
+            self.updateButtonsEnabled(isEnabled: true)
+            if let _error = error {
+                AlertBuilder.createErrorAlert(title: "Error", message: "Failed to sign up. \(_error.localizedDescription)").runModal()
+            } else {
+                AlertBuilder.createCompletionAlert(title: "Email Veriication", message: "An email confirming your email address has been sent.").runModal()
+            }
+        }
     }
 }

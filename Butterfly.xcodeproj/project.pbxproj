@@ -28,7 +28,8 @@
 		FBA544FF25FD12EE00112066 /* SettingUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA544B325FA61EA00112066 /* SettingUserDefault.swift */; };
 		FBA5456025FE48AF00112066 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5455F25FE48AF00112066 /* SignUp.swift */; };
 		FBA5456825FE5BF100112066 /* AlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5456725FE5BF100112066 /* AlertBuilder.swift */; };
-		FBA5459025FE620700112066 /* SignInOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5458F25FE620700112066 /* SignInOut.swift */; };
+		FBA5459025FE620700112066 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5458F25FE620700112066 /* SignIn.swift */; };
+		FBA5459C25FF975800112066 /* SignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5459B25FF975800112066 /* SignOut.swift */; };
 		FBFCAAC525FF2FCA00D66CC9 /* AuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFCAAC425FF2FC900D66CC9 /* AuthUser.swift */; };
 		FE979F1D6A67DA01DB4748E0 /* Pods_Butterfly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6B93144670685FE55D28ABD /* Pods_Butterfly.framework */; };
 /* End PBXBuildFile section */
@@ -62,7 +63,8 @@
 		FBA544F225FD04BB00112066 /* EditableNSTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableNSTextField.swift; sourceTree = "<group>"; };
 		FBA5455F25FE48AF00112066 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		FBA5456725FE5BF100112066 /* AlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBuilder.swift; sourceTree = "<group>"; };
-		FBA5458F25FE620700112066 /* SignInOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInOut.swift; sourceTree = "<group>"; };
+		FBA5458F25FE620700112066 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
+		FBA5459B25FF975800112066 /* SignOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOut.swift; sourceTree = "<group>"; };
 		FBFCAAC425FF2FC900D66CC9 /* AuthUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUser.swift; sourceTree = "<group>"; };
 		FDD6B8BFAC0A461437292A6C /* Pods-Butterfly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Butterfly.release.xcconfig"; path = "Target Support Files/Pods-Butterfly/Pods-Butterfly.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -214,7 +216,8 @@
 			isa = PBXGroup;
 			children = (
 				FBA5455F25FE48AF00112066 /* SignUp.swift */,
-				FBA5458F25FE620700112066 /* SignInOut.swift */,
+				FBA5458F25FE620700112066 /* SignIn.swift */,
+				FBA5459B25FF975800112066 /* SignOut.swift */,
 				FBFCAAC425FF2FC900D66CC9 /* AuthUser.swift */,
 			);
 			path = UseCase;
@@ -407,11 +410,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBA5459C25FF975800112066 /* SignOut.swift in Sources */,
 				FBFCAAC525FF2FCA00D66CC9 /* AuthUser.swift in Sources */,
 				FBA544F325FD04BB00112066 /* EditableNSTextField.swift in Sources */,
 				FBA5456025FE48AF00112066 /* SignUp.swift in Sources */,
 				FBA544C025FA667000112066 /* PreferencesWindowController.swift in Sources */,
-				FBA5459025FE620700112066 /* SignInOut.swift in Sources */,
+				FBA5459025FE620700112066 /* SignIn.swift in Sources */,
 				FBA544AD25FA5D2400112066 /* PreferencesFirebaseViewController.swift in Sources */,
 				FBA5456825FE5BF100112066 /* AlertBuilder.swift in Sources */,
 				FBA5447325FA55E500112066 /* FirestoreSetup.swift in Sources */,
