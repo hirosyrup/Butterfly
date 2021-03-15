@@ -29,8 +29,4 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
         delegate?.willClose(vc: self)
     }
-    
-    func windowDidBecomeMain(_ notification: Notification) {
-        PreferencesWindowNotification.shared.notifyWindowDidBecomeMain()
-    }
 }

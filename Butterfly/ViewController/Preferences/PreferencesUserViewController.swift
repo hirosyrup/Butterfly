@@ -10,8 +10,7 @@ import Cocoa
 class PreferencesUserViewController: NSViewController,
                                      NSTextFieldDelegate,
                                      SignUpDelegate,
-                                     SignInOutNotification,
-                                     PreferencesWindowNotificationProtocol {
+                                     AuthUserNotification {
     @IBOutlet weak var signInOutButton: NSButton!
     @IBOutlet weak var signUpButton: NSButton!
     @IBOutlet weak var noteLabel: NSTextField!
@@ -24,8 +23,7 @@ class PreferencesUserViewController: NSViewController,
     
     private let settingUserDefault = SettingUserDefault.shared
     private let signUp = SignUp()
-    private let signInOut = SignInOut.shared
-    private let windowNotification = PreferencesWindowNotification.shared
+    private let authUser = AuthUser.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,14 +39,12 @@ class PreferencesUserViewController: NSViewController,
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        signInOut.addObserver(observer: self)
-        windowNotification.addObserver(observer: self)
+        authUser.addObserver(observer: self)
     }
     
     override func viewWillDisappear() {
         super.viewWillDisappear()
-        signInOut.removeObserver(observer: self)
-        windowNotification.removeObserver(observer: self)
+        authUser.removeObserver(observer: self)
     }
     
     private func updateViewIfFirebaseSettingFinished() {
@@ -76,7 +72,7 @@ class PreferencesUserViewController: NSViewController,
     }
     
     private func updateContentViews() {
-        if settingUserDefault.firebasePlistUrl() == nil || !signInOut.isSignIn() {
+        if settingUserDefault.firebasePlistUrl() == nil || !authUser.isSignIn() {
             iconImageButton.isHidden = true
             userNameTextField.isHidden = true
             verificationNoteLabel.isHidden = true
@@ -87,7 +83,7 @@ class PreferencesUserViewController: NSViewController,
             userNameTextField.isHidden = false
             signInContainer.isHidden = true
             
-            if AuthUser().isEmailVerified() {
+            if authUser.isEmailVerified() {
                 verificationNoteLabel.isHidden = true
             } else {
                 verificationNoteLabel.isHidden = false
@@ -107,11 +103,7 @@ class PreferencesUserViewController: NSViewController,
         AlertBuilder.createErrorAlert(title: "Error", message: "Failed to sign up. \(error.localizedDescription)").runModal()
     }
     
-    func didSignIn(obj: SignInOut) {
-        updateContentViews()
-    }
-    
-    func didSignOut(obj: SignInOut) {
+    func didUpdateUser(authUser: AuthUser) {
         updateContentViews()
     }
     
