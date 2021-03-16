@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.imagePosition = .imageLeft
             button.action = #selector(show(_:))
         }
-        SettingUserDefault.shared.resetAll()
+        
         constructPopover()
         FirestoreSetup().setup()
         AuthUser.shared.listenAuthEvent()
