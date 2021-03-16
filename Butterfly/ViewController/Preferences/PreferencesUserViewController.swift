@@ -10,6 +10,14 @@ import Cocoa
 class PreferencesUserViewController: NSViewController,
                                      NSTextFieldDelegate,
                                      AuthUserNotification {
+    enum RequestState {
+        case none
+        case isFetchingUser
+        case isPocessingSignIn
+        case isPocessingSignUp
+        case isProcessingSaveName
+    }
+    
     @IBOutlet weak var signInButton: NSButton!
     @IBOutlet weak var signUpButton: NSButton!
     @IBOutlet weak var signOutButton: NSButton!
@@ -31,18 +39,18 @@ class PreferencesUserViewController: NSViewController,
     private let authUser = AuthUser.shared
     private var userData: UserData?
     private var isNameEdit = false
+    private var requestState = RequestState.none
     
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
         passwordTextField.delegate = self
         fetchUser()
-        updateNameEditViews()
     }
     
     override func viewWillAppear() {
         super.viewWillAppear()
-        updateViewIfFirebaseSettingFinished()
+        updateViews()
     }
     
     override func viewDidAppear() {
@@ -55,65 +63,151 @@ class PreferencesUserViewController: NSViewController,
         authUser.removeObserver(observer: self)
     }
     
-    private func updateViewIfFirebaseSettingFinished() {
-        if settingUserDefault.firebasePlistUrl() != nil {
-            emailTextField.isEnabled = true
-            passwordTextField.isEnabled = true
+    private func updateViews() {
+        signInButton.isHidden = false
+        signUpButton.isHidden = false
+        signOutButton.isHidden = false
+        noteLabel.isHidden = false
+        emailTextField.isHidden = false
+        passwordTextField.isHidden = false
+        signInContainer.isHidden = false
+        verificationNoteLabel.isHidden = false
+        iconImageButton.isHidden = false
+        nameEditContainer.isHidden = false
+        userNameTextField.isHidden = false
+        userNameLabel.isHidden = false
+        editUserNameButton.isHidden = false
+        
+        signInButton.isEnabled = true
+        signUpButton.isEnabled = true
+        signOutButton.isEnabled = true
+        noteLabel.isEnabled = true
+        emailTextField.isEnabled = true
+        passwordTextField.isEnabled = true
+        verificationNoteLabel.isEnabled = true
+        iconImageButton.isEnabled = true
+        userNameTextField.isEnabled = true
+        userNameLabel.isEnabled = true
+        editUserNameButton.isEnabled = true
+        
+        switch requestState {
+        case .isFetchingUser:
+            fetchUserIndicator.startAnimation(self)
+        case .isPocessingSignIn:
+            signInIndicator.startAnimation(self)
+            signOutButton.isHidden = true
             noteLabel.isHidden = true
-        } else {
-            emailTextField.isEnabled = false
-            passwordTextField.isEnabled = false
-            noteLabel.isHidden = false
-        }
-        
-        updateContentViews()
-    }
-    
-    private func updateButtonsEnabled(isEnabled: Bool? = nil) {
-        if let _isEnabled = isEnabled {
-            signInButton.isEnabled = _isEnabled
-            signUpButton.isEnabled = _isEnabled
-            return
-        }
-        
-        if emailTextField.stringValue.isEmpty || passwordTextField.stringValue.isEmpty{
-            signInButton.isEnabled = false
-            signUpButton.isEnabled = false
-        } else {
-            signInButton.isEnabled = true
-            signUpButton.isEnabled = true
-        }
-    }
-    
-    private func updateContentViews() {
-        if settingUserDefault.firebasePlistUrl() == nil || !authUser.isSignIn() {
+            verificationNoteLabel.isHidden = true
             iconImageButton.isHidden = true
             nameEditContainer.isHidden = true
-            verificationNoteLabel.isHidden = true
+            userNameTextField.isHidden = true
+            userNameLabel.isHidden = true
+            editUserNameButton.isHidden = true
+            emailTextField.isEnabled = false
+            passwordTextField.isEnabled = false
+            signInButton.isEnabled = false
+            signUpButton.isEnabled = false
+        case .isPocessingSignUp:
+            signUpIndicator.startAnimation(self)
             signOutButton.isHidden = true
-            signInContainer.isHidden = false
-            updateButtonsEnabled()
-        } else {
-            iconImageButton.isHidden = false
-            nameEditContainer.isHidden = false
-            signOutButton.isHidden = false
+            noteLabel.isHidden = true
+            verificationNoteLabel.isHidden = true
+            iconImageButton.isHidden = true
+            nameEditContainer.isHidden = true
+            userNameTextField.isHidden = true
+            userNameLabel.isHidden = true
+            editUserNameButton.isHidden = true
+            emailTextField.isEnabled = false
+            passwordTextField.isEnabled = false
+            signInButton.isEnabled = false
+            signUpButton.isEnabled = false
+        case .isProcessingSaveName:
+            signInButton.isHidden = true
+            signUpButton.isHidden = true
+            noteLabel.isHidden = true
+            emailTextField.isHidden = true
+            passwordTextField.isHidden = true
             signInContainer.isHidden = true
-            
-            if authUser.isEmailVerified() {
+            verificationNoteLabel.isHidden = true
+            signOutButton.isEnabled = false
+            iconImageButton.isEnabled = false
+            userNameTextField.isEnabled = false
+            editUserNameButton.isEnabled = false
+        case .none:
+            fetchUserIndicator.stopAnimation(self)
+            signInIndicator.stopAnimation(self)
+            signUpIndicator.stopAnimation(self)
+            if settingUserDefault.firebasePlistUrl() == nil {
+                signInButton.isHidden = true
+                signUpButton.isHidden = true
+                signOutButton.isHidden = true
+                emailTextField.isHidden = true
+                passwordTextField.isHidden = true
                 verificationNoteLabel.isHidden = true
+                iconImageButton.isHidden = true
+                nameEditContainer.isHidden = true
+                userNameTextField.isHidden = true
+                userNameLabel.isHidden = true
+                editUserNameButton.isHidden = true
+            } else if authUser.isSignIn() {
+                if authUser.isEmailVerified() {
+                    signInButton.isHidden = true
+                    signUpButton.isHidden = true
+                    noteLabel.isHidden = true
+                    verificationNoteLabel.isHidden = true
+                    emailTextField.isHidden = true
+                    passwordTextField.isHidden = true
+                    signInContainer.isHidden = true
+                    userNameTextField.isHidden = true
+                    userNameLabel.isHidden = true
+                    if isNameEdit {
+                        userNameLabel.isHidden = true
+                        userNameTextField.stringValue = userData?.name ?? ""
+                        editUserNameButton.image = NSImage(systemSymbolName: "checkmark", accessibilityDescription: nil)
+                    } else {
+                        userNameTextField.isHidden = false
+                        userNameLabel.stringValue = userData?.name ?? ""
+                        editUserNameButton.image = NSImage(systemSymbolName: "pencil", accessibilityDescription: nil)
+                    }
+                } else {
+                    signInButton.isHidden = true
+                    signUpButton.isHidden = true
+                    signOutButton.isHidden = true
+                    noteLabel.isHidden = true
+                    emailTextField.isHidden = true
+                    passwordTextField.isHidden = true
+                    signInContainer.isHidden = true
+                    iconImageButton.isHidden = true
+                    nameEditContainer.isHidden = true
+                    userNameTextField.isHidden = true
+                    userNameLabel.isHidden = true
+                    editUserNameButton.isHidden = true
+                }
             } else {
-                verificationNoteLabel.isHidden = false
+                signOutButton.isHidden = true
+                noteLabel.isHidden = true
+                verificationNoteLabel.isHidden = true
+                iconImageButton.isHidden = true
+                nameEditContainer.isHidden = true
+                userNameTextField.isHidden = true
+                userNameLabel.isHidden = true
+                editUserNameButton.isHidden = true
+                
+                if emailTextField.stringValue.isEmpty || passwordTextField.stringValue.isEmpty{
+                    signInButton.isEnabled = false
+                    signUpButton.isEnabled = false
+                }
             }
         }
     }
     
     private func fetchUser() {
         if let currentUser = authUser.currentUser() {
-            fetchUserIndicator.startAnimation(self)
-            signOutButton.isHidden = true
+            requestState = RequestState.isFetchingUser
+            updateViews()
             UserRepository(userId: currentUser.uid).findOrCreate { (result) in
-                self.fetchUserIndicator.stopAnimation(self)
-                self.signOutButton.isHidden = false
+                self.requestState = RequestState.none
+                self.updateViews()
                 switch result {
                 case .success(let fetchedUserData):
                     self.userData = fetchedUserData
@@ -139,39 +233,22 @@ class PreferencesUserViewController: NSViewController,
         }
     }
     
-    private func updateNameEditViews() {
-        if isNameEdit {
-            userNameTextField.isHidden = false
-            userNameTextField.stringValue = userData?.name ?? ""
-            userNameLabel.isHidden = true
-            editUserNameButton.image = NSImage(systemSymbolName: "checkmark", accessibilityDescription: nil)
-        } else {
-            userNameTextField.isHidden = true
-            userNameLabel.isHidden = false
-            userNameLabel.stringValue = userData?.name ?? ""
-            editUserNameButton.image = NSImage(systemSymbolName: "pencil", accessibilityDescription: nil)
-        }
-    }
-    
     func controlTextDidChange(_ obj: Notification) {
-        updateButtonsEnabled()
+        updateViews()
     }
     
     func didUpdateUser(authUser: AuthUser) {
-        updateContentViews()
         fetchUser()
     }
     
     @IBAction func pushSignIn(_ sender: Any) {
-        signInIndicator.startAnimation(self)
-        updateButtonsEnabled(isEnabled: false)
+        requestState = RequestState.isPocessingSignIn
+        updateViews()
         SignIn().send(email: emailTextField.stringValue, password: passwordTextField.stringValue) { (error) in
-            self.signInIndicator.stopAnimation(self)
-            self.updateButtonsEnabled(isEnabled: true)
+            self.requestState = RequestState.none
+            self.updateViews()
             if let _error = error {
                 AlertBuilder.createErrorAlert(title: "Error", message: "Failed to sign in. \(_error.localizedDescription)").runModal()
-            } else {
-                self.updateContentViews()
             }
         }
     }
@@ -179,15 +256,17 @@ class PreferencesUserViewController: NSViewController,
     @IBAction func pushSignOut(_ sender: Any) {
         if let error = SignOut().send() {
             AlertBuilder.createErrorAlert(title: "Error", message: "Failed to sign out. \(error.localizedDescription)").runModal()
+        } else {
+            updateViews()
         }
     }
     
     @IBAction func pushSignUp(_ sender: Any) {
-        signUpIndicator.startAnimation(self)
-        updateButtonsEnabled(isEnabled: false)
+        requestState = RequestState.isPocessingSignUp
+        updateViews()
         SignUp().send(email: emailTextField.stringValue, password: passwordTextField.stringValue) { (error) in
-            self.signUpIndicator.stopAnimation(self)
-            self.updateButtonsEnabled(isEnabled: true)
+            self.requestState = RequestState.none
+            self.updateViews()
             if let _error = error {
                 AlertBuilder.createErrorAlert(title: "Error", message: "Failed to sign up. \(_error.localizedDescription)").runModal()
             } else {
@@ -199,14 +278,16 @@ class PreferencesUserViewController: NSViewController,
     @IBAction func pushEditUserName(_ sender: Any) {
         if isNameEdit {
             if let _userData = userData {
-                editUserNameButton.isEnabled = false
+                requestState = RequestState.isProcessingSaveName
+                updateViews()
                 saveName(currentUserData: _userData, name: userNameTextField.stringValue) { (result) in
-                    self.editUserNameButton.isEnabled = true
+                    self.requestState = RequestState.none
+                    self.updateViews()
                     switch result {
                     case .success(let savedUserData):
                         self.userData = savedUserData
                         self.isNameEdit = false
-                        self.updateNameEditViews()
+                        self.updateViews()
                     case .failure(let error):
                         AlertBuilder.createErrorAlert(title: "Error", message: "Failed to update your name. \(error.localizedDescription)").runModal()
                     }
@@ -214,7 +295,7 @@ class PreferencesUserViewController: NSViewController,
             }
         } else {
             isNameEdit = true
-            updateNameEditViews()
+            updateViews()
         }
     }
 }
