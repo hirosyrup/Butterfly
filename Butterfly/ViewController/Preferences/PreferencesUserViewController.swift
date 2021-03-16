@@ -93,6 +93,19 @@ class PreferencesUserViewController: NSViewController,
         switch requestState {
         case .isFetchingUser:
             fetchUserIndicator.startAnimation(self)
+            signInButton.isHidden = true
+            signUpButton.isHidden = true
+            emailTextField.isHidden = true
+            passwordTextField.isHidden = true
+            signInContainer.isHidden = true
+            signOutButton.isHidden = true
+            noteLabel.isHidden = true
+            verificationNoteLabel.isHidden = true
+            iconImageButton.isHidden = true
+            nameEditContainer.isHidden = true
+            userNameTextField.isHidden = true
+            userNameLabel.isHidden = true
+            editUserNameButton.isHidden = true
         case .isPocessingSignIn:
             signInIndicator.startAnimation(self)
             signOutButton.isHidden = true
@@ -129,9 +142,9 @@ class PreferencesUserViewController: NSViewController,
             passwordTextField.isHidden = true
             signInContainer.isHidden = true
             verificationNoteLabel.isHidden = true
+            userNameLabel.isHidden = true
             signOutButton.isEnabled = false
             iconImageButton.isEnabled = false
-            userNameTextField.isEnabled = false
             editUserNameButton.isEnabled = false
         case .none:
             fetchUserIndicator.stopAnimation(self)
@@ -158,14 +171,11 @@ class PreferencesUserViewController: NSViewController,
                     emailTextField.isHidden = true
                     passwordTextField.isHidden = true
                     signInContainer.isHidden = true
-                    userNameTextField.isHidden = true
-                    userNameLabel.isHidden = true
                     if isNameEdit {
                         userNameLabel.isHidden = true
-                        userNameTextField.stringValue = userData?.name ?? ""
                         editUserNameButton.image = NSImage(systemSymbolName: "checkmark", accessibilityDescription: nil)
                     } else {
-                        userNameTextField.isHidden = false
+                        userNameTextField.isHidden = true
                         userNameLabel.stringValue = userData?.name ?? ""
                         editUserNameButton.image = NSImage(systemSymbolName: "pencil", accessibilityDescription: nil)
                     }
@@ -295,6 +305,7 @@ class PreferencesUserViewController: NSViewController,
             }
         } else {
             isNameEdit = true
+            userNameTextField.stringValue = userData?.name ?? ""
             updateViews()
         }
     }
