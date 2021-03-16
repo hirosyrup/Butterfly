@@ -52,7 +52,7 @@ class FirestoreUser {
     
     private func userToFirestoreData(data: UserData) -> [String: Any] {
         return [
-            "iconUrl": data.iconUrl ?? NSNull(),
+            "iconName": data.iconName ?? NSNull(),
             "name": data.name,
             "createdAt": Timestamp(date: data.createdAt),
             "updatedAt": Timestamp(date: data.updatedAt)
@@ -62,7 +62,7 @@ class FirestoreUser {
     private func firestoreDataToUser(snapshot: [String: Any]) -> UserData {
         return UserData(
             id: userId,
-            iconUrl: snapshot["iconUrl"] as? String,
+            iconName: snapshot["iconName"] as? String,
             name: (snapshot["name"] as? String) ?? "",
             createdAt: (snapshot["createdAt"] as? Timestamp)?.dateValue() ?? Date(),
             updatedAt: (snapshot["updatedAt"] as? Timestamp)?.dateValue() ?? Date()

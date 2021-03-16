@@ -4,6 +4,7 @@ use_frameworks!
 pod 'FirebaseAuth'
 pod 'Firebase/Firestore'
 pod 'FirebaseFirestoreSwift'
+pod 'Firebase/Storage'
 pod 'HydraAsync'
 end
 
@@ -13,5 +14,6 @@ use_frameworks!
 pod 'FirebaseAuth'
 pod 'Firebase/Firestore'
 pod 'FirebaseFirestoreSwift'
+pod 'Firebase/Storage'
 pod 'HydraAsync'
 end

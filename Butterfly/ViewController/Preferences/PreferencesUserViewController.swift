@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Hydra
 
 class PreferencesUserViewController: NSViewController,
                                      NSTextFieldDelegate,
@@ -16,6 +17,7 @@ class PreferencesUserViewController: NSViewController,
         case isPocessingSignIn
         case isPocessingSignUp
         case isProcessingSaveName
+        case isProcessingSaveIcon
     }
     
     @IBOutlet weak var signInButton: NSButton!
@@ -34,6 +36,7 @@ class PreferencesUserViewController: NSViewController,
     @IBOutlet weak var userNameTextField: EditableNSTextField!
     @IBOutlet weak var userNameLabel: NSTextField!
     @IBOutlet weak var editUserNameButton: NSButton!
+    @IBOutlet weak var iconImageHeightConstraint: NSLayoutConstraint!
     
     private let settingUserDefault = SettingUserDefault.shared
     private let authUser = AuthUser.shared
@@ -45,6 +48,7 @@ class PreferencesUserViewController: NSViewController,
         super.viewDidLoad()
         emailTextField.delegate = self
         passwordTextField.delegate = self
+        setupIconImageButton()
         fetchUser()
     }
     
@@ -61,6 +65,11 @@ class PreferencesUserViewController: NSViewController,
     override func viewWillDisappear() {
         super.viewWillDisappear()
         authUser.removeObserver(observer: self)
+    }
+    
+    private func setupIconImageButton() {
+        iconImageButton.wantsLayer = true
+        iconImageButton.layer?.cornerRadius = iconImageHeightConstraint.constant / 2.0
     }
     
     private func updateViews() {
@@ -143,6 +152,18 @@ class PreferencesUserViewController: NSViewController,
             signInContainer.isHidden = true
             verificationNoteLabel.isHidden = true
             userNameLabel.isHidden = true
+            signOutButton.isEnabled = false
+            iconImageButton.isEnabled = false
+            editUserNameButton.isEnabled = false
+        case .isProcessingSaveIcon:
+            signInButton.isHidden = true
+            signUpButton.isHidden = true
+            noteLabel.isHidden = true
+            emailTextField.isHidden = true
+            passwordTextField.isHidden = true
+            signInContainer.isHidden = true
+            verificationNoteLabel.isHidden = true
+            userNameTextField.isHidden = true
             signOutButton.isEnabled = false
             iconImageButton.isEnabled = false
             editUserNameButton.isEnabled = false
@@ -237,9 +258,62 @@ class PreferencesUserViewController: NSViewController,
         })
     }
     
+    private func saveIconName(currentUserData: UserData, iconName: String, compltion: @escaping (Result<UserData, Error>) -> Void) {
+        var newUserData = currentUserData.copyCurrentAt()
+        newUserData.iconName = iconName
+        UserRepository(userId: currentUserData.id).save(userData: newUserData, compltion: { (result) in
+            compltion(result)
+        })
+    }
+    
     private func updateUserInfoViews() {
         if let _userData = userData {
             userNameLabel.stringValue = _userData.name
+            if let iconName = _userData.iconName {
+                IconImage().fetchDownloadUrl(fileName: iconName)
+                    .then(in: .main, { downloadUrl in
+                        self.setIconImage(url: downloadUrl)
+                    })
+                    .catch { (error) in
+                        AlertBuilder.createErrorAlert(title: "Error", message: "Failed to download the icon image. \(error.localizedDescription)").runModal()
+                    }
+            }
+        }
+    }
+    
+    private func uploadIcon(url: URL) {
+        guard let _userData = userData else { return }
+        requestState = RequestState.isProcessingSaveIcon
+        updateViews()
+        UploadIconImage(uploadImageUrl: url, fileName: _userData.iconName).execute { (result) in
+            switch result {
+            case .success(let response):
+                self.setIconImage(url: response.downloadUrl)
+                self.saveIconName(currentUserData: _userData, iconName: response.savedName) { (saveResult) in
+                    self.requestState = RequestState.none
+                    self.updateViews()
+                    switch saveResult {
+                    case .success(_):
+                        break
+                    case .failure(let error):
+                        AlertBuilder.createErrorAlert(title: "Error", message: "Failed to save the icon name. \(error.localizedDescription)").runModal()
+                    }
+                }
+            case .failure(let error):
+                AlertBuilder.createErrorAlert(title: "Error", message: "Failed to upload the icon image. \(error.localizedDescription)").runModal()
+            }
+        }
+    }
+    
+    private func setIconImage(url: URL) {
+        DispatchQueue.global().async {
+            let imageData: Data? = try? Data(contentsOf: url)
+            DispatchQueue.main.async {
+                if let data = imageData, let loadedImage = NSImage(data: data) {
+                    self.iconImageButton.image = loadedImage
+                    self.iconImageButton.layoutSubtreeIfNeeded()
+                }
+            }
         }
     }
     
@@ -308,5 +382,22 @@ class PreferencesUserViewController: NSViewController,
             userNameTextField.stringValue = userData?.name ?? ""
             updateViews()
         }
+    }
+    
+    @IBAction func pushIconImageButton(_ sender: Any) {
+        guard let window = NSApp.keyWindow else { return }
+        let openPanel = NSOpenPanel()
+        openPanel.canChooseFiles = true
+        openPanel.canChooseDirectories = false
+        openPanel.allowsMultipleSelection = false
+        openPanel.message = "Choose an image for the icon."
+        openPanel.allowedFileTypes = ["jpg", "jpeg", "png"]
+        openPanel.beginSheetModal(for: window, completionHandler: { (response) in
+            if response == .OK {
+                if let url = openPanel.url {
+                    self.uploadIcon(url: url)
+                }
+            }
+        })
     }
 }
