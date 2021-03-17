@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PreferencesWorkspaceCollectionViewItem" customModule="Butterfly" customModuleProvider="target"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="988" height="114"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C5l-ge-Voa">
+                    <rect key="frame" x="0.0" y="0.0" width="988" height="114"/>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="C5l-ge-Voa" secondAttribute="trailing" id="OAS-X4-KTI"/>
+                <constraint firstItem="C5l-ge-Voa" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="d0y-pg-H9T"/>
+                <constraint firstItem="C5l-ge-Voa" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="ouR-RZ-SFW"/>
+                <constraint firstAttribute="bottom" secondItem="C5l-ge-Voa" secondAttribute="bottom" id="pKB-oF-Huv"/>
+            </constraints>
+            <point key="canvasLocation" x="-320" y="-176"/>
+        </customView>
+        <customObject id="WTO-ui-vOO" customClass="PreferencesWorkspaceCollectionViewItem" customModule="Butterfly" customModuleProvider="target"/>
+    </objects>
+</document>
