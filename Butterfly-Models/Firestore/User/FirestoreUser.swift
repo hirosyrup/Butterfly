@@ -12,36 +12,48 @@ import FirebaseFirestoreSwift
 import Hydra
 
 class FirestoreUser {
-    private let userId: String
     private let db = Firestore.firestore()
     private let userCollectionName = "users"
     
-    init(userId: String) {
-        self.userId = userId
+    func index() -> Promise<[UserData]> {
+        return Promise<[UserData]>(in: .background, token: nil) { (resolve, reject, _) in
+            self.db.collection(self.userCollectionName).getDocuments { (querySnapshot, error) in
+                if let _error = error {
+                    reject(_error)
+                } else {
+                    let dataList = querySnapshot?.documents.map({ (snapshotDocument) -> UserData in
+                        let snapshot = snapshotDocument.data()
+                        return self.firestoreDataToUser(snapshot: snapshot, userId: snapshotDocument.documentID)
+                    })
+                    resolve(dataList ?? [])
+                }
+            }
+        }
+        
     }
     
-    func save(data: UserData) -> Promise<UserData> {
+    func save(data: UserData, userId: String) -> Promise<UserData> {
         return Promise<UserData>(in: .background, token: nil) { (resolve, reject, _) in
-            self.db.collection(self.userCollectionName).document(self.userId).setData(self.userToFirestoreData(data: data)) { (error) in
+            self.db.collection(self.userCollectionName).document(userId).setData(self.userToFirestoreData(data: data)) { (error) in
                 if let _error = error {
                     reject(_error)
                 } else {
                     var newData = data
-                    newData.id = self.userId
+                    newData.id = userId
                     resolve(newData)
                 }
             }
         }
     }
     
-    func fetch() -> Promise<UserData?> {
+    func fetch(userId: String) -> Promise<UserData?> {
         return Promise<UserData?>(in: .background, token: nil) { (resolve, reject, _) in
-            self.db.collection(self.userCollectionName).document(self.userId).getDocument { (snapshot, error) in
+            self.db.collection(self.userCollectionName).document(userId).getDocument { (snapshot, error) in
                 if let _error = error {
                     reject(_error)
                 } else {
                     if let _snapshot = snapshot, _snapshot.exists {
-                        resolve(self.firestoreDataToUser(snapshot: _snapshot.data() ?? [String: Any]()))
+                        resolve(self.firestoreDataToUser(snapshot: _snapshot.data() ?? [String: Any](), userId: userId))
                     } else {
                         resolve(nil)
                     }
@@ -59,7 +71,7 @@ class FirestoreUser {
         ]
     }
     
-    private func firestoreDataToUser(snapshot: [String: Any]) -> UserData {
+    private func firestoreDataToUser(snapshot: [String: Any], userId: String) -> UserData {
         return UserData(
             id: userId,
             iconName: snapshot["iconName"] as? String,

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="SelectMemberCollectionViewItem" customModule="Butterfly" customModuleProvider="target">
+            <connections>
+                <outlet property="checkImageView" destination="DEi-4C-UOX" id="F7n-Rg-fpq"/>
+                <outlet property="memberIconViewContainer" destination="Spy-TN-0V9" id="3bH-8n-MBe"/>
+                <outlet property="view" destination="c22-O7-iKe" id="zF5-Hr-bAU"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="52" height="52"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Spy-TN-0V9">
+                    <rect key="frame" x="0.0" y="0.0" width="52" height="52"/>
+                    <subviews>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DEi-4C-UOX">
+                            <rect key="frame" x="32" y="32" width="16" height="16"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="16" id="7Ph-hQ-LuD"/>
+                                <constraint firstAttribute="height" constant="16" id="qLt-8U-d0C"/>
+                            </constraints>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="check" id="Pea-Xb-BKL"/>
+                        </imageView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="DEi-4C-UOX" firstAttribute="top" secondItem="Spy-TN-0V9" secondAttribute="top" constant="4" id="1fE-8P-R5V"/>
+                        <constraint firstAttribute="trailing" secondItem="DEi-4C-UOX" secondAttribute="trailing" constant="4" id="Qrf-EY-lnZ"/>
+                    </constraints>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Spy-TN-0V9" secondAttribute="trailing" id="0ag-O5-Lcq"/>
+                <constraint firstItem="Spy-TN-0V9" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="fzw-7Y-mX6"/>
+                <constraint firstAttribute="bottom" secondItem="Spy-TN-0V9" secondAttribute="bottom" id="nBR-GZ-h4C"/>
+                <constraint firstItem="Spy-TN-0V9" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="swD-bl-vw4"/>
+            </constraints>
+            <point key="canvasLocation" x="-206" y="120"/>
+        </customView>
+        <customObject id="0gO-kM-W4o" customClass="SelectMemberCollectionViewItem" customModule="Butterfly" customModuleProvider="target"/>
+    </objects>
+    <resources>
+        <image name="check" width="40" height="40"/>
+    </resources>
+</document>

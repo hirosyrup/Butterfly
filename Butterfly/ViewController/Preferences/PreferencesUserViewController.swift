@@ -236,7 +236,7 @@ class PreferencesUserViewController: NSViewController,
         if let currentUser = authUser.currentUser() {
             requestState = RequestState.isFetchingUser
             updateViews()
-            UserRepository(userId: currentUser.uid).findOrCreate { (result) in
+            UserRepository().findOrCreate(userId: currentUser.uid, completion: { (result) in
                 self.requestState = RequestState.none
                 self.updateViews()
                 switch result {
@@ -246,14 +246,14 @@ class PreferencesUserViewController: NSViewController,
                 case .failure(let error):
                     AlertBuilder.createErrorAlert(title: "Error", message: "Failed to fetch your info. \(error.localizedDescription)").runModal()
                 }
-            }
+            })
         }
     }
     
     private func saveName(currentUserData: UserData, name: String, compltion: @escaping (Result<UserData, Error>) -> Void) {
         var newUserData = currentUserData.copyCurrentAt()
         newUserData.name = name
-        UserRepository(userId: currentUserData.id).save(userData: newUserData, compltion: { (result) in
+        UserRepository().save(userData: newUserData, userId: currentUserData.id, compltion: { (result) in
             compltion(result)
         })
     }
@@ -261,7 +261,7 @@ class PreferencesUserViewController: NSViewController,
     private func saveIconName(currentUserData: UserData, iconName: String, compltion: @escaping (Result<UserData, Error>) -> Void) {
         var newUserData = currentUserData.copyCurrentAt()
         newUserData.iconName = iconName
-        UserRepository(userId: currentUserData.id).save(userData: newUserData, compltion: { (result) in
+        UserRepository().save(userData: newUserData, userId: currentUserData.id, compltion: { (result) in
             compltion(result)
         })
     }

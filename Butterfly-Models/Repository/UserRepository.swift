@@ -9,21 +9,31 @@ import Foundation
 import Hydra
 
 class UserRepository {
-    private let user: FirestoreUser
+    private let user = FirestoreUser()
+    private var indexCompletion: ((Result<[UserData], Error>) -> Void)?
     private var findOrCreateCompletion: ((Result<UserData, Error>) -> Void)?
     private var saveCompletion: ((Result<UserData, Error>) -> Void)?
     
-    init(userId: String) {
-        self.user = FirestoreUser(userId: userId)
+    func index(completion: @escaping (Result<[UserData], Error>) -> Void) {
+        indexCompletion = completion
+        async({ _ -> [UserData] in // you must specify the return of the Promise, here an Int
+            return try await(self.user.index())
+        }).then({ userDataList in
+            self.indexCompletion?(.success(userDataList))
+        }).catch { (error) in
+            self.indexCompletion?(.failure(error))
+        }.always {
+            self.indexCompletion = nil
+        }
     }
     
-    func findOrCreate(completion: @escaping (Result<UserData, Error>) -> Void) {
+    func findOrCreate(userId: String, completion: @escaping (Result<UserData, Error>) -> Void) {
         findOrCreateCompletion = completion
         async({ _ -> UserData in // you must specify the return of the Promise, here an Int
-            var userData = try await(self.user.fetch())
+            var userData = try await(self.user.fetch(userId: userId))
             if userData == nil {
                 var newUserData = UserData.new()
-                newUserData = try await(self.user.save(data: newUserData))
+                newUserData = try await(self.user.save(data: newUserData, userId: userId))
                 userData = newUserData
             }
             return userData!
@@ -36,10 +46,10 @@ class UserRepository {
         }
     }
     
-    func save(userData: UserData, compltion: @escaping (Result<UserData, Error>) -> Void) {
+    func save(userData: UserData, userId: String, compltion: @escaping (Result<UserData, Error>) -> Void) {
         saveCompletion = compltion
         async({ _ -> UserData in // you must specify the return of the Promise, here an Int
-            return try await(self.user.save(data: userData))
+            return try await(self.user.save(data: userData, userId: userId))
         }).then({newUserData in
             self.saveCompletion?(.success(newUserData))
         }).catch { (error) in
