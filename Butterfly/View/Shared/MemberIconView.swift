@@ -8,7 +8,6 @@
 import Cocoa
 
 class MemberIconView: NSView {
-    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var iconImageView: NSImageView!
     
     static func createFromNib(owner: Any?) -> MemberIconView? {
@@ -17,9 +16,9 @@ class MemberIconView: NSView {
         return objects?.first{ $0 is MemberIconView } as? MemberIconView
     }
     
-    func setCornerRadius(radius: CGFloat) {
+    func setCornerRadius() {
         iconImageView.wantsLayer = true
-        iconImageView.layer?.cornerRadius = radius - topConstraint.constant
+        iconImageView.layer?.cornerRadius = iconImageView.bounds.width / 2.0
     }
     
     func updateView(imageUrl: URL) {

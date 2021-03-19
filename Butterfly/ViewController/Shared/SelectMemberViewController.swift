@@ -44,10 +44,6 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource {
         return userDataList.count
     }
     
-    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-        return NSSize(width: 52.0, height: 52.0)
-    }
-    
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = memberCollectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId), for: indexPath) as! SelectMemberCollectionViewItem
         let presenter = SelectMemberCollectionViewItemPresenter(data: userDataList[indexPath.item])

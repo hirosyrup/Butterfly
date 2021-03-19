@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -12,34 +12,33 @@
             <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <box boxType="custom" borderWidth="0.0" cornerRadius="16" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Ci0-AC-3k6">
-                    <rect key="frame" x="6" y="6" width="32" height="32"/>
+                <box boxType="custom" borderWidth="0.0" cornerRadius="20" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Ci0-AC-3k6">
+                    <rect key="frame" x="2" y="2" width="40" height="40"/>
                     <view key="contentView" id="05w-x4-5BK">
-                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                     <constraints>
-                        <constraint firstAttribute="width" constant="32" id="LUR-Di-7zV"/>
-                        <constraint firstAttribute="height" constant="32" id="Psj-pJ-pDR"/>
+                        <constraint firstAttribute="width" constant="40" id="LUR-Di-7zV"/>
+                        <constraint firstAttribute="height" constant="40" id="Psj-pJ-pDR"/>
                     </constraints>
                     <color key="fillColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </box>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JoX-Xl-wMp">
-                    <rect key="frame" x="8" y="8" width="28" height="28"/>
+                    <rect key="frame" x="4" y="4" width="36" height="36"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="2TN-83-8zh"/>
                 </imageView>
             </subviews>
             <constraints>
                 <constraint firstItem="Ci0-AC-3k6" firstAttribute="centerY" secondItem="XbR-K6-yF1" secondAttribute="centerY" id="01w-Rd-jLQ"/>
-                <constraint firstItem="JoX-Xl-wMp" firstAttribute="leading" secondItem="XbR-K6-yF1" secondAttribute="leading" constant="8" id="EPN-gE-g8R"/>
-                <constraint firstAttribute="bottom" secondItem="JoX-Xl-wMp" secondAttribute="bottom" constant="8" id="HeF-re-ja3"/>
-                <constraint firstItem="JoX-Xl-wMp" firstAttribute="top" secondItem="XbR-K6-yF1" secondAttribute="top" constant="8" id="fvA-8Q-qr8"/>
-                <constraint firstAttribute="trailing" secondItem="JoX-Xl-wMp" secondAttribute="trailing" constant="8" id="iHa-Ey-3zK"/>
+                <constraint firstItem="JoX-Xl-wMp" firstAttribute="trailing" secondItem="Ci0-AC-3k6" secondAttribute="trailing" constant="-2" id="A90-nq-TEG"/>
+                <constraint firstItem="JoX-Xl-wMp" firstAttribute="top" secondItem="Ci0-AC-3k6" secondAttribute="top" constant="2" id="RkH-wY-XS3"/>
+                <constraint firstItem="JoX-Xl-wMp" firstAttribute="leading" secondItem="Ci0-AC-3k6" secondAttribute="leading" constant="2" id="jyx-MK-X2n"/>
+                <constraint firstItem="JoX-Xl-wMp" firstAttribute="bottom" secondItem="Ci0-AC-3k6" secondAttribute="bottom" constant="-2" id="lm9-XU-Gaj"/>
                 <constraint firstItem="Ci0-AC-3k6" firstAttribute="centerX" secondItem="XbR-K6-yF1" secondAttribute="centerX" id="ucP-g9-MKO"/>
             </constraints>
             <connections>
                 <outlet property="iconImageView" destination="JoX-Xl-wMp" id="yJt-rQ-9f2"/>
-                <outlet property="topConstraint" destination="fvA-8Q-qr8" id="MQY-i0-qa0"/>
             </connections>
             <point key="canvasLocation" x="-80" y="38"/>
         </customView>
