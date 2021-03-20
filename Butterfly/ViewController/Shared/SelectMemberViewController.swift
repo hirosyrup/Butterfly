@@ -19,6 +19,7 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, 
     
     private let cellId = "SelectMemberCollectionViewItem"
     private var userDataList = [SelectMemberCollectionData]()
+    private var initialSelectedUserList = [PreferencesRepository.UserData]()
     
     weak var delegate: SelectMemberViewControllerDelegate?
     
@@ -38,7 +39,7 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, 
             return try await(PreferencesRepository.User().index())
         }).then({ dataList in
             self.userDataList = dataList.map({ (userData) -> SelectMemberCollectionData in
-                return SelectMemberCollectionData(userData: userData, selected: false)
+                return SelectMemberCollectionData(userData: userData, selected: self.isAlreadySelected(data: userData))
             })
             self.memberCollectionView.reloadData()
         }).catch { (error) in
@@ -46,6 +47,14 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, 
         }.always(in: .main) {
             self.fetchIndicator.stopAnimation(self)
         }
+    }
+    
+    func isAlreadySelected(data: PreferencesRepository.UserData) -> Bool {
+        return initialSelectedUserList.first(where: { $0.id == data.id }) != nil
+    }
+    
+    func setup(userList: [PreferencesRepository.UserData]) {
+        initialSelectedUserList = userList
     }
     
     func numberOfSections(in collectionView: NSCollectionView) -> Int {

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		C3672F15941CC99555666025 /* Pods_Butterfly_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39E695FC21E914F41D36A055 /* Pods_Butterfly_iOS.framework */; };
+		FB0D2F7026063965001403A5 /* TextCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB0D2F6E26063965001403A5 /* TextCollectionViewItem.xib */; };
+		FB0D2F7126063965001403A5 /* TextCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F6F26063965001403A5 /* TextCollectionViewItem.swift */; };
+		FB0D2F7526063999001403A5 /* NSColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F7426063999001403A5 /* NSColor+AppColor.swift */; };
+		FB0D2F7B26063FBF001403A5 /* PreferencesWorkspaceCollectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F7A26063FBF001403A5 /* PreferencesWorkspaceCollectionData.swift */; };
 		FBA2883A25F8896600D1B3BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2883925F8896600D1B3BD /* AppDelegate.swift */; };
 		FBA2883C25F8896600D1B3BD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2883B25F8896600D1B3BD /* MainViewController.swift */; };
 		FBA2883E25F8896700D1B3BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBA2883D25F8896700D1B3BD /* Assets.xcassets */; };
@@ -48,8 +52,6 @@
 		FBA546292600FA2700112066 /* UploadIconImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA546272600FA2700112066 /* UploadIconImageResponse.swift */; };
 		FBA546382602409800112066 /* PreferencesWorkspaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA546372602409800112066 /* PreferencesWorkspaceViewController.swift */; };
 		FBA5463C260240BF00112066 /* PreferencesWorkspaceInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5463B260240BF00112066 /* PreferencesWorkspaceInputViewController.swift */; };
-		FBA546412602416B00112066 /* PreferencesWorkspaceCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA546402602416B00112066 /* PreferencesWorkspaceCollectionViewItem.swift */; };
-		FBF9A5A72602438100AE78DF /* PreferencesWorkspaceCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBF9A5A62602438100AE78DF /* PreferencesWorkspaceCollectionViewItem.xib */; };
 		FBF9A5BD26038A7100AE78DF /* MemberIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A5BC26038A7100AE78DF /* MemberIconView.swift */; };
 		FBF9A5C126038A7E00AE78DF /* MemberIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBF9A5C026038A7E00AE78DF /* MemberIconView.xib */; };
 		FBF9A5C626038BCC00AE78DF /* NSImageView+AsyncLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A5C526038BCC00AE78DF /* NSImageView+AsyncLoad.swift */; };
@@ -75,6 +77,10 @@
 		39E695FC21E914F41D36A055 /* Pods_Butterfly_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Butterfly_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6B93144670685FE55D28ABD /* Pods_Butterfly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Butterfly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F30ACA8222B6B825B01A6E98 /* Pods-Butterfly-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Butterfly-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Butterfly-iOS/Pods-Butterfly-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		FB0D2F6E26063965001403A5 /* TextCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextCollectionViewItem.xib; sourceTree = "<group>"; };
+		FB0D2F6F26063965001403A5 /* TextCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCollectionViewItem.swift; sourceTree = "<group>"; };
+		FB0D2F7426063999001403A5 /* NSColor+AppColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+AppColor.swift"; sourceTree = "<group>"; };
+		FB0D2F7A26063FBF001403A5 /* PreferencesWorkspaceCollectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWorkspaceCollectionData.swift; sourceTree = "<group>"; };
 		FBA2883625F8896600D1B3BD /* Butterfly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Butterfly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA2883925F8896600D1B3BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBA2883B25F8896600D1B3BD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -108,8 +114,6 @@
 		FBA546272600FA2700112066 /* UploadIconImageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadIconImageResponse.swift; sourceTree = "<group>"; };
 		FBA546372602409800112066 /* PreferencesWorkspaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWorkspaceViewController.swift; sourceTree = "<group>"; };
 		FBA5463B260240BF00112066 /* PreferencesWorkspaceInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWorkspaceInputViewController.swift; sourceTree = "<group>"; };
-		FBA546402602416B00112066 /* PreferencesWorkspaceCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWorkspaceCollectionViewItem.swift; sourceTree = "<group>"; };
-		FBF9A5A62602438100AE78DF /* PreferencesWorkspaceCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesWorkspaceCollectionViewItem.xib; sourceTree = "<group>"; };
 		FBF9A5BC26038A7100AE78DF /* MemberIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberIconView.swift; sourceTree = "<group>"; };
 		FBF9A5C026038A7E00AE78DF /* MemberIconView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemberIconView.xib; sourceTree = "<group>"; };
 		FBF9A5C526038BCC00AE78DF /* NSImageView+AsyncLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImageView+AsyncLoad.swift"; sourceTree = "<group>"; };
@@ -254,6 +258,7 @@
 				FBA544BF25FA667000112066 /* PreferencesWindowController.swift */,
 				FBA544AC25FA5D2400112066 /* PreferencesFirebaseViewController.swift */,
 				FBA544C325FCF43600112066 /* PreferencesUserViewController.swift */,
+				FB0D2F7A26063FBF001403A5 /* PreferencesWorkspaceCollectionData.swift */,
 				FBA546372602409800112066 /* PreferencesWorkspaceViewController.swift */,
 				FBA5463B260240BF00112066 /* PreferencesWorkspaceInputViewController.swift */,
 			);
@@ -273,7 +278,6 @@
 			children = (
 				FBF9A5C426038BB000AE78DF /* Extension */,
 				FBF9A5B926038A4E00AE78DF /* Shared */,
-				FBA5463F2602413A00112066 /* Preferences */,
 				FBA544F225FD04BB00112066 /* EditableNSTextField.swift */,
 				FBA5456725FE5BF100112066 /* AlertBuilder.swift */,
 			);
@@ -327,15 +331,6 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
-		FBA5463F2602413A00112066 /* Preferences */ = {
-			isa = PBXGroup;
-			children = (
-				FBA546402602416B00112066 /* PreferencesWorkspaceCollectionViewItem.swift */,
-				FBF9A5A62602438100AE78DF /* PreferencesWorkspaceCollectionViewItem.xib */,
-			);
-			path = Preferences;
-			sourceTree = "<group>";
-		};
 		FBF9A5B926038A4E00AE78DF /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -343,6 +338,8 @@
 				FBF9A5C026038A7E00AE78DF /* MemberIconView.xib */,
 				FBF9A5D22603957B00AE78DF /* SelectMemberCollectionViewItem.swift */,
 				FBF9A5D62603958B00AE78DF /* SelectMemberCollectionViewItem.xib */,
+				FB0D2F6F26063965001403A5 /* TextCollectionViewItem.swift */,
+				FB0D2F6E26063965001403A5 /* TextCollectionViewItem.xib */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -352,6 +349,7 @@
 			children = (
 				FBF9A5C526038BCC00AE78DF /* NSImageView+AsyncLoad.swift */,
 				FBF9A5E626056E4F00AE78DF /* NSView+NoClipping.swift */,
+				FB0D2F7426063999001403A5 /* NSColor+AppColor.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -475,10 +473,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA2883E25F8896700D1B3BD /* Assets.xcassets in Resources */,
-				FBF9A5A72602438100AE78DF /* PreferencesWorkspaceCollectionViewItem.xib in Resources */,
 				FBA2884125F8896700D1B3BD /* Main.storyboard in Resources */,
 				FBF9A5D72603958B00AE78DF /* SelectMemberCollectionViewItem.xib in Resources */,
 				FBF9A5C126038A7E00AE78DF /* MemberIconView.xib in Resources */,
+				FB0D2F7026063965001403A5 /* TextCollectionViewItem.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,12 +580,12 @@
 			files = (
 				FBA5459C25FF975800112066 /* SignOut.swift in Sources */,
 				FBF9A5DD2603975A00AE78DF /* SelectMemberCollectionViewItemPresenter.swift in Sources */,
+				FB0D2F7526063999001403A5 /* NSColor+AppColor.swift in Sources */,
 				FBF9A6142605BDD600AE78DF /* FirestoreWorkspace.swift in Sources */,
 				FBA545DE25FFA3D300112066 /* FirestoreUser.swift in Sources */,
 				FBF9A5CD260392D500AE78DF /* SelectMemberViewController.swift in Sources */,
 				FBFCAAC525FF2FCA00D66CC9 /* AuthUser.swift in Sources */,
 				FBA545E425FFACEA00112066 /* PreferencesRepository.swift in Sources */,
-				FBA546412602416B00112066 /* PreferencesWorkspaceCollectionViewItem.swift in Sources */,
 				FBA545CB25FFA28B00112066 /* FirestoreUserData.swift in Sources */,
 				FBA544F325FD04BB00112066 /* EditableNSTextField.swift in Sources */,
 				FBA5456025FE48AF00112066 /* SignUp.swift in Sources */,
@@ -599,6 +597,7 @@
 				FBA5456825FE5BF100112066 /* AlertBuilder.swift in Sources */,
 				FBF9A5BD26038A7100AE78DF /* MemberIconView.swift in Sources */,
 				FBF9A5E726056E4F00AE78DF /* NSView+NoClipping.swift in Sources */,
+				FB0D2F7126063965001403A5 /* TextCollectionViewItem.swift in Sources */,
 				FBF9A6282606302200AE78DF /* SaveWorkspace.swift in Sources */,
 				FBA5447325FA55E500112066 /* FirestoreSetup.swift in Sources */,
 				FBF9A5C626038BCC00AE78DF /* NSImageView+AsyncLoad.swift in Sources */,
@@ -609,6 +608,7 @@
 				FBA5463C260240BF00112066 /* PreferencesWorkspaceInputViewController.swift in Sources */,
 				FBF9A60F2605BD8A00AE78DF /* FirestoreWorkspaceData.swift in Sources */,
 				FBA546192600ECEF00112066 /* IconImage.swift in Sources */,
+				FB0D2F7B26063FBF001403A5 /* PreferencesWorkspaceCollectionData.swift in Sources */,
 				FBA546282600FA2700112066 /* UploadIconImageResponse.swift in Sources */,
 				FBA2883A25F8896600D1B3BD /* AppDelegate.swift in Sources */,
 				FBA546232600F47700112066 /* UploadIconImage.swift in Sources */,

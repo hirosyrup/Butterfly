@@ -481,12 +481,13 @@
                                     <rect key="frame" x="1" y="1" width="408" height="232"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <collectionView id="iZf-R1-N9U">
+                                        <collectionView selectable="YES" id="iZf-R1-N9U">
                                             <rect key="frame" x="0.0" y="0.0" width="408" height="232"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="cd9-KR-nwh">
-                                                <size key="itemSize" width="50" height="50"/>
-                                            </collectionViewFlowLayout>
+                                            <collectionViewGridLayout key="collectionViewLayout" id="3eR-nl-YEE">
+                                                <size key="minimumItemSize" width="408" height="0.0"/>
+                                                <size key="maximumItemSize" width="0.0" height="20"/>
+                                            </collectionViewGridLayout>
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </collectionView>
                                     </subviews>
@@ -514,17 +515,6 @@
                                     <action selector="pushAddWorkspace:" target="p76-CY-Jjy" id="Rhm-k2-Y2m"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="M3A-An-mVY">
-                                <rect key="frame" x="43" y="11" width="24" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="24" id="4Ob-ma-XtR"/>
-                                    <constraint firstAttribute="height" constant="22" id="OIs-Ms-kQr"/>
-                                </constraints>
-                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="minus" catalog="system" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AbN-98-YS8">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cSE-Zc-3tM">
                                 <rect key="frame" x="371" y="6" width="66" height="32"/>
                                 <constraints>
@@ -534,24 +524,31 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="pushEditButton:" target="p76-CY-Jjy" id="pvA-tD-HeE"/>
+                                </connections>
                             </button>
+                            <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="GJ0-0N-7N2">
+                                <rect key="frame" x="217" y="155" width="16" height="16"/>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="M3A-An-mVY" firstAttribute="height" secondItem="Fam-TV-pIj" secondAttribute="height" id="4Ml-te-uMb"/>
-                            <constraint firstItem="M3A-An-mVY" firstAttribute="width" secondItem="Fam-TV-pIj" secondAttribute="width" id="70d-tg-ZtN"/>
                             <constraint firstAttribute="trailing" secondItem="cSE-Zc-3tM" secondAttribute="trailing" constant="20" id="7ox-e0-0ni"/>
+                            <constraint firstItem="GJ0-0N-7N2" firstAttribute="centerY" secondItem="lxj-sy-LQo" secondAttribute="centerY" id="DPB-io-0Gk"/>
                             <constraint firstAttribute="trailing" secondItem="lxj-sy-LQo" secondAttribute="trailing" constant="20" symbolic="YES" id="Hjo-LV-QA8"/>
                             <constraint firstItem="Fam-TV-pIj" firstAttribute="top" secondItem="lxj-sy-LQo" secondAttribute="bottom" constant="12" id="XrJ-a2-jJ6"/>
-                            <constraint firstItem="M3A-An-mVY" firstAttribute="top" secondItem="Fam-TV-pIj" secondAttribute="top" id="ZE2-X1-pSv"/>
-                            <constraint firstItem="cSE-Zc-3tM" firstAttribute="centerY" secondItem="M3A-An-mVY" secondAttribute="centerY" id="dNI-ee-2rW"/>
+                            <constraint firstItem="GJ0-0N-7N2" firstAttribute="centerX" secondItem="lxj-sy-LQo" secondAttribute="centerX" id="bbd-AT-OGv"/>
                             <constraint firstItem="lxj-sy-LQo" firstAttribute="leading" secondItem="aig-mJ-zD4" secondAttribute="leading" constant="20" symbolic="YES" id="f0d-LS-0lV"/>
-                            <constraint firstItem="M3A-An-mVY" firstAttribute="leading" secondItem="Fam-TV-pIj" secondAttribute="trailing" constant="-1" id="itx-ux-ip1"/>
                             <constraint firstItem="lxj-sy-LQo" firstAttribute="top" secondItem="aig-mJ-zD4" secondAttribute="top" constant="20" symbolic="YES" id="lAx-XF-h4Z"/>
+                            <constraint firstItem="cSE-Zc-3tM" firstAttribute="centerY" secondItem="Fam-TV-pIj" secondAttribute="centerY" id="q0X-al-eQ5"/>
                             <constraint firstAttribute="bottom" secondItem="Fam-TV-pIj" secondAttribute="bottom" constant="12" id="uB4-Hu-O09"/>
                             <constraint firstItem="Fam-TV-pIj" firstAttribute="leading" secondItem="aig-mJ-zD4" secondAttribute="leading" constant="20" id="wCO-Xl-tOG"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="collectionView" destination="iZf-R1-N9U" id="jNZ-tK-7WY"/>
+                        <outlet property="editButton" destination="cSE-Zc-3tM" id="a3H-56-rmN"/>
+                        <outlet property="loadingIndicator" destination="GJ0-0N-7N2" id="0cA-tP-cgS"/>
                         <outlet property="pushAddWorkspace" destination="Fam-TV-pIj" id="cz2-uQ-kcL"/>
                     </connections>
                 </viewController>
@@ -732,7 +729,6 @@ DQ
     </scenes>
     <resources>
         <image name="NSAddTemplate" width="14" height="13"/>
-        <image name="minus" catalog="system" width="14" height="4"/>
         <image name="pencil" catalog="system" width="14" height="13"/>
         <image name="person.circle" catalog="system" width="15" height="15"/>
         <image name="popUpButtonCell:Te8-aW-J6H:image" width="1" height="1">

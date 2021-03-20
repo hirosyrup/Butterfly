@@ -8,6 +8,10 @@
 import Cocoa
 import Hydra
 
+protocol PreferencesWorkspaceInputViewControllerDelegate: class {
+    func willDissmiss(vc: PreferencesWorkspaceInputViewController)
+}
+
 class PreferencesWorkspaceInputViewController: NSViewController,
                                                NSTextFieldDelegate,
                                                SelectMemberViewControllerDelegate {
@@ -19,24 +23,34 @@ class PreferencesWorkspaceInputViewController: NSViewController,
     private var isProcessing = false
     private var selectedUserDataList = [PreferencesRepository.UserData]()
     
-    class func create(workspaceData: PreferencesRepository.WorkspaceData?) -> PreferencesWorkspaceInputViewController {
+    fileprivate weak var delegate: PreferencesWorkspaceInputViewControllerDelegate?
+    
+    class func create(workspaceData: PreferencesRepository.WorkspaceData?, delegate: PreferencesWorkspaceInputViewControllerDelegate? = nil) -> PreferencesWorkspaceInputViewController {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         let identifier = NSStoryboard.SceneIdentifier("PreferencesWorkspaceInputViewController")
         let vc = storyboard.instantiateController(withIdentifier: identifier) as! PreferencesWorkspaceInputViewController
         vc.workspaceData = workspaceData ?? PreferencesRepository.WorkspaceData(users: [])
+        vc.delegate = delegate
         return vc
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         nameTextField.delegate = self
+        setup()
         updateViews()
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let selectVc = segue.destinationController as? SelectMemberViewController {
+            selectVc.setup(userList: selectedUserDataList)
             selectVc.delegate = self
         }
+    }
+    
+    private func setup() {
+        nameTextField.stringValue = workspaceData.name
+        selectedUserDataList = workspaceData.users
     }
     
     private func updateViews() {
@@ -69,6 +83,7 @@ class PreferencesWorkspaceInputViewController: NSViewController,
         async({ _ -> PreferencesRepository.WorkspaceData in
             return try await(SaveWorkspace(data: newWorkspaceData).save())
         }).then({ savedWorkspaceData in
+            self.delegate?.willDissmiss(vc: self)
             self.dismiss(self)
         }).catch { (error) in
             AlertBuilder.createErrorAlert(title: "Error", message: "Failed to save workspace. \(error.localizedDescription)").runModal()
@@ -79,6 +94,7 @@ class PreferencesWorkspaceInputViewController: NSViewController,
     }
     
     @IBAction func pushCancel(_ sender: Any) {
+        delegate?.willDissmiss(vc: self)
         dismiss(self)
     }
 }
