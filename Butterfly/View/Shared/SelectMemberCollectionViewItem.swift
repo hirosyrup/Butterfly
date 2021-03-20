@@ -21,7 +21,12 @@ class SelectMemberCollectionViewItem: NSCollectionViewItem {
     
     override func viewDidLayout() {
         super.viewDidLayout()
+        memberIconView.frame = view.bounds
+        memberIconView.layoutSubtreeIfNeeded()
         memberIconView.setCornerRadius()
+        memberIconView.offClipping()
+        memberIconViewContainer.offClipping()
+        view.offClipping()
     }
     
     func updateView(presenter: SelectMemberCollectionViewItemPresenter) {

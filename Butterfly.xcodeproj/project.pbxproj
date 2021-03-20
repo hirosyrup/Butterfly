@@ -57,6 +57,7 @@
 		FBF9A5D32603957B00AE78DF /* SelectMemberCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A5D22603957B00AE78DF /* SelectMemberCollectionViewItem.swift */; };
 		FBF9A5D72603958B00AE78DF /* SelectMemberCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBF9A5D62603958B00AE78DF /* SelectMemberCollectionViewItem.xib */; };
 		FBF9A5DD2603975A00AE78DF /* SelectMemberCollectionViewItemPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A5DC2603975A00AE78DF /* SelectMemberCollectionViewItemPresenter.swift */; };
+		FBF9A5E726056E4F00AE78DF /* NSView+NoClipping.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A5E626056E4F00AE78DF /* NSView+NoClipping.swift */; };
 		FBFCAAC525FF2FCA00D66CC9 /* AuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFCAAC425FF2FC900D66CC9 /* AuthUser.swift */; };
 		FE979F1D6A67DA01DB4748E0 /* Pods_Butterfly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6B93144670685FE55D28ABD /* Pods_Butterfly.framework */; };
 /* End PBXBuildFile section */
@@ -109,6 +110,7 @@
 		FBF9A5D22603957B00AE78DF /* SelectMemberCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMemberCollectionViewItem.swift; sourceTree = "<group>"; };
 		FBF9A5D62603958B00AE78DF /* SelectMemberCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectMemberCollectionViewItem.xib; sourceTree = "<group>"; };
 		FBF9A5DC2603975A00AE78DF /* SelectMemberCollectionViewItemPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMemberCollectionViewItemPresenter.swift; sourceTree = "<group>"; };
+		FBF9A5E626056E4F00AE78DF /* NSView+NoClipping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+NoClipping.swift"; sourceTree = "<group>"; };
 		FBFCAAC425FF2FC900D66CC9 /* AuthUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUser.swift; sourceTree = "<group>"; };
 		FDD6B8BFAC0A461437292A6C /* Pods-Butterfly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Butterfly.release.xcconfig"; path = "Target Support Files/Pods-Butterfly/Pods-Butterfly.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -336,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				FBF9A5C526038BCC00AE78DF /* NSImageView+AsyncLoad.swift */,
+				FBF9A5E626056E4F00AE78DF /* NSView+NoClipping.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				FBA544AD25FA5D2400112066 /* PreferencesFirebaseViewController.swift in Sources */,
 				FBA5456825FE5BF100112066 /* AlertBuilder.swift in Sources */,
 				FBF9A5BD26038A7100AE78DF /* MemberIconView.swift in Sources */,
+				FBF9A5E726056E4F00AE78DF /* NSView+NoClipping.swift in Sources */,
 				FBA5447325FA55E500112066 /* FirestoreSetup.swift in Sources */,
 				FBF9A5C626038BCC00AE78DF /* NSImageView+AsyncLoad.swift in Sources */,
 				FBA544B425FA61EA00112066 /* SettingUserDefault.swift in Sources */,

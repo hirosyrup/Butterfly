@@ -9,6 +9,7 @@ import Cocoa
 
 class SelectMemberViewController: NSViewController, NSCollectionViewDataSource {
     @IBOutlet weak var memberCollectionView: NSCollectionView!
+    @IBOutlet weak var collectionClipView: NSClipView!
     @IBOutlet weak var fetchIndicator: NSProgressIndicator!
     
     private let cellId = "SelectMemberCollectionViewItem"
@@ -19,6 +20,7 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource {
         let cellNib = NSNib(nibNamed: cellId, bundle: nil)
         memberCollectionView.register(cellNib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId))
         memberCollectionView.dataSource = self
+        collectionClipView.offClipping()
         fetch()
     }
     
