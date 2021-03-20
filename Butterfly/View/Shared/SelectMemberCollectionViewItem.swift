@@ -30,10 +30,8 @@ class SelectMemberCollectionViewItem: NSCollectionViewItem {
     }
     
     func updateView(presenter: SelectMemberCollectionViewItemPresenter) {
-        presenter.iconURL { (url) in
-            if let _url = url {
-                self.memberIconView.updateView(imageUrl: _url, toolTip: presenter.name())
-            }
+        if let url = presenter.iconURL() {
+            self.memberIconView.updateView(imageUrl: url, toolTip: presenter.name())
         }
     }
 }

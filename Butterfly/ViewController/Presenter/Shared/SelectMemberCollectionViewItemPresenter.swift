@@ -15,17 +15,8 @@ class SelectMemberCollectionViewItemPresenter {
         self.data = data
     }
     
-    func iconURL(completion: @escaping (URL?) -> Void) {
-        if let iconName = data.iconName {
-            iconUrlCompletion = completion
-            IconImage().fetchDownloadUrl(fileName: iconName)
-                .then(in: .main, { downloadUrl in
-                    self.iconUrlCompletion?(downloadUrl)
-                    self.iconUrlCompletion = nil
-                })
-        } else {
-            completion(nil)
-        }
+    func iconURL() -> URL? {
+        return data.iconImageUrl
     }
     
     func name() -> String {
