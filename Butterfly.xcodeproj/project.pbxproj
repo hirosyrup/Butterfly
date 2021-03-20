@@ -30,8 +30,8 @@
 		FBA5456825FE5BF100112066 /* AlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5456725FE5BF100112066 /* AlertBuilder.swift */; };
 		FBA5459025FE620700112066 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5458F25FE620700112066 /* SignIn.swift */; };
 		FBA5459C25FF975800112066 /* SignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5459B25FF975800112066 /* SignOut.swift */; };
-		FBA545CB25FFA28B00112066 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545CA25FFA28B00112066 /* UserData.swift */; };
-		FBA545D625FFA3AA00112066 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545CA25FFA28B00112066 /* UserData.swift */; };
+		FBA545CB25FFA28B00112066 /* FirestoreUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545CA25FFA28B00112066 /* FirestoreUserData.swift */; };
+		FBA545D625FFA3AA00112066 /* FirestoreUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545CA25FFA28B00112066 /* FirestoreUserData.swift */; };
 		FBA545D725FFA3AA00112066 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5455F25FE48AF00112066 /* SignUp.swift */; };
 		FBA545D825FFA3AA00112066 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5458F25FE620700112066 /* SignIn.swift */; };
 		FBA545D925FFA3AA00112066 /* SignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5459B25FF975800112066 /* SignOut.swift */; };
@@ -94,7 +94,7 @@
 		FBA5456725FE5BF100112066 /* AlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBuilder.swift; sourceTree = "<group>"; };
 		FBA5458F25FE620700112066 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		FBA5459B25FF975800112066 /* SignOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOut.swift; sourceTree = "<group>"; };
-		FBA545CA25FFA28B00112066 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		FBA545CA25FFA28B00112066 /* FirestoreUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreUserData.swift; sourceTree = "<group>"; };
 		FBA545DD25FFA3D300112066 /* FirestoreUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreUser.swift; sourceTree = "<group>"; };
 		FBA545E325FFACEA00112066 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		FBA546182600ECEF00112066 /* IconImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImage.swift; sourceTree = "<group>"; };
@@ -222,9 +222,9 @@
 			children = (
 				FBA544B225FA61CD00112066 /* Settings */,
 				FBA5446825FA55A300112066 /* Firestore */,
+				FBA5455E25FE488D00112066 /* UseCase */,
 				FBA545EA25FFAD2900112066 /* Repository */,
 				FBA5461F2600F15700112066 /* Storage */,
-				FBA5455E25FE488D00112066 /* UseCase */,
 			);
 			path = "Butterfly-Models";
 			sourceTree = "<group>";
@@ -282,7 +282,7 @@
 		FBA545C925FFA27400112066 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				FBA545CA25FFA28B00112066 /* UserData.swift */,
+				FBA545CA25FFA28B00112066 /* FirestoreUserData.swift */,
 				FBA545DD25FFA3D300112066 /* FirestoreUser.swift */,
 			);
 			path = User;
@@ -567,7 +567,7 @@
 				FBFCAAC525FF2FCA00D66CC9 /* AuthUser.swift in Sources */,
 				FBA545E425FFACEA00112066 /* UserRepository.swift in Sources */,
 				FBA546412602416B00112066 /* PreferencesWorkspaceCollectionViewItem.swift in Sources */,
-				FBA545CB25FFA28B00112066 /* UserData.swift in Sources */,
+				FBA545CB25FFA28B00112066 /* FirestoreUserData.swift in Sources */,
 				FBA544F325FD04BB00112066 /* EditableNSTextField.swift in Sources */,
 				FBA5456025FE48AF00112066 /* SignUp.swift in Sources */,
 				FBA544C025FA667000112066 /* PreferencesWindowController.swift in Sources */,
@@ -596,7 +596,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBA545D625FFA3AA00112066 /* UserData.swift in Sources */,
+				FBA545D625FFA3AA00112066 /* FirestoreUserData.swift in Sources */,
 				FBA545D725FFA3AA00112066 /* SignUp.swift in Sources */,
 				FBA545D825FFA3AA00112066 /* SignIn.swift in Sources */,
 				FBA545D925FFA3AA00112066 /* SignOut.swift in Sources */,

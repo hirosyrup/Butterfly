@@ -1,5 +1,5 @@
 //
-//  UserData.swift
+//  FirestoreUserData.swift
 //  Butterfly
 //
 //  Created by 岩井 宏晃 on 2021/03/15.
@@ -7,19 +7,18 @@
 
 import Foundation
 
-struct UserData {
+struct FirestoreUserData {
     var id: String
     var iconName: String?
-    var iconImageUrl: URL?
     var name: String
     var createdAt: Date
     var updatedAt: Date
     
-    static func new() -> UserData {
-        return UserData(id: "", iconName: nil, iconImageUrl: nil, name: "Anonymous", createdAt: Date(), updatedAt: Date())
+    static func new() -> FirestoreUserData {
+        return FirestoreUserData(id: "", iconName: nil, name: "Anonymous", createdAt: Date(), updatedAt: Date())
     }
     
-    func copyCurrentAt() -> UserData {
+    func copyCurrentAt() -> FirestoreUserData {
         var copied = self
         copied.updatedAt = Date()
         return copied

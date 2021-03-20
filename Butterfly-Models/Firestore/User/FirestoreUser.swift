@@ -15,13 +15,13 @@ class FirestoreUser {
     private let db = Firestore.firestore()
     private let userCollectionName = "users"
     
-    func index() -> Promise<[UserData]> {
-        return Promise<[UserData]>(in: .background, token: nil) { (resolve, reject, _) in
+    func index() -> Promise<[FirestoreUserData]> {
+        return Promise<[FirestoreUserData]>(in: .background, token: nil) { (resolve, reject, _) in
             self.db.collection(self.userCollectionName).getDocuments { (querySnapshot, error) in
                 if let _error = error {
                     reject(_error)
                 } else {
-                    let dataList = querySnapshot?.documents.map({ (snapshotDocument) -> UserData in
+                    let dataList = querySnapshot?.documents.map({ (snapshotDocument) -> FirestoreUserData in
                         let snapshot = snapshotDocument.data()
                         return self.firestoreDataToUser(snapshot: snapshot, userId: snapshotDocument.documentID)
                     })
@@ -32,8 +32,8 @@ class FirestoreUser {
         
     }
     
-    func save(data: UserData, userId: String) -> Promise<UserData> {
-        return Promise<UserData>(in: .background, token: nil) { (resolve, reject, _) in
+    func save(data: FirestoreUserData, userId: String) -> Promise<FirestoreUserData> {
+        return Promise<FirestoreUserData>(in: .background, token: nil) { (resolve, reject, _) in
             self.db.collection(self.userCollectionName).document(userId).setData(self.userToFirestoreData(data: data)) { (error) in
                 if let _error = error {
                     reject(_error)
@@ -46,8 +46,8 @@ class FirestoreUser {
         }
     }
     
-    func fetch(userId: String) -> Promise<UserData?> {
-        return Promise<UserData?>(in: .background, token: nil) { (resolve, reject, _) in
+    func fetch(userId: String) -> Promise<FirestoreUserData?> {
+        return Promise<FirestoreUserData?>(in: .background, token: nil) { (resolve, reject, _) in
             self.db.collection(self.userCollectionName).document(userId).getDocument { (snapshot, error) in
                 if let _error = error {
                     reject(_error)
@@ -62,7 +62,7 @@ class FirestoreUser {
         }
     }
     
-    private func userToFirestoreData(data: UserData) -> [String: Any] {
+    private func userToFirestoreData(data: FirestoreUserData) -> [String: Any] {
         return [
             "iconName": data.iconName ?? NSNull(),
             "name": data.name,
@@ -71,8 +71,8 @@ class FirestoreUser {
         ]
     }
     
-    private func firestoreDataToUser(snapshot: [String: Any], userId: String) -> UserData {
-        return UserData(
+    private func firestoreDataToUser(snapshot: [String: Any], userId: String) -> FirestoreUserData {
+        return FirestoreUserData(
             id: userId,
             iconName: snapshot["iconName"] as? String,
             name: (snapshot["name"] as? String) ?? "",

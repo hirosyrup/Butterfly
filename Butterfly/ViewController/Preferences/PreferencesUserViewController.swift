@@ -251,17 +251,17 @@ class PreferencesUserViewController: NSViewController,
     }
     
     private func saveName(currentUserData: UserData, name: String, compltion: @escaping (Result<UserData, Error>) -> Void) {
-        var newUserData = currentUserData.copyCurrentAt()
+        var newUserData = currentUserData
         newUserData.name = name
-        UserRepository().save(userData: newUserData, userId: currentUserData.id, compltion: { (result) in
+        UserRepository().update(userData: newUserData, compltion: { (result) in
             compltion(result)
         })
     }
     
     private func saveIconName(currentUserData: UserData, iconName: String, compltion: @escaping (Result<UserData, Error>) -> Void) {
-        var newUserData = currentUserData.copyCurrentAt()
+        var newUserData = currentUserData
         newUserData.iconName = iconName
-        UserRepository().save(userData: newUserData, userId: currentUserData.id, compltion: { (result) in
+        UserRepository().update(userData: newUserData, compltion: { (result) in
             compltion(result)
         })
     }
@@ -293,7 +293,8 @@ class PreferencesUserViewController: NSViewController,
                     self.requestState = RequestState.none
                     self.updateViews()
                     switch saveResult {
-                    case .success(_):
+                    case .success(let response):
+                        self.userData?.iconName = response.iconName
                         break
                     case .failure(let error):
                         AlertBuilder.createErrorAlert(title: "Error", message: "Failed to save the icon name. \(error.localizedDescription)").runModal()
