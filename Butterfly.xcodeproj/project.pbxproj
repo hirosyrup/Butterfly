@@ -63,6 +63,8 @@
 		FBF9A6102605BD8A00AE78DF /* FirestoreWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A60E2605BD8A00AE78DF /* FirestoreWorkspaceData.swift */; };
 		FBF9A6142605BDD600AE78DF /* FirestoreWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A6132605BDD600AE78DF /* FirestoreWorkspace.swift */; };
 		FBF9A6152605BDD600AE78DF /* FirestoreWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A6132605BDD600AE78DF /* FirestoreWorkspace.swift */; };
+		FBF9A6282606302200AE78DF /* SaveWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A6272606302200AE78DF /* SaveWorkspace.swift */; };
+		FBF9A6292606302200AE78DF /* SaveWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A6272606302200AE78DF /* SaveWorkspace.swift */; };
 		FBFCAAC525FF2FCA00D66CC9 /* AuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFCAAC425FF2FC900D66CC9 /* AuthUser.swift */; };
 		FE979F1D6A67DA01DB4748E0 /* Pods_Butterfly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6B93144670685FE55D28ABD /* Pods_Butterfly.framework */; };
 /* End PBXBuildFile section */
@@ -119,6 +121,7 @@
 		FBF9A5EA2605898900AE78DF /* SelectMemberCollectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMemberCollectionData.swift; sourceTree = "<group>"; };
 		FBF9A60E2605BD8A00AE78DF /* FirestoreWorkspaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreWorkspaceData.swift; sourceTree = "<group>"; };
 		FBF9A6132605BDD600AE78DF /* FirestoreWorkspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreWorkspace.swift; sourceTree = "<group>"; };
+		FBF9A6272606302200AE78DF /* SaveWorkspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveWorkspace.swift; sourceTree = "<group>"; };
 		FBFCAAC425FF2FC900D66CC9 /* AuthUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUser.swift; sourceTree = "<group>"; };
 		FDD6B8BFAC0A461437292A6C /* Pods-Butterfly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Butterfly.release.xcconfig"; path = "Target Support Files/Pods-Butterfly/Pods-Butterfly.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -303,6 +306,7 @@
 				FBA5459B25FF975800112066 /* SignOut.swift */,
 				FBA546222600F47700112066 /* UploadIconImage.swift */,
 				FBA546272600FA2700112066 /* UploadIconImageResponse.swift */,
+				FBF9A6272606302200AE78DF /* SaveWorkspace.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -595,6 +599,7 @@
 				FBA5456825FE5BF100112066 /* AlertBuilder.swift in Sources */,
 				FBF9A5BD26038A7100AE78DF /* MemberIconView.swift in Sources */,
 				FBF9A5E726056E4F00AE78DF /* NSView+NoClipping.swift in Sources */,
+				FBF9A6282606302200AE78DF /* SaveWorkspace.swift in Sources */,
 				FBA5447325FA55E500112066 /* FirestoreSetup.swift in Sources */,
 				FBF9A5C626038BCC00AE78DF /* NSImageView+AsyncLoad.swift in Sources */,
 				FBA544B425FA61EA00112066 /* SettingUserDefault.swift in Sources */,
@@ -625,6 +630,7 @@
 				FBA544FF25FD12EE00112066 /* SettingUserDefault.swift in Sources */,
 				FBA546242600F47700112066 /* UploadIconImage.swift in Sources */,
 				FBA5443625FA554200112066 /* ViewController.swift in Sources */,
+				FBF9A6292606302200AE78DF /* SaveWorkspace.swift in Sources */,
 				FBA5443225FA554200112066 /* AppDelegate.swift in Sources */,
 				FBA546292600FA2700112066 /* UploadIconImageResponse.swift in Sources */,
 				FBA5443425FA554200112066 /* SceneDelegate.swift in Sources */,

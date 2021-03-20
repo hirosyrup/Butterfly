@@ -148,16 +148,11 @@ class PreferencesRepository {
             }
         }
         
-        func findOrCreate(workspaceId: String) -> Promise<WorkspaceData> {
+        func create(workspaceData: WorkspaceData) -> Promise<WorkspaceData> {
             return Promise<WorkspaceData>(in: .background, token: nil) { (resolve, reject, _) in
                 async({ _ -> WorkspaceData in
-                    var firestoreWorkspaceData = try await(self.workspace.fetch(workspaceId: workspaceId))
-                    if firestoreWorkspaceData == nil {
-                        var newFirestoreWorkspaceData = FirestoreWorkspaceData.new()
-                        newFirestoreWorkspaceData = try await(self.workspace.save(data: newFirestoreWorkspaceData, workspaceId: workspaceId))
-                        firestoreWorkspaceData = newFirestoreWorkspaceData
-                    }
-                    return try await(self.createWorkspaceData(firestoreWorkspaceData: firestoreWorkspaceData!))
+                    let createdFirestoreWorkspaceData = try await(self.workspace.add(data: workspaceData.toFirestoreData()))
+                    return try await(self.createWorkspaceData(firestoreWorkspaceData: createdFirestoreWorkspaceData))
                 }).then({ workspaceData in
                     resolve(workspaceData)
                 }).catch { (error) in
@@ -171,7 +166,7 @@ class PreferencesRepository {
                 async({ _ -> WorkspaceData in
                     let workspaceId = workspaceData.original.id
                     let firestoreWorkspaceData = workspaceData.toFirestoreData().copyCurrentAt()
-                    let savedFirestoreWorkspaceData = try await(self.workspace.save(data: firestoreWorkspaceData, workspaceId: workspaceId))
+                    let savedFirestoreWorkspaceData = try await(self.workspace.update(data: firestoreWorkspaceData, workspaceId: workspaceId))
                     return try await(self.createWorkspaceData(firestoreWorkspaceData: savedFirestoreWorkspaceData))
                 }).then({newWorkspaceData in
                     resolve(newWorkspaceData)

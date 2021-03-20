@@ -603,6 +603,9 @@ Gw
 DQ
 </string>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="pushOk:" target="y0a-4f-gt5" id="kNH-ph-aNA"/>
+                                </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sBm-up-UVe">
                                 <rect key="frame" x="20" y="276" width="410" height="21"/>
@@ -645,6 +648,12 @@ DQ
                             <constraint firstItem="ydV-Ff-igq" firstAttribute="centerY" secondItem="OTd-6Z-28U" secondAttribute="centerY" id="umU-Z5-Wwk"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="ydV-Ff-igq" id="MUY-EU-pea"/>
+                        <outlet property="memberSelectContainer" destination="aCp-sS-Dhb" id="A9u-8R-inz"/>
+                        <outlet property="nameTextField" destination="sBm-up-UVe" id="v5Z-6f-u7y"/>
+                        <outlet property="okButton" destination="OTd-6Z-28U" id="wPE-UM-UGj"/>
+                    </connections>
                 </viewController>
                 <customObject id="88T-Fu-py7" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

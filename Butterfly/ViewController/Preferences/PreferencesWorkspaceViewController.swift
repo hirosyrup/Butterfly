@@ -9,7 +9,7 @@ import Cocoa
 
 class PreferencesWorkspaceViewController: NSViewController {
     @IBAction func pushAddWorkspace(_ sender: Any) {
-        let vc = PreferencesWorkspaceInputViewController.create()
+        let vc = PreferencesWorkspaceInputViewController.create(workspaceData: nil)
         presentAsSheet(vc)
     }
 }

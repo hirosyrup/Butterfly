@@ -8,6 +8,10 @@
 import Cocoa
 import Hydra
 
+protocol SelectMemberViewControllerDelegate: class {
+    func didChangeSelectedUserList(vc: SelectMemberViewController, selectedUserDataList: [PreferencesRepository.UserData])
+}
+
 class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate {
     @IBOutlet weak var memberCollectionView: NSCollectionView!
     @IBOutlet weak var collectionClipView: NSClipView!
@@ -15,6 +19,8 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, 
     
     private let cellId = "SelectMemberCollectionViewItem"
     private var userDataList = [SelectMemberCollectionData]()
+    
+    weak var delegate: SelectMemberViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +73,10 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, 
                 item.updateView(presenter: presenter)
             }
         }
+        let selectedUserDataList = userDataList.filter { $0.selected }.map({ (data) -> PreferencesRepository.UserData in
+            return data.userData
+        })
+        delegate?.didChangeSelectedUserList(vc: self, selectedUserDataList: selectedUserDataList)
         memberCollectionView.deselectItems(at: indexPaths)
     }
 }

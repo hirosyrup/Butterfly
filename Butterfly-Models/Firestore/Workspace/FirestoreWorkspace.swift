@@ -34,7 +34,22 @@ class FirestoreWorkspace {
         
     }
     
-    func save(data: FirestoreWorkspaceData, workspaceId: String) -> Promise<FirestoreWorkspaceData> {
+    func add(data: FirestoreWorkspaceData) -> Promise<FirestoreWorkspaceData> {
+        return Promise<FirestoreWorkspaceData>(in: .background, token: nil) { (resolve, reject, _) in
+            var ref: DocumentReference? = nil
+            ref = self.db.collection(self.workspaceCollectionName).addDocument(data: self.workspaceToFirestoreData(data: data)) { (error) in
+                if let _error = error {
+                    reject(_error)
+                } else {
+                    var newData = data
+                    newData.id = ref!.documentID
+                    resolve(newData)
+                }
+            }
+        }
+    }
+    
+    func update(data: FirestoreWorkspaceData, workspaceId: String) -> Promise<FirestoreWorkspaceData> {
         return Promise<FirestoreWorkspaceData>(in: .background, token: nil) { (resolve, reject, _) in
             self.db.collection(self.workspaceCollectionName).document(workspaceId).setData(self.workspaceToFirestoreData(data: data)) { (error) in
                 if let _error = error {
