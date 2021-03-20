@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,24 +20,20 @@
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="Spy-TN-0V9">
                     <rect key="frame" x="0.0" y="0.0" width="52" height="52"/>
-                    <subviews>
-                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DEi-4C-UOX">
-                            <rect key="frame" x="32" y="32" width="16" height="16"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="16" id="7Ph-hQ-LuD"/>
-                                <constraint firstAttribute="height" constant="16" id="qLt-8U-d0C"/>
-                            </constraints>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="check" id="Pea-Xb-BKL"/>
-                        </imageView>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="DEi-4C-UOX" firstAttribute="top" secondItem="Spy-TN-0V9" secondAttribute="top" constant="4" id="1fE-8P-R5V"/>
-                        <constraint firstAttribute="trailing" secondItem="DEi-4C-UOX" secondAttribute="trailing" constant="4" id="Qrf-EY-lnZ"/>
-                    </constraints>
                 </customView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DEi-4C-UOX">
+                    <rect key="frame" x="36" y="36" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="7Ph-hQ-LuD"/>
+                        <constraint firstAttribute="height" constant="16" id="qLt-8U-d0C"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="check" id="Pea-Xb-BKL"/>
+                </imageView>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Spy-TN-0V9" secondAttribute="trailing" id="0ag-O5-Lcq"/>
+                <constraint firstAttribute="trailing" secondItem="DEi-4C-UOX" secondAttribute="trailing" id="3R2-oU-eLg"/>
+                <constraint firstItem="DEi-4C-UOX" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="FMa-i9-9K6"/>
                 <constraint firstItem="Spy-TN-0V9" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="fzw-7Y-mX6"/>
                 <constraint firstAttribute="bottom" secondItem="Spy-TN-0V9" secondAttribute="bottom" id="nBR-GZ-h4C"/>
                 <constraint firstItem="Spy-TN-0V9" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="swD-bl-vw4"/>

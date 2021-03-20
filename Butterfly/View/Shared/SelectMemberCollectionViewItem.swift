@@ -33,5 +33,6 @@ class SelectMemberCollectionViewItem: NSCollectionViewItem {
         if let url = presenter.iconURL() {
             self.memberIconView.updateView(imageUrl: url, toolTip: presenter.name())
         }
+        checkImageView.isHidden = !presenter.selected()
     }
 }

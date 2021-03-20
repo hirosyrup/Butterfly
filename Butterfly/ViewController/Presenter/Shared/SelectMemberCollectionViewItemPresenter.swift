@@ -8,18 +8,22 @@
 import Foundation
 
 class SelectMemberCollectionViewItemPresenter {
-    private let data: UserData
+    private let data: SelectMemberCollectionData
     private var iconUrlCompletion: ((URL?) -> Void)?
     
-    init(data: UserData) {
+    init(data: SelectMemberCollectionData) {
         self.data = data
     }
     
+    func selected() -> Bool {
+        return data.selected
+    }
+    
     func iconURL() -> URL? {
-        return data.iconImageUrl
+        return data.userData.iconImageUrl
     }
     
     func name() -> String {
-        return data.name
+        return data.userData.name
     }
 }

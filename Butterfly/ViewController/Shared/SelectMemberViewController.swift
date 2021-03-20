@@ -7,19 +7,20 @@
 
 import Cocoa
 
-class SelectMemberViewController: NSViewController, NSCollectionViewDataSource {
+class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate {
     @IBOutlet weak var memberCollectionView: NSCollectionView!
     @IBOutlet weak var collectionClipView: NSClipView!
     @IBOutlet weak var fetchIndicator: NSProgressIndicator!
     
     private let cellId = "SelectMemberCollectionViewItem"
-    private var userDataList = [UserData]()
+    private var userDataList = [SelectMemberCollectionData]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let cellNib = NSNib(nibNamed: cellId, bundle: nil)
         memberCollectionView.register(cellNib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId))
         memberCollectionView.dataSource = self
+        memberCollectionView.delegate = self
         collectionClipView.offClipping()
         fetch()
     }
@@ -30,7 +31,9 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource {
             self.fetchIndicator.stopAnimation(self)
             switch result {
             case .success(let dataList):
-                self.userDataList = dataList
+                self.userDataList = dataList.map({ (userData) -> SelectMemberCollectionData in
+                    return SelectMemberCollectionData(userData: userData, selected: false)
+                })
                 self.memberCollectionView.reloadData()
             case .failure(let error):
                 AlertBuilder.createErrorAlert(title: "Error", message: "Failed to fetch member list. \(error.localizedDescription)").runModal()
@@ -51,5 +54,18 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource {
         let presenter = SelectMemberCollectionViewItemPresenter(data: userDataList[indexPath.item])
         item.updateView(presenter: presenter)
         return item
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        indexPaths.forEach { (indexPath) in
+            if let item = memberCollectionView.item(at: indexPath) as? SelectMemberCollectionViewItem {
+                var data = userDataList[indexPath.item]
+                data.selected = !data.selected
+                userDataList[indexPath.item] = data
+                let presenter = SelectMemberCollectionViewItemPresenter(data: data)
+                item.updateView(presenter: presenter)
+            }
+        }
+        memberCollectionView.deselectItems(at: indexPaths)
     }
 }
