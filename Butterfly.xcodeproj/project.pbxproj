@@ -38,8 +38,8 @@
 		FBA545DA25FFA3AA00112066 /* AuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFCAAC425FF2FC900D66CC9 /* AuthUser.swift */; };
 		FBA545DE25FFA3D300112066 /* FirestoreUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545DD25FFA3D300112066 /* FirestoreUser.swift */; };
 		FBA545DF25FFA3D300112066 /* FirestoreUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545DD25FFA3D300112066 /* FirestoreUser.swift */; };
-		FBA545E425FFACEA00112066 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545E325FFACEA00112066 /* UserRepository.swift */; };
-		FBA545E525FFACEA00112066 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545E325FFACEA00112066 /* UserRepository.swift */; };
+		FBA545E425FFACEA00112066 /* PreferencesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545E325FFACEA00112066 /* PreferencesRepository.swift */; };
+		FBA545E525FFACEA00112066 /* PreferencesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA545E325FFACEA00112066 /* PreferencesRepository.swift */; };
 		FBA546192600ECEF00112066 /* IconImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA546182600ECEF00112066 /* IconImage.swift */; };
 		FBA5461A2600ECEF00112066 /* IconImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA546182600ECEF00112066 /* IconImage.swift */; };
 		FBA546232600F47700112066 /* UploadIconImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA546222600F47700112066 /* UploadIconImage.swift */; };
@@ -59,6 +59,10 @@
 		FBF9A5DD2603975A00AE78DF /* SelectMemberCollectionViewItemPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A5DC2603975A00AE78DF /* SelectMemberCollectionViewItemPresenter.swift */; };
 		FBF9A5E726056E4F00AE78DF /* NSView+NoClipping.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A5E626056E4F00AE78DF /* NSView+NoClipping.swift */; };
 		FBF9A5EB2605898A00AE78DF /* SelectMemberCollectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A5EA2605898900AE78DF /* SelectMemberCollectionData.swift */; };
+		FBF9A60F2605BD8A00AE78DF /* FirestoreWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A60E2605BD8A00AE78DF /* FirestoreWorkspaceData.swift */; };
+		FBF9A6102605BD8A00AE78DF /* FirestoreWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A60E2605BD8A00AE78DF /* FirestoreWorkspaceData.swift */; };
+		FBF9A6142605BDD600AE78DF /* FirestoreWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A6132605BDD600AE78DF /* FirestoreWorkspace.swift */; };
+		FBF9A6152605BDD600AE78DF /* FirestoreWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A6132605BDD600AE78DF /* FirestoreWorkspace.swift */; };
 		FBFCAAC525FF2FCA00D66CC9 /* AuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFCAAC425FF2FC900D66CC9 /* AuthUser.swift */; };
 		FE979F1D6A67DA01DB4748E0 /* Pods_Butterfly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6B93144670685FE55D28ABD /* Pods_Butterfly.framework */; };
 /* End PBXBuildFile section */
@@ -96,7 +100,7 @@
 		FBA5459B25FF975800112066 /* SignOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOut.swift; sourceTree = "<group>"; };
 		FBA545CA25FFA28B00112066 /* FirestoreUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreUserData.swift; sourceTree = "<group>"; };
 		FBA545DD25FFA3D300112066 /* FirestoreUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreUser.swift; sourceTree = "<group>"; };
-		FBA545E325FFACEA00112066 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		FBA545E325FFACEA00112066 /* PreferencesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesRepository.swift; sourceTree = "<group>"; };
 		FBA546182600ECEF00112066 /* IconImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImage.swift; sourceTree = "<group>"; };
 		FBA546222600F47700112066 /* UploadIconImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadIconImage.swift; sourceTree = "<group>"; };
 		FBA546272600FA2700112066 /* UploadIconImageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadIconImageResponse.swift; sourceTree = "<group>"; };
@@ -113,6 +117,8 @@
 		FBF9A5DC2603975A00AE78DF /* SelectMemberCollectionViewItemPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMemberCollectionViewItemPresenter.swift; sourceTree = "<group>"; };
 		FBF9A5E626056E4F00AE78DF /* NSView+NoClipping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+NoClipping.swift"; sourceTree = "<group>"; };
 		FBF9A5EA2605898900AE78DF /* SelectMemberCollectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMemberCollectionData.swift; sourceTree = "<group>"; };
+		FBF9A60E2605BD8A00AE78DF /* FirestoreWorkspaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreWorkspaceData.swift; sourceTree = "<group>"; };
+		FBF9A6132605BDD600AE78DF /* FirestoreWorkspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreWorkspace.swift; sourceTree = "<group>"; };
 		FBFCAAC425FF2FC900D66CC9 /* AuthUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUser.swift; sourceTree = "<group>"; };
 		FDD6B8BFAC0A461437292A6C /* Pods-Butterfly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Butterfly.release.xcconfig"; path = "Target Support Files/Pods-Butterfly/Pods-Butterfly.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -232,6 +238,7 @@
 		FBA5446825FA55A300112066 /* Firestore */ = {
 			isa = PBXGroup;
 			children = (
+				FBF9A60D2605BD5900AE78DF /* Workspace */,
 				FBA545C925FFA27400112066 /* User */,
 				FBA5447225FA55E500112066 /* FirestoreSetup.swift */,
 			);
@@ -303,7 +310,7 @@
 		FBA545EA25FFAD2900112066 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				FBA545E325FFACEA00112066 /* UserRepository.swift */,
+				FBA545E325FFACEA00112066 /* PreferencesRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -368,6 +375,15 @@
 				FBF9A5EA2605898900AE78DF /* SelectMemberCollectionData.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		FBF9A60D2605BD5900AE78DF /* Workspace */ = {
+			isa = PBXGroup;
+			children = (
+				FBF9A60E2605BD8A00AE78DF /* FirestoreWorkspaceData.swift */,
+				FBF9A6132605BDD600AE78DF /* FirestoreWorkspace.swift */,
+			);
+			path = Workspace;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -562,10 +578,11 @@
 			files = (
 				FBA5459C25FF975800112066 /* SignOut.swift in Sources */,
 				FBF9A5DD2603975A00AE78DF /* SelectMemberCollectionViewItemPresenter.swift in Sources */,
+				FBF9A6142605BDD600AE78DF /* FirestoreWorkspace.swift in Sources */,
 				FBA545DE25FFA3D300112066 /* FirestoreUser.swift in Sources */,
 				FBF9A5CD260392D500AE78DF /* SelectMemberViewController.swift in Sources */,
 				FBFCAAC525FF2FCA00D66CC9 /* AuthUser.swift in Sources */,
-				FBA545E425FFACEA00112066 /* UserRepository.swift in Sources */,
+				FBA545E425FFACEA00112066 /* PreferencesRepository.swift in Sources */,
 				FBA546412602416B00112066 /* PreferencesWorkspaceCollectionViewItem.swift in Sources */,
 				FBA545CB25FFA28B00112066 /* FirestoreUserData.swift in Sources */,
 				FBA544F325FD04BB00112066 /* EditableNSTextField.swift in Sources */,
@@ -585,6 +602,7 @@
 				FBA544C425FCF43600112066 /* PreferencesUserViewController.swift in Sources */,
 				FBA546382602409800112066 /* PreferencesWorkspaceViewController.swift in Sources */,
 				FBA5463C260240BF00112066 /* PreferencesWorkspaceInputViewController.swift in Sources */,
+				FBF9A60F2605BD8A00AE78DF /* FirestoreWorkspaceData.swift in Sources */,
 				FBA546192600ECEF00112066 /* IconImage.swift in Sources */,
 				FBA546282600FA2700112066 /* UploadIconImageResponse.swift in Sources */,
 				FBA2883A25F8896600D1B3BD /* AppDelegate.swift in Sources */,
@@ -596,9 +614,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBF9A6152605BDD600AE78DF /* FirestoreWorkspace.swift in Sources */,
 				FBA545D625FFA3AA00112066 /* FirestoreUserData.swift in Sources */,
 				FBA545D725FFA3AA00112066 /* SignUp.swift in Sources */,
 				FBA545D825FFA3AA00112066 /* SignIn.swift in Sources */,
+				FBF9A6102605BD8A00AE78DF /* FirestoreWorkspaceData.swift in Sources */,
 				FBA545D925FFA3AA00112066 /* SignOut.swift in Sources */,
 				FBA545DF25FFA3D300112066 /* FirestoreUser.swift in Sources */,
 				FBA545DA25FFA3AA00112066 /* AuthUser.swift in Sources */,
@@ -609,7 +629,7 @@
 				FBA546292600FA2700112066 /* UploadIconImageResponse.swift in Sources */,
 				FBA5443425FA554200112066 /* SceneDelegate.swift in Sources */,
 				FBA5447425FA55E500112066 /* FirestoreSetup.swift in Sources */,
-				FBA545E525FFACEA00112066 /* UserRepository.swift in Sources */,
+				FBA545E525FFACEA00112066 /* PreferencesRepository.swift in Sources */,
 				FBA5461A2600ECEF00112066 /* IconImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

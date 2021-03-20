@@ -15,7 +15,7 @@ class FirestoreUser {
     private let db = Firestore.firestore()
     private let userCollectionName = "users"
     
-    func index() -> Promise<[FirestoreUserData]> {
+    func index(userIdList: [String] = []) -> Promise<[FirestoreUserData]> {
         return Promise<[FirestoreUserData]>(in: .background, token: nil) { (resolve, reject, _) in
             self.db.collection(self.userCollectionName).getDocuments { (querySnapshot, error) in
                 if let _error = error {
@@ -76,6 +76,7 @@ class FirestoreUser {
             id: userId,
             iconName: snapshot["iconName"] as? String,
             name: (snapshot["name"] as? String) ?? "",
+            workspaceIdList: (snapshot["workspaceIdList"] as? [String]) ?? [],
             createdAt: (snapshot["createdAt"] as? Timestamp)?.dateValue() ?? Date(),
             updatedAt: (snapshot["updatedAt"] as? Timestamp)?.dateValue() ?? Date()
         )

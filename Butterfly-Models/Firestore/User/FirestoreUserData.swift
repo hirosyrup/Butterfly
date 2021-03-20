@@ -11,11 +11,12 @@ struct FirestoreUserData {
     var id: String
     var iconName: String?
     var name: String
+    var workspaceIdList: [String]
     var createdAt: Date
     var updatedAt: Date
     
     static func new() -> FirestoreUserData {
-        return FirestoreUserData(id: "", iconName: nil, name: "Anonymous", createdAt: Date(), updatedAt: Date())
+        return FirestoreUserData(id: "", iconName: nil, name: "Anonymous", workspaceIdList: [], createdAt: Date(), updatedAt: Date())
     }
     
     func copyCurrentAt() -> FirestoreUserData {

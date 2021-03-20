@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Hydra
 
 class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate {
     @IBOutlet weak var memberCollectionView: NSCollectionView!
@@ -27,17 +28,17 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, 
     
     private func fetch() {
         fetchIndicator.startAnimation(self)
-        UserRepository().index { (result) in
+        async({ _ -> [PreferencesRepository.UserData] in
+            return try await(PreferencesRepository.User().index())
+        }).then({ dataList in
+            self.userDataList = dataList.map({ (userData) -> SelectMemberCollectionData in
+                return SelectMemberCollectionData(userData: userData, selected: false)
+            })
+            self.memberCollectionView.reloadData()
+        }).catch { (error) in
+            AlertBuilder.createErrorAlert(title: "Error", message: "Failed to fetch member list. \(error.localizedDescription)").runModal()
+        }.always(in: .main) {
             self.fetchIndicator.stopAnimation(self)
-            switch result {
-            case .success(let dataList):
-                self.userDataList = dataList.map({ (userData) -> SelectMemberCollectionData in
-                    return SelectMemberCollectionData(userData: userData, selected: false)
-                })
-                self.memberCollectionView.reloadData()
-            case .failure(let error):
-                AlertBuilder.createErrorAlert(title: "Error", message: "Failed to fetch member list. \(error.localizedDescription)").runModal()
-            }
         }
     }
     

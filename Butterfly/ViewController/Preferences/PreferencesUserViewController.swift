@@ -40,7 +40,7 @@ class PreferencesUserViewController: NSViewController,
     
     private let settingUserDefault = SettingUserDefault.shared
     private let authUser = AuthUser.shared
-    private var userData: UserData?
+    private var userData: PreferencesRepository.UserData?
     private var isNameEdit = false
     private var requestState = RequestState.none
     
@@ -236,34 +236,46 @@ class PreferencesUserViewController: NSViewController,
         if let currentUser = authUser.currentUser() {
             requestState = RequestState.isFetchingUser
             updateViews()
-            UserRepository().findOrCreate(userId: currentUser.uid, completion: { (result) in
+            async({ _ -> PreferencesRepository.UserData in
+                return try await(PreferencesRepository.User().findOrCreate(userId: currentUser.uid))
+            }).then({ fetchedUserData in
+                self.userData = fetchedUserData
+                self.updateUserInfoViews()
+            }).catch { (error) in
+                AlertBuilder.createErrorAlert(title: "Error", message: "Failed to fetch your info. \(error.localizedDescription)").runModal()
+            }.always(in: .main) {
                 self.requestState = RequestState.none
                 self.updateViews()
-                switch result {
-                case .success(let fetchedUserData):
-                    self.userData = fetchedUserData
-                    self.updateUserInfoViews()
-                case .failure(let error):
-                    AlertBuilder.createErrorAlert(title: "Error", message: "Failed to fetch your info. \(error.localizedDescription)").runModal()
-                }
-            })
+            }
         }
     }
     
-    private func saveName(currentUserData: UserData, name: String, compltion: @escaping (Result<UserData, Error>) -> Void) {
-        var newUserData = currentUserData
-        newUserData.name = name
-        UserRepository().update(userData: newUserData, compltion: { (result) in
-            compltion(result)
-        })
+    private func saveName(currentUserData: PreferencesRepository.UserData, name: String) -> Promise<PreferencesRepository.UserData> {
+        return Promise<PreferencesRepository.UserData>(in: .background, token: nil) { (resolve, reject, _) in
+            async({ _ -> PreferencesRepository.UserData in
+                var newUserData = currentUserData
+                newUserData.name = name
+                return try await(PreferencesRepository.User().update(userData: newUserData))
+            }).then({ userData in
+                resolve(userData)
+            }).catch { (error) in
+                reject(error)
+            }
+        }
     }
     
-    private func saveIconName(currentUserData: UserData, iconName: String, compltion: @escaping (Result<UserData, Error>) -> Void) {
-        var newUserData = currentUserData
-        newUserData.iconName = iconName
-        UserRepository().update(userData: newUserData, compltion: { (result) in
-            compltion(result)
-        })
+    private func saveIconName(currentUserData: PreferencesRepository.UserData, iconName: String) -> Promise<PreferencesRepository.UserData> {
+        return Promise<PreferencesRepository.UserData>(in: .background, token: nil) { (resolve, reject, _) in
+            async({ _ -> PreferencesRepository.UserData in
+                var newUserData = currentUserData
+                newUserData.iconName = iconName
+                return try await(PreferencesRepository.User().update(userData: newUserData))
+            }).then({ userData in
+                resolve(userData)
+            }).catch { (error) in
+                reject(error)
+            }
+        }
     }
     
     private func updateUserInfoViews() {
@@ -289,16 +301,15 @@ class PreferencesUserViewController: NSViewController,
             switch result {
             case .success(let response):
                 self.setIconImage(url: response.downloadUrl)
-                self.saveIconName(currentUserData: _userData, iconName: response.savedName) { (saveResult) in
+                async({ _ -> PreferencesRepository.UserData in
+                    return try await(self.saveIconName(currentUserData: _userData, iconName: response.savedName))
+                }).then({ response in
+                    self.userData?.iconName = response.iconName
+                }).catch { (error) in
+                    AlertBuilder.createErrorAlert(title: "Error", message: "Failed to save the icon name. \(error.localizedDescription)").runModal()
+                }.always(in: .main) {
                     self.requestState = RequestState.none
                     self.updateViews()
-                    switch saveResult {
-                    case .success(let response):
-                        self.userData?.iconName = response.iconName
-                        break
-                    case .failure(let error):
-                        AlertBuilder.createErrorAlert(title: "Error", message: "Failed to save the icon name. \(error.localizedDescription)").runModal()
-                    }
                 }
             case .failure(let error):
                 AlertBuilder.createErrorAlert(title: "Error", message: "Failed to upload the icon image. \(error.localizedDescription)").runModal()
@@ -365,17 +376,18 @@ class PreferencesUserViewController: NSViewController,
             if let _userData = userData {
                 requestState = RequestState.isProcessingSaveName
                 updateViews()
-                saveName(currentUserData: _userData, name: userNameTextField.stringValue) { (result) in
+                let newName = self.userNameTextField.stringValue
+                async({ _ -> PreferencesRepository.UserData in
+                    return try await(self.saveName(currentUserData: _userData, name: newName))
+                }).then({ savedUserData in
+                    self.userData = savedUserData
+                    self.isNameEdit = false
+                    self.updateViews()
+                }).catch { (error) in
+                    AlertBuilder.createErrorAlert(title: "Error", message: "Failed to update your name. \(error.localizedDescription)").runModal()
+                }.always(in: .main) {
                     self.requestState = RequestState.none
                     self.updateViews()
-                    switch result {
-                    case .success(let savedUserData):
-                        self.userData = savedUserData
-                        self.isNameEdit = false
-                        self.updateViews()
-                    case .failure(let error):
-                        AlertBuilder.createErrorAlert(title: "Error", message: "Failed to update your name. \(error.localizedDescription)").runModal()
-                    }
                 }
             }
         } else {
