@@ -9,7 +9,7 @@ import Cocoa
 import Hydra
 
 protocol SelectMemberViewControllerDelegate: class {
-    func didChangeSelectedUserList(vc: SelectMemberViewController, selectedUserDataList: [PreferencesRepository.UserData])
+    func didChangeSelectedUserList(vc: SelectMemberViewController, selectedIndices: [Int])
 }
 
 class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate {
@@ -19,9 +19,10 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, 
     
     private let cellId = "SelectMemberCollectionViewItem"
     private var userDataList = [SelectMemberCollectionData]()
-    private var initialSelectedUserList = [PreferencesRepository.UserData]()
+    private var initialSelectedUserList = [SelectMemberUserData]()
     
-    weak var delegate: SelectMemberViewControllerDelegate?
+    private(set) var selectMemberFetch: SelectMemberFetchProtocol!
+    private weak var delegate: SelectMemberViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,10 +34,16 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, 
         fetch()
     }
     
+    func setup(selectMemberFetch: SelectMemberFetchProtocol, userList: [SelectMemberUserData], delegate: SelectMemberViewControllerDelegate? = nil) {
+        self.selectMemberFetch = selectMemberFetch
+        self.initialSelectedUserList = userList
+        self.delegate = delegate
+    }
+    
     private func fetch() {
         fetchIndicator.startAnimation(self)
-        async({ _ -> [PreferencesRepository.UserData] in
-            return try await(PreferencesRepository.User().index())
+        async({ _ -> [SelectMemberUserData] in
+            return try await(self.selectMemberFetch.fetchMembers())
         }).then({ dataList in
             self.userDataList = dataList.map({ (userData) -> SelectMemberCollectionData in
                 return SelectMemberCollectionData(userData: userData, selected: self.isAlreadySelected(data: userData))
@@ -49,12 +56,8 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, 
         }
     }
     
-    func isAlreadySelected(data: PreferencesRepository.UserData) -> Bool {
+    func isAlreadySelected(data: SelectMemberUserData) -> Bool {
         return initialSelectedUserList.first(where: { $0.id == data.id }) != nil
-    }
-    
-    func setup(userList: [PreferencesRepository.UserData]) {
-        initialSelectedUserList = userList
     }
     
     func numberOfSections(in collectionView: NSCollectionView) -> Int {
@@ -82,10 +85,13 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, 
                 item.updateView(presenter: presenter)
             }
         }
-        let selectedUserDataList = userDataList.filter { $0.selected }.map({ (data) -> PreferencesRepository.UserData in
-            return data.userData
-        })
-        delegate?.didChangeSelectedUserList(vc: self, selectedUserDataList: selectedUserDataList)
+        var selectedIndices = [Int]()
+        for (index, value) in userDataList.enumerated() {
+            if value.selected {
+                selectedIndices.append(index)
+            }
+        }
+        delegate?.didChangeSelectedUserList(vc: self, selectedIndices: selectedIndices)
         memberCollectionView.deselectItems(at: indexPaths)
     }
 }

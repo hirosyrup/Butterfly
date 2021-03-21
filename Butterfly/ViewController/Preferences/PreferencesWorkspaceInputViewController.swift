@@ -43,14 +43,16 @@ class PreferencesWorkspaceInputViewController: NSViewController,
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let selectVc = segue.destinationController as? SelectMemberViewController {
-            selectVc.setup(userList: selectedUserDataList)
-            selectVc.delegate = self
+            selectVc.setup(selectMemberFetch: SelectMemberFetchForAll(), userList: createInitialSelectedUserList(), delegate: self)
         }
     }
     
     private func setup() {
         nameTextField.stringValue = workspaceData.name
-        selectedUserDataList = workspaceData.users
+    }
+    
+    private func createInitialSelectedUserList() -> [SelectMemberUserData] {
+        return workspaceData.users.map { SelectMemberUserData(id: $0.id, iconImageUrl: $0.iconImageUrl, name: $0.name) }
     }
     
     private func updateViews() {
@@ -69,8 +71,9 @@ class PreferencesWorkspaceInputViewController: NSViewController,
         updateViews()
     }
     
-    func didChangeSelectedUserList(vc: SelectMemberViewController, selectedUserDataList: [PreferencesRepository.UserData]) {
-        self.selectedUserDataList = selectedUserDataList
+    func didChangeSelectedUserList(vc: SelectMemberViewController, selectedIndices: [Int]) {
+        let fetch = vc.selectMemberFetch as! SelectMemberFetchForAll
+        self.selectedUserDataList = fetch.originalUserDataListAt(selectedIndices)
         self.updateViews()
     }
     

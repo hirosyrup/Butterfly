@@ -47,4 +47,7 @@ class MeetingViewController: NSViewController {
     @IBAction func didChangePopup(_ sender: Any) {
         updateWorkspacePopupItemTitle()
     }
+    
+    @IBAction func pushAddButton(_ sender: Any) {
+    }
 }

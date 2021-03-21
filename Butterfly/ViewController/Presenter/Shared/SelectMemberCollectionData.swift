@@ -8,6 +8,6 @@
 import Foundation
 
 struct SelectMemberCollectionData {
-    var userData: PreferencesRepository.UserData
+    var userData: SelectMemberUserData
     var selected: Bool
 }

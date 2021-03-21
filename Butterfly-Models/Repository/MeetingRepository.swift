@@ -34,6 +34,14 @@ class MeetingRepository {
         }
     }
     
+    struct MeetingData {
+        
+    }
+    
+    struct MeetingUserData {
+        
+    }
+    
     class User {
         private let user = FirestoreUser()
         private let workspace = FirestoreWorkspace()

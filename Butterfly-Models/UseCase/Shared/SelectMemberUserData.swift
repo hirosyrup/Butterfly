@@ -1,0 +1,14 @@
+//
+//  SelectMemberUserData.swift
+//  Butterfly
+//
+//  Created by 岩井 宏晃 on 2021/03/21.
+//
+
+import Foundation
+
+struct SelectMemberUserData {
+    let id: String
+    let iconImageUrl: URL?
+    let name: String
+}
