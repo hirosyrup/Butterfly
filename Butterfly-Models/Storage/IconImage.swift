@@ -63,7 +63,7 @@ class IconImage {
     }
     
     private func createExpiredDateTimeInterval() -> TimeInterval {
-        return Calendar.current.date(byAdding: .minute, value: 9, to: Date())!.timeIntervalSince1970
+        return Calendar.current.date(byAdding: .minute, value: 30, to: Date())!.timeIntervalSince1970
     }
     
     private func iconRef(fileName: String) -> StorageReference  {
