@@ -7,7 +7,8 @@
 
 import Cocoa
 
-class MeetingViewController: NSViewController {
+class MeetingViewController: NSViewController,
+                             MeetingInputViewControllerDelegate {
     
     @IBOutlet weak var workspacePopupButton: NSPopUpButton!
     @IBOutlet weak var noMeetingsLabel: NSTextField!
@@ -35,8 +36,13 @@ class MeetingViewController: NSViewController {
     }
     
     private func updateWorkspacePopupItemTitle() {
-        guard let _userData = userData else { return }
-        workspacePopupButton.setTitle(_userData.workspaceList[workspacePopupButton.indexOfSelectedItem - 1].name)
+        guard let workspaceData = selectedWorkspaceData() else { return }
+        workspacePopupButton.setTitle(workspaceData.name)
+    }
+    
+    private func selectedWorkspaceData() -> WorkspaceRepository.WorkspaceData? {
+        guard let _userData = userData else { return nil }
+        return _userData.workspaceList[workspacePopupButton.indexOfSelectedItem - 1]
     }
     
     func setup(userData: WorkspaceRepository.UserData) {
@@ -44,10 +50,18 @@ class MeetingViewController: NSViewController {
         updateWorkspacePopupItems()
     }
     
+    func willDismiss(vc: MeetingInputViewController) {
+        
+    }
+    
     @IBAction func didChangePopup(_ sender: Any) {
         updateWorkspacePopupItemTitle()
     }
     
     @IBAction func pushAddButton(_ sender: Any) {
+        if let workspaceData = selectedWorkspaceData() {
+            let vc = MeetingInputViewController.create(workspaceId: workspaceData.id, meetingData: nil, delegate: self)
+            presentAsSheet(vc)
+        }
     }
 }

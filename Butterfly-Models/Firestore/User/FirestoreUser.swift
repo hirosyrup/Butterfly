@@ -17,7 +17,11 @@ class FirestoreUser {
     
     func index(userIdList: [String] = []) -> Promise<[FirestoreUserData]> {
         return Promise<[FirestoreUserData]>(in: .background, token: nil) { (resolve, reject, _) in
-            self.db.collection(self.userCollectionName).getDocuments { (querySnapshot, error) in
+            var reference = self.db.collection(self.userCollectionName) as Query
+            if !userIdList.isEmpty {
+                reference = reference.whereField(FieldPath.documentID(), in: userIdList)
+            }
+            reference.getDocuments { (querySnapshot, error) in
                 if let _error = error {
                     reject(_error)
                 } else {

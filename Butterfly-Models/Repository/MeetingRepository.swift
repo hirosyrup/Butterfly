@@ -44,6 +44,39 @@ class MeetingRepository {
             self.iconName = firestoreData.iconName
             self.name = firestoreData.name
         }
+        
+        init(iconImageUrl: URL?, firestoreData: FirestoreUserData) {
+            self.iconImageUrl = iconImageUrl
+            self.id = firestoreData.id
+            self.iconName = firestoreData.iconName
+            self.name = firestoreData.name
+        }
+    }
+    
+    class User {
+        private let workspace = FirestoreWorkspace()
+        private let user = FirestoreUser()
+        private let iconImage = IconImage()
+        
+        func fetchUsers(workspaceId: String) -> Promise<[MeetingUserData]> {
+            return Promise<[MeetingUserData]>(in: .background, token: nil) { (resolve, reject, _) in
+                async({ _ -> [MeetingUserData] in
+                    let firestoreWorkspaceData = try await(self.workspace.fetch(workspaceId: workspaceId))!
+                    let firestoreUserDataList = try await(self.user.index(userIdList: firestoreWorkspaceData.userIdList))
+                    return try firestoreUserDataList.map { (userData) -> MeetingUserData in
+                        var iconUrl: URL?
+                        if let iconName = userData.iconName {
+                            iconUrl = try await(self.iconImage.fetchDownloadUrl(fileName: iconName))
+                        }
+                        return MeetingUserData(iconImageUrl: iconUrl, firestoreData: userData)
+                    }
+                }).then({ meetingUserDataList in
+                    resolve(meetingUserDataList)
+                }).catch { (error) in
+                    reject(error)
+                }
+            }
+        }
     }
     
     class Meeting {
@@ -54,16 +87,43 @@ class MeetingRepository {
             return Promise<MeetingData>(in: .background, token: nil) { (resolve, reject, _) in
                 async({ _ -> MeetingData in
                     let createdFirestoreMeetingData = try await(self.meeting.add(workspaceId: workspaceId, data: meetingData.toFirestoreData()))
-                    let meetingUserDataList = try createdFirestoreMeetingData.userList.map { (user) -> MeetingUserData in
+                    return try await(self.createMeetingData(firestoreMeetingData: createdFirestoreMeetingData))
+                }).then({ workspaceData in
+                    resolve(workspaceData)
+                }).catch { (error) in
+                    reject(error)
+                }
+            }
+        }
+        
+        func update(workspaceId: String, meetingData: MeetingData) -> Promise<MeetingData> {
+            return Promise<MeetingData>(in: .background, token: nil) { (resolve, reject, _) in
+                async({ _ -> MeetingData in
+                    let meetingId = meetingData.original.id
+                    let firestoreMeetingData = meetingData.toFirestoreData().copyCurrentAt()
+                    let savedFirestoreMeetingData = try await(self.meeting.update(workspaceId: workspaceId, meetingId: meetingId, data: firestoreMeetingData))
+                    return try await(self.createMeetingData(firestoreMeetingData: savedFirestoreMeetingData))
+                }).then({newMeetingData in
+                    resolve(newMeetingData)
+                }).catch { (error) in
+                    reject(error)
+                }
+            }
+        }
+        
+        private func createMeetingData(firestoreMeetingData: FirestoreMeetingData) -> Promise<MeetingData> {
+            return Promise<MeetingData>(in: .background, token: nil) { (resolve, reject, _) in
+                async({ _ -> MeetingData in
+                    let meetingUserDataList = try firestoreMeetingData.userList.map { (user) -> MeetingUserData in
                         var iconUrl: URL?
                         if let iconName = user.iconName {
                             iconUrl = try await(self.iconImage.fetchDownloadUrl(fileName: iconName))
                         }
                         return MeetingUserData(iconImageUrl: iconUrl, firestoreData: user)
                     }
-                    return MeetingData(userList: meetingUserDataList, original: createdFirestoreMeetingData)
-                }).then({ workspaceData in
-                    resolve(workspaceData)
+                    return MeetingData(userList: meetingUserDataList, original: firestoreMeetingData)
+                }).then({newWorkspaceData in
+                    resolve(newWorkspaceData)
                 }).catch { (error) in
                     reject(error)
                 }

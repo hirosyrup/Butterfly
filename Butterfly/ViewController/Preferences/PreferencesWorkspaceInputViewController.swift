@@ -9,7 +9,7 @@ import Cocoa
 import Hydra
 
 protocol PreferencesWorkspaceInputViewControllerDelegate: class {
-    func willDissmiss(vc: PreferencesWorkspaceInputViewController)
+    func willDismiss(vc: PreferencesWorkspaceInputViewController)
 }
 
 class PreferencesWorkspaceInputViewController: NSViewController,
@@ -86,7 +86,7 @@ class PreferencesWorkspaceInputViewController: NSViewController,
         async({ _ -> PreferencesRepository.WorkspaceData in
             return try await(SaveWorkspace(data: newWorkspaceData).save())
         }).then({ savedWorkspaceData in
-            self.delegate?.willDissmiss(vc: self)
+            self.delegate?.willDismiss(vc: self)
             self.dismiss(self)
         }).catch { (error) in
             AlertBuilder.createErrorAlert(title: "Error", message: "Failed to save workspace. \(error.localizedDescription)").runModal()
@@ -97,7 +97,7 @@ class PreferencesWorkspaceInputViewController: NSViewController,
     }
     
     @IBAction func pushCancel(_ sender: Any) {
-        delegate?.willDissmiss(vc: self)
+        delegate?.willDismiss(vc: self)
         dismiss(self)
     }
 }

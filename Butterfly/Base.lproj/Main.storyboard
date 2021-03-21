@@ -881,10 +881,10 @@ DQ
             </objects>
             <point key="canvasLocation" x="1036" y="284"/>
         </scene>
-        <!--View Controller-->
+        <!--Meeting Input View Controller-->
         <scene sceneID="igB-Lz-est">
             <objects>
-                <viewController id="URI-vu-EkG" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MeetingInputViewController" id="URI-vu-EkG" customClass="MeetingInputViewController" customModule="Butterfly" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="PER-S2-TiI">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="341"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -932,7 +932,7 @@ Gw
 </string>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="pushCancel:" target="y0a-4f-gt5" id="L1K-tX-MP8"/>
+                                    <action selector="pushCancel:" target="URI-vu-EkG" id="Vk3-Fm-wyj"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JdQ-2g-id7">
@@ -940,7 +940,7 @@ Gw
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="daN-4A-hsP"/>
                                 </constraints>
-                                <buttonCell key="cell" type="push" title="Create" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="X2k-Q7-3qt">
+                                <buttonCell key="cell" type="push" title="Submit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="X2k-Q7-3qt">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                     <string key="keyEquivalent" base64-UTF8="YES">
@@ -948,7 +948,7 @@ DQ
 </string>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="pushOk:" target="y0a-4f-gt5" id="GKg-HX-TtH"/>
+                                    <action selector="pushSubmit:" target="URI-vu-EkG" id="Uqv-Lw-n5N"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -970,6 +970,12 @@ DQ
                             <constraint firstItem="7rn-Oz-RqA" firstAttribute="leading" secondItem="CdJ-SM-jkx" secondAttribute="leading" id="zD1-pX-p54"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="G17-2m-vae" id="YJT-BR-gY5"/>
+                        <outlet property="memberSelectContainer" destination="Srq-Y4-i8w" id="Ax3-CQ-feH"/>
+                        <outlet property="nameTextField" destination="CdJ-SM-jkx" id="DRB-SU-Yiw"/>
+                        <outlet property="submitButton" destination="JdQ-2g-id7" id="PB4-M2-iNA"/>
+                    </connections>
                 </viewController>
                 <customObject id="ppK-RQ-2Pq" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

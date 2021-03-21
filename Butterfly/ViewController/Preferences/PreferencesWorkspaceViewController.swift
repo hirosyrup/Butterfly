@@ -94,7 +94,7 @@ class PreferencesWorkspaceViewController: NSViewController,
         updateEditButton()
     }
     
-    func willDissmiss(vc: PreferencesWorkspaceInputViewController) {
+    func willDismiss(vc: PreferencesWorkspaceInputViewController) {
         fetch()
     }
     

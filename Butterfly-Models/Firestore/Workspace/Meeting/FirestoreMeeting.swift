@@ -34,6 +34,20 @@ class FirestoreMeeting {
         }
     }
     
+    func update(workspaceId: String, meetingId: String, data: FirestoreMeetingData) -> Promise<FirestoreMeetingData> {
+        return Promise<FirestoreMeetingData>(in: .background, token: nil) { (resolve, reject, _) in
+            self.reference(workspaceId: workspaceId).document(meetingId).setData(self.meetingToFirestoreData(data: data)) { (error) in
+                if let _error = error {
+                    reject(_error)
+                } else {
+                    var newData = data
+                    newData.id = meetingId
+                    resolve(newData)
+                }
+            }
+        }
+    }
+    
     private func meetingToFirestoreData(data: FirestoreMeetingData) -> [String: Any] {
         return [
             "name": data.name,
