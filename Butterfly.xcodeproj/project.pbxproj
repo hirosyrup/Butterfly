@@ -12,6 +12,8 @@
 		FB0D2F7126063965001403A5 /* TextCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F6F26063965001403A5 /* TextCollectionViewItem.swift */; };
 		FB0D2F7526063999001403A5 /* NSColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F7426063999001403A5 /* NSColor+AppColor.swift */; };
 		FB0D2F7B26063FBF001403A5 /* PreferencesWorkspaceCollectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F7A26063FBF001403A5 /* PreferencesWorkspaceCollectionData.swift */; };
+		FB0D2F842606FD14001403A5 /* MeetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F832606FD14001403A5 /* MeetingViewController.swift */; };
+		FB0D2F882606FEF5001403A5 /* MeetingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F872606FEF5001403A5 /* MeetingRepository.swift */; };
 		FBA2883A25F8896600D1B3BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2883925F8896600D1B3BD /* AppDelegate.swift */; };
 		FBA2883C25F8896600D1B3BD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2883B25F8896600D1B3BD /* MainViewController.swift */; };
 		FBA2883E25F8896700D1B3BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBA2883D25F8896700D1B3BD /* Assets.xcassets */; };
@@ -81,6 +83,8 @@
 		FB0D2F6F26063965001403A5 /* TextCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCollectionViewItem.swift; sourceTree = "<group>"; };
 		FB0D2F7426063999001403A5 /* NSColor+AppColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+AppColor.swift"; sourceTree = "<group>"; };
 		FB0D2F7A26063FBF001403A5 /* PreferencesWorkspaceCollectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWorkspaceCollectionData.swift; sourceTree = "<group>"; };
+		FB0D2F832606FD14001403A5 /* MeetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewController.swift; sourceTree = "<group>"; };
+		FB0D2F872606FEF5001403A5 /* MeetingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingRepository.swift; sourceTree = "<group>"; };
 		FBA2883625F8896600D1B3BD /* Butterfly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Butterfly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA2883925F8896600D1B3BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBA2883B25F8896600D1B3BD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -170,12 +174,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FB0D2F802606FCE2001403A5 /* Meeting */ = {
+			isa = PBXGroup;
+			children = (
+				FB0D2F832606FD14001403A5 /* MeetingViewController.swift */,
+			);
+			path = Meeting;
+			sourceTree = "<group>";
+		};
 		FBA0D99325F9D9F3003FBC86 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				FBF9A5DA2603973600AE78DF /* Presenter */,
 				FBF9A5CB260392B800AE78DF /* Shared */,
 				FBA544AB25FA5CFF00112066 /* Preferences */,
+				FB0D2F802606FCE2001403A5 /* Meeting */,
 				FBA2883B25F8896600D1B3BD /* MainViewController.swift */,
 			);
 			path = ViewController;
@@ -319,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				FBA545E325FFACEA00112066 /* PreferencesRepository.swift */,
+				FB0D2F872606FEF5001403A5 /* MeetingRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -601,6 +615,8 @@
 				FBF9A6282606302200AE78DF /* SaveWorkspace.swift in Sources */,
 				FBA5447325FA55E500112066 /* FirestoreSetup.swift in Sources */,
 				FBF9A5C626038BCC00AE78DF /* NSImageView+AsyncLoad.swift in Sources */,
+				FB0D2F882606FEF5001403A5 /* MeetingRepository.swift in Sources */,
+				FB0D2F842606FD14001403A5 /* MeetingViewController.swift in Sources */,
 				FBA544B425FA61EA00112066 /* SettingUserDefault.swift in Sources */,
 				FBA2883C25F8896600D1B3BD /* MainViewController.swift in Sources */,
 				FBA544C425FCF43600112066 /* PreferencesUserViewController.swift in Sources */,

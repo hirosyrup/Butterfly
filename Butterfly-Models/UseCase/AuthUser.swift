@@ -32,7 +32,7 @@ class AuthUser {
     }
     
     func currentUser() -> User? {
-        if SettingUserDefault.shared.firebasePlistUrl() == nil {
+        if !FirestoreSetup().isConfigured() {
             return nil
         }
         return Auth.auth().currentUser

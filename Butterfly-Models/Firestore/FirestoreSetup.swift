@@ -24,4 +24,8 @@ class FirestoreSetup {
             Firestore.firestore().settings = FirestoreSettings()
         }
     }
+    
+    func isConfigured() -> Bool {
+        return FirebaseApp.app() != nil
+    }
 }

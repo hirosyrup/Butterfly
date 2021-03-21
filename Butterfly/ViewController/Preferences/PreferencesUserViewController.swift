@@ -171,7 +171,7 @@ class PreferencesUserViewController: NSViewController,
             fetchUserIndicator.stopAnimation(self)
             signInIndicator.stopAnimation(self)
             signUpIndicator.stopAnimation(self)
-            if settingUserDefault.firebasePlistUrl() == nil {
+            if !FirestoreSetup().isConfigured() {
                 signInButton.isHidden = true
                 signUpButton.isHidden = true
                 signOutButton.isHidden = true
@@ -341,10 +341,10 @@ class PreferencesUserViewController: NSViewController,
         requestState = RequestState.isPocessingSignIn
         updateViews()
         SignIn().send(email: emailTextField.stringValue, password: passwordTextField.stringValue) { (error) in
-            self.requestState = RequestState.none
-            self.updateViews()
             if let _error = error {
                 AlertBuilder.createErrorAlert(title: "Error", message: "Failed to sign in. \(_error.localizedDescription)").runModal()
+            } else {
+                self.fetchUser()
             }
         }
     }
