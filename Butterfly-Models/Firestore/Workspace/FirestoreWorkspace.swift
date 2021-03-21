@@ -17,9 +17,13 @@ class FirestoreWorkspace {
     private let db = Firestore.firestore()
     private let workspaceCollectionName = "workspaces"
     
+    func reference() -> CollectionReference {
+        return db.collection(workspaceCollectionName)
+    }
+    
     func index(userId: String) -> Promise<[FirestoreWorkspaceData]> {
         return Promise<[FirestoreWorkspaceData]>(in: .background, token: nil) { (resolve, reject, _) in
-            self.db.collection(self.workspaceCollectionName).whereField("userIdList", arrayContains: userId).getDocuments { (querySnapshot, error) in
+            self.reference().whereField("userIdList", arrayContains: userId).getDocuments { (querySnapshot, error) in
                 if let _error = error {
                     reject(_error)
                 } else {

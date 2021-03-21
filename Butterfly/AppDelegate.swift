@@ -22,6 +22,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         constructPopover()
         FirestoreSetup().setup()
         AuthUser.shared.listenAuthEvent()
+        if FirestoreSetup().isConfigured() && AuthUser.shared.isSignIn() {
+            FirestoreObserver.shared.listenWorkspace()
+        }
     }
     
     func applicationWillBecomeActive(_ notification: Notification) {
@@ -30,6 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         AuthUser.shared.unlistendAuthEvent()
+        FirestoreObserver.shared.unlistenWorkspace()
     }
     
     private func constructPopover() {

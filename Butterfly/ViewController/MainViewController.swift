@@ -8,7 +8,7 @@
 import Cocoa
 import Hydra
 
-class MainViewController: NSViewController, PreferencesWindowControllerDelegate {
+class MainViewController: NSViewController, PreferencesWindowControllerDelegate, FirestoreWorkspaceNotification {
     @IBOutlet weak var noteLabel: NSTextField!
     @IBOutlet weak var meetingVcContainer: NSView!
     @IBOutlet weak var loadingIndicator: NSProgressIndicator!
@@ -28,6 +28,7 @@ class MainViewController: NSViewController, PreferencesWindowControllerDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        FirestoreObserver.shared.addWorkspaceObserver(observer: self)
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
@@ -81,6 +82,12 @@ class MainViewController: NSViewController, PreferencesWindowControllerDelegate 
     
     func willClose(vc: PreferencesWindowController) {
         preferencesWindowController = nil
+    }
+    
+    func didChangeWorkspaceData(observer: FirestoreObserver) {
+        userData = nil
+        fetchUserData()
+        updateViews()
     }
     
     @IBAction func pushPreferences(_ sender: Any) {

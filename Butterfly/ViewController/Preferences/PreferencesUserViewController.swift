@@ -334,6 +334,12 @@ class PreferencesUserViewController: NSViewController,
     }
     
     func didUpdateUser(authUser: AuthUser) {
+        let firestoreObserver = FirestoreObserver.shared
+        if authUser.isSignIn() {
+            firestoreObserver.listenWorkspace()
+        } else {
+            firestoreObserver.unlistenWorkspace()
+        }
         fetchUser()
     }
     
