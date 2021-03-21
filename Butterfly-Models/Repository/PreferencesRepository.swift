@@ -57,7 +57,7 @@ class PreferencesRepository {
     
     class User {
         private let user = FirestoreUser()
-        private let iconImage = IconImage()
+        private let iconImage = IconImage.shared
         
         func index() -> Promise<[UserData]> {
             return Promise<[UserData]>(in: .background, token: nil) { (resolve, reject, _) in
@@ -131,7 +131,7 @@ class PreferencesRepository {
     class Workspace {
         private let workspace = FirestoreWorkspace()
         private let userRepository = PreferencesRepository.User()
-        private let iconImage = IconImage()
+        private let iconImage = IconImage.shared
         
         func index(userId: String) -> Promise<[WorkspaceData]> {
             return Promise<[WorkspaceData]>(in: .background, token: nil) { (resolve, reject, _) in

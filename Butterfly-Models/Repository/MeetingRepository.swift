@@ -62,7 +62,7 @@ class MeetingRepository {
     class User {
         private let workspace = FirestoreWorkspace()
         private let user = FirestoreUser()
-        private let iconImage = IconImage()
+        private let iconImage = IconImage.shared
         
         func fetchUsers(workspaceId: String) -> Promise<[MeetingUserData]> {
             return Promise<[MeetingUserData]>(in: .background, token: nil) { (resolve, reject, _) in
@@ -87,7 +87,7 @@ class MeetingRepository {
     
     class Meeting: FirestoreMeetingDelegate {
         private let meeting = FirestoreMeeting()
-        private let iconImage = IconImage()
+        private let iconImage = IconImage.shared
         weak var delegate: MeetingRepositoryDelegate?
         
         init() {

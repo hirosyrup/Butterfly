@@ -36,7 +36,7 @@ class WorkspaceRepository {
     class User {
         private let user = FirestoreUser()
         private let workspace = FirestoreWorkspace()
-        private let iconImage = IconImage()
+        private let iconImage = IconImage.shared
         private let userId: String
         
         init(userId: String) {

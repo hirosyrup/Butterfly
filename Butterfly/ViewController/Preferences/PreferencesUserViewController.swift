@@ -282,7 +282,7 @@ class PreferencesUserViewController: NSViewController,
         if let _userData = userData {
             userNameLabel.stringValue = _userData.name
             if let iconName = _userData.iconName {
-                IconImage().fetchDownloadUrl(fileName: iconName)
+                IconImage.shared.fetchDownloadUrl(fileName: iconName)
                     .then(in: .main, { downloadUrl in
                         self.setIconImage(url: downloadUrl)
                     })

@@ -12,7 +12,7 @@ class UploadIconImage {
     private let uploadImageUrl: URL
     private let fileName: String?
     private var uploadCompletion: ((Result<UploadIconImageResponse, Error>) -> Void)?
-    private let iconImage = IconImage()
+    private let iconImage = IconImage.shared
     
     init(uploadImageUrl: URL, fileName: String?) {
         self.uploadImageUrl = uploadImageUrl
