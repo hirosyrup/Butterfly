@@ -13,7 +13,7 @@ class MeetingViewController: NSViewController {
     @IBOutlet weak var noMeetingsLabel: NSTextField!
     @IBOutlet weak var loadingIndicator: NSProgressIndicator!
     @IBOutlet weak var collectionView: NSCollectionView!
-    private var userData: MeetingRepository.UserData?
+    private var userData: WorkspaceRepository.UserData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +39,7 @@ class MeetingViewController: NSViewController {
         workspacePopupButton.setTitle(_userData.workspaceList[workspacePopupButton.indexOfSelectedItem - 1].name)
     }
     
-    func setup(userData: MeetingRepository.UserData) {
+    func setup(userData: WorkspaceRepository.UserData) {
         self.userData = userData
         updateWorkspacePopupItems()
     }

@@ -16,7 +16,7 @@ class MainViewController: NSViewController, PreferencesWindowControllerDelegate,
     private let window = NSWindow()
     private var preferencesWindowController: PreferencesWindowController?
     private var meetingViewController: MeetingViewController!
-    private var userData: MeetingRepository.UserData?
+    private var userData: WorkspaceRepository.UserData?
     private var isLoadingUserData = false
     
     class func create() -> MainViewController {
@@ -49,8 +49,8 @@ class MainViewController: NSViewController, PreferencesWindowControllerDelegate,
         
         loadingIndicator.startAnimation(self)
         isLoadingUserData = true
-        async({ _ -> MeetingRepository.UserData in
-            return try await(MeetingRepository.User(userId: userId).fetch())
+        async({ _ -> WorkspaceRepository.UserData in
+            return try await(WorkspaceRepository.User(userId: userId).fetch())
         }).then({ userData in
             self.userData = userData
             self.isLoadingUserData = false

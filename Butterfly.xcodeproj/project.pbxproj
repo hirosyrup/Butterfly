@@ -22,6 +22,7 @@
 		FB0D2FA526073947001403A5 /* SelectMemberFetchForPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FA126073025001403A5 /* SelectMemberFetchForPreferences.swift */; };
 		FB0D2FAB26073CBD001403A5 /* FirestoreMeetingUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FAA26073CBD001403A5 /* FirestoreMeetingUserData.swift */; };
 		FB0D2FAF26073E23001403A5 /* FirestoreMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FAE26073E23001403A5 /* FirestoreMeeting.swift */; };
+		FB0D2FB3260742E6001403A5 /* WorkspaceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FB2260742E6001403A5 /* WorkspaceRepository.swift */; };
 		FBA2883A25F8896600D1B3BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2883925F8896600D1B3BD /* AppDelegate.swift */; };
 		FBA2883C25F8896600D1B3BD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2883B25F8896600D1B3BD /* MainViewController.swift */; };
 		FBA2883E25F8896700D1B3BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBA2883D25F8896700D1B3BD /* Assets.xcassets */; };
@@ -100,6 +101,7 @@
 		FB0D2FA126073025001403A5 /* SelectMemberFetchForPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMemberFetchForPreferences.swift; sourceTree = "<group>"; };
 		FB0D2FAA26073CBD001403A5 /* FirestoreMeetingUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreMeetingUserData.swift; sourceTree = "<group>"; };
 		FB0D2FAE26073E23001403A5 /* FirestoreMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreMeeting.swift; sourceTree = "<group>"; };
+		FB0D2FB2260742E6001403A5 /* WorkspaceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceRepository.swift; sourceTree = "<group>"; };
 		FBA2883625F8896600D1B3BD /* Butterfly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Butterfly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA2883925F8896600D1B3BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBA2883B25F8896600D1B3BD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				FBA545E325FFACEA00112066 /* PreferencesRepository.swift */,
+				FB0D2FB2260742E6001403A5 /* WorkspaceRepository.swift */,
 				FB0D2F872606FEF5001403A5 /* MeetingRepository.swift */,
 			);
 			path = Repository;
@@ -633,6 +636,7 @@
 				FBA5459C25FF975800112066 /* SignOut.swift in Sources */,
 				FBF9A5DD2603975A00AE78DF /* SelectMemberCollectionViewItemPresenter.swift in Sources */,
 				FB0D2F7526063999001403A5 /* NSColor+AppColor.swift in Sources */,
+				FB0D2FB3260742E6001403A5 /* WorkspaceRepository.swift in Sources */,
 				FBF9A6142605BDD600AE78DF /* FirestoreWorkspace.swift in Sources */,
 				FBA545DE25FFA3D300112066 /* FirestoreUser.swift in Sources */,
 				FBF9A5CD260392D500AE78DF /* SelectMemberViewController.swift in Sources */,
