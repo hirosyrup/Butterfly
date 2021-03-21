@@ -18,7 +18,8 @@
 		FB0D2F9126072D1B001403A5 /* FirestoreMeetingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F9026072D1B001403A5 /* FirestoreMeetingData.swift */; };
 		FB0D2F9826072EC1001403A5 /* SelectMemberFetchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F9726072EC1001403A5 /* SelectMemberFetchProtocol.swift */; };
 		FB0D2F9E26072F60001403A5 /* SelectMemberUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F9D26072F60001403A5 /* SelectMemberUserData.swift */; };
-		FB0D2FA226073025001403A5 /* SelectMemberFetchForAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FA126073025001403A5 /* SelectMemberFetchForAll.swift */; };
+		FB0D2FA226073025001403A5 /* SelectMemberFetchForPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FA126073025001403A5 /* SelectMemberFetchForPreferences.swift */; };
+		FB0D2FA526073947001403A5 /* SelectMemberFetchForPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FA126073025001403A5 /* SelectMemberFetchForPreferences.swift */; };
 		FBA2883A25F8896600D1B3BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2883925F8896600D1B3BD /* AppDelegate.swift */; };
 		FBA2883C25F8896600D1B3BD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2883B25F8896600D1B3BD /* MainViewController.swift */; };
 		FBA2883E25F8896700D1B3BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBA2883D25F8896700D1B3BD /* Assets.xcassets */; };
@@ -94,7 +95,7 @@
 		FB0D2F9026072D1B001403A5 /* FirestoreMeetingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreMeetingData.swift; sourceTree = "<group>"; };
 		FB0D2F9726072EC1001403A5 /* SelectMemberFetchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMemberFetchProtocol.swift; sourceTree = "<group>"; };
 		FB0D2F9D26072F60001403A5 /* SelectMemberUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMemberUserData.swift; sourceTree = "<group>"; };
-		FB0D2FA126073025001403A5 /* SelectMemberFetchForAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMemberFetchForAll.swift; sourceTree = "<group>"; };
+		FB0D2FA126073025001403A5 /* SelectMemberFetchForPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMemberFetchForPreferences.swift; sourceTree = "<group>"; };
 		FBA2883625F8896600D1B3BD /* Butterfly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Butterfly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA2883925F8896600D1B3BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBA2883B25F8896600D1B3BD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -205,7 +206,6 @@
 			children = (
 				FB0D2F9D26072F60001403A5 /* SelectMemberUserData.swift */,
 				FB0D2F9726072EC1001403A5 /* SelectMemberFetchProtocol.swift */,
-				FB0D2FA126073025001403A5 /* SelectMemberFetchForAll.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -354,6 +354,7 @@
 				FBA546222600F47700112066 /* UploadIconImage.swift */,
 				FBA546272600FA2700112066 /* UploadIconImageResponse.swift */,
 				FBF9A6272606302200AE78DF /* SaveWorkspace.swift */,
+				FB0D2FA126073025001403A5 /* SelectMemberFetchForPreferences.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -646,7 +647,7 @@
 				FBF9A5BD26038A7100AE78DF /* MemberIconView.swift in Sources */,
 				FBF9A5E726056E4F00AE78DF /* NSView+NoClipping.swift in Sources */,
 				FB0D2F7126063965001403A5 /* TextCollectionViewItem.swift in Sources */,
-				FB0D2FA226073025001403A5 /* SelectMemberFetchForAll.swift in Sources */,
+				FB0D2FA226073025001403A5 /* SelectMemberFetchForPreferences.swift in Sources */,
 				FBF9A6282606302200AE78DF /* SaveWorkspace.swift in Sources */,
 				FBA5447325FA55E500112066 /* FirestoreSetup.swift in Sources */,
 				FBF9A5C626038BCC00AE78DF /* NSImageView+AsyncLoad.swift in Sources */,
@@ -671,6 +672,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB0D2FA526073947001403A5 /* SelectMemberFetchForPreferences.swift in Sources */,
 				FBF9A6152605BDD600AE78DF /* FirestoreWorkspace.swift in Sources */,
 				FBA545D625FFA3AA00112066 /* FirestoreUserData.swift in Sources */,
 				FBA545D725FFA3AA00112066 /* SignUp.swift in Sources */,

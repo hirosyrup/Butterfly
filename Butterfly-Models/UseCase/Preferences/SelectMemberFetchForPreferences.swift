@@ -1,5 +1,5 @@
 //
-//  SelectMemberFetchForAll.swift
+//  SelectMemberFetchForPreferences.swift
 //  Butterfly
 //
 //  Created by 岩井 宏晃 on 2021/03/21.
@@ -8,7 +8,7 @@
 import Foundation
 import Hydra
 
-class SelectMemberFetchForAll: SelectMemberFetchProtocol {
+class SelectMemberFetchForPreferences: SelectMemberFetchProtocol {
     private var originalUserDataList = [PreferencesRepository.UserData]()
     
     func fetchMembers() -> Promise<[SelectMemberUserData]> {

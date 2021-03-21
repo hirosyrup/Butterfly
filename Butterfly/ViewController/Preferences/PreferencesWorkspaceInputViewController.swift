@@ -43,7 +43,7 @@ class PreferencesWorkspaceInputViewController: NSViewController,
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let selectVc = segue.destinationController as? SelectMemberViewController {
-            selectVc.setup(selectMemberFetch: SelectMemberFetchForAll(), userList: createInitialSelectedUserList(), delegate: self)
+            selectVc.setup(selectMemberFetch: SelectMemberFetchForPreferences(), userList: createInitialSelectedUserList(), delegate: self)
         }
     }
     
@@ -72,7 +72,7 @@ class PreferencesWorkspaceInputViewController: NSViewController,
     }
     
     func didChangeSelectedUserList(vc: SelectMemberViewController, selectedIndices: [Int]) {
-        let fetch = vc.selectMemberFetch as! SelectMemberFetchForAll
+        let fetch = vc.selectMemberFetch as! SelectMemberFetchForPreferences
         self.selectedUserDataList = fetch.originalUserDataListAt(selectedIndices)
         self.updateViews()
     }
