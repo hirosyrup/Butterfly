@@ -6,7 +6,13 @@
 //
 
 import Foundation
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 import Hydra
+
+protocol MeetingRepositoryDelegate: class {
+    func didChangeMeetingData(obj: MeetingRepository.Meeting, documentChanges: [RepositoryDocumentChange<MeetingRepository.MeetingData>])
+}
 
 class MeetingRepository {
     struct MeetingData {
@@ -79,9 +85,37 @@ class MeetingRepository {
         }
     }
     
-    class Meeting {
+    class Meeting: FirestoreMeetingDelegate {
         private let meeting = FirestoreMeeting()
         private let iconImage = IconImage()
+        weak var delegate: MeetingRepositoryDelegate?
+        
+        init() {
+            meeting.delegate = self
+        }
+        
+        func listen(workspaceId: String) {
+            meeting.listen(workspaceId: workspaceId)
+        }
+        
+        func unlisten() {
+            meeting.unlisten()
+        }
+        
+        func index(workspaceId: String) -> Promise<[MeetingData]> {
+            return Promise<[MeetingData]>(in: .background, token: nil) { (resolve, reject, _) in
+                async({ _ -> [MeetingData] in
+                    let firestoreMeetingDataList = try await(self.meeting.index(workspaceId: workspaceId))
+                    return try firestoreMeetingDataList.map { (firestoreMeetingData) -> MeetingData in
+                        return try await(self.createMeetingData(firestoreMeetingData: firestoreMeetingData))
+                    }
+                }).then({ workspaceData in
+                    resolve(workspaceData)
+                }).catch { (error) in
+                    reject(error)
+                }
+            }
+        }
         
         func create(workspaceId: String, meetingData: MeetingData) -> Promise<MeetingData> {
             return Promise<MeetingData>(in: .background, token: nil) { (resolve, reject, _) in
@@ -127,6 +161,19 @@ class MeetingRepository {
                 }).catch { (error) in
                     reject(error)
                 }
+            }
+        }
+        
+        func didChangeMeetingData(obj: FirestoreMeeting, documentChanges: [FirestoreDocumentChangeWithData<FirestoreMeetingData>]) {
+            if let _delegate = delegate {
+                async({ _ -> [RepositoryDocumentChange<MeetingData>] in
+                    return try documentChanges.map { (documentChange) -> RepositoryDocumentChange<MeetingData> in
+                        let meetingData = try await(self.createMeetingData(firestoreMeetingData: documentChange.firestoreData))
+                        return RepositoryDocumentChange<MeetingData>(documentChange: documentChange.documentChange, data: meetingData)
+                    }
+                }).then({ changes in
+                    _delegate.didChangeMeetingData(obj: self, documentChanges: changes)
+                })
             }
         }
     }

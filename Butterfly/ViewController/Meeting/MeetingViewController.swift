@@ -7,23 +7,20 @@
 
 import Cocoa
 
-class MeetingViewController: NSViewController,
-                             MeetingInputViewControllerDelegate {
+class MeetingViewController: NSViewController {
     
     @IBOutlet weak var workspacePopupButton: NSPopUpButton!
-    @IBOutlet weak var noMeetingsLabel: NSTextField!
-    @IBOutlet weak var loadingIndicator: NSProgressIndicator!
-    @IBOutlet weak var collectionView: NSCollectionView!
     private var userData: WorkspaceRepository.UserData?
+    private var collectionViewController: MeetingCollectionViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    private func updateViews() {
-        noMeetingsLabel.isHidden = true
-        loadingIndicator.isHidden = true
-        collectionView.isHidden = true
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if let vc = segue.destinationController as? MeetingCollectionViewController {
+            collectionViewController = vc
+        }
     }
     
     private func updateWorkspacePopupItems() {
@@ -45,22 +42,25 @@ class MeetingViewController: NSViewController,
         return _userData.workspaceList[workspacePopupButton.indexOfSelectedItem - 1]
     }
     
+    private func reloadCollection() {
+        guard let workspaceId = selectedWorkspaceData()?.id else { return }
+        collectionViewController.changeWorkspaceId(workspaceId: workspaceId)
+    }
+    
     func setup(userData: WorkspaceRepository.UserData) {
         self.userData = userData
         updateWorkspacePopupItems()
-    }
-    
-    func willDismiss(vc: MeetingInputViewController) {
-        
+        reloadCollection()
     }
     
     @IBAction func didChangePopup(_ sender: Any) {
         updateWorkspacePopupItemTitle()
+        reloadCollection()
     }
     
     @IBAction func pushAddButton(_ sender: Any) {
         if let workspaceData = selectedWorkspaceData() {
-            let vc = MeetingInputViewController.create(workspaceId: workspaceData.id, meetingData: nil, delegate: self)
+            let vc = MeetingInputViewController.create(workspaceId: workspaceData.id, meetingData: nil)
             presentAsSheet(vc)
         }
     }
