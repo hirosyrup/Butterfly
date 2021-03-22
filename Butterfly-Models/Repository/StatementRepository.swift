@@ -1,0 +1,132 @@
+//
+//  StatementRepository.swift
+//  Butterfly
+//
+//  Created by 岩井 宏晃 on 2021/03/22.
+//
+
+import Foundation
+import Hydra
+
+protocol StatementRepositoryDelegate: class {
+    func didChangeStatementData(obj: StatementRepository.Statement, documentChanges: [RepositoryDocumentChange<StatementRepository.StatementData>])
+}
+
+class StatementRepository {
+    struct StatementData {
+        fileprivate let original: FirestoreStatementData
+        let id: String
+        var statement: String
+        var user: StatementUserData
+        
+        init(user: StatementUserData, original: FirestoreStatementData? = nil) {
+            self.user = user
+            self.original = original ?? FirestoreStatementData.new()
+            self.id = self.original.id
+            self.statement = self.original.statement
+        }
+        
+        fileprivate func toFirestoreData() -> FirestoreStatementData {
+            var firestoreData = original
+            firestoreData.statement = statement
+            firestoreData.user = user.toFirestoreData()
+            return firestoreData
+        }
+    }
+    
+    struct StatementUserData {
+        let iconName: String?
+        let iconImageUrl: URL?
+        let name: String
+        
+        init(iconImageUrl: URL?, firestoreData: FirestoreStatementUserData) {
+            self.iconImageUrl = iconImageUrl
+            self.iconName = firestoreData.iconName
+            self.name = firestoreData.name
+        }
+        
+        fileprivate func toFirestoreData() -> FirestoreStatementUserData {
+            FirestoreStatementUserData(iconName: iconName, name: name)
+        }
+    }
+    
+    class Statement: FirestoreStatementDelegate {
+        private let statement = FirestoreStatement()
+        private let iconImage = IconImage.shared
+        weak var delegate: StatementRepositoryDelegate?
+        
+        init() {
+            statement.delegate = self
+        }
+        
+        func listen(workspaceId: String, meetingId: String) {
+            statement.listen(workspaceId: workspaceId, meetingId: meetingId)
+        }
+        
+        func unlisten() {
+            statement.unlisten()
+        }
+        
+        func create(workspaceId: String, meetingId: String, statementData: StatementData) -> Promise<StatementData> {
+            return Promise<StatementData>(in: .background, token: nil) { (resolve, reject, _) in
+                async({ _ -> StatementData in
+                    let createdFirestoreStatementData = try await(self.statement.add(workspaceId: workspaceId, meetingId: meetingId, data: statementData.toFirestoreData()))
+                    return try await(self.createStatementData(firestoreStatementData: createdFirestoreStatementData))
+                }).then({ statementData in
+                    resolve(statementData)
+                }).catch { (error) in
+                    reject(error)
+                }
+            }
+        }
+        
+        func update(workspaceId: String, meetingId: String, statementData: StatementData) -> Promise<StatementData> {
+            return Promise<StatementData>(in: .background, token: nil) { (resolve, reject, _) in
+                async({ _ -> StatementData in
+                    let statementId = statementData.original.id
+                    let firestoreStatementData = statementData.toFirestoreData().copyCurrentAt()
+                    let savedFirestoreStatementData = try await(self.statement.update(workspaceId: workspaceId, meetingId: meetingId, statementId: statementId, data: firestoreStatementData))
+                    return try await(self.createStatementData(firestoreStatementData: savedFirestoreStatementData))
+                }).then({newStatementData in
+                    resolve(newStatementData)
+                }).catch { (error) in
+                    reject(error)
+                }
+            }
+        }
+        
+        private func createStatementData(firestoreStatementData: FirestoreStatementData) -> Promise<StatementData> {
+            return Promise<StatementData>(in: .background, token: nil) { (resolve, reject, _) in
+                async({ _ -> StatementData in
+                    let user = firestoreStatementData.user
+                    var iconUrl: URL?
+                    if let iconName = user.iconName {
+                        iconUrl = try await(self.iconImage.fetchDownloadUrl(fileName: iconName))
+                    }
+                    let statementUserData = StatementUserData(iconImageUrl: iconUrl, firestoreData: user)
+                    
+                    return StatementData(user: statementUserData, original: firestoreStatementData)
+                }).then({newStatementData in
+                    resolve(newStatementData)
+                }).catch { (error) in
+                    reject(error)
+                }
+            }
+        }
+        
+        func didChangeStatementData(obj: FirestoreStatement, documentChanges: [FirestoreDocumentChangeWithData<FirestoreStatementData>]) {
+            if let _delegate = delegate {
+                async({ _ -> [RepositoryDocumentChange<StatementData>] in
+                    return try documentChanges.map { (documentChange) -> RepositoryDocumentChange<StatementData> in
+                        let statementData = try await(self.createStatementData(firestoreStatementData: documentChange.firestoreData))
+                        return RepositoryDocumentChange<StatementData>(documentChange: documentChange.documentChange, data: statementData)
+                    }
+                }).then({ changes in
+                    _delegate.didChangeStatementData(obj: self, documentChanges: changes)
+                }).catch { (error) in
+                    print("\(error.localizedDescription)")
+                }
+            }
+        }
+    }
+}

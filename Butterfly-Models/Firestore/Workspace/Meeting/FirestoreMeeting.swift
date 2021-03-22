@@ -112,7 +112,7 @@ class FirestoreMeeting {
             userList: userRawList.map({ (raw) -> FirestoreMeetingUserData in
                 FirestoreMeetingUserData(
                     id: (raw["id"] as? String) ?? "",
-                    iconName: (raw["iconName"] as? String) ?? "",
+                    iconName: raw["iconName"] as? String,
                     name: (raw["name"] as? String) ?? ""
                 )
             }),
