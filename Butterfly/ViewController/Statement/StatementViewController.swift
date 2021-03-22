@@ -25,6 +25,7 @@ class StatementViewController: NSViewController,
     private let statement = StatementRepository.Statement()
     private var statementDataList = [StatementRepository.StatementData]()
     private var calcHeightView: StatementCollectionViewItem!
+    private var lastScrollIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,6 +116,9 @@ class StatementViewController: NSViewController,
         }
         
         collectionView.reloadData()
+        if !statementDataList.isEmpty {
+            collectionView.animator().scrollToItems(at: [IndexPath(item: statementDataList.count - 1, section: 0)], scrollPosition: .bottom)
+        }
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {

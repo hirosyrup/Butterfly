@@ -17,7 +17,7 @@ class ObserveBreakInStatements {
     private let rmsThrethold = Float(-15.0)
     private let limitTime = TimeInterval(50)
     private var onDate: Date?
-    private let offThreshold = TimeInterval(0.7)
+    private let offThreshold = TimeInterval(1)
     private(set) var isSpeeking = false
     private var speekingStartDate: Date?
     let bufferSize: UInt32
