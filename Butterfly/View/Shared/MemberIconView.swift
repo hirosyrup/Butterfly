@@ -41,8 +41,12 @@ class MemberIconView: NSView {
         iconImageView.layer?.cornerRadius = bgRadius - imageTopConstraint.constant
     }
     
-    func updateView(imageUrl: URL, toolTip: String) {
-        iconImageView.loadImageAsynchronously(url: imageUrl)
+    func updateView(imageUrl: URL?, toolTip: String) {
+        if imageUrl != nil {
+            iconImageView.loadImageAsynchronously(url: imageUrl!)
+        } else {
+            iconImageView.image = NSImage(named: "no-image")
+        }
         toolTipLabel.stringValue = toolTip
     }
     

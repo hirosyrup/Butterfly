@@ -30,9 +30,7 @@ class SelectMemberCollectionViewItem: NSCollectionViewItem {
     }
     
     func updateView(presenter: SelectMemberCollectionViewItemPresenter) {
-        if let url = presenter.iconURL() {
-            self.memberIconView.updateView(imageUrl: url, toolTip: presenter.name())
-        }
+        memberIconView.updateView(imageUrl: presenter.iconURL(), toolTip: presenter.name())
         checkImageView.isHidden = !presenter.selected()
     }
 }
