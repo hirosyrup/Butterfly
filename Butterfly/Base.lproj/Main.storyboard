@@ -1010,7 +1010,114 @@ DQ
                 </viewController>
                 <customObject id="JLQ-2K-Dg3" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1405" y="32"/>
+            <point key="canvasLocation" x="1405" y="31.5"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="92E-4c-HaA">
+            <objects>
+                <windowController storyboardIdentifier="StatementWindowController" id="iqF-Q6-cPb" customClass="StatementWindowController" customModule="Butterfly" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Meeting" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="hky-hP-gHP">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="196" y="249" width="300" height="500"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
+                        <view key="contentView" id="QGH-0N-MmD">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="500"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </view>
+                        <connections>
+                            <outlet property="delegate" destination="iqF-Q6-cPb" id="l41-zt-QV0"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="CKB-Nz-iEY" kind="relationship" relationship="window.shadowedContentViewController" id="NlX-K0-zt7"/>
+                    </connections>
+                </windowController>
+                <customObject id="umA-KT-XNq" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1775" y="-76"/>
+        </scene>
+        <!--Meeting-->
+        <scene sceneID="lpX-VA-Kfx">
+            <objects>
+                <customObject id="hl6-nq-3RF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <viewController title="Meeting" storyboardIdentifier="StatementViewController" id="CKB-Nz-iEY" customClass="StatementViewController" customModule="Butterfly" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="Pi5-4C-Jb9">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="500"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8d4-4n-qdV">
+                                <rect key="frame" x="14" y="465" width="164" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="160" id="So0-h7-SPa"/>
+                                </constraints>
+                                <textFieldCell key="cell" title="Title" id="XOb-na-sd5">
+                                    <font key="font" metaFont="systemBold" size="16"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <box boxType="custom" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="mJX-lg-u99" customClass="MemberIconContainer" customModule="Butterfly" customModuleProvider="target">
+                                <rect key="frame" x="184" y="457" width="100" height="36"/>
+                                <view key="contentView" id="SgE-r7-bpd">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="36"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="3qq-B0-1zM"/>
+                                    <constraint firstAttribute="width" constant="100" id="x9e-Tw-BAL"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="heightConstraint" destination="3qq-B0-1zM" id="Sdk-hw-kQu"/>
+                                    <outlet property="widthConstraint" destination="x9e-Tw-BAL" id="rrl-za-503"/>
+                                </connections>
+                            </box>
+                            <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SIB-OR-x3s">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="449"/>
+                                <clipView key="contentView" id="vT8-z1-Vkn">
+                                    <rect key="frame" x="1" y="1" width="298" height="447"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <collectionView id="vcA-km-RXn">
+                                            <rect key="frame" x="0.0" y="0.0" width="298" height="158"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="mIG-VV-FLe">
+                                                <size key="itemSize" width="50" height="50"/>
+                                            </collectionViewFlowLayout>
+                                            <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </collectionView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="QQ4-gZ-9xb">
+                                    <rect key="frame" x="1" y="144" width="233" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="3ra-M1-mRb">
+                                    <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="mJX-lg-u99" secondAttribute="trailing" constant="16" id="FfV-69-g70"/>
+                            <constraint firstItem="SIB-OR-x3s" firstAttribute="top" secondItem="8d4-4n-qdV" secondAttribute="bottom" constant="16" id="IGh-XB-c35"/>
+                            <constraint firstItem="8d4-4n-qdV" firstAttribute="leading" secondItem="Pi5-4C-Jb9" secondAttribute="leading" constant="16" id="K7l-xk-Bv3"/>
+                            <constraint firstItem="8d4-4n-qdV" firstAttribute="centerY" secondItem="SgE-r7-bpd" secondAttribute="centerY" id="QPe-xf-M6O"/>
+                            <constraint firstItem="8d4-4n-qdV" firstAttribute="top" secondItem="Pi5-4C-Jb9" secondAttribute="top" constant="16" id="Ump-5n-CqS"/>
+                            <constraint firstAttribute="bottom" secondItem="SIB-OR-x3s" secondAttribute="bottom" id="Vdc-9B-NPv"/>
+                            <constraint firstAttribute="trailing" secondItem="SIB-OR-x3s" secondAttribute="trailing" id="Ycs-Af-V5I"/>
+                            <constraint firstItem="SIB-OR-x3s" firstAttribute="leading" secondItem="Pi5-4C-Jb9" secondAttribute="leading" id="cbh-h3-EVb"/>
+                            <constraint firstItem="SgE-r7-bpd" firstAttribute="leading" secondItem="8d4-4n-qdV" secondAttribute="trailing" constant="8" symbolic="YES" id="rBJ-87-AZi"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="vcA-km-RXn" id="UeY-De-Qks"/>
+                        <outlet property="memberIconContainer" destination="mJX-lg-u99" id="Izf-Ax-sX7"/>
+                        <outlet property="titleLabel" destination="8d4-4n-qdV" id="jkS-aV-P7K"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2133" y="-109"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

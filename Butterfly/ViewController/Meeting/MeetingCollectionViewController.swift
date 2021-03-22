@@ -7,8 +7,13 @@
 
 import Cocoa
 
+protocol MeetingCollectionViewControllerDelegate: class {
+    func didClickItem(vc: MeetingCollectionViewController, data: MeetingRepository.MeetingData)
+}
+
 class MeetingCollectionViewController: NSViewController,
                                        NSCollectionViewDataSource,
+                                       NSCollectionViewDelegate,
                                        MeetingRepositoryDelegate {
     @IBOutlet weak var loadingIndicator: NSProgressIndicator!
     @IBOutlet weak var noMeetingLabel: NSTextField!
@@ -17,6 +22,7 @@ class MeetingCollectionViewController: NSViewController,
     private let cellId = "MeetingCollectionViewItem"
     private let meetingRepository = MeetingRepository.Meeting()
     private var meetingDataList = [MeetingRepository.MeetingData]()
+    weak var delegate: MeetingCollectionViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +30,7 @@ class MeetingCollectionViewController: NSViewController,
         collectionView.isHidden = true
         meetingRepository.delegate = self
         collectionView.dataSource = self
+        collectionView.delegate = self
         let nib = NSNib(nibNamed: "MeetingCollectionViewItem", bundle: nil)
         collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId))
     }
@@ -77,5 +84,11 @@ class MeetingCollectionViewController: NSViewController,
         let meetingData = meetingDataList[indexPath.item]
         item.updateView(presenter: MeetingCollectionViewItemPresenter(data: meetingData))
         return item
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        guard let indexPath = indexPaths.first else { return }
+        delegate?.didClickItem(vc: self, data: meetingDataList[indexPath.item])
+        collectionView.deselectItems(at: indexPaths)
     }
 }

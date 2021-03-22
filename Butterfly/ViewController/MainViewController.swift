@@ -8,13 +8,18 @@
 import Cocoa
 import Hydra
 
-class MainViewController: NSViewController, PreferencesWindowControllerDelegate, FirestoreWorkspaceNotification {
+class MainViewController: NSViewController,
+                          PreferencesWindowControllerDelegate,
+                          MeetingViewControllerDelegate,
+                          StatementWindowControllerDelegate,
+                          FirestoreWorkspaceNotification {
     @IBOutlet weak var noteLabel: NSTextField!
     @IBOutlet weak var meetingVcContainer: NSView!
     @IBOutlet weak var loadingIndicator: NSProgressIndicator!
     
     private let window = NSWindow()
     private var preferencesWindowController: PreferencesWindowController?
+    private var statementWindowController: StatementWindowController?
     private var meetingViewController: MeetingViewController!
     private var userData: WorkspaceRepository.UserData?
     private var isLoadingUserData = false
@@ -33,6 +38,7 @@ class MainViewController: NSViewController, PreferencesWindowControllerDelegate,
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let vc = segue.destinationController as? MeetingViewController {
+            vc.delegate = self
             meetingViewController = vc
         }
     }
@@ -86,10 +92,21 @@ class MainViewController: NSViewController, PreferencesWindowControllerDelegate,
         preferencesWindowController = nil
     }
     
+    func willClose(vc: StatementWindowController) {
+        statementWindowController = nil
+    }
+    
     func didChangeWorkspaceData(observer: FirestoreObserver) {
         userData = nil
         fetchUserData()
         updateViews()
+    }
+    
+    func didClickItem(vc: MeetingViewController, workspaceId: String, data: MeetingRepository.MeetingData) {
+        let wc = StatementWindowController.create(workspaceId: workspaceId, meetingData: data)
+        wc.delegate = self
+        wc.showWindow(window)
+        statementWindowController = wc
     }
     
     @IBAction func pushPreferences(_ sender: Any) {

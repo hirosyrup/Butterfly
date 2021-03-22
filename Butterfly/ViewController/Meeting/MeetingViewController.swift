@@ -7,11 +7,18 @@
 
 import Cocoa
 
-class MeetingViewController: NSViewController {
+protocol MeetingViewControllerDelegate: class {
+    func didClickItem(vc: MeetingViewController, workspaceId: String, data: MeetingRepository.MeetingData)
+}
+
+class MeetingViewController: NSViewController,
+                             MeetingCollectionViewControllerDelegate {
     
     @IBOutlet weak var workspacePopupButton: NSPopUpButton!
     private var userData: WorkspaceRepository.UserData?
     private var collectionViewController: MeetingCollectionViewController!
+    
+    weak var delegate: MeetingViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +26,7 @@ class MeetingViewController: NSViewController {
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let vc = segue.destinationController as? MeetingCollectionViewController {
+            vc.delegate = self
             collectionViewController = vc
         }
     }
@@ -51,6 +59,11 @@ class MeetingViewController: NSViewController {
         self.userData = userData
         updateWorkspacePopupItems()
         reloadCollection()
+    }
+    
+    func didClickItem(vc: MeetingCollectionViewController, data: MeetingRepository.MeetingData) {
+        guard let workspaceData = selectedWorkspaceData() else { return }
+        delegate?.didClickItem(vc: self, workspaceId: workspaceData.id, data: data)
     }
     
     @IBAction func didChangePopup(_ sender: Any) {
