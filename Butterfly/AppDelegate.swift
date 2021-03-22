@@ -25,6 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if FirestoreSetup().isConfigured() && AuthUser.shared.isSignIn() {
             FirestoreObserver.shared.listenWorkspace()
         }
+        IconImage.shared.clearAllCache()
     }
     
     func applicationWillBecomeActive(_ notification: Notification) {

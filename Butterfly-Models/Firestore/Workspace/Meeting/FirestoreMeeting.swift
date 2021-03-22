@@ -105,7 +105,7 @@ class FirestoreMeeting {
     }
     
     private func firestoreDataToMeeting(snapshot: [String: Any], meetingId: String) -> FirestoreMeetingData {
-        let userRawList = (snapshot["userIdList"] as? [[String: Any]]) ?? []
+        let userRawList = (snapshot["userList"] as? [[String: Any]]) ?? []
         return FirestoreMeetingData(
             id: meetingId,
             name: (snapshot["name"] as? String) ?? "",

@@ -124,11 +124,11 @@
             <objects>
                 <viewController storyboardIdentifier="MainViewController" id="zf3-pz-5ex" customClass="MainViewController" customModule="Butterfly" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="gQ3-vD-oMf">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="500"/>
+                        <rect key="frame" x="0.0" y="0.0" width="336" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="E9t-at-joM">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="500"/>
+                                <rect key="frame" x="0.0" y="0.0" width="336" height="500"/>
                                 <connections>
                                     <segue destination="Emo-yc-QHs" kind="embed" id="IHP-x8-xSo"/>
                                 </connections>
@@ -166,7 +166,7 @@
                                 </popUpButtonCell>
                             </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jjn-f0-KV0">
-                                <rect key="frame" x="148" y="242" width="4" height="16"/>
+                                <rect key="frame" x="166" y="242" width="4" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" id="FLt-yn-yfA">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
@@ -174,7 +174,7 @@
                                 </textFieldCell>
                             </textField>
                             <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="yC7-Uu-6Bw">
-                                <rect key="frame" x="142" y="242" width="16" height="16"/>
+                                <rect key="frame" x="160" y="242" width="16" height="16"/>
                             </progressIndicator>
                         </subviews>
                         <constraints>
@@ -761,11 +761,11 @@ DQ
             <objects>
                 <viewController id="Emo-yc-QHs" customClass="MeetingViewController" customModule="Butterfly" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="AA5-ga-bfm">
-                        <rect key="frame" x="0.0" y="0.0" width="304" height="500"/>
+                        <rect key="frame" x="0.0" y="0.0" width="336" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rig-hc-Pu6">
-                                <rect key="frame" x="188" y="461" width="66" height="25"/>
+                                <rect key="frame" x="220" y="461" width="66" height="25"/>
                                 <popUpButtonCell key="cell" type="push" title="Item" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="Elo-D1-7iY">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
@@ -782,7 +782,7 @@ DQ
                                 </connections>
                             </popUpButton>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c7K-7n-bOE">
-                                <rect key="frame" x="38" y="425" width="250" height="21"/>
+                                <rect key="frame" x="38" y="425" width="282" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Enter search keywords" drawsBackground="YES" id="2Hz-Ej-OyF">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -790,7 +790,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4jW-k7-TQA">
-                                <rect key="frame" x="255" y="455" width="40" height="38"/>
+                                <rect key="frame" x="287" y="455" width="40" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="9cj-73-JOG"/>
                                     <constraint firstAttribute="width" constant="26" id="Gdz-Jz-UjR"/>
@@ -814,7 +814,7 @@ DQ
                                 <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             </imageView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="2Wm-mq-Blb">
-                                <rect key="frame" x="16" y="16" width="272" height="393"/>
+                                <rect key="frame" x="0.0" y="16" width="336" height="393"/>
                                 <connections>
                                     <segue destination="GyV-7e-xh8" kind="embed" id="IKt-ex-N55"/>
                                 </connections>
@@ -826,18 +826,17 @@ DQ
                             <constraint firstItem="c7K-7n-bOE" firstAttribute="leading" secondItem="dEi-t4-9OR" secondAttribute="trailing" constant="4" id="2ep-RF-Qaz"/>
                             <constraint firstItem="dEi-t4-9OR" firstAttribute="centerY" secondItem="c7K-7n-bOE" secondAttribute="centerY" id="2zV-hg-SFM"/>
                             <constraint firstItem="Rig-hc-Pu6" firstAttribute="centerY" secondItem="4jW-k7-TQA" secondAttribute="centerY" id="8ad-tD-2Ed"/>
-                            <constraint firstItem="2Wm-mq-Blb" firstAttribute="trailing" secondItem="c7K-7n-bOE" secondAttribute="trailing" id="Oto-T3-Eoq"/>
                             <constraint firstItem="dEi-t4-9OR" firstAttribute="leading" secondItem="AA5-ga-bfm" secondAttribute="leading" constant="16" id="Pt3-Ac-wxg"/>
+                            <constraint firstItem="2Wm-mq-Blb" firstAttribute="leading" secondItem="AA5-ga-bfm" secondAttribute="leading" id="Sj4-pk-0D0"/>
                             <constraint firstItem="c7K-7n-bOE" firstAttribute="top" secondItem="4jW-k7-TQA" secondAttribute="bottom" constant="16" id="Uq3-Eg-jzH"/>
                             <constraint firstItem="4jW-k7-TQA" firstAttribute="leading" secondItem="Rig-hc-Pu6" secondAttribute="trailing" constant="12" id="VDw-XX-qSi"/>
                             <constraint firstAttribute="bottom" secondItem="2Wm-mq-Blb" secondAttribute="bottom" constant="16" id="aJj-KA-OWM"/>
-                            <constraint firstItem="2Wm-mq-Blb" firstAttribute="leading" secondItem="dEi-t4-9OR" secondAttribute="leading" id="cdk-J1-Ugs"/>
                             <constraint firstItem="2Wm-mq-Blb" firstAttribute="top" secondItem="c7K-7n-bOE" secondAttribute="bottom" constant="16" id="hNT-rQ-wri"/>
+                            <constraint firstAttribute="trailing" secondItem="2Wm-mq-Blb" secondAttribute="trailing" id="oXP-iW-tsj"/>
                             <constraint firstItem="4jW-k7-TQA" firstAttribute="top" secondItem="AA5-ga-bfm" secondAttribute="top" constant="12" id="olZ-QF-PX9"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="collectionView" destination="I90-s5-maa" id="4pK-tr-Bp8"/>
                         <outlet property="loadingIndicator" destination="duw-KK-yvf" id="Jws-G3-a0n"/>
                         <outlet property="noMeetingsLabel" destination="SVS-KU-51N" id="QaW-U4-50Z"/>
                         <outlet property="workspacePopupButton" destination="Rig-hc-Pu6" id="9vg-KO-8GW"/>
@@ -952,11 +951,11 @@ DQ
             <objects>
                 <viewController id="GyV-7e-xh8" customClass="MeetingCollectionViewController" customModule="Butterfly" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="wPI-hB-Anm">
-                        <rect key="frame" x="0.0" y="0.0" width="272" height="393"/>
+                        <rect key="frame" x="0.0" y="0.0" width="336" height="393"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SVS-KU-51N">
-                                <rect key="frame" x="73" y="369" width="127" height="24"/>
+                                <rect key="frame" x="105" y="369" width="127" height="24"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="No meetings" id="oas-G1-ODe">
                                     <font key="font" metaFont="systemBold" size="20"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -964,19 +963,19 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="duw-KK-yvf">
-                                <rect key="frame" x="128" y="377" width="16" height="16"/>
+                                <rect key="frame" x="160" y="377" width="16" height="16"/>
                             </progressIndicator>
                             <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DZG-Zw-eae">
-                                <rect key="frame" x="0.0" y="0.0" width="272" height="393"/>
+                                <rect key="frame" x="0.0" y="0.0" width="336" height="393"/>
                                 <clipView key="contentView" drawsBackground="NO" id="m4Y-nk-8Ps">
-                                    <rect key="frame" x="0.0" y="0.0" width="272" height="393"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="336" height="393"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <collectionView id="I90-s5-maa">
-                                            <rect key="frame" x="0.0" y="0.0" width="272" height="393"/>
+                                        <collectionView selectable="YES" id="I90-s5-maa">
+                                            <rect key="frame" x="0.0" y="0.0" width="336" height="393"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="ZWE-P0-voT">
-                                                <size key="itemSize" width="50" height="50"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" id="ZWE-P0-voT">
+                                                <size key="itemSize" width="336" height="50"/>
                                             </collectionViewFlowLayout>
                                             <color key="primaryBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         </collectionView>
@@ -1004,7 +1003,7 @@ DQ
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="collectionView" destination="DZG-Zw-eae" id="xRd-w0-EQU"/>
+                        <outlet property="collectionView" destination="I90-s5-maa" id="vJJ-t1-Qax"/>
                         <outlet property="loadingIndicator" destination="duw-KK-yvf" id="IES-37-BaR"/>
                         <outlet property="noMeetingLabel" destination="SVS-KU-51N" id="dF2-aU-FsG"/>
                     </connections>

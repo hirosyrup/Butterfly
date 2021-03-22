@@ -51,7 +51,7 @@ class MemberIconView: NSView {
     }
     
     override func mouseEntered(with event: NSEvent) {
-        toolTipContainer.isHidden = false
+        toolTipContainer.isHidden = toolTipLabel.stringValue.isEmpty
     }
     
     override func mouseExited(with event: NSEvent) {

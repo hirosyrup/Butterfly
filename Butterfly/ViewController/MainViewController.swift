@@ -49,13 +49,15 @@ class MainViewController: NSViewController, PreferencesWindowControllerDelegate,
         
         loadingIndicator.startAnimation(self)
         isLoadingUserData = true
-        async({ _ -> WorkspaceRepository.UserData in
+        async({ _ -> WorkspaceRepository.UserData? in
             return try await(WorkspaceRepository.User(userId: userId).fetch())
         }).then({ userData in
             self.userData = userData
             self.isLoadingUserData = false
             self.updateViews()
-            self.meetingViewController!.setup(userData: userData)
+            if userData != nil {
+                self.meetingViewController!.setup(userData: userData!)
+            }
         }).catch { (error) in
             AlertBuilder.createErrorAlert(title: "Error", message: "Failed to fetch user data. \(error.localizedDescription)").runModal()
         }.always(in: .main) {

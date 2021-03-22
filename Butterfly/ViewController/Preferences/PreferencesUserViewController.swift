@@ -317,9 +317,10 @@ class PreferencesUserViewController: NSViewController,
         }
     }
     
-    private func setIconImage(url: URL) {
+    private func setIconImage(url: URL?) {
+        guard url != nil else { return }
         DispatchQueue.global().async {
-            let imageData: Data? = try? Data(contentsOf: url)
+            let imageData: Data? = try? Data(contentsOf: url!)
             DispatchQueue.main.async {
                 if let data = imageData, let loadedImage = NSImage(data: data) {
                     self.iconImageButton.image = loadedImage

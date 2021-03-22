@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="MeetingCollectionViewItem" customModule="Butterfly" customModuleProvider="target">
+            <connections>
+                <outlet property="background" destination="6jO-iz-ewC" id="b06-8V-75i"/>
+                <outlet property="createdAtLabel" destination="Cnh-G0-RGT" id="00V-EX-iTg"/>
+                <outlet property="deleteButton" destination="eDt-WY-4wL" id="yW4-GR-qZs"/>
+                <outlet property="editButton" destination="LDD-WU-R6Q" id="5VM-B4-xoy"/>
+                <outlet property="memberIconView" destination="6EN-GD-dY6" id="Uhd-A2-pqx"/>
+                <outlet property="titleLabel" destination="9z9-y4-eco" id="Wdz-mQ-X61"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="336" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <box boxType="custom" borderWidth="0.0" title="Box" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6jO-iz-ewC">
+                    <rect key="frame" x="0.0" y="0.0" width="336" height="50"/>
+                    <view key="contentView" id="aff-8U-p3w">
+                        <rect key="frame" x="0.0" y="0.0" width="336" height="50"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="borderColor" white="0.0" alpha="0.01" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9z9-y4-eco">
+                    <rect key="frame" x="14" y="23" width="156" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="4v3-KU-yVw"/>
+                    </constraints>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Title" id="eQx-hD-AzK">
+                        <font key="font" metaFont="systemMedium" size="16"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LDD-WU-R6Q">
+                    <rect key="frame" x="264" y="6.5" width="28.5" height="38"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="28" id="3pi-0I-hnj"/>
+                        <constraint firstAttribute="height" constant="32" id="d0U-6N-YfE"/>
+                    </constraints>
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="square.and.pencil" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="h7B-bp-ECC">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                    <connections>
+                        <action selector="pushEdit:" target="-2" id="TJZ-r0-jZl"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eDt-WY-4wL">
+                    <rect key="frame" x="292" y="6" width="28.5" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="28" id="KQZ-gF-Fwq"/>
+                        <constraint firstAttribute="height" constant="32" id="Lou-n8-y4b"/>
+                    </constraints>
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="trash" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="C8v-kY-arr">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                    <connections>
+                        <action selector="pushDelete:" target="-2" id="knj-qo-2qc"/>
+                    </connections>
+                </button>
+                <box boxType="custom" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="6EN-GD-dY6" customClass="MemberIconContainer" customModule="Butterfly" customModuleProvider="target">
+                    <rect key="frame" x="176" y="7" width="80" height="36"/>
+                    <view key="contentView" id="ZQt-BW-CwB">
+                        <rect key="frame" x="0.0" y="0.0" width="80" height="36"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="Fup-c0-Ukd"/>
+                        <constraint firstAttribute="height" constant="36" id="so1-EM-eUZ"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="heightConstraint" destination="so1-EM-eUZ" id="XPV-XC-AIA"/>
+                        <outlet property="widthConstraint" destination="Fup-c0-Ukd" id="BfK-Ng-jHm"/>
+                    </connections>
+                </box>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Cnh-G0-RGT">
+                    <rect key="frame" x="14" y="8" width="156" height="15"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="createdAt" id="bjw-Ao-lsF">
+                        <font key="font" metaFont="systemLight" size="12"/>
+                        <color key="textColor" name="selectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="6jO-iz-ewC" secondAttribute="trailing" id="3r6-P5-HP9"/>
+                <constraint firstItem="6EN-GD-dY6" firstAttribute="leading" secondItem="9z9-y4-eco" secondAttribute="trailing" constant="8" symbolic="YES" id="Wve-of-Ebm"/>
+                <constraint firstItem="6jO-iz-ewC" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="YWQ-em-qhT"/>
+                <constraint firstItem="LDD-WU-R6Q" firstAttribute="centerY" secondItem="eDt-WY-4wL" secondAttribute="centerY" id="aKB-CH-arB"/>
+                <constraint firstItem="Cnh-G0-RGT" firstAttribute="leading" secondItem="9z9-y4-eco" secondAttribute="leading" id="anq-rS-f5t"/>
+                <constraint firstItem="LDD-WU-R6Q" firstAttribute="leading" secondItem="6EN-GD-dY6" secondAttribute="trailing" constant="8" id="cRd-W3-RRi"/>
+                <constraint firstAttribute="trailing" secondItem="eDt-WY-4wL" secondAttribute="trailing" constant="16" id="dZl-8L-EX6"/>
+                <constraint firstItem="6EN-GD-dY6" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="eF1-0q-ese"/>
+                <constraint firstItem="6jO-iz-ewC" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="gdd-MI-i7u"/>
+                <constraint firstItem="eDt-WY-4wL" firstAttribute="leading" secondItem="LDD-WU-R6Q" secondAttribute="trailing" id="p2z-jp-pFJ"/>
+                <constraint firstItem="eDt-WY-4wL" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="pfG-vi-Kmi"/>
+                <constraint firstItem="Cnh-G0-RGT" firstAttribute="trailing" secondItem="9z9-y4-eco" secondAttribute="trailing" id="tBs-Qf-FGs"/>
+                <constraint firstItem="9z9-y4-eco" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="16" id="tnf-FU-LQI"/>
+                <constraint firstAttribute="bottom" secondItem="6jO-iz-ewC" secondAttribute="bottom" id="vFo-K2-vxn"/>
+                <constraint firstItem="9z9-y4-eco" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" constant="-8" id="vhq-oK-9zz"/>
+                <constraint firstItem="Cnh-G0-RGT" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" constant="10" id="vox-dN-XKN"/>
+            </constraints>
+            <point key="canvasLocation" x="-203" y="9"/>
+        </customView>
+        <customObject id="gUT-2z-Reh" customClass="MeetingCollectionViewItem" customModule="Butterfly" customModuleProvider="target"/>
+    </objects>
+    <resources>
+        <image name="square.and.pencil" catalog="system" width="17" height="15"/>
+        <image name="trash" catalog="system" width="15" height="17"/>
+    </resources>
+</document>

@@ -39,8 +39,8 @@ class IconImage {
         }
     }
     
-    func fetchDownloadUrl(fileName: String) -> Promise<URL> {
-        return Promise<URL>(in: .background, token: nil) { (resolve, reject, _) in
+    func fetchDownloadUrl(fileName: String) -> Promise<URL?> {
+        return Promise<URL?>(in: .background, token: nil) { (resolve, reject, _) in
             if let cache = self.imageCache.object(forKey: fileName as AnyObject) as? IconImageCache {
                 if Date().timeIntervalSince1970 > cache.expiredTime {
                     self.imageCache.removeObject(forKey: fileName  as AnyObject)
@@ -52,14 +52,22 @@ class IconImage {
             
             let ref = self.iconRef(fileName: fileName)
             ref.downloadURL { (url, error) in
-                if let _error = error {
-                    reject(_error)
+                if error != nil {
+                    resolve(nil)
                 } else {
                     self.imageCache.setObject(IconImageCache(url: url!, expiredTime: self.createExpiredDateTimeInterval())as AnyObject, forKey: fileName as AnyObject)
                     resolve(url!)
                 }
             }
         }
+    }
+    
+    func clearAllCache() {
+        imageCache.removeAllObjects()
+    }
+    
+    func clearCache(fileName: String) {
+        imageCache.removeObject(forKey: fileName  as AnyObject)
     }
     
     private func createExpiredDateTimeInterval() -> TimeInterval {

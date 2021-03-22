@@ -43,10 +43,12 @@ class WorkspaceRepository {
             self.userId = userId
         }
         
-        func fetch() -> Promise<UserData> {
-            return Promise<UserData>(in: .background, token: nil) { (resolve, reject, _) in
-                async({ _ -> UserData in
-                    let firestoreUserData = try await(self.user.fetch(userId: self.userId))!
+        func fetch() -> Promise<UserData?> {
+            return Promise<UserData?>(in: .background, token: nil) { (resolve, reject, _) in
+                async({ _ -> UserData? in
+                    guard let firestoreUserData = try await(self.user.fetch(userId: self.userId)) else {
+                        return nil
+                    }
                     var iconUrl: URL?
                     if let iconName = firestoreUserData.iconName {
                         iconUrl = try await(self.iconImage.fetchDownloadUrl(fileName: iconName))

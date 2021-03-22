@@ -8,11 +8,13 @@
 import Cocoa
 
 class MeetingCollectionViewController: NSViewController,
+                                       NSCollectionViewDataSource,
                                        MeetingRepositoryDelegate {
     @IBOutlet weak var loadingIndicator: NSProgressIndicator!
     @IBOutlet weak var noMeetingLabel: NSTextField!
-    @IBOutlet weak var collectionView: NSScrollView!
+    @IBOutlet weak var collectionView: NSCollectionView!
     
+    private let cellId = "MeetingCollectionViewItem"
     private let meetingRepository = MeetingRepository.Meeting()
     private var meetingDataList = [MeetingRepository.MeetingData]()
     
@@ -21,6 +23,9 @@ class MeetingCollectionViewController: NSViewController,
         noMeetingLabel.isHidden = true
         collectionView.isHidden = true
         meetingRepository.delegate = self
+        collectionView.dataSource = self
+        let nib = NSNib(nibNamed: "MeetingCollectionViewItem", bundle: nil)
+        collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId))
     }
     
     func changeWorkspaceId(workspaceId: String) {
@@ -59,6 +64,18 @@ class MeetingCollectionViewController: NSViewController,
         }
         
         loadingIndicator.stopAnimation(self)
+        collectionView.reloadData()
         updateViews()
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        return meetingDataList.count
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+        let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId), for: indexPath) as! MeetingCollectionViewItem
+        let meetingData = meetingDataList[indexPath.item]
+        item.updateView(presenter: MeetingCollectionViewItemPresenter(data: meetingData))
+        return item
     }
 }

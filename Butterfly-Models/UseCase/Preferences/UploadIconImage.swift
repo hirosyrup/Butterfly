@@ -23,6 +23,7 @@ class UploadIconImage {
         uploadCompletion = completion
         async({ _ -> UploadIconImageResponse in // you must specify the return of the Promise, here an Int
             let savedName =  try await(self.iconImage.upload(uploadImageUrl: self.uploadImageUrl, fileName: self.fileName))
+            self.iconImage.clearCache(fileName: savedName)
             let downloadUrl = try await(self.iconImage.fetchDownloadUrl(fileName: savedName))
             return UploadIconImageResponse(downloadUrl: downloadUrl, savedName: savedName)
         }).then({response in

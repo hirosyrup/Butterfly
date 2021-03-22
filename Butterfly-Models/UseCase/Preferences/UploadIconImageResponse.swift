@@ -8,6 +8,6 @@
 import Foundation
 
 struct UploadIconImageResponse {
-    let downloadUrl: URL
+    let downloadUrl: URL?
     let savedName: String
 }

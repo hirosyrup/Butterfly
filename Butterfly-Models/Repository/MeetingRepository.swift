@@ -19,12 +19,14 @@ class MeetingRepository {
         fileprivate let original: FirestoreMeetingData
         let id: String
         var name: String
+        var createdAt: Date
         var userList: [MeetingUserData]
         
         init(userList: [MeetingUserData], original: FirestoreMeetingData? = nil) {
             self.userList = userList
             self.original = original ?? FirestoreMeetingData.new()
             self.id = self.original.id
+            self.createdAt = self.original.createdAt
             self.name = self.original.name
         }
         
@@ -173,7 +175,9 @@ class MeetingRepository {
                     }
                 }).then({ changes in
                     _delegate.didChangeMeetingData(obj: self, documentChanges: changes)
-                })
+                }).catch { (error) in
+                    print("\(error.localizedDescription)")
+                }
             }
         }
     }
