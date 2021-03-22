@@ -17,7 +17,7 @@ protocol FirestoreStatementDelegate: class {
 
 class FirestoreStatement {
     private let db = Firestore.firestore()
-    private let statementCollectionName = "statement"
+    private let statementCollectionName = "statements"
     weak var delegate: FirestoreStatementDelegate?
     private var statementListener: ListenerRegistration?
     

@@ -12,6 +12,7 @@ protocol SpeechRecognizerDelegate: class {
     func didChangeAvailability(recognizer: SpeechRecognizer)
     func audioEngineStartError(recognizer: SpeechRecognizer, error: Error)
     func didNotCreateRecognitionRequest(recognizer: SpeechRecognizer, error: Error)
+    func didStartNewStatement(recognizer: SpeechRecognizer, id: String)
     func didUpdateStatement(recognizer: SpeechRecognizer, id: String, statement: String)
     func didEndStatement(recognizer: SpeechRecognizer, id: String, statement: String)
 }
@@ -113,16 +114,17 @@ class SpeechRecognizer: NSObject,
     
     func didChangeSpeekingState(obj: ObserveBreakInStatements, isSpeeking: Bool, previousBuffers: [AVAudioPCMBuffer]) {
         if isSpeeking {
-            print("start speaking")
             let newRecognitionRequest = RecognitionRequest(id: UUID().uuidString, speechRecognizer: speechRecognizer)
             newRecognitionRequest.delegate = self
             currentRecognitionRequest = newRecognitionRequest
             recognitionRequests.append(newRecognitionRequest)
             previousBuffers.forEach { newRecognitionRequest.append(buffer: $0) }
+            delegate?.didStartNewStatement(recognizer: self, id: newRecognitionRequest.id)
+            print("start speaking")
         } else {
-            print("end speaking")
             currentRecognitionRequest?.endAudio()
             currentRecognitionRequest = nil
+            print("end speaking")
         }
     }
     

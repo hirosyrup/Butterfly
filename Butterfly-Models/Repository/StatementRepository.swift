@@ -19,6 +19,13 @@ class StatementRepository {
         var statement: String
         var user: StatementUserData
         
+        init(statement: String, user: StatementUserData) {
+            self.id = ""
+            self.statement = statement
+            self.user = user
+            self.original = FirestoreStatementData.new()
+        }
+        
         init(user: StatementUserData, original: FirestoreStatementData? = nil) {
             self.user = user
             self.original = original ?? FirestoreStatementData.new()
@@ -38,6 +45,12 @@ class StatementRepository {
         let iconName: String?
         let iconImageUrl: URL?
         let name: String
+        
+        init(iconName: String?, iconImageUrl: URL?, name: String) {
+            self.iconName = iconName
+            self.iconImageUrl = iconImageUrl
+            self.name = name
+        }
         
         init(iconImageUrl: URL?, firestoreData: FirestoreStatementUserData) {
             self.iconImageUrl = iconImageUrl

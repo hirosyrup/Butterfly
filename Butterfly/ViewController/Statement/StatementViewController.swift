@@ -16,26 +16,36 @@ class StatementViewController: NSViewController,
     private var workspaceId: String!
     private var meetingData: MeetingRepository.MeetingData!
     private let speechRecognizer = SpeechRecognizer.shared
+    private var you: MeetingRepository.MeetingUserData?
+    private var statementQueue: StatementQueue!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        speechRecognizer.delegate = self
     }
 
     override func viewDidAppear() {
-        speechRecognizer.start()
+        if you != nil {
+            speechRecognizer.delegate = self
+            speechRecognizer.start()
+        }
     }
     
     override func viewWillDisappear() {
-        speechRecognizer.stop()
-        speechRecognizer.delegate = nil
+        if you != nil {
+            speechRecognizer.stop()
+            speechRecognizer.delegate = nil
+        }
     }
     
     func setup(workspaceId: String, meetingData: MeetingRepository.MeetingData) {
         self.workspaceId = workspaceId
         self.meetingData = meetingData
+        statementQueue = StatementQueue(workspaceId: workspaceId, meetingId: meetingData.id)
         titleLabel.stringValue = meetingData.name
         memberIconContainer.updateView(imageUrls: meetingData.userList.map { $0.iconImageUrl })
+        if let currentUser = AuthUser.shared.currentUser() {
+            you = meetingData.userList.first { $0.id == currentUser.uid }
+        }
     }
     
     func didChangeAvailability(recognizer: SpeechRecognizer) {
@@ -50,10 +60,17 @@ class StatementViewController: NSViewController,
         AlertBuilder.createErrorAlert(title: "Error", message: "\(error.localizedDescription)").runModal()
     }
     
+    func didStartNewStatement(recognizer: SpeechRecognizer, id: String) {
+        if let _you = you {
+            statementQueue.addNewStatement(statementId: id, user: _you)
+        }
+    }
+    
     func didUpdateStatement(recognizer: SpeechRecognizer, id: String, statement: String) {
+        statementQueue.updateStatement(statementId: id, statement: statement)
     }
     
     func didEndStatement(recognizer: SpeechRecognizer, id: String, statement: String) {
-        print("end statement: \(statement)")
+        statementQueue.endStatement(statementId: id, statement: statement)
     }
 }

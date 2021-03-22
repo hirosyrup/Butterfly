@@ -24,6 +24,8 @@
 		FB0D2FAF26073E23001403A5 /* FirestoreMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FAE26073E23001403A5 /* FirestoreMeeting.swift */; };
 		FB0D2FB3260742E6001403A5 /* WorkspaceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FB2260742E6001403A5 /* WorkspaceRepository.swift */; };
 		FB0D2FBA26075CC5001403A5 /* SelectMemberFetchForMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FB926075CC5001403A5 /* SelectMemberFetchForMeeting.swift */; };
+		FB2603422608D27D00323E4B /* StatementQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603412608D27D00323E4B /* StatementQueue.swift */; };
+		FB2603482608D28F00323E4B /* StatementQueueData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603472608D28F00323E4B /* StatementQueueData.swift */; };
 		FB523C21260765C800801070 /* MeetingInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C20260765C800801070 /* MeetingInputViewController.swift */; };
 		FB523C252607681C00801070 /* SaveMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C242607681B00801070 /* SaveMeeting.swift */; };
 		FB523C2B2607738C00801070 /* RepositoryDocumentChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */; };
@@ -124,6 +126,8 @@
 		FB0D2FAE26073E23001403A5 /* FirestoreMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreMeeting.swift; sourceTree = "<group>"; };
 		FB0D2FB2260742E6001403A5 /* WorkspaceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceRepository.swift; sourceTree = "<group>"; };
 		FB0D2FB926075CC5001403A5 /* SelectMemberFetchForMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMemberFetchForMeeting.swift; sourceTree = "<group>"; };
+		FB2603412608D27D00323E4B /* StatementQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementQueue.swift; sourceTree = "<group>"; };
+		FB2603472608D28F00323E4B /* StatementQueueData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementQueueData.swift; sourceTree = "<group>"; };
 		FB523C20260765C800801070 /* MeetingInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingInputViewController.swift; sourceTree = "<group>"; };
 		FB523C242607681B00801070 /* SaveMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMeeting.swift; sourceTree = "<group>"; };
 		FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDocumentChange.swift; sourceTree = "<group>"; };
@@ -270,6 +274,15 @@
 				FB0D2FB926075CC5001403A5 /* SelectMemberFetchForMeeting.swift */,
 			);
 			path = Meeting;
+			sourceTree = "<group>";
+		};
+		FB2603402608D26200323E4B /* Statement */ = {
+			isa = PBXGroup;
+			children = (
+				FB2603472608D28F00323E4B /* StatementQueueData.swift */,
+				FB2603412608D27D00323E4B /* StatementQueue.swift */,
+			);
+			path = Statement;
 			sourceTree = "<group>";
 		};
 		FB9D7167260820A700B7E9DE /* Meeting */ = {
@@ -446,6 +459,7 @@
 				FB0D2F9626072EAB001403A5 /* Shared */,
 				FBA545E225FFACCB00112066 /* Preferences */,
 				FB0D2FB826075CB0001403A5 /* Meeting */,
+				FB2603402608D26200323E4B /* Statement */,
 				FBFCAAC425FF2FC900D66CC9 /* AuthUser.swift */,
 			);
 			path = UseCase;
@@ -787,6 +801,7 @@
 				FB0D2FA226073025001403A5 /* SelectMemberFetchForPreferences.swift in Sources */,
 				FBF9A6282606302200AE78DF /* SaveWorkspace.swift in Sources */,
 				FBA5447325FA55E500112066 /* FirestoreSetup.swift in Sources */,
+				FB2603422608D27D00323E4B /* StatementQueue.swift in Sources */,
 				FBF9A5C626038BCC00AE78DF /* NSImageView+AsyncLoad.swift in Sources */,
 				FB523C2F2607739600801070 /* RepositoryDocumentChangeType.swift in Sources */,
 				FB9D71802608615F00B7E9DE /* FirestoreStatement.swift in Sources */,
@@ -804,6 +819,7 @@
 				FB9D71B32608854100B7E9DE /* RecognitionRequest.swift in Sources */,
 				FBA546192600ECEF00112066 /* IconImage.swift in Sources */,
 				FB0D2F9126072D1B001403A5 /* FirestoreMeetingData.swift in Sources */,
+				FB2603482608D28F00323E4B /* StatementQueueData.swift in Sources */,
 				FB0D2F7B26063FBF001403A5 /* PreferencesWorkspaceCollectionData.swift in Sources */,
 				FBA546282600FA2700112066 /* UploadIconImageResponse.swift in Sources */,
 				FBA2883A25F8896600D1B3BD /* AppDelegate.swift in Sources */,
