@@ -23,7 +23,7 @@ class FirestoreStatement {
     
     func listen(workspaceId: String, meetingId: String) {
         guard statementListener == nil else { return }
-        statementListener = reference(workspaceId: workspaceId, meetingId: meetingId).addSnapshotListener({ (snapshot, error) in
+        statementListener = reference(workspaceId: workspaceId, meetingId: meetingId).order(by: "createdAt").addSnapshotListener({ (snapshot, error) in
             if let documentChanges = snapshot?.documentChanges {
                 let list = documentChanges.map { (documentChange) -> FirestoreDocumentChangeWithData<FirestoreStatementData> in
                     let data = documentChange.document.data()

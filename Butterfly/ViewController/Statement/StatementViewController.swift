@@ -8,19 +8,33 @@
 import Cocoa
 
 class StatementViewController: NSViewController,
-                               SpeechRecognizerDelegate {
+                               SpeechRecognizerDelegate,
+                               StatementRepositoryDelegate,
+                               NSCollectionViewDataSource,
+                               NSCollectionViewDelegateFlowLayout {
     @IBOutlet weak var titleLabel: NSTextField!
     @IBOutlet weak var memberIconContainer: MemberIconContainer!
     @IBOutlet weak var collectionView: NSCollectionView!
     
+    private let cellId = "StatementCollectionViewItem"
     private var workspaceId: String!
     private var meetingData: MeetingRepository.MeetingData!
     private let speechRecognizer = SpeechRecognizer.shared
     private var you: MeetingRepository.MeetingUserData?
     private var statementQueue: StatementQueue!
+    private let statement = StatementRepository.Statement()
+    private var statementDataList = [StatementRepository.StatementData]()
+    private var calcHeightView: StatementCollectionViewItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        statement.delegate = self
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        let nib = NSNib(nibNamed: "StatementCollectionViewItem", bundle: nil)
+        collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId))
+        calcHeightView = StatementCollectionViewItem()
+        calcHeightView.instantiateFromNib()
     }
 
     override func viewDidAppear() {
@@ -28,6 +42,8 @@ class StatementViewController: NSViewController,
             speechRecognizer.delegate = self
             speechRecognizer.start()
         }
+        
+        statement.listen(workspaceId: workspaceId, meetingId: meetingData.id)
     }
     
     override func viewWillDisappear() {
@@ -35,6 +51,8 @@ class StatementViewController: NSViewController,
             speechRecognizer.stop()
             speechRecognizer.delegate = nil
         }
+        
+        statement.unlisten()
     }
     
     func setup(workspaceId: String, meetingData: MeetingRepository.MeetingData) {
@@ -72,5 +90,46 @@ class StatementViewController: NSViewController,
     
     func didEndStatement(recognizer: SpeechRecognizer, id: String, statement: String) {
         statementQueue.endStatement(statementId: id, statement: statement)
+    }
+    
+    func didChangeStatementData(obj: StatementRepository.Statement, documentChanges: [RepositoryDocumentChange<StatementRepository.StatementData>]) {
+        let modifieds = documentChanges.filter { $0.type == .modified }
+        modifieds.forEach { (modified) in
+            if let index = statementDataList.firstIndex(where: { $0.id == modified.data.id }) {
+                statementDataList[index] = modified.data
+            }
+        }
+        
+        let removesIds = documentChanges.filter { $0.type == .removed }.map { $0.data.id }
+        var removedStatementList = [StatementRepository.StatementData]()
+        statementDataList.forEach {
+            if !removesIds.contains($0.id) {
+                removedStatementList.append($0)
+            }
+        }
+        statementDataList = removedStatementList
+        
+        let addeds = documentChanges.filter { $0.type == .added }
+        addeds.forEach { (addedChange) in
+            statementDataList.insert(addedChange.data, at: addedChange.newIndex)
+        }
+        
+        collectionView.reloadData()
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        return statementDataList.count
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+        let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId), for: indexPath) as! StatementCollectionViewItem
+        let statementData = statementDataList[indexPath.item]
+        item.updateView(presenter: StatementCollectionViewItemPresenter(data: statementData))
+        return item
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+        let statementData = statementDataList[indexPath.item]
+        return calcHeightView.calcSize(presenter: StatementCollectionViewItemPresenter(data: statementData))
     }
 }
