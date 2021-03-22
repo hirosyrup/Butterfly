@@ -30,5 +30,9 @@
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>For Speech Recognition.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>For Speech Recognition</string>
 </dict>
 </plist>

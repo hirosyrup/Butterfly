@@ -26,6 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             FirestoreObserver.shared.listenWorkspace()
         }
         IconImage.shared.clearAllCache()
+        SpeechRecognizer.shared.requestAuthorization()
     }
     
     func applicationWillBecomeActive(_ notification: Notification) {
