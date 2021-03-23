@@ -28,7 +28,7 @@ class StatementQueue {
         
         queue.append(StatementQueueData(statementId: statementId, satementData: nil))
         async({ _ -> StatementRepository.StatementData in
-            let data = StatementRepository.StatementData(statement: "", user: StatementRepository.StatementUserData(iconName: user.iconName, iconImageUrl: user.iconImageUrl, name: user.name))
+            let data = StatementRepository.StatementData(statement: "", user: StatementRepository.StatementUserData(id: user.id,iconName: user.iconName, iconImageUrl: user.iconImageUrl, name: user.name))
             return try await(self.repository.create(workspaceId: self.workspaceId, meetingId: self.meetingId, statementData: data))
         }).then({newStatementData in
             self.updateQueue(statementId: statementId, statementData: newStatementData)

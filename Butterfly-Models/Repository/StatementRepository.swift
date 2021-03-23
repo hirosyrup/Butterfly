@@ -42,11 +42,13 @@ class StatementRepository {
     }
     
     struct StatementUserData {
+        let id: String
         let iconName: String?
         let iconImageUrl: URL?
         let name: String
         
-        init(iconName: String?, iconImageUrl: URL?, name: String) {
+        init(id: String, iconName: String?, iconImageUrl: URL?, name: String) {
+            self.id = id
             self.iconName = iconName
             self.iconImageUrl = iconImageUrl
             self.name = name
@@ -54,12 +56,13 @@ class StatementRepository {
         
         init(iconImageUrl: URL?, firestoreData: FirestoreStatementUserData) {
             self.iconImageUrl = iconImageUrl
+            self.id = firestoreData.id
             self.iconName = firestoreData.iconName
             self.name = firestoreData.name
         }
         
         fileprivate func toFirestoreData() -> FirestoreStatementUserData {
-            FirestoreStatementUserData(iconName: iconName, name: name)
+            FirestoreStatementUserData(id: id, iconName: iconName, name: name)
         }
     }
     

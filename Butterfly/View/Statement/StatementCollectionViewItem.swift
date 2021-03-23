@@ -9,6 +9,7 @@ import Cocoa
 
 class StatementCollectionViewItem: NSCollectionViewItem {
     @IBOutlet weak var iconImageContainer: NSView!
+    @IBOutlet weak var headerContainer: NSBox!
     @IBOutlet weak var userNameLabel: NSTextField!
     @IBOutlet weak var statementLabel: NSTextField!
     weak var iconView: MemberIconView!
@@ -38,8 +39,12 @@ class StatementCollectionViewItem: NSCollectionViewItem {
     }
     
     func updateView(presenter: StatementCollectionViewItemPresenter) {
-        iconView.updateView(imageUrl: presenter.iconImageUrl(), toolTip: "")
-        userNameLabel.stringValue = presenter.userName()
+        let isOnlyStatement = presenter.isOnlyStatement()
+        headerContainer.isHidden = isOnlyStatement
+        if !isOnlyStatement {
+            iconView.updateView(imageUrl: presenter.iconImageUrl(), toolTip: "")
+            userNameLabel.stringValue = presenter.userName()
+        }
         statementLabel.stringValue = presenter.statement()
     }
     

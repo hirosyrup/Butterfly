@@ -56,6 +56,17 @@ class StatementViewController: NSViewController,
         statement.unlisten()
     }
     
+    private func previousData(currentIndex: Int) -> StatementRepository.StatementData? {
+        let previousIndex = currentIndex - 1
+        if previousIndex < 0 {
+            return nil
+        } else if statementDataList.count <= previousIndex {
+            return nil
+        } else {
+            return statementDataList[previousIndex]
+        }
+     }
+    
     func setup(workspaceId: String, meetingData: MeetingRepository.MeetingData) {
         self.workspaceId = workspaceId
         self.meetingData = meetingData
@@ -128,12 +139,12 @@ class StatementViewController: NSViewController,
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId), for: indexPath) as! StatementCollectionViewItem
         let statementData = statementDataList[indexPath.item]
-        item.updateView(presenter: StatementCollectionViewItemPresenter(data: statementData))
+        item.updateView(presenter: StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item)))
         return item
     }
     
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
         let statementData = statementDataList[indexPath.item]
-        return calcHeightView.calcSize(presenter: StatementCollectionViewItemPresenter(data: statementData))
+        return calcHeightView.calcSize(presenter: StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item)))
     }
 }

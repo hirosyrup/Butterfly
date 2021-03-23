@@ -8,10 +8,11 @@
 import Foundation
 
 struct FirestoreStatementUserData {
+    var id: String
     var iconName: String?
     var name: String
     
     static func new() -> FirestoreStatementUserData {
-        return FirestoreStatementUserData(iconName: nil, name: "")
+        return FirestoreStatementUserData(id: "", iconName: nil, name: "")
     }
 }

@@ -93,6 +93,7 @@ class FirestoreStatement {
         return [
             "statement": data.statement,
             "user": [
+                "id": data.user.id,
                 "iconName": data.user.iconName ?? NSNull(),
                 "name": data.user.name
             ] as [String: Any],
@@ -107,6 +108,7 @@ class FirestoreStatement {
             id: statementId,
             statement: (snapshot["statement"] as? String) ?? "",
             user: FirestoreStatementUserData(
+                id: (userRaw["id"] as? String) ?? "",
                 iconName: userRaw["iconName"] as? String,
                 name: (userRaw["name"] as? String) ?? ""
             ),

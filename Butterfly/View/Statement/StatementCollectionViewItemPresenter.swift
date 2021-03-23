@@ -9,9 +9,11 @@ import Foundation
 
 class StatementCollectionViewItemPresenter {
     private let data: StatementRepository.StatementData
+    private let previousData: StatementRepository.StatementData?
     
-    init(data: StatementRepository.StatementData) {
+    init(data: StatementRepository.StatementData, previousData: StatementRepository.StatementData?) {
         self.data = data
+        self.previousData = previousData
     }
     
     func userName() -> String {
@@ -24,5 +26,12 @@ class StatementCollectionViewItemPresenter {
     
     func statement() -> String {
         return data.statement
+    }
+    
+    func isOnlyStatement() -> Bool {
+        guard let _previousData = previousData else {
+            return false
+        }
+        return data.user.id == _previousData.user.id
     }
 }
