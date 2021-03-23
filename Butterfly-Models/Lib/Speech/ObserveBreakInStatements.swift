@@ -22,7 +22,7 @@ class ObserveBreakInStatements {
     private var speekingStartDate: Date?
     let bufferSize: UInt32
     private var previousBuffers = [AVAudioPCMBuffer]()
-    private let bufferlimit = 10
+    private let bufferlimit = 5
     
     init(bufferSize: UInt32) {
         self.bufferSize = bufferSize
