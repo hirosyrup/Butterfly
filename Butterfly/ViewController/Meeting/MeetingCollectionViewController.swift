@@ -67,7 +67,11 @@ class MeetingCollectionViewController: NSViewController,
         
         let addeds = documentChanges.filter { $0.type == .added }
         addeds.forEach { (addedChange) in
-            meetingDataList.insert(addedChange.data, at: addedChange.newIndex)
+            if addedChange.newIndex >= meetingDataList.count {
+                meetingDataList.append(addedChange.data)
+            } else {
+                meetingDataList.insert(addedChange.data, at: addedChange.newIndex)
+            }
         }
         
         loadingIndicator.stopAnimation(self)
