@@ -15,6 +15,7 @@ class StatementViewController: NSViewController,
     @IBOutlet weak var titleLabel: NSTextField!
     @IBOutlet weak var memberIconContainer: MemberIconContainer!
     @IBOutlet weak var collectionView: NSCollectionView!
+    @IBOutlet weak var startEndButton: NSButton!
     
     private let cellId = "StatementCollectionViewItem"
     private var workspaceId: String!
@@ -39,21 +40,26 @@ class StatementViewController: NSViewController,
     }
 
     override func viewDidAppear() {
-        if you != nil {
-            speechRecognizer.delegate = self
-            speechRecognizer.start()
-        }
-        
         statement.listen(workspaceId: workspaceId, meetingId: meetingData.id)
     }
     
     override func viewWillDisappear() {
+        stopRecognition()
+        statement.unlisten()
+    }
+    
+    private func startRecognition() {
+        if you != nil {
+            speechRecognizer.delegate = self
+            speechRecognizer.start()
+        }
+    }
+    
+    private func stopRecognition() {
         if you != nil {
             speechRecognizer.stop()
             speechRecognizer.delegate = nil
         }
-        
-        statement.unlisten()
     }
     
     private func previousData(currentIndex: Int) -> StatementRepository.StatementData? {
@@ -65,7 +71,7 @@ class StatementViewController: NSViewController,
         } else {
             return statementDataList[previousIndex]
         }
-     }
+    }
     
     func setup(workspaceId: String, meetingData: MeetingRepository.MeetingData) {
         self.workspaceId = workspaceId
@@ -76,6 +82,7 @@ class StatementViewController: NSViewController,
         if let currentUser = AuthUser.shared.currentUser() {
             you = meetingData.userList.first { $0.id == currentUser.uid }
         }
+        startEndButton.isEnabled = you != nil
     }
     
     func didChangeAvailability(recognizer: SpeechRecognizer) {
@@ -146,5 +153,13 @@ class StatementViewController: NSViewController,
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
         let statementData = statementDataList[indexPath.item]
         return calcHeightView.calcSize(presenter: StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item)))
+    }
+    
+    @IBAction func pushStartEnd(_ sender: Any) {
+        if startEndButton.state == .on {
+            speechRecognizer.start()
+        } else {
+            speechRecognizer.stop()
+        }
     }
 }

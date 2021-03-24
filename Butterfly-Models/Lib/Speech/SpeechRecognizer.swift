@@ -30,6 +30,11 @@ class SpeechRecognizer: NSObject,
     private let observeBreakInStatements = ObserveBreakInStatements(bufferSize: 1024)
     private var recognitionRequests = [RecognitionRequest]()
     private var currentRecognitionRequest: RecognitionRequest?
+    var isRunning: Bool {
+        get {
+            return audioEngine.isRunning
+        }
+    }
     
     weak var delegate: SpeechRecognizerDelegate?
     
