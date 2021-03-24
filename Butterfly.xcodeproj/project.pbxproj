@@ -29,6 +29,7 @@
 		FB2603502608DC6D00323E4B /* StatementCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB26034E2608DC6D00323E4B /* StatementCollectionViewItem.swift */; };
 		FB2603512608DC6D00323E4B /* StatementCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB26034F2608DC6D00323E4B /* StatementCollectionViewItem.xib */; };
 		FB2603572608DE5B00323E4B /* StatementCollectionViewItemPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603562608DE5B00323E4B /* StatementCollectionViewItemPresenter.swift */; };
+		FB26035F260B946400323E4B /* StatementShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB26035E260B946400323E4B /* StatementShareViewController.swift */; };
 		FB523C21260765C800801070 /* MeetingInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C20260765C800801070 /* MeetingInputViewController.swift */; };
 		FB523C252607681C00801070 /* SaveMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C242607681B00801070 /* SaveMeeting.swift */; };
 		FB523C2B2607738C00801070 /* RepositoryDocumentChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */; };
@@ -134,6 +135,7 @@
 		FB26034E2608DC6D00323E4B /* StatementCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementCollectionViewItem.swift; sourceTree = "<group>"; };
 		FB26034F2608DC6D00323E4B /* StatementCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatementCollectionViewItem.xib; sourceTree = "<group>"; };
 		FB2603562608DE5B00323E4B /* StatementCollectionViewItemPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementCollectionViewItemPresenter.swift; sourceTree = "<group>"; };
+		FB26035E260B946400323E4B /* StatementShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementShareViewController.swift; sourceTree = "<group>"; };
 		FB523C20260765C800801070 /* MeetingInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingInputViewController.swift; sourceTree = "<group>"; };
 		FB523C242607681B00801070 /* SaveMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMeeting.swift; sourceTree = "<group>"; };
 		FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDocumentChange.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 			children = (
 				FB9D719C2608711300B7E9DE /* StatementWindowController.swift */,
 				FB9D719626086D7700B7E9DE /* StatementViewController.swift */,
+				FB26035E260B946400323E4B /* StatementShareViewController.swift */,
 			);
 			path = Statement;
 			sourceTree = "<group>";
@@ -802,6 +805,7 @@
 				FB9D71922608668000B7E9DE /* StatementRepository.swift in Sources */,
 				FBA5456025FE48AF00112066 /* SignUp.swift in Sources */,
 				FB9D718A260861BE00B7E9DE /* FirestoreStatementUserData.swift in Sources */,
+				FB26035F260B946400323E4B /* StatementShareViewController.swift in Sources */,
 				FBA544C025FA667000112066 /* PreferencesWindowController.swift in Sources */,
 				FB523C21260765C800801070 /* MeetingInputViewController.swift in Sources */,
 				FB0D2F9E26072F60001403A5 /* SelectMemberUserData.swift in Sources */,

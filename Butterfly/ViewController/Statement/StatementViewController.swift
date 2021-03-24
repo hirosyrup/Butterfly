@@ -48,6 +48,13 @@ class StatementViewController: NSViewController,
         statement.unlisten()
     }
     
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if let vc = segue.destinationController as? StatementShareViewController{
+            vc.meetingName = meetingData.name
+            vc.dataList = statementDataList
+        }
+    }
+    
     private func startRecognition() {
         if you != nil {
             speechRecognizer.delegate = self
