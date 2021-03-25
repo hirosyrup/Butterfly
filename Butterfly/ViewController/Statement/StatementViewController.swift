@@ -165,9 +165,9 @@ class StatementViewController: NSViewController,
     
     @IBAction func pushStartEnd(_ sender: Any) {
         if startEndButton.state == .on {
-            speechRecognizer.start()
+            startRecognition()
         } else {
-            speechRecognizer.stop()
+            stopRecognition()
         }
     }
 }
