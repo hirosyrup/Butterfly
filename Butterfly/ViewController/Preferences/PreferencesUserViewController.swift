@@ -194,11 +194,11 @@ class PreferencesUserViewController: NSViewController,
                     signInContainer.isHidden = true
                     if isNameEdit {
                         userNameLabel.isHidden = true
-                        editUserNameButton.image = NSImage(systemSymbolName: "checkmark", accessibilityDescription: nil)
+                        editUserNameButton.image = NSImage(named: "checkmark")
                     } else {
                         userNameTextField.isHidden = true
                         userNameLabel.stringValue = userData?.name ?? ""
-                        editUserNameButton.image = NSImage(systemSymbolName: "pencil", accessibilityDescription: nil)
+                        editUserNameButton.image = NSImage(named: "pencil")
                     }
                 } else {
                     signInButton.isHidden = true
