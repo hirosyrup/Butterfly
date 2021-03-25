@@ -119,6 +119,22 @@ class MeetingRepository {
             }
         }
         
+        func fetch(workspaceId: String, meetingId: String) -> Promise<MeetingData?> {
+            return Promise<MeetingData?>(in: .background, token: nil) { (resolve, reject, _) in
+                async({ _ -> MeetingData? in
+                    if let firestoreMeetingData = try await(self.meeting.fetch(workspaceId: workspaceId, meetingId: meetingId)) {
+                        return try await(self.createMeetingData(firestoreMeetingData: firestoreMeetingData))
+                    } else {
+                        return nil
+                    }
+                }).then({ workspaceData in
+                    resolve(workspaceData)
+                }).catch { (error) in
+                    reject(error)
+                }
+            }
+        }
+        
         func create(workspaceId: String, meetingData: MeetingData) -> Promise<MeetingData> {
             return Promise<MeetingData>(in: .background, token: nil) { (resolve, reject, _) in
                 async({ _ -> MeetingData in

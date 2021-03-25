@@ -29,6 +29,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         SpeechRecognizer.shared.requestAuthorization()
     }
     
+    func application(_ application: NSApplication, open urls: [URL]) {
+        urls.forEach { self.openScheme(url: $0) }
+    }
+    
     func applicationWillBecomeActive(_ notification: Notification) {
         AuthUser.shared.reloadUser()
     }
@@ -36,6 +40,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         AuthUser.shared.unlistendAuthEvent()
         FirestoreObserver.shared.unlistenWorkspace()
+    }
+    
+    private func openScheme(url: URL) {
+        guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
+              let path = components.path,
+              let params = components.queryItems else {
+            return
+        }
+        
+        let appScheme = AppScheme()
+        switch path {
+        case appScheme.openMeetingPath:
+            if let workspaceId = params.first(where: { $0.name == appScheme.openMeetingPathWorkspaceIdKey })?.value,
+               let meetingId = params.first(where: { $0.name == appScheme.openMeetingPathMeetingIdKey })?.value,
+               let vc = popover.contentViewController as? MainViewController {
+                vc.openMeeting(workspaceId: workspaceId, meetingId: meetingId)
+            }
+        default:
+            return
+        }
     }
     
     private func constructPopover() {

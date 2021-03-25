@@ -60,6 +60,23 @@ class FirestoreMeeting {
         }
     }
     
+    func fetch(workspaceId: String, meetingId: String) -> Promise<FirestoreMeetingData?> {
+        return Promise<FirestoreMeetingData?>(in: .background, token: nil) { (resolve, reject, _) in
+            self.reference(workspaceId: workspaceId).document(meetingId).getDocument(completion: { (snapshot, error) in
+                if let _error = error {
+                    reject(_error)
+                } else {
+                    if let _snapshot = snapshot, _snapshot.exists {
+                        let data = _snapshot.data()
+                        resolve(self.firestoreDataToMeeting(snapshot: data ?? [String: Any](), meetingId: _snapshot.documentID))
+                    } else {
+                        resolve(nil)
+                    }
+                }
+            })
+        }
+    }
+    
     func add(workspaceId: String, data: FirestoreMeetingData) -> Promise<FirestoreMeetingData> {
         return Promise<FirestoreMeetingData>(in: .background, token: nil) { (resolve, reject, _) in
             var ref: DocumentReference? = nil

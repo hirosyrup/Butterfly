@@ -88,6 +88,27 @@ class MainViewController: NSViewController,
         }
     }
     
+    private func showStatementWindowController(workspaceId: String, data: MeetingRepository.MeetingData) {
+        let wc = StatementWindowController.create(workspaceId: workspaceId, meetingData: data)
+        wc.delegate = self
+        wc.showWindow(window)
+        statementWindowController = wc
+    }
+    
+    func openMeeting(workspaceId: String, meetingId: String) {
+        async({ _ -> MeetingRepository.MeetingData? in
+            return try await(MeetingRepository.Meeting().fetch(workspaceId: workspaceId, meetingId: meetingId))
+        }).then({ meetingData in
+            if let data = meetingData {
+                self.showStatementWindowController(workspaceId: workspaceId, data: data)
+            } else {
+                AlertBuilder.createErrorAlert(title: "Error", message: "Not Found the meeting.").runModal()
+            }
+        }).catch { (error) in
+            AlertBuilder.createErrorAlert(title: "Error", message: "Failed to fetch meeting data. \(error.localizedDescription)").runModal()
+        }
+    }
+    
     func willClose(vc: PreferencesWindowController) {
         preferencesWindowController = nil
     }
@@ -103,10 +124,7 @@ class MainViewController: NSViewController,
     }
     
     func didClickItem(vc: MeetingViewController, workspaceId: String, data: MeetingRepository.MeetingData) {
-        let wc = StatementWindowController.create(workspaceId: workspaceId, meetingData: data)
-        wc.delegate = self
-        wc.showWindow(window)
-        statementWindowController = wc
+        showStatementWindowController(workspaceId: workspaceId, data: data)
     }
     
     @IBAction func pushPreferences(_ sender: Any) {

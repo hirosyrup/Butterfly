@@ -8,7 +8,8 @@
 import Cocoa
 
 class StatementShareViewController: NSViewController {
-    var meetingName = ""
+    var workspaceId: String = ""
+    var meetingData: MeetingRepository.MeetingData!
     var dataList = [StatementRepository.StatementData]()
     
     override func viewDidLoad() {
@@ -23,7 +24,7 @@ class StatementShareViewController: NSViewController {
     @IBAction func pushExportCsv(_ sender: Any) {
         let savePanel = NSSavePanel()
         savePanel.canCreateDirectories = true
-        savePanel.nameFieldStringValue = "\(meetingName).csv"
+        savePanel.nameFieldStringValue = "\(meetingData.name).csv"
         savePanel.begin { (response) in
             if response == .OK {
                 guard let url = savePanel.url else { return }
@@ -37,5 +38,9 @@ class StatementShareViewController: NSViewController {
     }
     
     @IBAction func pushCopyDeepLink(_ sender: Any) {
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(AppScheme().openMeetingScheme(workspaceId: workspaceId, meetingId: meetingData.id), forType: .string)
+        dismiss(self)
     }
 }

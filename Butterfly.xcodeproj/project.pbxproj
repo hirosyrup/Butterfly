@@ -24,6 +24,7 @@
 		FB0D2FAF26073E23001403A5 /* FirestoreMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FAE26073E23001403A5 /* FirestoreMeeting.swift */; };
 		FB0D2FB3260742E6001403A5 /* WorkspaceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FB2260742E6001403A5 /* WorkspaceRepository.swift */; };
 		FB0D2FBA26075CC5001403A5 /* SelectMemberFetchForMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FB926075CC5001403A5 /* SelectMemberFetchForMeeting.swift */; };
+		FB204257260C5471006620A2 /* AppScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB204256260C5471006620A2 /* AppScheme.swift */; };
 		FB2603422608D27D00323E4B /* StatementQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603412608D27D00323E4B /* StatementQueue.swift */; };
 		FB2603482608D28F00323E4B /* StatementQueueData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603472608D28F00323E4B /* StatementQueueData.swift */; };
 		FB2603502608DC6D00323E4B /* StatementCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB26034E2608DC6D00323E4B /* StatementCollectionViewItem.swift */; };
@@ -49,7 +50,6 @@
 		FB9D71A42608763A00B7E9DE /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D71A32608763A00B7E9DE /* SpeechRecognizer.swift */; };
 		FB9D71AB26087BD500B7E9DE /* ObserveBreakInStatements.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D71AA26087BD500B7E9DE /* ObserveBreakInStatements.swift */; };
 		FB9D71B32608854100B7E9DE /* RecognitionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D71B22608854100B7E9DE /* RecognitionRequest.swift */; };
-		FB9D71BA26088DA900B7E9DE /* test.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FB9D71B926088DA900B7E9DE /* test.m4a */; };
 		FBA2883A25F8896600D1B3BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2883925F8896600D1B3BD /* AppDelegate.swift */; };
 		FBA2883C25F8896600D1B3BD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA2883B25F8896600D1B3BD /* MainViewController.swift */; };
 		FBA2883E25F8896700D1B3BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBA2883D25F8896700D1B3BD /* Assets.xcassets */; };
@@ -130,6 +130,7 @@
 		FB0D2FAE26073E23001403A5 /* FirestoreMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreMeeting.swift; sourceTree = "<group>"; };
 		FB0D2FB2260742E6001403A5 /* WorkspaceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceRepository.swift; sourceTree = "<group>"; };
 		FB0D2FB926075CC5001403A5 /* SelectMemberFetchForMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMemberFetchForMeeting.swift; sourceTree = "<group>"; };
+		FB204256260C5471006620A2 /* AppScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScheme.swift; sourceTree = "<group>"; };
 		FB2603412608D27D00323E4B /* StatementQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementQueue.swift; sourceTree = "<group>"; };
 		FB2603472608D28F00323E4B /* StatementQueueData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementQueueData.swift; sourceTree = "<group>"; };
 		FB26034E2608DC6D00323E4B /* StatementCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementCollectionViewItem.swift; sourceTree = "<group>"; };
@@ -284,6 +285,14 @@
 			path = Meeting;
 			sourceTree = "<group>";
 		};
+		FB204255260C545C006620A2 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				FB204256260C5471006620A2 /* AppScheme.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		FB2603402608D26200323E4B /* Statement */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,6 +345,7 @@
 		FB9D71A2260875E600B7E9DE /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				FB204255260C545C006620A2 /* Util */,
 				FB9D71A926087AE500B7E9DE /* Speech */,
 			);
 			path = Lib;
@@ -674,7 +684,6 @@
 			files = (
 				FBA2883E25F8896700D1B3BD /* Assets.xcassets in Resources */,
 				FB9D716B260820A700B7E9DE /* MeetingCollectionViewItem.xib in Resources */,
-				FB9D71BA26088DA900B7E9DE /* test.m4a in Resources */,
 				FB2603512608DC6D00323E4B /* StatementCollectionViewItem.xib in Resources */,
 				FBA2884125F8896700D1B3BD /* Main.storyboard in Resources */,
 				FBF9A5D72603958B00AE78DF /* SelectMemberCollectionViewItem.xib in Resources */,
@@ -795,6 +804,7 @@
 				FB0D2FB3260742E6001403A5 /* WorkspaceRepository.swift in Sources */,
 				FBF9A6142605BDD600AE78DF /* FirestoreWorkspace.swift in Sources */,
 				FBA545DE25FFA3D300112066 /* FirestoreUser.swift in Sources */,
+				FB204257260C5471006620A2 /* AppScheme.swift in Sources */,
 				FBF9A5CD260392D500AE78DF /* SelectMemberViewController.swift in Sources */,
 				FB0D2F9826072EC1001403A5 /* SelectMemberFetchProtocol.swift in Sources */,
 				FBFCAAC525FF2FCA00D66CC9 /* AuthUser.swift in Sources */,

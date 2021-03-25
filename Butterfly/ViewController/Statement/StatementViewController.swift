@@ -50,7 +50,8 @@ class StatementViewController: NSViewController,
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let vc = segue.destinationController as? StatementShareViewController{
-            vc.meetingName = meetingData.name
+            vc.workspaceId = workspaceId
+            vc.meetingData = meetingData
             vc.dataList = statementDataList
         }
     }
