@@ -11,6 +11,8 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private let popover = NSPopover()
+    private var schemeOpenUrls: [URL]?
+    private var didLaunch = false
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if let button = statusItem.button {
@@ -27,10 +29,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         IconImage.shared.clearAllCache()
         SpeechRecognizer.shared.requestAuthorization()
+        
+        if let urls = schemeOpenUrls {
+            urls.forEach { self.openScheme(url: $0) }
+        }
+        
+        didLaunch = true
     }
     
     func application(_ application: NSApplication, open urls: [URL]) {
-        urls.forEach { self.openScheme(url: $0) }
+        if didLaunch {
+            urls.forEach { self.openScheme(url: $0) }
+        } else {
+            schemeOpenUrls = urls
+        }
     }
     
     func applicationWillBecomeActive(_ notification: Notification) {
