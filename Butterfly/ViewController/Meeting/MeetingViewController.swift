@@ -72,8 +72,8 @@ class MeetingViewController: NSViewController,
     }
     
     @IBAction func pushAddButton(_ sender: Any) {
-        if let workspaceData = selectedWorkspaceData() {
-            let vc = MeetingInputViewController.create(workspaceId: workspaceData.id, meetingData: nil)
+        if let _userData = userData, let workspaceData = selectedWorkspaceData() {
+            let vc = MeetingInputViewController.create(workspaceId: workspaceData.id, hostUserId: _userData.id, meetingData: nil)
             presentAsSheet(vc)
         }
     }

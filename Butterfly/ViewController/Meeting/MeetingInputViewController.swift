@@ -20,17 +20,19 @@ class MeetingInputViewController: NSViewController,
     @IBOutlet weak var memberSelectContainer: NSView!
     @IBOutlet weak var cancelButton: NSButton!
     fileprivate var workspaceId: String!
+    fileprivate var hostUserId: String!
     fileprivate var meetingData: MeetingRepository.MeetingData!
     private var isProcessing = false
     private var selectedUserDataList = [MeetingRepository.MeetingUserData]()
     
     fileprivate weak var delegate: MeetingInputViewControllerDelegate?
     
-    class func create(workspaceId: String, meetingData: MeetingRepository.MeetingData?, delegate: MeetingInputViewControllerDelegate? = nil) -> MeetingInputViewController {
+    class func create(workspaceId: String, hostUserId: String, meetingData: MeetingRepository.MeetingData?, delegate: MeetingInputViewControllerDelegate? = nil) -> MeetingInputViewController {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         let identifier = NSStoryboard.SceneIdentifier("MeetingInputViewController")
         let vc = storyboard.instantiateController(withIdentifier: identifier) as! MeetingInputViewController
         vc.workspaceId = workspaceId
+        vc.hostUserId = hostUserId
         vc.meetingData = meetingData ?? MeetingRepository.MeetingData(userList: [])
         vc.delegate = delegate
         return vc
@@ -85,6 +87,9 @@ class MeetingInputViewController: NSViewController,
         var newMeetingData = meetingData!
         newMeetingData.name = nameTextField.stringValue
         newMeetingData.userList = selectedUserDataList
+        if let index = newMeetingData.userList.firstIndex(where: { $0.id == self.hostUserId }) {
+            newMeetingData.userList[index].isHost = true
+        }
         async({ _ -> MeetingRepository.MeetingData in
             return try await(SaveMeeting(workspaceId: self.workspaceId, data: newMeetingData).save())
         }).then({ savedMeetingData in

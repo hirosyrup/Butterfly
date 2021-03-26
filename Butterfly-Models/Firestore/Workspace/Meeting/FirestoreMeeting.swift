@@ -113,7 +113,9 @@ class FirestoreMeeting {
                 return [
                     "id": user.id,
                     "iconName": user.iconName ?? NSNull(),
-                    "name": user.name
+                    "name": user.name,
+                    "isHost": user.isHost,
+                    "audioFileName": user.audioFileName ?? NSNull()
                 ]
             }),
             "createdAt": Timestamp(date: data.createdAt),
@@ -130,7 +132,9 @@ class FirestoreMeeting {
                 FirestoreMeetingUserData(
                     id: (raw["id"] as? String) ?? "",
                     iconName: raw["iconName"] as? String,
-                    name: (raw["name"] as? String) ?? ""
+                    name: (raw["name"] as? String) ?? "",
+                    isHost: (raw["isHost"] as? Bool) ?? false,
+                    audioFileName: raw["audioFileName"] as? String
                 )
             }),
             createdAt: (snapshot["createdAt"] as? Timestamp)?.dateValue() ?? Date(),

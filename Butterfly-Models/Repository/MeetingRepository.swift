@@ -34,7 +34,7 @@ class MeetingRepository {
             var firestoreData = original
             firestoreData.name = name
             firestoreData.userList = userList.map({ (user) -> FirestoreMeetingUserData in
-                return FirestoreMeetingUserData(id: user.id, iconName: user.iconName, name: user.name)
+                return FirestoreMeetingUserData(id: user.id, iconName: user.iconName, name: user.name, isHost: user.isHost, audioFileName: user.audioFileName)
             })
             return firestoreData
         }
@@ -45,12 +45,16 @@ class MeetingRepository {
         let iconName: String?
         let iconImageUrl: URL?
         let name: String
+        var isHost: Bool
+        var audioFileName: String?
         
         init(iconImageUrl: URL?, firestoreData: FirestoreMeetingUserData) {
             self.iconImageUrl = iconImageUrl
             self.id = firestoreData.id
             self.iconName = firestoreData.iconName
             self.name = firestoreData.name
+            self.isHost = firestoreData.isHost
+            self.audioFileName = firestoreData.audioFileName
         }
         
         init(iconImageUrl: URL?, firestoreData: FirestoreUserData) {
@@ -58,6 +62,8 @@ class MeetingRepository {
             self.id = firestoreData.id
             self.iconName = firestoreData.iconName
             self.name = firestoreData.name
+            self.isHost = false
+            self.audioFileName = nil
         }
     }
     

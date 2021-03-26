@@ -11,8 +11,10 @@ struct FirestoreMeetingUserData {
     var id: String
     var iconName: String?
     var name: String
+    var isHost: Bool
+    var audioFileName: String?
     
     static func new() -> FirestoreMeetingUserData {
-        return FirestoreMeetingUserData(id: "", iconName: nil, name: "")
+        return FirestoreMeetingUserData(id: "", iconName: nil, name: "", isHost: false, audioFileName: nil)
     }
 }
