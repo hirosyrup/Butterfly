@@ -74,12 +74,7 @@ class SpeechRecognizer: NSObject,
         try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         #endif
         
-        // Test
-        //let recordingFormat = inputNode.outputFormat(forBus: 0)
-        
-        // Production
-        let recordingFormat = inputNode.outputFormat(forBus: 0)
-        inputNode.installTap(onBus: 0, bufferSize: observeBreakInStatements.bufferSize, format: recordingFormat) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
+        inputNode.installTap(onBus: 0, bufferSize: observeBreakInStatements.bufferSize, format: nil) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
             DispatchQueue.main.async {
                 self.observeBreakInStatements.checkBreakInStatements(buffer: buffer, when: when)
                 self.recognitionRequests.forEach { $0.append(buffer: buffer) }
