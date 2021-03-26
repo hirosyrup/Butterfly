@@ -11,11 +11,12 @@ struct FirestoreMeetingData {
     var id: String
     var name: String
     var userList: [FirestoreMeetingUserData]
+    var status: Int
     var createdAt: Date
     var updatedAt: Date
     
     static func new() -> FirestoreMeetingData {
-        return FirestoreMeetingData(id: "", name: "", userList: [], createdAt: Date(), updatedAt: Date())
+        return FirestoreMeetingData(id: "", name: "", userList: [], status: 0, createdAt: Date(), updatedAt: Date())
     }
     
     func copyCurrentAt() -> FirestoreMeetingData {

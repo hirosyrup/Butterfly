@@ -15,12 +15,19 @@ protocol MeetingRepositoryDelegate: class {
 }
 
 class MeetingRepository {
+    enum Status: Int {
+        case waitingForTheStart = 0
+        case inTheMeeting = 1
+        case finished = 2
+    }
+    
     struct MeetingData {
         fileprivate let original: FirestoreMeetingData
         let id: String
         var name: String
         var createdAt: Date
         var userList: [MeetingUserData]
+        var status: Status
         
         init(userList: [MeetingUserData], original: FirestoreMeetingData? = nil) {
             self.userList = userList
@@ -28,6 +35,7 @@ class MeetingRepository {
             self.id = self.original.id
             self.createdAt = self.original.createdAt
             self.name = self.original.name
+            self.status = Status(rawValue: self.original.status) ?? .waitingForTheStart
         }
         
         fileprivate func toFirestoreData() -> FirestoreMeetingData {
@@ -36,6 +44,7 @@ class MeetingRepository {
             firestoreData.userList = userList.map({ (user) -> FirestoreMeetingUserData in
                 return FirestoreMeetingUserData(id: user.id, iconName: user.iconName, name: user.name, isHost: user.isHost, audioFileName: user.audioFileName)
             })
+            firestoreData.status = status.rawValue
             return firestoreData
         }
     }

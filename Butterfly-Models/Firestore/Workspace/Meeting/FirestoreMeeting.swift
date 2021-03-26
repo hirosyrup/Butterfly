@@ -118,6 +118,7 @@ class FirestoreMeeting {
                     "audioFileName": user.audioFileName ?? NSNull()
                 ]
             }),
+            "status": data.status,
             "createdAt": Timestamp(date: data.createdAt),
             "updatedAt": Timestamp(date: data.updatedAt)
         ]
@@ -137,6 +138,7 @@ class FirestoreMeeting {
                     audioFileName: raw["audioFileName"] as? String
                 )
             }),
+            status: (snapshot["status"] as? Int) ?? 0,
             createdAt: (snapshot["createdAt"] as? Timestamp)?.dateValue() ?? Date(),
             updatedAt: (snapshot["updatedAt"] as? Timestamp)?.dateValue() ?? Date()
         )
