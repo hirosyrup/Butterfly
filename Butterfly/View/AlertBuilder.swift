@@ -25,4 +25,14 @@ class AlertBuilder {
         alert.addButton(withTitle: "OK")
         return alert
     }
+    
+    static func createConfirmAlert(title: String, message: String) -> NSAlert {
+        let alert = NSAlert()
+        alert.alertStyle = .critical
+        alert.messageText = title
+        alert.informativeText = message
+        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: "Cancel")
+        return alert
+    }
 }

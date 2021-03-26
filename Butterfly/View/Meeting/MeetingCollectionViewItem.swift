@@ -7,6 +7,11 @@
 
 import Cocoa
 
+protocol MeetingCollectionViewItemDelegate: class {
+    func didPushEdit(view: MeetingCollectionViewItem)
+    func didPushDelete(view: MeetingCollectionViewItem)
+}
+
 class MeetingCollectionViewItem: NSCollectionViewItem {
     @IBOutlet weak var background: NSBox!
     @IBOutlet weak var titleLabel: NSTextField!
@@ -14,7 +19,7 @@ class MeetingCollectionViewItem: NSCollectionViewItem {
     @IBOutlet weak var editButton: NSButton!
     @IBOutlet weak var deleteButton: NSButton!
     @IBOutlet weak var memberIconView: MemberIconContainer!
-    private var id: Int = 0
+    weak var delegate: MeetingCollectionViewItemDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +51,10 @@ class MeetingCollectionViewItem: NSCollectionViewItem {
     }
     
     @IBAction func pushEdit(_ sender: Any) {
-        
+        delegate?.didPushEdit(view: self)
     }
     
     @IBAction func pushDelete(_ sender: Any) {
-        
+        delegate?.didPushDelete(view: self)
     }
 }

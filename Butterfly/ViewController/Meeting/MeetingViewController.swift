@@ -57,6 +57,7 @@ class MeetingViewController: NSViewController,
     
     func setup(userData: WorkspaceRepository.UserData) {
         self.userData = userData
+        collectionViewController.userId = userData.id
         updateWorkspacePopupItems()
         reloadCollection()
     }

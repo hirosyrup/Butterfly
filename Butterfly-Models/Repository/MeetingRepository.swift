@@ -178,6 +178,18 @@ class MeetingRepository {
             }
         }
         
+        func delete(workspaceId: String, meetingData: MeetingData) -> Promise<Void> {
+            return Promise<Void>(in: .background, token: nil) { (resolve, reject, _) in
+                async({ _ -> Void in
+                    try await(self.meeting.delete(workspaceId: workspaceId, meetingId: meetingData.id))
+                }).then({
+                    resolve(())
+                }).catch { (error) in
+                    reject(error)
+                }
+            }
+        }
+        
         private func createMeetingData(firestoreMeetingData: FirestoreMeetingData) -> Promise<MeetingData> {
             return Promise<MeetingData>(in: .background, token: nil) { (resolve, reject, _) in
                 async({ _ -> MeetingData in

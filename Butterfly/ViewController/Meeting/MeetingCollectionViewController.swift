@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Hydra
 
 protocol MeetingCollectionViewControllerDelegate: class {
     func didClickItem(vc: MeetingCollectionViewController, data: MeetingRepository.MeetingData)
@@ -14,7 +15,8 @@ protocol MeetingCollectionViewControllerDelegate: class {
 class MeetingCollectionViewController: NSViewController,
                                        NSCollectionViewDataSource,
                                        NSCollectionViewDelegate,
-                                       MeetingRepositoryDelegate {
+                                       MeetingRepositoryDelegate,
+                                       MeetingCollectionViewItemDelegate {
     @IBOutlet weak var loadingIndicator: NSProgressIndicator!
     @IBOutlet weak var noMeetingLabel: NSTextField!
     @IBOutlet weak var collectionView: NSCollectionView!
@@ -22,6 +24,8 @@ class MeetingCollectionViewController: NSViewController,
     private let cellId = "MeetingCollectionViewItem"
     private let meetingRepository = MeetingRepository.Meeting()
     private var meetingDataList = [MeetingRepository.MeetingData]()
+    var userId = ""
+    private var workspaceId = ""
     weak var delegate: MeetingCollectionViewControllerDelegate?
     
     override func viewDidLoad() {
@@ -40,12 +44,21 @@ class MeetingCollectionViewController: NSViewController,
         loadingIndicator.startAnimation(self)
         meetingRepository.unlisten()
         meetingRepository.listen(workspaceId: workspaceId)
+        self.workspaceId = workspaceId
     }
     
     private func updateViews() {
         let isEmpty = meetingDataList.isEmpty
         noMeetingLabel.isHidden = !isEmpty
         collectionView.isHidden = isEmpty
+    }
+    
+    private func deleteMeeting(deleteData: MeetingRepository.MeetingData) {
+        async({ _ -> Void in
+            try await(self.meetingRepository.delete(workspaceId: self.workspaceId, meetingData: deleteData))
+        }).catch { (error) in
+            AlertBuilder.createErrorAlert(title: "Error", message: "Failed to delete meeting. \(error.localizedDescription)").runModal()
+        }
     }
     
     func didChangeMeetingData(obj: MeetingRepository.Meeting, documentChanges: [RepositoryDocumentChange<MeetingRepository.MeetingData>]) {
@@ -87,6 +100,7 @@ class MeetingCollectionViewController: NSViewController,
         let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId), for: indexPath) as! MeetingCollectionViewItem
         let meetingData = meetingDataList[indexPath.item]
         item.updateView(presenter: MeetingCollectionViewItemPresenter(data: meetingData))
+        item.delegate = self
         return item
     }
     
@@ -94,5 +108,23 @@ class MeetingCollectionViewController: NSViewController,
         guard let indexPath = indexPaths.first else { return }
         delegate?.didClickItem(vc: self, data: meetingDataList[indexPath.item])
         collectionView.deselectItems(at: indexPaths)
+    }
+    
+    func didPushEdit(view: MeetingCollectionViewItem) {
+        if let indexPath = collectionView.indexPath(for: view) {
+            let meetingData = meetingDataList[indexPath.item]
+            let vc = MeetingInputViewController.create(workspaceId: workspaceId, hostUserId: userId, meetingData: meetingData)
+            presentAsSheet(vc)
+        }
+    }
+    
+    func didPushDelete(view: MeetingCollectionViewItem) {
+        if let indexPath = collectionView.indexPath(for: view) {
+            let deleteData = meetingDataList[indexPath.item]
+            let alert = AlertBuilder.createConfirmAlert(title: "Confirmation", message: "Are you sure you want to delete the meeting? The statements are also deleted and cannot be restored.")
+            if alert.runModal() == .alertFirstButtonReturn {
+                deleteMeeting(deleteData: deleteData)
+            }
+        }
     }
 }

@@ -106,6 +106,18 @@ class FirestoreMeeting {
         }
     }
     
+    func delete(workspaceId: String, meetingId: String) -> Promise<Void> {
+        return Promise<Void>(in: .background, token: nil) { (resolve, reject, _) in
+            self.reference(workspaceId: workspaceId).document(meetingId).delete { (error) in
+                if let _error = error {
+                    reject(_error)
+                } else {
+                    resolve(())
+                }
+            }
+        }
+    }
+    
     private func meetingToFirestoreData(data: FirestoreMeetingData) -> [String: Any] {
         return [
             "name": data.name,
