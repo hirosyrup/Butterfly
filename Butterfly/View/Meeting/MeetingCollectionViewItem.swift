@@ -18,7 +18,7 @@ class MeetingCollectionViewItem: NSCollectionViewItem {
     @IBOutlet weak var createdAtLabel: NSTextField!
     @IBOutlet weak var editButton: NSButton!
     @IBOutlet weak var deleteButton: NSButton!
-    @IBOutlet weak var memberIconView: MemberIconContainer!
+    @IBOutlet weak var memberIconView: MeetingMemberIconContainer!
     weak var delegate: MeetingCollectionViewItemDelegate?
     
     override func viewDidLoad() {
@@ -47,7 +47,7 @@ class MeetingCollectionViewItem: NSCollectionViewItem {
     func updateView(presenter: MeetingCollectionViewItemPresenter) {
         titleLabel.stringValue = presenter.title()
         createdAtLabel.stringValue = presenter.createdAt()
-        memberIconView.updateView(imageUrls: presenter.imageUrls())
+        memberIconView.updateView(presenters: presenter.meetingMemberIconViewPresenters())
     }
     
     @IBAction func pushEdit(_ sender: Any) {

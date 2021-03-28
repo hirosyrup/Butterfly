@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe" customClass="MeetingMemberIconView" customModule="Butterfly" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="bV9-8h-KN2">
+                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                </customView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lSH-LM-PeD">
+                    <rect key="frame" x="28" y="25" width="12" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="12" id="Ntg-Bl-Ax4"/>
+                        <constraint firstAttribute="height" constant="12" id="jZn-pr-EP5"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSTouchBarRecordStartTemplate" id="dbJ-tP-NYq"/>
+                    <color key="contentTintColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                </imageView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="lSH-LM-PeD" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="DkB-Nd-fet"/>
+                <constraint firstAttribute="trailing" secondItem="bV9-8h-KN2" secondAttribute="trailing" id="DnC-w0-YBa"/>
+                <constraint firstAttribute="bottom" secondItem="bV9-8h-KN2" secondAttribute="bottom" id="N8v-sS-Lme"/>
+                <constraint firstAttribute="trailing" secondItem="lSH-LM-PeD" secondAttribute="trailing" id="ch8-2K-kBD"/>
+                <constraint firstItem="bV9-8h-KN2" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="ekK-Au-Kyr"/>
+                <constraint firstItem="bV9-8h-KN2" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="vgi-SD-7v0"/>
+            </constraints>
+            <connections>
+                <outlet property="isEnteringIconImageView" destination="lSH-LM-PeD" id="Q9j-EP-4uP"/>
+                <outlet property="memberIconContainer" destination="bV9-8h-KN2" id="PqV-9K-HLR"/>
+            </connections>
+            <point key="canvasLocation" x="-36" y="120"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="NSTouchBarRecordStartTemplate" width="15" height="15"/>
+    </resources>
+</document>

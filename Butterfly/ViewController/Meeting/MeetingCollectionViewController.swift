@@ -15,7 +15,7 @@ protocol MeetingCollectionViewControllerDelegate: class {
 class MeetingCollectionViewController: NSViewController,
                                        NSCollectionViewDataSource,
                                        NSCollectionViewDelegate,
-                                       MeetingRepositoryDelegate,
+                                       MeetingRepositoryDataListDelegate,
                                        MeetingCollectionViewItemDelegate {
     @IBOutlet weak var loadingIndicator: NSProgressIndicator!
     @IBOutlet weak var noMeetingLabel: NSTextField!
@@ -32,7 +32,6 @@ class MeetingCollectionViewController: NSViewController,
         super.viewDidLoad()
         noMeetingLabel.isHidden = true
         collectionView.isHidden = true
-        meetingRepository.delegate = self
         collectionView.dataSource = self
         collectionView.delegate = self
         let nib = NSNib(nibNamed: "MeetingCollectionViewItem", bundle: nil)
@@ -43,7 +42,7 @@ class MeetingCollectionViewController: NSViewController,
         meetingDataList = []
         loadingIndicator.startAnimation(self)
         meetingRepository.unlisten()
-        meetingRepository.listen(workspaceId: workspaceId)
+        meetingRepository.listen(workspaceId: workspaceId, dataListDelegate: self)
         self.workspaceId = workspaceId
     }
     
@@ -61,7 +60,7 @@ class MeetingCollectionViewController: NSViewController,
         }
     }
     
-    func didChangeMeetingData(obj: MeetingRepository.Meeting, documentChanges: [RepositoryDocumentChange<MeetingRepository.MeetingData>]) {
+    func didChangeMeetingDataList(obj: MeetingRepository.Meeting, documentChanges: [RepositoryDocumentChange<MeetingRepository.MeetingData>]) {
         let modifieds = documentChanges.filter { $0.type == .modified }
         modifieds.forEach { (modified) in
             if  self.meetingDataList.count > modified.oldIndex {

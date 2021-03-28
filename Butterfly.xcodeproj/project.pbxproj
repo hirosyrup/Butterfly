@@ -31,13 +31,16 @@
 		FB2603512608DC6D00323E4B /* StatementCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB26034F2608DC6D00323E4B /* StatementCollectionViewItem.xib */; };
 		FB2603572608DE5B00323E4B /* StatementCollectionViewItemPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603562608DE5B00323E4B /* StatementCollectionViewItemPresenter.swift */; };
 		FB26035F260B946400323E4B /* StatementShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB26035E260B946400323E4B /* StatementShareViewController.swift */; };
+		FB26039F2610BA6A00323E4B /* MeetingMemberIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB26039E2610BA6A00323E4B /* MeetingMemberIconView.swift */; };
+		FB2603A32610BA7D00323E4B /* MeetingMemberIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB2603A22610BA7D00323E4B /* MeetingMemberIconView.xib */; };
+		FB2603A92610BD7200323E4B /* MeetingMemberIconViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603A82610BD7200323E4B /* MeetingMemberIconViewPresenter.swift */; };
 		FB523C21260765C800801070 /* MeetingInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C20260765C800801070 /* MeetingInputViewController.swift */; };
 		FB523C252607681C00801070 /* SaveMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C242607681B00801070 /* SaveMeeting.swift */; };
 		FB523C2B2607738C00801070 /* RepositoryDocumentChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */; };
 		FB523C2F2607739600801070 /* RepositoryDocumentChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C2E2607739600801070 /* RepositoryDocumentChangeType.swift */; };
 		FB523C372607779100801070 /* MeetingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C362607779100801070 /* MeetingCollectionViewController.swift */; };
 		FB523C3D26077D9E00801070 /* FirestoreDocumentChangeWithData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C3C26077D9E00801070 /* FirestoreDocumentChangeWithData.swift */; };
-		FB523C4A26081A3E00801070 /* MemberIconContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C4926081A3E00801070 /* MemberIconContainer.swift */; };
+		FB523C4A26081A3E00801070 /* MeetingMemberIconContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C4926081A3E00801070 /* MeetingMemberIconContainer.swift */; };
 		FB9D716A260820A700B7E9DE /* MeetingCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */; };
 		FB9D716B260820A700B7E9DE /* MeetingCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB9D7169260820A700B7E9DE /* MeetingCollectionViewItem.xib */; };
 		FB9D71712608289600B7E9DE /* MeetingCollectionViewItemPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D71702608289600B7E9DE /* MeetingCollectionViewItemPresenter.swift */; };
@@ -137,13 +140,16 @@
 		FB26034F2608DC6D00323E4B /* StatementCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatementCollectionViewItem.xib; sourceTree = "<group>"; };
 		FB2603562608DE5B00323E4B /* StatementCollectionViewItemPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementCollectionViewItemPresenter.swift; sourceTree = "<group>"; };
 		FB26035E260B946400323E4B /* StatementShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementShareViewController.swift; sourceTree = "<group>"; };
+		FB26039E2610BA6A00323E4B /* MeetingMemberIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingMemberIconView.swift; sourceTree = "<group>"; };
+		FB2603A22610BA7D00323E4B /* MeetingMemberIconView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeetingMemberIconView.xib; sourceTree = "<group>"; };
+		FB2603A82610BD7200323E4B /* MeetingMemberIconViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingMemberIconViewPresenter.swift; sourceTree = "<group>"; };
 		FB523C20260765C800801070 /* MeetingInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingInputViewController.swift; sourceTree = "<group>"; };
 		FB523C242607681B00801070 /* SaveMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMeeting.swift; sourceTree = "<group>"; };
 		FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDocumentChange.swift; sourceTree = "<group>"; };
 		FB523C2E2607739600801070 /* RepositoryDocumentChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDocumentChangeType.swift; sourceTree = "<group>"; };
 		FB523C362607779100801070 /* MeetingCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCollectionViewController.swift; sourceTree = "<group>"; };
 		FB523C3C26077D9E00801070 /* FirestoreDocumentChangeWithData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreDocumentChangeWithData.swift; sourceTree = "<group>"; };
-		FB523C4926081A3E00801070 /* MemberIconContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberIconContainer.swift; sourceTree = "<group>"; };
+		FB523C4926081A3E00801070 /* MeetingMemberIconContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingMemberIconContainer.swift; sourceTree = "<group>"; };
 		FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingCollectionViewItem.swift; sourceTree = "<group>"; };
 		FB9D7169260820A700B7E9DE /* MeetingCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingCollectionViewItem.xib; sourceTree = "<group>"; };
 		FB9D71702608289600B7E9DE /* MeetingCollectionViewItemPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCollectionViewItemPresenter.swift; sourceTree = "<group>"; };
@@ -315,6 +321,10 @@
 		FB9D7167260820A700B7E9DE /* Meeting */ = {
 			isa = PBXGroup;
 			children = (
+				FB2603A82610BD7200323E4B /* MeetingMemberIconViewPresenter.swift */,
+				FB26039E2610BA6A00323E4B /* MeetingMemberIconView.swift */,
+				FB2603A22610BA7D00323E4B /* MeetingMemberIconView.xib */,
+				FB523C4926081A3E00801070 /* MeetingMemberIconContainer.swift */,
 				FB9D71702608289600B7E9DE /* MeetingCollectionViewItemPresenter.swift */,
 				FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */,
 				FB9D7169260820A700B7E9DE /* MeetingCollectionViewItem.xib */,
@@ -544,7 +554,6 @@
 			children = (
 				FBF9A5BC26038A7100AE78DF /* MemberIconView.swift */,
 				FBF9A5C026038A7E00AE78DF /* MemberIconView.xib */,
-				FB523C4926081A3E00801070 /* MemberIconContainer.swift */,
 				FBF9A5D22603957B00AE78DF /* SelectMemberCollectionViewItem.swift */,
 				FBF9A5D62603958B00AE78DF /* SelectMemberCollectionViewItem.xib */,
 				FB0D2F6F26063965001403A5 /* TextCollectionViewItem.swift */,
@@ -689,6 +698,7 @@
 				FBF9A5D72603958B00AE78DF /* SelectMemberCollectionViewItem.xib in Resources */,
 				FBF9A5C126038A7E00AE78DF /* MemberIconView.xib in Resources */,
 				FB0D2F7026063965001403A5 /* TextCollectionViewItem.xib in Resources */,
+				FB2603A32610BA7D00323E4B /* MeetingMemberIconView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -795,6 +805,7 @@
 				FBF9A5DD2603975A00AE78DF /* SelectMemberCollectionViewItemPresenter.swift in Sources */,
 				FB523C252607681C00801070 /* SaveMeeting.swift in Sources */,
 				FB0D2FBA26075CC5001403A5 /* SelectMemberFetchForMeeting.swift in Sources */,
+				FB2603A92610BD7200323E4B /* MeetingMemberIconViewPresenter.swift in Sources */,
 				FB9D71712608289600B7E9DE /* MeetingCollectionViewItemPresenter.swift in Sources */,
 				FB9D716A260820A700B7E9DE /* MeetingCollectionViewItem.swift in Sources */,
 				FB2603502608DC6D00323E4B /* StatementCollectionViewItem.swift in Sources */,
@@ -811,6 +822,7 @@
 				FBA545E425FFACEA00112066 /* PreferencesRepository.swift in Sources */,
 				FBA545CB25FFA28B00112066 /* FirestoreUserData.swift in Sources */,
 				FB0D2F8C26071930001403A5 /* FirestoreObserver.swift in Sources */,
+				FB26039F2610BA6A00323E4B /* MeetingMemberIconView.swift in Sources */,
 				FBA544F325FD04BB00112066 /* EditableNSTextField.swift in Sources */,
 				FB9D71922608668000B7E9DE /* StatementRepository.swift in Sources */,
 				FBA5456025FE48AF00112066 /* SignUp.swift in Sources */,
@@ -827,7 +839,7 @@
 				FBA544AD25FA5D2400112066 /* PreferencesFirebaseViewController.swift in Sources */,
 				FBA5456825FE5BF100112066 /* AlertBuilder.swift in Sources */,
 				FB523C3D26077D9E00801070 /* FirestoreDocumentChangeWithData.swift in Sources */,
-				FB523C4A26081A3E00801070 /* MemberIconContainer.swift in Sources */,
+				FB523C4A26081A3E00801070 /* MeetingMemberIconContainer.swift in Sources */,
 				FBF9A5BD26038A7100AE78DF /* MemberIconView.swift in Sources */,
 				FBF9A5E726056E4F00AE78DF /* NSView+NoClipping.swift in Sources */,
 				FB0D2F7126063965001403A5 /* TextCollectionViewItem.swift in Sources */,

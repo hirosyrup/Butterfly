@@ -27,7 +27,7 @@ class MeetingCollectionViewItemPresenter {
         return f.string(from: data.createdAt)
     }
     
-    func imageUrls() -> [URL?] {
-        return data.userList.map { $0.iconImageUrl }
+    func meetingMemberIconViewPresenters() -> [MeetingMemberIconViewPresenter] {
+        return data.userList.map { MeetingMemberIconViewPresenter(data: $0) }
     }
 }

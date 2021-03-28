@@ -93,6 +93,16 @@ class MainViewController: NSViewController,
         wc.delegate = self
         wc.showWindow(window)
         statementWindowController = wc
+        updateIsEntering(isEntering: true, workspaceId: workspaceId, data: data)
+    }
+    
+    private func updateIsEntering(isEntering: Bool, workspaceId: String, data: MeetingRepository.MeetingData) {
+        guard let index = data.userList.firstIndex(where: {$0.id == userData?.id}) else { return }
+        var updateData = data
+        updateData.userList[index].isEntering = isEntering
+        async({ _ -> MeetingRepository.MeetingData in
+            return try await(MeetingRepository.Meeting().update(workspaceId: workspaceId, meetingData: updateData))
+        }).then { (_) in }
     }
     
     func openMeeting(workspaceId: String, meetingId: String) {
@@ -114,6 +124,7 @@ class MainViewController: NSViewController,
     }
     
     func willClose(vc: StatementWindowController) {
+        updateIsEntering(isEntering: false, workspaceId: vc.workspaceId, data: vc.meetingData)
         statementWindowController = nil
     }
     

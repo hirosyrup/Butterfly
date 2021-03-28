@@ -11,9 +11,11 @@ import Hydra
 class SelectMemberFetchForMeeting: SelectMemberFetchProtocol {
     private var originalUserDataList = [MeetingRepository.MeetingUserData]()
     private let workspaceId: String
+    private let meetingData: MeetingRepository.MeetingData
     
-    init(workspaceId: String) {
+    init(workspaceId: String, meetingData: MeetingRepository.MeetingData) {
         self.workspaceId = workspaceId
+        self.meetingData = meetingData
     }
 
     func fetchMembers() -> Promise<[SelectMemberUserData]> {
@@ -21,7 +23,7 @@ class SelectMemberFetchForMeeting: SelectMemberFetchProtocol {
             async({ _ -> [MeetingRepository.MeetingUserData] in
                 return try await(MeetingRepository.User().fetchUsers(workspaceId: self.workspaceId))
             }).then({ dataList in
-                self.originalUserDataList = dataList
+                self.originalUserDataList = self.mergeMeetingUserListToUserDataList(originalMeetingData: self.meetingData, userList: dataList)
                 let selectMemberList = dataList.map({ (userData) -> SelectMemberUserData in
                     return SelectMemberUserData(id: userData.id, iconImageUrl: userData.iconImageUrl, name: userData.name)
                 })
@@ -34,5 +36,15 @@ class SelectMemberFetchForMeeting: SelectMemberFetchProtocol {
 
     func originalUserDataListAt(_ indices: [Int]) -> [MeetingRepository.MeetingUserData] {
         return indices.map { self.originalUserDataList[$0] }
+    }
+    
+    private func mergeMeetingUserListToUserDataList(originalMeetingData: MeetingRepository.MeetingData, userList: [MeetingRepository.MeetingUserData]) -> [MeetingRepository.MeetingUserData] {
+        return userList.map { (user) -> MeetingRepository.MeetingUserData in
+            if let index = originalMeetingData.userList.firstIndex(where: {$0.id == user.id}) {
+                return originalMeetingData.userList[index]
+            } else {
+                return user
+            }
+        }
     }
 }

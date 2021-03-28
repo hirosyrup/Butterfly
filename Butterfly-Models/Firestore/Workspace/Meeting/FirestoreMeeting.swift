@@ -11,14 +11,19 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Hydra
 
-protocol FirestoreMeetingDelegate: class {
-    func didChangeMeetingData(obj: FirestoreMeeting, documentChanges: [FirestoreDocumentChangeWithData<FirestoreMeetingData>])
+protocol FirestoreMeetingDataListDelegate: class {
+    func didChangeMeetingDataList(obj: FirestoreMeeting, documentChanges: [FirestoreDocumentChangeWithData<FirestoreMeetingData>])
+}
+
+protocol FirestoreMeetingDataDelegate: class {
+    func didChangeMeetingData(obj: FirestoreMeeting, data: FirestoreMeetingData)
 }
 
 class FirestoreMeeting {
     private let db = Firestore.firestore()
     private let meetingCollectionName = "meetings"
-    weak var delegate: FirestoreMeetingDelegate?
+    weak var dataListDelegate: FirestoreMeetingDataListDelegate?
+    weak var dataDelegate: FirestoreMeetingDataDelegate?
     private var workspaceListener: ListenerRegistration?
     
     func listen(workspaceId: String) {
@@ -30,7 +35,16 @@ class FirestoreMeeting {
                     let meetingData = self.firestoreDataToMeeting(snapshot: data, meetingId: documentChange.document.documentID)
                     return FirestoreDocumentChangeWithData(documentChange: documentChange, firestoreData: meetingData)
                 }
-                self.delegate?.didChangeMeetingData(obj: self, documentChanges: list)
+                self.dataListDelegate?.didChangeMeetingDataList(obj: self, documentChanges: list)
+            }
+        })
+    }
+    
+    func listen(workspaceId: String, meetingId: String) {
+        guard workspaceListener == nil else { return }
+        workspaceListener = reference(workspaceId: workspaceId).document(meetingId).addSnapshotListener({ (snapshot, error) in
+            if let _snapshot = snapshot, let data = snapshot?.data() {
+                self.dataDelegate?.didChangeMeetingData(obj: self, data: self.firestoreDataToMeeting(snapshot: data, meetingId: _snapshot.documentID))
             }
         })
     }
@@ -127,10 +141,12 @@ class FirestoreMeeting {
                     "iconName": user.iconName ?? NSNull(),
                     "name": user.name,
                     "isHost": user.isHost,
+                    "isEntering": user.isEntering,
                     "audioFileName": user.audioFileName ?? NSNull()
                 ]
             }),
-            "status": data.status,
+            "startedAt": data.startedAt ?? NSNull(),
+            "endedAt": data.endedAt ?? NSNull(),
             "createdAt": Timestamp(date: data.createdAt),
             "updatedAt": Timestamp(date: data.updatedAt)
         ]
@@ -147,10 +163,12 @@ class FirestoreMeeting {
                     iconName: raw["iconName"] as? String,
                     name: (raw["name"] as? String) ?? "",
                     isHost: (raw["isHost"] as? Bool) ?? false,
+                    isEntering: (raw["isEntering"] as? Bool) ?? false,
                     audioFileName: raw["audioFileName"] as? String
                 )
             }),
-            status: (snapshot["status"] as? Int) ?? 0,
+            startedAt: (snapshot["startedAt"] as? Timestamp)?.dateValue(),
+            endedAt: (snapshot["endedAt"] as? Timestamp)?.dateValue(),
             createdAt: (snapshot["createdAt"] as? Timestamp)?.dateValue() ?? Date(),
             updatedAt: (snapshot["updatedAt"] as? Timestamp)?.dateValue() ?? Date()
         )

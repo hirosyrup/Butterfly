@@ -10,24 +10,23 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Hydra
 
-protocol MeetingRepositoryDelegate: class {
-    func didChangeMeetingData(obj: MeetingRepository.Meeting, documentChanges: [RepositoryDocumentChange<MeetingRepository.MeetingData>])
+protocol MeetingRepositoryDataListDelegate: class {
+    func didChangeMeetingDataList(obj: MeetingRepository.Meeting, documentChanges: [RepositoryDocumentChange<MeetingRepository.MeetingData>])
+}
+
+protocol MeetingRepositoryDataDelegate: class {
+    func didChangeMeetingData(obj: MeetingRepository.Meeting, data: MeetingRepository.MeetingData)
 }
 
 class MeetingRepository {
-    enum Status: Int {
-        case waitingForTheStart = 0
-        case inTheMeeting = 1
-        case finished = 2
-    }
-    
     struct MeetingData {
         fileprivate let original: FirestoreMeetingData
         let id: String
         var name: String
+        var startedAt: Date?
+        var endedAt: Date?
         var createdAt: Date
         var userList: [MeetingUserData]
-        var status: Status
         
         init(userList: [MeetingUserData], original: FirestoreMeetingData? = nil) {
             self.userList = userList
@@ -35,16 +34,18 @@ class MeetingRepository {
             self.id = self.original.id
             self.createdAt = self.original.createdAt
             self.name = self.original.name
-            self.status = Status(rawValue: self.original.status) ?? .waitingForTheStart
+            self.startedAt = self.original.startedAt
+            self.endedAt = self.original.endedAt
         }
         
         fileprivate func toFirestoreData() -> FirestoreMeetingData {
             var firestoreData = original
             firestoreData.name = name
             firestoreData.userList = userList.map({ (user) -> FirestoreMeetingUserData in
-                return FirestoreMeetingUserData(id: user.id, iconName: user.iconName, name: user.name, isHost: user.isHost, audioFileName: user.audioFileName)
+                return FirestoreMeetingUserData(id: user.id, iconName: user.iconName, name: user.name, isHost: user.isHost, isEntering: user.isEntering, audioFileName: user.audioFileName)
             })
-            firestoreData.status = status.rawValue
+            firestoreData.startedAt = startedAt
+            firestoreData.endedAt = endedAt
             return firestoreData
         }
     }
@@ -55,6 +56,7 @@ class MeetingRepository {
         let iconImageUrl: URL?
         let name: String
         var isHost: Bool
+        var isEntering: Bool
         var audioFileName: String?
         
         init(iconImageUrl: URL?, firestoreData: FirestoreMeetingUserData) {
@@ -63,6 +65,7 @@ class MeetingRepository {
             self.iconName = firestoreData.iconName
             self.name = firestoreData.name
             self.isHost = firestoreData.isHost
+            self.isEntering = firestoreData.isEntering
             self.audioFileName = firestoreData.audioFileName
         }
         
@@ -72,6 +75,7 @@ class MeetingRepository {
             self.iconName = firestoreData.iconName
             self.name = firestoreData.name
             self.isHost = false
+            self.isEntering = false
             self.audioFileName = nil
         }
     }
@@ -102,20 +106,30 @@ class MeetingRepository {
         }
     }
     
-    class Meeting: FirestoreMeetingDelegate {
+    class Meeting: FirestoreMeetingDataListDelegate, FirestoreMeetingDataDelegate {
         private let meeting = FirestoreMeeting()
         private let iconImage = IconImage.shared
-        weak var delegate: MeetingRepositoryDelegate?
+        private weak var dataListDelegate: MeetingRepositoryDataListDelegate?
+        private weak var dataDelegate: MeetingRepositoryDataDelegate?
         
         init() {
-            meeting.delegate = self
+            meeting.dataListDelegate = self
+            meeting.dataDelegate = self
         }
         
-        func listen(workspaceId: String) {
+        func listen(workspaceId: String, dataListDelegate: MeetingRepositoryDataListDelegate) {
+            self.dataListDelegate = dataListDelegate
             meeting.listen(workspaceId: workspaceId)
         }
         
+        func listen(workspaceId: String, meetingId: String, dataDelegate: MeetingRepositoryDataDelegate) {
+            self.dataDelegate = dataDelegate
+            meeting.listen(workspaceId: workspaceId, meetingId: meetingId)
+        }
+        
         func unlisten() {
+            dataListDelegate = nil
+            dataDelegate = nil
             meeting.unlisten()
         }
         
@@ -209,15 +223,27 @@ class MeetingRepository {
             }
         }
         
-        func didChangeMeetingData(obj: FirestoreMeeting, documentChanges: [FirestoreDocumentChangeWithData<FirestoreMeetingData>]) {
-            if let _delegate = delegate {
+        func didChangeMeetingDataList(obj: FirestoreMeeting, documentChanges: [FirestoreDocumentChangeWithData<FirestoreMeetingData>]) {
+            if let _delegate = dataListDelegate {
                 async({ _ -> [RepositoryDocumentChange<MeetingData>] in
                     return try documentChanges.map { (documentChange) -> RepositoryDocumentChange<MeetingData> in
                         let meetingData = try await(self.createMeetingData(firestoreMeetingData: documentChange.firestoreData))
                         return RepositoryDocumentChange<MeetingData>(documentChange: documentChange.documentChange, data: meetingData)
                     }
                 }).then({ changes in
-                    _delegate.didChangeMeetingData(obj: self, documentChanges: changes)
+                    _delegate.didChangeMeetingDataList(obj: self, documentChanges: changes)
+                }).catch { (error) in
+                    print("\(error.localizedDescription)")
+                }
+            }
+        }
+        
+        func didChangeMeetingData(obj: FirestoreMeeting, data: FirestoreMeetingData) {
+            if let _delegate = dataDelegate {
+                async({ _ -> MeetingData in
+                    return try await(self.createMeetingData(firestoreMeetingData: data))
+                }).then({ meetingData in
+                    _delegate.didChangeMeetingData(obj: self, data: meetingData)
                 }).catch { (error) in
                     print("\(error.localizedDescription)")
                 }

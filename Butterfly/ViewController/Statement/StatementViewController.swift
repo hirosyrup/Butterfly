@@ -13,7 +13,7 @@ class StatementViewController: NSViewController,
                                NSCollectionViewDataSource,
                                NSCollectionViewDelegateFlowLayout {
     @IBOutlet weak var titleLabel: NSTextField!
-    @IBOutlet weak var memberIconContainer: MemberIconContainer!
+    @IBOutlet weak var MeetingMemberIconContainer: MeetingMemberIconContainer!
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var startEndButton: NSButton!
     
@@ -41,6 +41,7 @@ class StatementViewController: NSViewController,
 
     override func viewDidAppear() {
         statement.listen(workspaceId: workspaceId, meetingId: meetingData.id)
+        
     }
     
     override func viewWillDisappear() {
@@ -81,16 +82,25 @@ class StatementViewController: NSViewController,
         }
     }
     
-    func setup(workspaceId: String, meetingData: MeetingRepository.MeetingData) {
-        self.workspaceId = workspaceId
-        self.meetingData = meetingData
-        statementQueue = StatementQueue(workspaceId: workspaceId, meetingId: meetingData.id)
+    private func updateViews() {
         titleLabel.stringValue = meetingData.name
-        memberIconContainer.updateView(imageUrls: meetingData.userList.map { $0.iconImageUrl })
+        MeetingMemberIconContainer.updateView(presenters: meetingData.userList.map { MeetingMemberIconViewPresenter(data: $0) })
         if let currentUser = AuthUser.shared.currentUser() {
             you = meetingData.userList.first { $0.id == currentUser.uid }
         }
         startEndButton.isEnabled = you != nil
+    }
+    
+    func setup(workspaceId: String, meetingData: MeetingRepository.MeetingData) {
+        self.workspaceId = workspaceId
+        self.meetingData = meetingData
+        statementQueue = StatementQueue(workspaceId: workspaceId, meetingId: meetingData.id)
+        updateViews()
+    }
+    
+    func updateMeetingData(meetingData: MeetingRepository.MeetingData) {
+        self.meetingData = meetingData
+        updateViews()
     }
     
     func didChangeAvailability(recognizer: SpeechRecognizer) {

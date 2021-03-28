@@ -47,7 +47,7 @@ class MeetingInputViewController: NSViewController,
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let selectVc = segue.destinationController as? SelectMemberViewController {
-            selectVc.setup(selectMemberFetch: SelectMemberFetchForMeeting(workspaceId: self.workspaceId), userList: createInitialSelectedUserList(), delegate: self)
+            selectVc.setup(selectMemberFetch: SelectMemberFetchForMeeting(workspaceId: workspaceId, meetingData: meetingData), userList: createInitialSelectedUserList(), delegate: self)
         }
     }
     
@@ -87,9 +87,6 @@ class MeetingInputViewController: NSViewController,
         var newMeetingData = meetingData!
         newMeetingData.name = nameTextField.stringValue
         newMeetingData.userList = selectedUserDataList
-        if let index = newMeetingData.userList.firstIndex(where: { $0.id == self.hostUserId }) {
-            newMeetingData.userList[index].isHost = true
-        }
         async({ _ -> MeetingRepository.MeetingData in
             return try await(SaveMeeting(workspaceId: self.workspaceId, data: newMeetingData).save())
         }).then({ savedMeetingData in
