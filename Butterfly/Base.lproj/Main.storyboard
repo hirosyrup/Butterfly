@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -509,7 +510,7 @@
                                 <rect key="frame" x="20" y="46" width="410" height="234"/>
                                 <clipView key="contentView" id="gA6-bv-jDS">
                                     <rect key="frame" x="1" y="1" width="408" height="232"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView selectable="YES" id="iZf-R1-N9U">
                                             <rect key="frame" x="0.0" y="0.0" width="408" height="232"/>
@@ -711,7 +712,7 @@ DQ
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                                 <clipView key="contentView" id="FQg-3l-lhr">
                                     <rect key="frame" x="1" y="1" width="448" height="298"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView selectable="YES" id="lTw-2y-hU8">
                                             <rect key="frame" x="0.0" y="0.0" width="448" height="158"/>
@@ -969,7 +970,7 @@ DQ
                                 <rect key="frame" x="0.0" y="0.0" width="336" height="393"/>
                                 <clipView key="contentView" drawsBackground="NO" id="m4Y-nk-8Ps">
                                     <rect key="frame" x="0.0" y="0.0" width="336" height="393"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView selectable="YES" id="I90-s5-maa">
                                             <rect key="frame" x="0.0" y="0.0" width="336" height="393"/>
@@ -1076,7 +1077,7 @@ DQ
                                 <rect key="frame" x="0.0" y="44" width="300" height="405"/>
                                 <clipView key="contentView" id="vT8-z1-Vkn">
                                     <rect key="frame" x="1" y="1" width="298" height="403"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView id="vcA-km-RXn">
                                             <rect key="frame" x="0.0" y="0.0" width="298" height="403"/>
@@ -1097,6 +1098,30 @@ DQ
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <box boxType="custom" borderWidth="0.0" cornerRadius="14" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Y83-TD-fXx">
+                                <rect key="frame" x="107" y="8" width="86" height="28"/>
+                                <view key="contentView" id="ghz-2Y-paU">
+                                    <rect key="frame" x="0.0" y="0.0" width="86" height="28"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="52Y-0j-9kP">
+                                            <rect key="frame" x="10" y="6" width="66" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Recording" id="qya-Te-vdw">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="52Y-0j-9kP" firstAttribute="leading" secondItem="ghz-2Y-paU" secondAttribute="leading" constant="12" id="GKk-GF-tIH"/>
+                                        <constraint firstAttribute="bottom" secondItem="52Y-0j-9kP" secondAttribute="bottom" constant="6" id="Hol-bA-FA1"/>
+                                        <constraint firstItem="52Y-0j-9kP" firstAttribute="top" secondItem="ghz-2Y-paU" secondAttribute="top" constant="6" id="XZW-Ki-OgZ"/>
+                                        <constraint firstAttribute="trailing" secondItem="52Y-0j-9kP" secondAttribute="trailing" constant="12" id="tIy-v9-Qdz"/>
+                                    </constraints>
+                                </view>
+                                <color key="fillColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                            </box>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8oK-Ne-dqQ">
                                 <rect key="frame" x="128" y="0.5" width="45" height="42.5"/>
                                 <constraints>
@@ -1134,10 +1159,12 @@ DQ
                             <constraint firstItem="ODp-E9-2gS" firstAttribute="centerY" secondItem="SgE-r7-bpd" secondAttribute="centerY" id="KvV-r1-xvk"/>
                             <constraint firstItem="8d4-4n-qdV" firstAttribute="centerY" secondItem="SgE-r7-bpd" secondAttribute="centerY" id="QPe-xf-M6O"/>
                             <constraint firstItem="8d4-4n-qdV" firstAttribute="top" secondItem="Pi5-4C-Jb9" secondAttribute="top" constant="16" id="Ump-5n-CqS"/>
+                            <constraint firstItem="Y83-TD-fXx" firstAttribute="centerX" secondItem="Pi5-4C-Jb9" secondAttribute="centerX" id="Xq9-7m-4EW"/>
                             <constraint firstAttribute="trailing" secondItem="SIB-OR-x3s" secondAttribute="trailing" id="Ycs-Af-V5I"/>
                             <constraint firstItem="ODp-E9-2gS" firstAttribute="leading" secondItem="mJX-lg-u99" secondAttribute="trailing" constant="4" id="YlR-D8-c7O"/>
                             <constraint firstItem="SIB-OR-x3s" firstAttribute="leading" secondItem="Pi5-4C-Jb9" secondAttribute="leading" id="cbh-h3-EVb"/>
                             <constraint firstItem="8oK-Ne-dqQ" firstAttribute="centerX" secondItem="Pi5-4C-Jb9" secondAttribute="centerX" id="gxH-Ud-0gE"/>
+                            <constraint firstItem="Y83-TD-fXx" firstAttribute="centerY" secondItem="8oK-Ne-dqQ" secondAttribute="centerY" id="hU1-aD-KU7"/>
                             <constraint firstItem="SgE-r7-bpd" firstAttribute="leading" secondItem="8d4-4n-qdV" secondAttribute="trailing" constant="8" symbolic="YES" id="rBJ-87-AZi"/>
                             <constraint firstAttribute="trailing" secondItem="ODp-E9-2gS" secondAttribute="trailing" constant="4" id="xa0-7O-iuJ"/>
                             <constraint firstItem="8oK-Ne-dqQ" firstAttribute="top" secondItem="SIB-OR-x3s" secondAttribute="bottom" constant="4" id="xnk-nD-BZl"/>
@@ -1146,6 +1173,7 @@ DQ
                     <connections>
                         <outlet property="MeetingMemberIconContainer" destination="mJX-lg-u99" id="Izf-Ax-sX7"/>
                         <outlet property="collectionView" destination="vcA-km-RXn" id="UeY-De-Qks"/>
+                        <outlet property="recordingLabel" destination="Y83-TD-fXx" id="sxB-3a-jVp"/>
                         <outlet property="startEndButton" destination="8oK-Ne-dqQ" id="hlG-F5-iw4"/>
                         <outlet property="titleLabel" destination="8d4-4n-qdV" id="jkS-aV-P7K"/>
                     </connections>

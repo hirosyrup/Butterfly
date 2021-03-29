@@ -39,6 +39,7 @@
 		FB2603C026120C7D00323E4B /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603BF26120C7D00323E4B /* AudioRecorder.swift */; };
 		FB2603C626120CA700323E4B /* AudioRecordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603C526120CA700323E4B /* AudioRecordData.swift */; };
 		FB2603CC26120CD100323E4B /* AudioUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603CB26120CD100323E4B /* AudioUserDefault.swift */; };
+		FB2603D02612271200323E4B /* StatementViewControllerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603CF2612271200323E4B /* StatementViewControllerPresenter.swift */; };
 		FB523C21260765C800801070 /* MeetingInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C20260765C800801070 /* MeetingInputViewController.swift */; };
 		FB523C252607681C00801070 /* SaveMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C242607681B00801070 /* SaveMeeting.swift */; };
 		FB523C2B2607738C00801070 /* RepositoryDocumentChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */; };
@@ -153,6 +154,7 @@
 		FB2603BF26120C7D00323E4B /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		FB2603C526120CA700323E4B /* AudioRecordData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordData.swift; sourceTree = "<group>"; };
 		FB2603CB26120CD100323E4B /* AudioUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUserDefault.swift; sourceTree = "<group>"; };
+		FB2603CF2612271200323E4B /* StatementViewControllerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementViewControllerPresenter.swift; sourceTree = "<group>"; };
 		FB523C20260765C800801070 /* MeetingInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingInputViewController.swift; sourceTree = "<group>"; };
 		FB523C242607681B00801070 /* SaveMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMeeting.swift; sourceTree = "<group>"; };
 		FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDocumentChange.swift; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 			children = (
 				FB9D719C2608711300B7E9DE /* StatementWindowController.swift */,
 				FB9D719626086D7700B7E9DE /* StatementViewController.swift */,
+				FB2603CF2612271200323E4B /* StatementViewControllerPresenter.swift */,
 				FB26035E260B946400323E4B /* StatementShareViewController.swift */,
 			);
 			path = Statement;
@@ -832,6 +835,7 @@
 				FB9D71712608289600B7E9DE /* MeetingCollectionViewItemPresenter.swift in Sources */,
 				FB9D716A260820A700B7E9DE /* MeetingCollectionViewItem.swift in Sources */,
 				FB2603502608DC6D00323E4B /* StatementCollectionViewItem.swift in Sources */,
+				FB2603D02612271200323E4B /* StatementViewControllerPresenter.swift in Sources */,
 				FB523C2B2607738C00801070 /* RepositoryDocumentChange.swift in Sources */,
 				FB2603572608DE5B00323E4B /* StatementCollectionViewItemPresenter.swift in Sources */,
 				FB2603CC26120CD100323E4B /* AudioUserDefault.swift in Sources */,

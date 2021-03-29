@@ -19,6 +19,7 @@ class StatementViewController: NSViewController,
     @IBOutlet weak var MeetingMemberIconContainer: MeetingMemberIconContainer!
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var startEndButton: NSButton!
+    @IBOutlet weak var recordingLabel: NSBox!
     
     private let cellId = "StatementCollectionViewItem"
     private var workspaceId: String!
@@ -87,34 +88,15 @@ class StatementViewController: NSViewController,
     }
     
     private func updateViews() {
-        titleLabel.stringValue = meetingData.name
-        MeetingMemberIconContainer.updateView(presenters: meetingData.userList.map { MeetingMemberIconViewPresenter(data: $0) })
         if let currentUser = AuthUser.shared.currentUser() {
             you = meetingData.userList.first { $0.id == currentUser.uid }
         }
-        startEndButton.isEnabled = isEnabledOfStartButton()
-        startEndButton.state = startEndButtonState()
-    }
-    
-    private func isEnabledOfStartButton() -> Bool {
-        guard let _you = you else { return false }
-        if meetingData.startedAt != nil && meetingData.endedAt != nil {
-            return false
-        }
-        
-        if let hostIndex = meetingData.userList.firstIndex(where: { $0.isHost }) {
-            return meetingData.userList[hostIndex].id == _you.id
-        } else {
-            return true
-        }
-    }
-    
-    private func startEndButtonState() -> NSControl.StateValue {
-        if meetingData.startedAt != nil && meetingData.endedAt == nil {
-            return .on
-        } else {
-            return .off
-        }
+        let presenter = StatementViewControllerPresenter(meetingData: meetingData, you: you)
+        titleLabel.stringValue = presenter.title()
+        MeetingMemberIconContainer.updateView(presenters: presenter.meetingMemberIconPresenters())
+        startEndButton.isHidden = presenter.isHiddenOfStartButton()
+        startEndButton.state = presenter.startEndButtonState()
+        recordingLabel.isHidden = presenter.isHiddenRecordingLabel()
     }
     
     private func startAudioInput(userId: String, isHost: Bool) {
@@ -177,8 +159,8 @@ class StatementViewController: NSViewController,
     
     func updateMeetingData(meetingData: MeetingRepository.MeetingData) {
         self.meetingData = meetingData
-        updateViews()
         updateAudioInputState()
+        updateViews()
     }
     
     func audioEngineStartError(obj: AudioSystem, error: Error) {
