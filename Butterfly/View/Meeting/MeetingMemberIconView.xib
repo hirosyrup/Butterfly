@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,6 +17,30 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="bV9-8h-KN2">
                     <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                 </customView>
+                <box boxType="custom" borderWidth="0.0" cornerRadius="8" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="BWr-ZL-KiD">
+                    <rect key="frame" x="4" y="0.0" width="33" height="15"/>
+                    <view key="contentView" id="fpG-q8-yPs">
+                        <rect key="frame" x="0.0" y="0.0" width="33" height="15"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YdQ-jG-e2l">
+                                <rect key="frame" x="2" y="2" width="29" height="11"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Host" id="uYj-aL-A7B">
+                                    <font key="font" metaFont="system" size="9"/>
+                                    <color key="textColor" red="0.99404761900000005" green="0.9880952381" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="YdQ-jG-e2l" firstAttribute="leading" secondItem="fpG-q8-yPs" secondAttribute="leading" constant="4" id="Uvz-nt-zYr"/>
+                            <constraint firstAttribute="trailing" secondItem="YdQ-jG-e2l" secondAttribute="trailing" constant="4" id="gTc-RA-Nbg"/>
+                            <constraint firstAttribute="bottom" secondItem="YdQ-jG-e2l" secondAttribute="bottom" constant="2" id="lJ8-jg-8kF"/>
+                            <constraint firstItem="YdQ-jG-e2l" firstAttribute="top" secondItem="fpG-q8-yPs" secondAttribute="top" constant="2" id="zag-CD-ebv"/>
+                        </constraints>
+                    </view>
+                    <color key="fillColor" name="AccentColor"/>
+                </box>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lSH-LM-PeD">
                     <rect key="frame" x="28" y="25" width="12" height="18"/>
                     <constraints>
@@ -27,14 +52,17 @@
                 </imageView>
             </subviews>
             <constraints>
+                <constraint firstItem="BWr-ZL-KiD" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="AHp-sJ-ECN"/>
                 <constraint firstItem="lSH-LM-PeD" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="DkB-Nd-fet"/>
                 <constraint firstAttribute="trailing" secondItem="bV9-8h-KN2" secondAttribute="trailing" id="DnC-w0-YBa"/>
                 <constraint firstAttribute="bottom" secondItem="bV9-8h-KN2" secondAttribute="bottom" id="N8v-sS-Lme"/>
                 <constraint firstAttribute="trailing" secondItem="lSH-LM-PeD" secondAttribute="trailing" id="ch8-2K-kBD"/>
                 <constraint firstItem="bV9-8h-KN2" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="ekK-Au-Kyr"/>
                 <constraint firstItem="bV9-8h-KN2" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="vgi-SD-7v0"/>
+                <constraint firstAttribute="bottom" secondItem="BWr-ZL-KiD" secondAttribute="bottom" id="yQY-5q-b1o"/>
             </constraints>
             <connections>
+                <outlet property="hostMark" destination="BWr-ZL-KiD" id="krL-Rh-BDI"/>
                 <outlet property="isEnteringIconImageView" destination="lSH-LM-PeD" id="Q9j-EP-4uP"/>
                 <outlet property="memberIconContainer" destination="bV9-8h-KN2" id="PqV-9K-HLR"/>
             </connections>
@@ -43,5 +71,8 @@
     </objects>
     <resources>
         <image name="NSTouchBarRecordStartTemplate" width="15" height="15"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

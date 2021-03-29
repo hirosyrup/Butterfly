@@ -19,7 +19,13 @@ class MeetingMemberIconContainer: NSBox {
         let imageViewSize = heightConstraint.constant
         let listCount = presenters.count
         let offset = imageViewSize * CGFloat(listCount) + iconDefaultOffset * CGFloat(listCount - 1) > widthConstraint.constant ? (widthConstraint.constant - (imageViewSize * CGFloat(listCount))) / CGFloat(listCount - 1) : iconDefaultOffset
-        iconViewList = presenters.enumerated().compactMap {
+        var sorted = presenters
+        if let hostIndex = sorted.firstIndex(where: {$0.isHost()}) {
+            let host = sorted[hostIndex]
+            sorted.remove(at: hostIndex)
+            sorted.insert(host, at: 0)
+        }
+        iconViewList = sorted.enumerated().compactMap {
             guard let iconView = MeetingMemberIconView.createFromNib(owner: self) else { return nil }
             let x = (imageViewSize + offset) * CGFloat($0.offset)
             iconView.setup(frame: NSRect(x: x, y: 0.0, width: imageViewSize, height: imageViewSize), presenter: $0.element)

@@ -21,4 +21,8 @@ class MeetingMemberIconViewPresenter {
     func showEnteringIcon() -> Bool {
         return data.isEntering
     }
+    
+    func isHost() -> Bool {
+        return data.isHost
+    }
 }

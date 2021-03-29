@@ -10,6 +10,7 @@ import Cocoa
 class MeetingMemberIconView: NSView {
     @IBOutlet weak var memberIconContainer: NSView!
     @IBOutlet weak var isEnteringIconImageView: NSImageView!
+    @IBOutlet weak var hostMark: NSBox!
     
     static func createFromNib(owner: Any?) -> MeetingMemberIconView? {
         var objects: NSArray? = NSArray()
@@ -29,6 +30,7 @@ class MeetingMemberIconView: NSView {
             iconView.setCornerRadius()
             iconView.updateView(imageUrl: presenter.iconImageUrl(), toolTip: "")
             isEnteringIconImageView.isHidden = !presenter.showEnteringIcon()
+            hostMark.isHidden = !presenter.isHost()
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Hydra
 
 class StatementViewController: NSViewController,
                                SpeechRecognizerDelegate,
@@ -88,7 +89,26 @@ class StatementViewController: NSViewController,
         if let currentUser = AuthUser.shared.currentUser() {
             you = meetingData.userList.first { $0.id == currentUser.uid }
         }
-        startEndButton.isEnabled = you != nil
+        startEndButton.isEnabled = isEnabledOfStartButton()
+    }
+    
+    private func isEnabledOfStartButton() -> Bool {
+        guard let _you = you else { return false }
+        if let hostIndex = meetingData.userList.firstIndex(where: { $0.isHost }) {
+            return meetingData.userList[hostIndex].id == _you.id
+        } else {
+            return true
+        }
+    }
+    
+    private func updateIsHost(userId: String, isHost: Bool) {
+        guard var updateData = meetingData else { return }
+        if let index = updateData.userList.firstIndex(where: { $0.id == userId }) {
+            updateData.userList[index].isHost = isHost
+            async({ _ -> MeetingRepository.MeetingData in
+                return try await(MeetingRepository.Meeting().update(workspaceId: self.workspaceId, meetingData: updateData))
+            }).then { (_) in }
+        }
     }
     
     func setup(workspaceId: String, meetingData: MeetingRepository.MeetingData) {
@@ -176,8 +196,14 @@ class StatementViewController: NSViewController,
     @IBAction func pushStartEnd(_ sender: Any) {
         if startEndButton.state == .on {
             startRecognition()
+            if let _you = you {
+                updateIsHost(userId: _you.id, isHost: true)
+            }
         } else {
             stopRecognition()
+            if let _you = you {
+                updateIsHost(userId: _you.id, isHost: false)
+            }
         }
     }
 }
