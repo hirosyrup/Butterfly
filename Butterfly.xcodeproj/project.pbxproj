@@ -34,6 +34,11 @@
 		FB26039F2610BA6A00323E4B /* MeetingMemberIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB26039E2610BA6A00323E4B /* MeetingMemberIconView.swift */; };
 		FB2603A32610BA7D00323E4B /* MeetingMemberIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB2603A22610BA7D00323E4B /* MeetingMemberIconView.xib */; };
 		FB2603A92610BD7200323E4B /* MeetingMemberIconViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603A82610BD7200323E4B /* MeetingMemberIconViewPresenter.swift */; };
+		FB2603AF2612074E00323E4B /* AudioSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603AE2612074E00323E4B /* AudioSystem.swift */; };
+		FB2603B326120A0B00323E4B /* AudioBufferSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603B226120A0B00323E4B /* AudioBufferSize.swift */; };
+		FB2603C026120C7D00323E4B /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603BF26120C7D00323E4B /* AudioRecorder.swift */; };
+		FB2603C626120CA700323E4B /* AudioRecordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603C526120CA700323E4B /* AudioRecordData.swift */; };
+		FB2603CC26120CD100323E4B /* AudioUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603CB26120CD100323E4B /* AudioUserDefault.swift */; };
 		FB523C21260765C800801070 /* MeetingInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C20260765C800801070 /* MeetingInputViewController.swift */; };
 		FB523C252607681C00801070 /* SaveMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C242607681B00801070 /* SaveMeeting.swift */; };
 		FB523C2B2607738C00801070 /* RepositoryDocumentChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */; };
@@ -143,6 +148,11 @@
 		FB26039E2610BA6A00323E4B /* MeetingMemberIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingMemberIconView.swift; sourceTree = "<group>"; };
 		FB2603A22610BA7D00323E4B /* MeetingMemberIconView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeetingMemberIconView.xib; sourceTree = "<group>"; };
 		FB2603A82610BD7200323E4B /* MeetingMemberIconViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingMemberIconViewPresenter.swift; sourceTree = "<group>"; };
+		FB2603AE2612074E00323E4B /* AudioSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSystem.swift; sourceTree = "<group>"; };
+		FB2603B226120A0B00323E4B /* AudioBufferSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBufferSize.swift; sourceTree = "<group>"; };
+		FB2603BF26120C7D00323E4B /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
+		FB2603C526120CA700323E4B /* AudioRecordData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordData.swift; sourceTree = "<group>"; };
+		FB2603CB26120CD100323E4B /* AudioUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUserDefault.swift; sourceTree = "<group>"; };
 		FB523C20260765C800801070 /* MeetingInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingInputViewController.swift; sourceTree = "<group>"; };
 		FB523C242607681B00801070 /* SaveMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMeeting.swift; sourceTree = "<group>"; };
 		FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDocumentChange.swift; sourceTree = "<group>"; };
@@ -318,6 +328,18 @@
 			path = Statement;
 			sourceTree = "<group>";
 		};
+		FB2603BE26120C0700323E4B /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				FB2603B226120A0B00323E4B /* AudioBufferSize.swift */,
+				FB2603AE2612074E00323E4B /* AudioSystem.swift */,
+				FB2603BF26120C7D00323E4B /* AudioRecorder.swift */,
+				FB2603C526120CA700323E4B /* AudioRecordData.swift */,
+				FB2603CB26120CD100323E4B /* AudioUserDefault.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		FB9D7167260820A700B7E9DE /* Meeting */ = {
 			isa = PBXGroup;
 			children = (
@@ -356,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				FB204255260C545C006620A2 /* Util */,
+				FB2603BE26120C0700323E4B /* Audio */,
 				FB9D71A926087AE500B7E9DE /* Speech */,
 			);
 			path = Lib;
@@ -811,6 +834,7 @@
 				FB2603502608DC6D00323E4B /* StatementCollectionViewItem.swift in Sources */,
 				FB523C2B2607738C00801070 /* RepositoryDocumentChange.swift in Sources */,
 				FB2603572608DE5B00323E4B /* StatementCollectionViewItemPresenter.swift in Sources */,
+				FB2603CC26120CD100323E4B /* AudioUserDefault.swift in Sources */,
 				FB0D2F7526063999001403A5 /* NSColor+AppColor.swift in Sources */,
 				FB0D2FB3260742E6001403A5 /* WorkspaceRepository.swift in Sources */,
 				FBF9A6142605BDD600AE78DF /* FirestoreWorkspace.swift in Sources */,
@@ -851,16 +875,20 @@
 				FBF9A5C626038BCC00AE78DF /* NSImageView+AsyncLoad.swift in Sources */,
 				FB523C2F2607739600801070 /* RepositoryDocumentChangeType.swift in Sources */,
 				FB9D71802608615F00B7E9DE /* FirestoreStatement.swift in Sources */,
+				FB2603C626120CA700323E4B /* AudioRecordData.swift in Sources */,
 				FB9D71A42608763A00B7E9DE /* SpeechRecognizer.swift in Sources */,
 				FB0D2F882606FEF5001403A5 /* MeetingRepository.swift in Sources */,
 				FB0D2F842606FD14001403A5 /* MeetingViewController.swift in Sources */,
+				FB2603C026120C7D00323E4B /* AudioRecorder.swift in Sources */,
 				FB9D719726086D7700B7E9DE /* StatementViewController.swift in Sources */,
 				FBA544B425FA61EA00112066 /* SettingUserDefault.swift in Sources */,
 				FBA2883C25F8896600D1B3BD /* MainViewController.swift in Sources */,
 				FBA544C425FCF43600112066 /* PreferencesUserViewController.swift in Sources */,
 				FBA546382602409800112066 /* PreferencesWorkspaceViewController.swift in Sources */,
+				FB2603AF2612074E00323E4B /* AudioSystem.swift in Sources */,
 				FBA5463C260240BF00112066 /* PreferencesWorkspaceInputViewController.swift in Sources */,
 				FB523C372607779100801070 /* MeetingCollectionViewController.swift in Sources */,
+				FB2603B326120A0B00323E4B /* AudioBufferSize.swift in Sources */,
 				FBF9A60F2605BD8A00AE78DF /* FirestoreWorkspaceData.swift in Sources */,
 				FB9D71B32608854100B7E9DE /* RecognitionRequest.swift in Sources */,
 				FBA546192600ECEF00112066 /* IconImage.swift in Sources */,

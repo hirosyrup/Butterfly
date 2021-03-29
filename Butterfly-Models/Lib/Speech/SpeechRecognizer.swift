@@ -10,7 +10,6 @@ import Speech
 
 protocol SpeechRecognizerDelegate: class {
     func didChangeAvailability(recognizer: SpeechRecognizer)
-    func audioEngineStartError(recognizer: SpeechRecognizer, error: Error)
     func didNotCreateRecognitionRequest(recognizer: SpeechRecognizer, error: Error)
     func didStartNewStatement(recognizer: SpeechRecognizer, id: String)
     func didUpdateStatement(recognizer: SpeechRecognizer, id: String, statement: String)
@@ -25,38 +24,17 @@ class SpeechRecognizer: NSObject,
     
     let speechRecognizer: SFSpeechRecognizer
     private(set) var authStatus = SFSpeechRecognizerAuthorizationStatus.notDetermined
-    private let audioEngine = AVAudioEngine()
-    private let inputNode: AVAudioNode
-    private let observeBreakInStatements = ObserveBreakInStatements(bufferSize: 1024)
+    private let observeBreakInStatements = ObserveBreakInStatements(bufferSize: AudioBufferSize.bufferSize)
     private var recognitionRequests = [RecognitionRequest]()
     private var currentRecognitionRequest: RecognitionRequest?
-    var isRunning: Bool {
-        get {
-            return audioEngine.isRunning
-        }
-    }
     
     weak var delegate: SpeechRecognizerDelegate?
     
     override init() {
         self.speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja_JP"))!
-        
-        // Test
-//        let input = AVAudioPlayerNode()
-//        let file = try! AVAudioFile(forReading: Bundle.main.url(forResource: "test", withExtension: "m4a")!)
-//        audioEngine.attach(input)
-//        input.scheduleFile(file, at: nil)
-//        let recordingFormat = input.outputFormat(forBus: 0)
-//        audioEngine.connect(input, to: audioEngine.mainMixerNode, format: recordingFormat)
-//        self.inputNode = input
-        
-        // Production
-        self.inputNode = audioEngine.inputNode
-        
         super.init()
         self.speechRecognizer.delegate = self
         self.observeBreakInStatements.delegate = self
-        self.setup()
     }
     
     func requestAuthorization() {
@@ -67,45 +45,9 @@ class SpeechRecognizer: NSObject,
         }
     }
     
-    private func setup() {
-        #if os(iOS)
-        let audioSession = AVAudioSession.sharedInstance()
-        try audioSession.setCategory(.record, mode: .measurement, options: [.duckOthers, .allowBluetooth])
-        try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
-        #endif
-        
-        inputNode.installTap(onBus: 0, bufferSize: observeBreakInStatements.bufferSize, format: nil) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
-            DispatchQueue.main.async {
-                self.observeBreakInStatements.checkBreakInStatements(buffer: buffer, when: when)
-                self.recognitionRequests.forEach { $0.append(buffer: buffer) }
-            }
-        }
-        
-        audioEngine.prepare()
-    }
-    
-    func start() {
-        do {
-            if !audioEngine.isRunning {
-                try audioEngine.start()
-                // Test
-                //(inputNode as! AVAudioPlayerNode).play()
-            }
-        } catch {
-            self.delegate?.audioEngineStartError(recognizer: self, error: error)
-        }
-    }
-    
-    func pause() {
-        if audioEngine.isRunning {
-            audioEngine.pause()
-        }
-    }
-    
-    func stop() {
-        if audioEngine.isRunning {
-            audioEngine.stop()
-        }
+    func append(buffer: AVAudioPCMBuffer, when: AVAudioTime){
+        observeBreakInStatements.checkBreakInStatements(buffer: buffer, when: when)
+        recognitionRequests.forEach { $0.append(buffer: buffer) }
     }
     
     func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {

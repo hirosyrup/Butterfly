@@ -7,9 +7,11 @@
 
 import Cocoa
 import Hydra
+import AVFoundation
 
 class StatementViewController: NSViewController,
                                SpeechRecognizerDelegate,
+                               AudioSystemDelegate,
                                StatementRepositoryDelegate,
                                NSCollectionViewDataSource,
                                NSCollectionViewDelegateFlowLayout {
@@ -22,12 +24,15 @@ class StatementViewController: NSViewController,
     private var workspaceId: String!
     private var meetingData: MeetingRepository.MeetingData!
     private let speechRecognizer = SpeechRecognizer.shared
+    private let audioSystem = AudioSystem.shared
     private var you: MeetingRepository.MeetingUserData?
     private var statementQueue: StatementQueue!
     private let statement = StatementRepository.Statement()
     private var statementDataList = [StatementRepository.StatementData]()
     private var calcHeightView: StatementCollectionViewItem!
     private var lastScrollIndex = 0
+    private var audioRecorder: AudioRecorder?
+    private var isAudioInputStart = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,17 +64,15 @@ class StatementViewController: NSViewController,
     }
     
     private func startRecognition() {
-        if you != nil {
-            speechRecognizer.delegate = self
-            speechRecognizer.start()
-        }
+        speechRecognizer.delegate = self
+        audioSystem.delegate = self
+        audioSystem.start()
     }
     
     private func stopRecognition() {
-        if you != nil {
-            speechRecognizer.stop()
-            speechRecognizer.delegate = nil
-        }
+        audioSystem.stop()
+        speechRecognizer.delegate = nil
+        audioSystem.delegate = nil
     }
     
     private func previousData(currentIndex: Int) -> StatementRepository.StatementData? {
@@ -90,10 +93,15 @@ class StatementViewController: NSViewController,
             you = meetingData.userList.first { $0.id == currentUser.uid }
         }
         startEndButton.isEnabled = isEnabledOfStartButton()
+        startEndButton.state = startEndButtonState()
     }
     
     private func isEnabledOfStartButton() -> Bool {
         guard let _you = you else { return false }
+        if meetingData.startedAt != nil && meetingData.endedAt != nil {
+            return false
+        }
+        
         if let hostIndex = meetingData.userList.firstIndex(where: { $0.isHost }) {
             return meetingData.userList[hostIndex].id == _you.id
         } else {
@@ -101,13 +109,62 @@ class StatementViewController: NSViewController,
         }
     }
     
-    private func updateIsHost(userId: String, isHost: Bool) {
+    private func startEndButtonState() -> NSControl.StateValue {
+        if meetingData.startedAt != nil && meetingData.endedAt == nil {
+            return .on
+        } else {
+            return .off
+        }
+    }
+    
+    private func startAudioInput(userId: String, isHost: Bool) {
         guard var updateData = meetingData else { return }
         if let index = updateData.userList.firstIndex(where: { $0.id == userId }) {
+            updateData.startedAt = Date()
             updateData.userList[index].isHost = isHost
             async({ _ -> MeetingRepository.MeetingData in
                 return try await(MeetingRepository.Meeting().update(workspaceId: self.workspaceId, meetingData: updateData))
             }).then { (_) in }
+        }
+    }
+    
+    private func endAudioInput() {
+        guard var updateData = meetingData else { return }
+        updateData.endedAt = Date()
+        async({ _ -> MeetingRepository.MeetingData in
+            return try await(MeetingRepository.Meeting().update(workspaceId: self.workspaceId, meetingData: updateData))
+        }).then { (_) in }
+    }
+    
+    private func startRecord() {
+        guard audioRecorder == nil else { return }
+        if let startedAt = meetingData.startedAt {
+            let interval = Date().timeIntervalSince1970 - startedAt.timeIntervalSince1970
+            audioRecorder = AudioRecorder(startTime: Float(interval), meetingId: meetingData.id, inputFormat: audioSystem.inputFormat)
+        }
+    }
+    
+    private func stopRecord() {
+        guard let recorder = audioRecorder else { return }
+        if let endedAt = meetingData.endedAt {
+            let interval = Date().timeIntervalSince1970 - endedAt.timeIntervalSince1970
+            recorder.stop(endTime: Float(interval))
+            audioRecorder = nil
+        }
+    }
+    
+    private func updateAudioInputState() {
+        guard you != nil else { return }
+        let _isAudioInputStart = meetingData.startedAt != nil && meetingData.endedAt == nil
+        if isAudioInputStart != _isAudioInputStart {
+            if _isAudioInputStart {
+                startRecognition()
+                startRecord()
+            } else {
+                stopRecognition()
+                stopRecord()
+            }
+            isAudioInputStart = _isAudioInputStart
         }
     }
     
@@ -121,14 +178,20 @@ class StatementViewController: NSViewController,
     func updateMeetingData(meetingData: MeetingRepository.MeetingData) {
         self.meetingData = meetingData
         updateViews()
+        updateAudioInputState()
+    }
+    
+    func audioEngineStartError(obj: AudioSystem, error: Error) {
+        AlertBuilder.createErrorAlert(title: "Error", message: "Failed to start audio engine. \(error.localizedDescription)").runModal()
+    }
+    
+    func notifyRenderBuffer(obj: AudioSystem, buffer: AVAudioPCMBuffer, when: AVAudioTime) {
+        speechRecognizer.append(buffer: buffer, when: when)
+        audioRecorder?.write(buffer: buffer)
     }
     
     func didChangeAvailability(recognizer: SpeechRecognizer) {
         // TODO
-    }
-    
-    func audioEngineStartError(recognizer: SpeechRecognizer, error: Error) {
-        AlertBuilder.createErrorAlert(title: "Error", message: "Failed to start audio engine. \(error.localizedDescription)").runModal()
     }
     
     func didNotCreateRecognitionRequest(recognizer: SpeechRecognizer, error: Error) {
@@ -195,15 +258,11 @@ class StatementViewController: NSViewController,
     
     @IBAction func pushStartEnd(_ sender: Any) {
         if startEndButton.state == .on {
-            startRecognition()
             if let _you = you {
-                updateIsHost(userId: _you.id, isHost: true)
+                startAudioInput(userId: _you.id, isHost: true)
             }
         } else {
-            stopRecognition()
-            if let _you = you {
-                updateIsHost(userId: _you.id, isHost: false)
-            }
+            endAudioInput()
         }
     }
 }

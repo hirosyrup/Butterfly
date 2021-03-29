@@ -29,6 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         IconImage.shared.clearAllCache()
         SpeechRecognizer.shared.requestAuthorization()
+        AudioSystem.shared.setup()
         
         if let urls = schemeOpenUrls {
             urls.forEach { self.openScheme(url: $0) }
