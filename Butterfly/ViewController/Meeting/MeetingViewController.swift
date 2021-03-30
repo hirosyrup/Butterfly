@@ -55,6 +55,8 @@ class MeetingViewController: NSViewController,
     
     private func selectedWorkspaceData() -> WorkspaceRepository.WorkspaceData? {
         guard let _userData = userData else { return nil }
+        let index = workspacePopupButton.indexOfSelectedItem - 1
+        guard index > 0 && _userData.workspaceList.count > index else { return nil }
         return _userData.workspaceList[workspacePopupButton.indexOfSelectedItem - 1]
     }
     
