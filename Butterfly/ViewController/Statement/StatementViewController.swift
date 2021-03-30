@@ -48,11 +48,12 @@ class StatementViewController: NSViewController,
 
     override func viewDidAppear() {
         statement.listen(workspaceId: workspaceId, meetingId: meetingData.id)
-        
+        updateAudioInputState()
     }
     
     override func viewWillDisappear() {
         stopRecognition()
+        stopRecord()
         statement.unlisten()
     }
     
@@ -128,11 +129,8 @@ class StatementViewController: NSViewController,
     
     private func stopRecord() {
         guard let recorder = audioRecorder else { return }
-        if let endedAt = meetingData.endedAt {
-            let interval = Date().timeIntervalSince1970 - endedAt.timeIntervalSince1970
-            recorder.stop(endTime: Float(interval))
-            audioRecorder = nil
-        }
+        recorder.stop()
+        audioRecorder = nil
     }
     
     private func updateAudioInputState() {
@@ -145,6 +143,7 @@ class StatementViewController: NSViewController,
             } else {
                 stopRecognition()
                 stopRecord()
+                AudioUploaderQueue.shared.addUploader(workspaceId: workspaceId, meetingData: meetingData)
             }
             isAudioInputStart = _isAudioInputStart
         }

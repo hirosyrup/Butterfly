@@ -10,16 +10,13 @@ import Foundation
 struct AudioRecordData {
     let fileName: String
     let startTime: Float
-    let endTime: Float
     let meetingId: String
     
     static func createFromUserDefaultData(data: [String: String]) -> AudioRecordData {
         let startTime = data["startTime"] ?? "0.0"
-        let endTime = data["endTime"] ?? "0.0"
         return AudioRecordData(
             fileName: data["fileName"] ?? "",
             startTime: Float(startTime)!,
-            endTime: Float(endTime)!,
             meetingId: data["meetingId"] ?? ""
         )
     }
@@ -28,7 +25,6 @@ struct AudioRecordData {
         return [
             "fileName": fileName,
             "startTime": String(startTime),
-            "endTime": String(endTime),
             "meetingId": meetingId
         ]
     }

@@ -111,6 +111,7 @@ class MeetingRepository {
         private let iconImage = IconImage.shared
         private weak var dataListDelegate: MeetingRepositoryDataListDelegate?
         private weak var dataDelegate: MeetingRepositoryDataDelegate?
+        private(set) var listenWorkspaceId: String?
         
         init() {
             meeting.dataListDelegate = self
@@ -119,17 +120,20 @@ class MeetingRepository {
         
         func listen(workspaceId: String, dataListDelegate: MeetingRepositoryDataListDelegate) {
             self.dataListDelegate = dataListDelegate
+            listenWorkspaceId = workspaceId
             meeting.listen(workspaceId: workspaceId)
         }
         
         func listen(workspaceId: String, meetingId: String, dataDelegate: MeetingRepositoryDataDelegate) {
             self.dataDelegate = dataDelegate
+            listenWorkspaceId = workspaceId
             meeting.listen(workspaceId: workspaceId, meetingId: meetingId)
         }
         
         func unlisten() {
             dataListDelegate = nil
             dataDelegate = nil
+            listenWorkspaceId = nil
             meeting.unlisten()
         }
         

@@ -40,6 +40,8 @@
 		FB2603C626120CA700323E4B /* AudioRecordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603C526120CA700323E4B /* AudioRecordData.swift */; };
 		FB2603CC26120CD100323E4B /* AudioUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603CB26120CD100323E4B /* AudioUserDefault.swift */; };
 		FB2603D02612271200323E4B /* StatementViewControllerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603CF2612271200323E4B /* StatementViewControllerPresenter.swift */; };
+		FB2603D8261360A800323E4B /* AudioStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603D7261360A800323E4B /* AudioStorage.swift */; };
+		FB2603D9261360A800323E4B /* AudioStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603D7261360A800323E4B /* AudioStorage.swift */; };
 		FB523C21260765C800801070 /* MeetingInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C20260765C800801070 /* MeetingInputViewController.swift */; };
 		FB523C252607681C00801070 /* SaveMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C242607681B00801070 /* SaveMeeting.swift */; };
 		FB523C2B2607738C00801070 /* RepositoryDocumentChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */; };
@@ -158,6 +160,7 @@
 		FB2603C526120CA700323E4B /* AudioRecordData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordData.swift; sourceTree = "<group>"; };
 		FB2603CB26120CD100323E4B /* AudioUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUserDefault.swift; sourceTree = "<group>"; };
 		FB2603CF2612271200323E4B /* StatementViewControllerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementViewControllerPresenter.swift; sourceTree = "<group>"; };
+		FB2603D7261360A800323E4B /* AudioStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStorage.swift; sourceTree = "<group>"; };
 		FB523C20260765C800801070 /* MeetingInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingInputViewController.swift; sourceTree = "<group>"; };
 		FB523C242607681B00801070 /* SaveMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMeeting.swift; sourceTree = "<group>"; };
 		FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDocumentChange.swift; sourceTree = "<group>"; };
@@ -580,6 +583,7 @@
 			isa = PBXGroup;
 			children = (
 				FBA546182600ECEF00112066 /* IconImage.swift */,
+				FB2603D7261360A800323E4B /* AudioStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -874,6 +878,7 @@
 				FB0D2FAF26073E23001403A5 /* FirestoreMeeting.swift in Sources */,
 				FBF9A5EB2605898A00AE78DF /* SelectMemberCollectionData.swift in Sources */,
 				FBF9A5D32603957B00AE78DF /* SelectMemberCollectionViewItem.swift in Sources */,
+				FB2603D8261360A800323E4B /* AudioStorage.swift in Sources */,
 				FBA544AD25FA5D2400112066 /* PreferencesFirebaseViewController.swift in Sources */,
 				FBA5456825FE5BF100112066 /* AlertBuilder.swift in Sources */,
 				FB523C3D26077D9E00801070 /* FirestoreDocumentChangeWithData.swift in Sources */,
@@ -930,6 +935,7 @@
 				FBF9A6102605BD8A00AE78DF /* FirestoreWorkspaceData.swift in Sources */,
 				FBA545D925FFA3AA00112066 /* SignOut.swift in Sources */,
 				FBA545DF25FFA3D300112066 /* FirestoreUser.swift in Sources */,
+				FB2603D9261360A800323E4B /* AudioStorage.swift in Sources */,
 				FBA545DA25FFA3AA00112066 /* AuthUser.swift in Sources */,
 				FBA544FF25FD12EE00112066 /* SettingUserDefault.swift in Sources */,
 				FBA546242600F47700112066 /* UploadIconImage.swift in Sources */,
