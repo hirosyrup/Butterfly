@@ -18,7 +18,7 @@ class AudioRecorder {
         self.startTime = startTime
         self.meetingId = meetingId
         fileName = "\(UUID().uuidString).m4a"
-        let localUrl = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)[0])
+        let localUrl = AudioLocalUrl.createLocalUrl()
         let saveUrl = localUrl.appendingPathComponent("\(fileName)")
         let format = AVAudioFormat(settings: [
             AVFormatIDKey: kAudioFormatMPEG4AAC,

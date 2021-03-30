@@ -99,6 +99,9 @@
 		FBA546292600FA2700112066 /* UploadIconImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA546272600FA2700112066 /* UploadIconImageResponse.swift */; };
 		FBA546382602409800112066 /* PreferencesWorkspaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA546372602409800112066 /* PreferencesWorkspaceViewController.swift */; };
 		FBA5463C260240BF00112066 /* PreferencesWorkspaceInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5463B260240BF00112066 /* PreferencesWorkspaceInputViewController.swift */; };
+		FBD1A84026132243005BB323 /* AudioUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A83F26132243005BB323 /* AudioUploader.swift */; };
+		FBD1A844261322B6005BB323 /* AudioUploaderQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */; };
+		FBD1A8482613275B005BB323 /* AudioLocalUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */; };
 		FBF9A5BD26038A7100AE78DF /* MemberIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A5BC26038A7100AE78DF /* MemberIconView.swift */; };
 		FBF9A5C126038A7E00AE78DF /* MemberIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBF9A5C026038A7E00AE78DF /* MemberIconView.xib */; };
 		FBF9A5C626038BCC00AE78DF /* NSImageView+AsyncLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A5C526038BCC00AE78DF /* NSImageView+AsyncLoad.swift */; };
@@ -208,6 +211,9 @@
 		FBA546272600FA2700112066 /* UploadIconImageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadIconImageResponse.swift; sourceTree = "<group>"; };
 		FBA546372602409800112066 /* PreferencesWorkspaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWorkspaceViewController.swift; sourceTree = "<group>"; };
 		FBA5463B260240BF00112066 /* PreferencesWorkspaceInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWorkspaceInputViewController.swift; sourceTree = "<group>"; };
+		FBD1A83F26132243005BB323 /* AudioUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploader.swift; sourceTree = "<group>"; };
+		FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploaderQueue.swift; sourceTree = "<group>"; };
+		FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLocalUrl.swift; sourceTree = "<group>"; };
 		FBF9A5BC26038A7100AE78DF /* MemberIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberIconView.swift; sourceTree = "<group>"; };
 		FBF9A5C026038A7E00AE78DF /* MemberIconView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemberIconView.xib; sourceTree = "<group>"; };
 		FBF9A5C526038BCC00AE78DF /* NSImageView+AsyncLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImageView+AsyncLoad.swift"; sourceTree = "<group>"; };
@@ -335,9 +341,12 @@
 			children = (
 				FB2603B226120A0B00323E4B /* AudioBufferSize.swift */,
 				FB2603AE2612074E00323E4B /* AudioSystem.swift */,
+				FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */,
 				FB2603BF26120C7D00323E4B /* AudioRecorder.swift */,
 				FB2603C526120CA700323E4B /* AudioRecordData.swift */,
 				FB2603CB26120CD100323E4B /* AudioUserDefault.swift */,
+				FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */,
+				FBD1A83F26132243005BB323 /* AudioUploader.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -842,6 +851,7 @@
 				FB0D2F7526063999001403A5 /* NSColor+AppColor.swift in Sources */,
 				FB0D2FB3260742E6001403A5 /* WorkspaceRepository.swift in Sources */,
 				FBF9A6142605BDD600AE78DF /* FirestoreWorkspace.swift in Sources */,
+				FBD1A84026132243005BB323 /* AudioUploader.swift in Sources */,
 				FBA545DE25FFA3D300112066 /* FirestoreUser.swift in Sources */,
 				FB204257260C5471006620A2 /* AppScheme.swift in Sources */,
 				FBF9A5CD260392D500AE78DF /* SelectMemberViewController.swift in Sources */,
@@ -900,8 +910,10 @@
 				FB2603482608D28F00323E4B /* StatementQueueData.swift in Sources */,
 				FB0D2F7B26063FBF001403A5 /* PreferencesWorkspaceCollectionData.swift in Sources */,
 				FBA546282600FA2700112066 /* UploadIconImageResponse.swift in Sources */,
+				FBD1A844261322B6005BB323 /* AudioUploaderQueue.swift in Sources */,
 				FBA2883A25F8896600D1B3BD /* AppDelegate.swift in Sources */,
 				FBA546232600F47700112066 /* UploadIconImage.swift in Sources */,
+				FBD1A8482613275B005BB323 /* AudioLocalUrl.swift in Sources */,
 				FB9D719D2608711300B7E9DE /* StatementWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
