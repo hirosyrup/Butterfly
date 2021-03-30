@@ -20,7 +20,7 @@ class MainViewController: NSViewController,
     private let window = NSWindow()
     private var preferencesWindowController: PreferencesWindowController?
     private var statementWindowController: StatementWindowController?
-    private var meetingViewController: MeetingViewController!
+    private var meetingViewController: MeetingViewController?
     private var userData: WorkspaceRepository.UserData?
     private var isLoadingUserData = false
     
@@ -36,17 +36,17 @@ class MainViewController: NSViewController,
         FirestoreObserver.shared.addWorkspaceObserver(observer: self)
     }
     
-    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-        if let vc = segue.destinationController as? MeetingViewController {
-            vc.delegate = self
-            meetingViewController = vc
-        }
-    }
-    
     override func viewWillAppear() {
         super.viewWillAppear()
         fetchUserData()
         updateViews()
+    }
+    
+    private func setupMeetingViewController() {
+        guard FirestoreSetup().isConfigured() else { return }
+        guard meetingViewController == nil else { return }
+        meetingViewController = MeetingViewController.create(delegate: self)
+        meetingVcContainer.addSubview(meetingViewController!.view)
     }
     
     private func fetchUserData() {
@@ -62,7 +62,8 @@ class MainViewController: NSViewController,
             self.isLoadingUserData = false
             self.updateViews()
             if userData != nil {
-                self.meetingViewController!.setup(userData: userData!)
+                self.setupMeetingViewController()
+                self.meetingViewController?.setup(userData: userData!)
             }
         }).catch { (error) in
             AlertBuilder.createErrorAlert(title: "Error", message: "Failed to fetch user data. \(error.localizedDescription)").runModal()

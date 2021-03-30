@@ -23,10 +23,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         constructPopover()
         FirestoreSetup().setup()
-        AuthUser.shared.listenAuthEvent()
-        if FirestoreSetup().isConfigured() && AuthUser.shared.isSignIn() {
-            FirestoreObserver.shared.listenWorkspace()
-        }
         IconImage.shared.clearAllCache()
         SpeechRecognizer.shared.requestAuthorization()
         AudioSystem.shared.setup()

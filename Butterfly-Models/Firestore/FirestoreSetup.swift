@@ -22,6 +22,10 @@ class FirestoreSetup {
         if let options = FirebaseOptions(contentsOfFile: path) {
             FirebaseApp.configure(options: options)
             Firestore.firestore().settings = FirestoreSettings()
+            AuthUser.shared.listenAuthEvent()
+            if AuthUser.shared.isSignIn() {
+                FirestoreObserver.shared.listenWorkspace()
+            }
         }
     }
     

@@ -20,6 +20,14 @@ class MeetingViewController: NSViewController,
     
     weak var delegate: MeetingViewControllerDelegate?
     
+    class func create(delegate: MeetingViewControllerDelegate?) -> MeetingViewController {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        let identifier = NSStoryboard.SceneIdentifier("MeetingViewController")
+        let vc = storyboard.instantiateController(withIdentifier: identifier) as! MeetingViewController
+        vc.delegate = delegate
+        return vc
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
