@@ -15,7 +15,7 @@ protocol ObserveBreakInStatementsDelegate: class {
 class ObserveBreakInStatements {
     weak var delegate: ObserveBreakInStatementsDelegate?
     private let rmsThrethold = Float(-15.0)
-    private let limitTime = TimeInterval(50)
+    private let limitTime: TimeInterval?
     private var onDate: Date?
     private let offThreshold = TimeInterval(1)
     private(set) var isSpeeking = false
@@ -24,8 +24,9 @@ class ObserveBreakInStatements {
     private var previousBuffers = [AVAudioPCMBuffer]()
     private let bufferlimit = 5
     
-    init(bufferSize: UInt32) {
+    init(bufferSize: UInt32, limitTime: TimeInterval? = TimeInterval(50)) {
         self.bufferSize = bufferSize
+        self.limitTime = limitTime
     }
     
     func checkBreakInStatements(buffer: AVAudioPCMBuffer, when: AVAudioTime) {
@@ -66,8 +67,9 @@ class ObserveBreakInStatements {
     }
     
     private func checkSpeekingDuration() {
+        guard let _limitTime = limitTime else { return }
         guard let startDate = speekingStartDate else { return }
-        if Date().timeIntervalSince1970 - startDate.timeIntervalSince1970 > limitTime {
+        if Date().timeIntervalSince1970 - startDate.timeIntervalSince1970 > _limitTime {
             updateSpeeakingStateTo(false)
         }
     }
