@@ -52,9 +52,9 @@ class MeetingCollectionViewController: NSViewController,
         collectionView.isHidden = isEmpty
     }
     
-    private func deleteMeeting(deleteData: MeetingRepository.MeetingData) {
+    private func archiveMeeting(archiveData: MeetingRepository.MeetingData) {
         async({ _ -> Void in
-            try await(self.meetingRepository.delete(workspaceId: self.workspaceId, meetingData: deleteData))
+            try await(self.meetingRepository.archive(workspaceId: self.workspaceId, meetingData: archiveData))
         }).catch { (error) in
             AlertBuilder.createErrorAlert(title: "Error", message: "Failed to delete meeting. \(error.localizedDescription)").runModal()
         }
@@ -117,12 +117,12 @@ class MeetingCollectionViewController: NSViewController,
         }
     }
     
-    func didPushDelete(view: MeetingCollectionViewItem) {
+    func didPushArchive(view: MeetingCollectionViewItem) {
         if let indexPath = collectionView.indexPath(for: view) {
-            let deleteData = meetingDataList[indexPath.item]
-            let alert = AlertBuilder.createConfirmAlert(title: "Confirmation", message: "Are you sure you want to delete the meeting? The statements are also deleted and cannot be restored.")
+            let archiveData = meetingDataList[indexPath.item]
+            let alert = AlertBuilder.createConfirmAlert(title: "Confirmation", message: "Are you sure you want to archive the meeting? The data remains, but is no longer accessible to the application.")
             if alert.runModal() == .alertFirstButtonReturn {
-                deleteMeeting(deleteData: deleteData)
+                archiveMeeting(archiveData: archiveData)
             }
         }
     }

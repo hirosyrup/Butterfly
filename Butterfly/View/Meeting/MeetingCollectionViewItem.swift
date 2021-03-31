@@ -9,7 +9,7 @@ import Cocoa
 
 protocol MeetingCollectionViewItemDelegate: class {
     func didPushEdit(view: MeetingCollectionViewItem)
-    func didPushDelete(view: MeetingCollectionViewItem)
+    func didPushArchive(view: MeetingCollectionViewItem)
 }
 
 class MeetingCollectionViewItem: NSCollectionViewItem {
@@ -17,7 +17,7 @@ class MeetingCollectionViewItem: NSCollectionViewItem {
     @IBOutlet weak var titleLabel: NSTextField!
     @IBOutlet weak var createdAtLabel: NSTextField!
     @IBOutlet weak var editButton: NSButton!
-    @IBOutlet weak var deleteButton: NSButton!
+    @IBOutlet weak var archiveButton: NSButton!
     @IBOutlet weak var memberIconView: MeetingMemberIconContainer!
     weak var delegate: MeetingCollectionViewItemDelegate?
     
@@ -41,7 +41,7 @@ class MeetingCollectionViewItem: NSCollectionViewItem {
 
     private func updateButtonHidden(hidden: Bool) {
         editButton.isHidden = hidden
-        deleteButton.isHidden = hidden
+        archiveButton.isHidden = hidden
     }
     
     func updateView(presenter: MeetingCollectionViewItemPresenter) {
@@ -54,7 +54,7 @@ class MeetingCollectionViewItem: NSCollectionViewItem {
         delegate?.didPushEdit(view: self)
     }
     
-    @IBAction func pushDelete(_ sender: Any) {
-        delegate?.didPushDelete(view: self)
+    @IBAction func pushArchive(_ sender: Any) {
+        delegate?.didPushArchive(view: self)
     }
 }

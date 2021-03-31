@@ -19,10 +19,16 @@ protocol MeetingRepositoryDataDelegate: class {
 }
 
 class MeetingRepository {
+    enum MeetingStatus: Int {
+        case open = 0
+        case archived = 1
+    }
+    
     struct MeetingData {
         fileprivate let original: FirestoreMeetingData
         let id: String
         var name: String
+        var status: MeetingStatus
         var startedAt: Date?
         var endedAt: Date?
         var createdAt: Date
@@ -34,6 +40,7 @@ class MeetingRepository {
             self.id = self.original.id
             self.createdAt = self.original.createdAt
             self.name = self.original.name
+            self.status = MeetingStatus(rawValue: self.original.status)!
             self.startedAt = self.original.startedAt
             self.endedAt = self.original.endedAt
         }
@@ -41,6 +48,7 @@ class MeetingRepository {
         fileprivate func toFirestoreData() -> FirestoreMeetingData {
             var firestoreData = original
             firestoreData.name = name
+            firestoreData.status = status.rawValue
             firestoreData.userList = userList.map({ (user) -> FirestoreMeetingUserData in
                 return FirestoreMeetingUserData(id: user.id, iconName: user.iconName, name: user.name, isHost: user.isHost, isEntering: user.isEntering, audioFileName: user.audioFileName)
             })
@@ -196,16 +204,10 @@ class MeetingRepository {
             }
         }
         
-        func delete(workspaceId: String, meetingData: MeetingData) -> Promise<Void> {
-            return Promise<Void>(in: .background, token: nil) { (resolve, reject, _) in
-                async({ _ -> Void in
-                    try await(self.meeting.delete(workspaceId: workspaceId, meetingId: meetingData.id))
-                }).then({
-                    resolve(())
-                }).catch { (error) in
-                    reject(error)
-                }
-            }
+        func archive(workspaceId: String, meetingData: MeetingData) -> Promise<MeetingData> {
+            var updateData = meetingData
+            updateData.status = .archived
+            return update(workspaceId: workspaceId, meetingData: updateData)
         }
         
         private func createMeetingData(firestoreMeetingData: FirestoreMeetingData) -> Promise<MeetingData> {

@@ -28,7 +28,7 @@ class FirestoreMeeting {
     
     func listen(workspaceId: String) {
         guard workspaceListener == nil else { return }
-        workspaceListener = reference(workspaceId: workspaceId).addSnapshotListener({ (snapshot, error) in
+        workspaceListener = referenceWithoutArchived(workspaceId: workspaceId).addSnapshotListener({ (snapshot, error) in
             if let documentChanges = snapshot?.documentChanges {
                 let list = documentChanges.map { (documentChange) -> FirestoreDocumentChangeWithData<FirestoreMeetingData> in
                     let data = documentChange.document.data()
@@ -58,9 +58,13 @@ class FirestoreMeeting {
         return FirestoreWorkspace().reference().document(workspaceId).collection(meetingCollectionName)
     }
     
+    func referenceWithoutArchived(workspaceId: String, meetingId: String? = nil) -> Query {
+        return reference(workspaceId: workspaceId).whereField("status", isNotEqualTo: 1)
+    }
+    
     func index(workspaceId: String) -> Promise<[FirestoreMeetingData]> {
         return Promise<[FirestoreMeetingData]>(in: .background, token: nil) { (resolve, reject, _) in
-            self.reference(workspaceId: workspaceId).getDocuments(completion: { (querySnapshot, error) in
+            self.referenceWithoutArchived(workspaceId: workspaceId).getDocuments(completion: { (querySnapshot, error) in
                 if let _error = error {
                     reject(_error)
                 } else {
@@ -120,21 +124,10 @@ class FirestoreMeeting {
         }
     }
     
-    func delete(workspaceId: String, meetingId: String) -> Promise<Void> {
-        return Promise<Void>(in: .background, token: nil) { (resolve, reject, _) in
-            self.reference(workspaceId: workspaceId).document(meetingId).delete { (error) in
-                if let _error = error {
-                    reject(_error)
-                } else {
-                    resolve(())
-                }
-            }
-        }
-    }
-    
     private func meetingToFirestoreData(data: FirestoreMeetingData) -> [String: Any] {
         return [
             "name": data.name,
+            "status": data.status,
             "userList": data.userList.map({ (user) -> [String: Any] in
                 return [
                     "id": user.id,
@@ -157,6 +150,7 @@ class FirestoreMeeting {
         return FirestoreMeetingData(
             id: meetingId,
             name: (snapshot["name"] as? String) ?? "",
+            status: (snapshot["status"] as? Int) ?? 0,
             userList: userRawList.map({ (raw) -> FirestoreMeetingUserData in
                 FirestoreMeetingUserData(
                     id: (raw["id"] as? String) ?? "",
