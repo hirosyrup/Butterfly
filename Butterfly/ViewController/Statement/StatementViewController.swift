@@ -8,6 +8,7 @@
 import Cocoa
 import Hydra
 import AVFoundation
+import AVKit
 
 class StatementViewController: NSViewController,
                                SpeechRecognizerDelegate,
@@ -21,6 +22,8 @@ class StatementViewController: NSViewController,
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var startEndButton: NSButton!
     @IBOutlet weak var recordingLabel: NSBox!
+    @IBOutlet weak var recordAudioDownloadIndicator: NSProgressIndicator!
+    @IBOutlet weak var audioPlayerView: AVPlayerView!
     
     private let cellId = "StatementCollectionViewItem"
     private var workspaceId: String!
@@ -46,6 +49,7 @@ class StatementViewController: NSViewController,
         collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId))
         calcHeightView = StatementCollectionViewItem()
         calcHeightView.instantiateFromNib()
+        audioPlayerView.isHidden = true
     }
 
     override func viewDidAppear() {
@@ -104,6 +108,23 @@ class StatementViewController: NSViewController,
         recordingLabel.isHidden = presenter.isHiddenRecordingLabel()
     }
     
+    private func setupRecordAudioIfNeeded() {
+        if meetingData.startedAt != nil && meetingData.endedAt != nil {
+            recordAudioDownloadIndicator.startAnimation(self)
+            audioPlayerView.isHidden = true
+            async({ _ -> AVMutableComposition in
+                return try await(MergeAudio(meetingData: self.meetingData).merge())
+            }).then({ composition in
+                self.audioPlayerView.isHidden = false
+                self.audioPlayerView.player = AVPlayer(playerItem: AVPlayerItem(asset: composition))
+            }).catch { (error) in
+                AlertBuilder.createErrorAlert(title: "Error", message: "Failed to download audio files. \(error.localizedDescription)").runModal()
+            }.always(in: .main) {
+                self.recordAudioDownloadIndicator.stopAnimation(self)
+            }
+        }
+    }
+    
     private func startAudioInput(userId: String, isHost: Bool) {
         guard var updateData = meetingData else { return }
         if let index = updateData.userList.firstIndex(where: { $0.id == userId }) {
@@ -156,12 +177,14 @@ class StatementViewController: NSViewController,
         self.meetingData = meetingData
         statementQueue = StatementQueue(workspaceId: workspaceId, meetingId: meetingData.id)
         updateViews()
+        setupRecordAudioIfNeeded()
     }
     
     func updateMeetingData(meetingData: MeetingRepository.MeetingData) {
         self.meetingData = meetingData
         updateAudioInputState()
         updateViews()
+        setupRecordAudioIfNeeded()
     }
     
     func audioEngineStartError(obj: AudioSystem, error: Error) {

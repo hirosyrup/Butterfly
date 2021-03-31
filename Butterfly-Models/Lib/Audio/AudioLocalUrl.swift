@@ -19,4 +19,12 @@ class AudioLocalUrl {
         }
         return url
     }
+    
+    static func createAudioDirectoryUrl() -> URL {
+        let url = createLocalUrl().appendingPathComponent("audio")
+        if !FileManager.default.fileExists(atPath: url.path) {
+            try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+        }
+        return url
+    }
 }
