@@ -33,9 +33,10 @@ class AudioUploaderQueue: MeetingRepositoryDataListDelegate {
         let uploader = AudioUploader(meetingId: meetingData.id, recordDataList: recordDataList)
         uploaders.append(uploader)
         async({ _ -> Void in
-            let fileName = try await(uploader.upload())
+            let fileInfo = try await(uploader.upload())
+            try? FileManager.default.removeItem(at: fileInfo.0)
             var updateData = meetingData
-            updateData.userList[userIndex].audioFileName = fileName
+            updateData.userList[userIndex].audioFileName = fileInfo.1
             try await(MeetingRepository.Meeting().update(workspaceId: workspaceId, meetingData: updateData))
         }).then({
             recordDataList.forEach { (data) in

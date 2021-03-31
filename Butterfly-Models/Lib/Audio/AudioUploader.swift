@@ -18,13 +18,14 @@ class AudioUploader {
         self.recordDataList = recordDataList
     }
     
-    func upload() -> Promise<String> {
-        return Promise<String>(in: .background, token: nil) { (resolve, reject, _) in
-            async({ _ -> String in
+    func upload() -> Promise<(URL, String)> {
+        return Promise<(URL, String)>(in: .background, token: nil) { (resolve, reject, _) in
+            async({ _ -> (URL, String) in
                 let fileInfo = try await(self.saveFile())
-                return try await(AudioStorage().upload(uploadImageUrl: fileInfo.0, fileName: fileInfo.1))
-            }).then({ fileName in
-                resolve(fileName)
+                try await(AudioStorage().upload(uploadImageUrl: fileInfo.0, fileName: fileInfo.1))
+                return fileInfo
+            }).then({ fileInfo in
+                resolve(fileInfo)
             }).catch { (error) in
                 reject(error)
             }
