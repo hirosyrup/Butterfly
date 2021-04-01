@@ -38,6 +38,7 @@ class StatementViewController: NSViewController,
     private var audioRecorder: AudioRecorder?
     private var isAudioInputStart = false
     private let observeBreakInStatements = ObserveBreakInStatements(bufferSize: AudioBufferSize.bufferSize, limitTime: nil)
+    private var audioComposition: AVMutableComposition?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +68,7 @@ class StatementViewController: NSViewController,
             vc.workspaceId = workspaceId
             vc.meetingData = meetingData
             vc.dataList = statementDataList
+            vc.audioComposition = audioComposition
         }
     }
     
@@ -114,6 +116,7 @@ class StatementViewController: NSViewController,
             }).then({ composition in
                 self.audioPlayerView.isHidden = false
                 self.audioPlayerView.player = AVPlayer(playerItem: AVPlayerItem(asset: composition))
+                self.audioComposition = composition
             }).catch { (error) in
                 AlertBuilder.createErrorAlert(title: "Error", message: "Failed to download audio files. \(error.localizedDescription)").runModal()
             }.always(in: .main) {

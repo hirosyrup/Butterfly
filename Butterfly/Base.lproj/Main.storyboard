@@ -1197,23 +1197,23 @@ DQ
         <scene sceneID="bXC-He-p1F">
             <objects>
                 <viewController id="POT-CU-vZT" customClass="StatementShareViewController" customModule="Butterfly" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="jjQ-Ez-foo">
-                        <rect key="frame" x="0.0" y="0.0" width="160" height="70"/>
+                    <view key="view" misplaced="YES" id="jjQ-Ez-foo">
+                        <rect key="frame" x="0.0" y="0.0" width="270" height="70"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Ne-AR-gda">
-                                <rect key="frame" x="0.0" y="0.0" width="160" height="70"/>
+                                <rect key="frame" x="0.0" y="0.0" width="270" height="70"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="6nD-v8-J2c">
-                                        <rect key="frame" x="0.0" y="0.0" width="80" height="70"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="90" height="70"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IWN-Xy-SCP">
-                                                <rect key="frame" x="10" y="16" width="60" height="54"/>
+                                                <rect key="frame" x="15" y="15.5" width="60" height="56"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="F4G-m9-F4t"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="b03-fc-jcT"/>
                                                 </constraints>
-                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSTouchBarDownloadTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="NRK-9H-8gq">
+                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="arrow.down.doc" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="NRK-9H-8gq">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system" size="23"/>
                                                 </buttonCell>
@@ -1222,7 +1222,7 @@ DQ
                                                 </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4oI-I8-ny0">
-                                                <rect key="frame" x="4" y="9" width="73" height="16"/>
+                                                <rect key="frame" x="9" y="9" width="73" height="16"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="export CSV" id="gGG-gO-mce">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1237,11 +1237,43 @@ DQ
                                             <constraint firstItem="4oI-I8-ny0" firstAttribute="centerX" secondItem="6nD-v8-J2c" secondAttribute="centerX" id="yve-8k-NS1"/>
                                         </constraints>
                                     </customView>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="DgR-pQ-QiH">
+                                        <rect key="frame" x="90" y="0.0" width="90" height="70"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zDg-k4-e8b">
+                                                <rect key="frame" x="15" y="30" width="60" height="26"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="SBD-dA-ayX"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSTouchBarDownloadTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="U4S-xF-IhZ">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system" size="23"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="pushExportAudio:" target="POT-CU-vZT" id="90p-as-4Pg"/>
+                                                </connections>
+                                            </button>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DmY-Tk-yxi">
+                                                <rect key="frame" x="5" y="9" width="81" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="export audio" id="9lH-lj-OqK">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="zDg-k4-e8b" firstAttribute="centerX" secondItem="DgR-pQ-QiH" secondAttribute="centerX" id="4hI-o5-ayt"/>
+                                            <constraint firstItem="DmY-Tk-yxi" firstAttribute="centerY" secondItem="DgR-pQ-QiH" secondAttribute="centerY" constant="18" id="Xn5-Gq-Cz3"/>
+                                            <constraint firstItem="zDg-k4-e8b" firstAttribute="centerY" secondItem="DgR-pQ-QiH" secondAttribute="centerY" constant="-8" id="ics-XF-H0N"/>
+                                            <constraint firstItem="DmY-Tk-yxi" firstAttribute="centerX" secondItem="DgR-pQ-QiH" secondAttribute="centerX" id="pKO-Gx-8YO"/>
+                                        </constraints>
+                                    </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="VgS-nq-MV2">
-                                        <rect key="frame" x="80" y="0.0" width="80" height="70"/>
+                                        <rect key="frame" x="180" y="0.0" width="90" height="70"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6XC-VP-Kd0">
-                                                <rect key="frame" x="10" y="16" width="60" height="54"/>
+                                                <rect key="frame" x="15" y="16" width="60" height="54"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="J0i-Nn-xU4"/>
                                                     <constraint firstAttribute="height" constant="44" id="vhv-2w-3CW"/>
@@ -1255,7 +1287,7 @@ DQ
                                                 </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Zh3-R1-nPg">
-                                                <rect key="frame" x="11" y="9" width="59" height="16"/>
+                                                <rect key="frame" x="16" y="9" width="59" height="16"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="deep link" id="j09-zi-1Zi">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1272,14 +1304,16 @@ DQ
                                     </customView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="160" id="UNA-fP-KLD"/>
+                                    <constraint firstAttribute="width" constant="270" id="UNA-fP-KLD"/>
                                     <constraint firstAttribute="height" constant="70" id="bJf-aX-XqZ"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
@@ -1292,6 +1326,9 @@ DQ
                             <constraint firstAttribute="bottom" secondItem="7Ne-AR-gda" secondAttribute="bottom" id="t1R-Ct-lz5"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="exportAudioButton" destination="zDg-k4-e8b" id="311-To-gra"/>
+                    </connections>
                 </viewController>
                 <customObject id="2hJ-jr-sbM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1307,6 +1344,7 @@ DQ
         <image name="NSTouchBarDownloadTemplate" width="15" height="15"/>
         <image name="NSTouchBarRecordStartTemplate" width="15" height="15"/>
         <image name="NSTouchBarSearchTemplate" width="15" height="15"/>
+        <image name="arrow.down.doc" catalog="system" width="14" height="16"/>
         <image name="link.circle" catalog="system" width="15" height="15"/>
         <image name="pencil" catalog="system" width="14" height="13"/>
         <image name="person.circle" catalog="system" width="15" height="15"/>

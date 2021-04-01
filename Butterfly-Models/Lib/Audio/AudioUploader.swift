@@ -35,23 +35,12 @@ class AudioUploader {
     private func saveFile() -> Promise<(URL, String)> {
         return Promise<(URL, String)>(in: .background, token: nil) { (resolve, reject, _) in
             do {
-                let composition = AVMutableComposition()
-                try self.recordDataList.forEach { try self.addTrack(composition: composition, recordData: $0) }
-                guard let session = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A) else {
-                    throw NSError(domain: "Failed to prepare session", code: -1, userInfo: nil)
-                }
                 let fileName = "\(UUID().uuidString).m4a"
                 let outputUrl = AudioLocalUrl.createRecordDirectoryUrl().appendingPathComponent(fileName)
-                session.outputURL = outputUrl
-                session.outputFileType = .m4a
-                session.exportAsynchronously {
-                    switch session.status {
-                    case .completed:
-                        resolve((outputUrl, fileName))
-                    default:
-                        reject(session.error ?? NSError(domain: "Failed to save File", code: -1, userInfo: nil))
-                    }
-                }
+                let composition = AVMutableComposition()
+                try self.recordDataList.forEach { try self.addTrack(composition: composition, recordData: $0) }
+                let _ = try await(AudioExport(composition: composition, outputUrl: outputUrl).export())
+                resolve((outputUrl, fileName))
             } catch {
                 reject(error)
             }

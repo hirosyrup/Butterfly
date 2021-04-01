@@ -6,14 +6,24 @@
 //
 
 import Cocoa
+import AVFoundation
+import Hydra
 
 class StatementShareViewController: NSViewController {
+    @IBOutlet weak var exportAudioButton: NSButton!
+    
     var workspaceId: String = ""
     var meetingData: MeetingRepository.MeetingData!
     var dataList = [StatementRepository.StatementData]()
+    var audioComposition: AVMutableComposition?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateView()
+    }
+    
+    private func updateView() {
+        exportAudioButton.isEnabled = audioComposition != nil
     }
     
     private func createStringsForCsv() -> String {
@@ -33,6 +43,21 @@ class StatementShareViewController: NSViewController {
                 } catch {
                     AlertBuilder.createErrorAlert(title: "Error", message: "Failed to export CSV. \(error.localizedDescription)").runModal()
                 }
+            }
+        }
+    }
+    
+    @IBAction func pushExportAudio(_ sender: Any) {
+        guard let composition = audioComposition else { return }
+        let savePanel = NSSavePanel()
+        savePanel.canCreateDirectories = true
+        savePanel.nameFieldStringValue = "\(meetingData.name).m4a"
+        savePanel.begin { (response) in
+            if response == .OK {
+                guard let url = savePanel.url else { return }
+                async({ _ -> Void in
+                    try await(AudioExport(composition: composition, outputUrl: url).export())
+                }).then { (_) in }
             }
         }
     }
