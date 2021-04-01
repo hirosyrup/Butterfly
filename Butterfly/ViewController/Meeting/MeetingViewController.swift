@@ -70,8 +70,8 @@ class MeetingViewController: NSViewController,
         collectionViewController.userId = userData.id
         updateWorkspacePopupItems()
         reloadCollection()
-        AudioStopQueue.shared.userId = userData.id
-        AudioStopQueue.shared.listenMeeting(workspaceIds: userData.workspaceList.map { $0.id })
+        AudioUploaderQueue.shared.userId = userData.id
+        AudioUploaderQueue.shared.listenMeeting(workspaceIds: userData.workspaceList.map { $0.id })
     }
     
     func didClickItem(vc: MeetingCollectionViewController, data: MeetingRepository.MeetingData) {

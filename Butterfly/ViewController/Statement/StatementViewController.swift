@@ -154,7 +154,7 @@ class StatementViewController: NSViewController,
     
     private func stopRecord() {
         guard let recorder = audioRecorder else { return }
-        AudioStopQueue.shared.stop(audioRecorder: recorder)
+        recorder.stop()
         audioRecorder = nil
     }
     
@@ -166,7 +166,7 @@ class StatementViewController: NSViewController,
                 startRecognition()
             } else {
                 stopRecognition()
-                AudioStopQueue.shared.addUploadQueue(queueData: AudioUploaderQueueData(workspaceId: workspaceId, meetingData: meetingData))
+                AudioUploaderQueue.shared.addUploader(workspaceId: workspaceId, meetingData: meetingData)
             }
             isAudioInputStart = _isAudioInputStart
         }

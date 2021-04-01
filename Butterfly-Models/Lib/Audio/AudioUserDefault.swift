@@ -32,13 +32,6 @@ class AudioUserDefault {
         }
     }
     
-    func removeAudioRecordData(dataList: [AudioRecordData]) {
-        let removeFileNames = dataList.map { $0.fileName }
-        let list = audioRecordDataList()
-        let updateList = list.filter { !removeFileNames.contains($0.fileName)  }
-        userDefault.setValue(updateList.map { $0.createToUserDefaultData() }, forKey: audioDataListKey)
-    }
-    
     func clear(meetingId: String) {
         let updateDataList = audioRecordDataList().filter { $0.meetingId != meetingId }
         userDefault.setValue(updateDataList.map { $0.createToUserDefaultData() }, forKey: audioDataListKey)
