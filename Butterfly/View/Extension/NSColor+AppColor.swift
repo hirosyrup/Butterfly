@@ -10,4 +10,5 @@ import Cocoa
 
 extension NSColor {
     class var cellBackground: NSColor { return NSColor(named: NSColor.Name("TableCellColor"))! }
+    class var cellLightBackground: NSColor { return NSColor(named: NSColor.Name("TableCellLightColor"))! }
 }

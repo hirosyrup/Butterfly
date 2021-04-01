@@ -8,11 +8,14 @@
 import Cocoa
 
 class StatementCollectionViewItem: NSCollectionViewItem {
+    @IBOutlet weak var background: NSBox!
     @IBOutlet weak var iconImageContainer: NSView!
     @IBOutlet weak var headerContainer: NSBox!
     @IBOutlet weak var userNameLabel: NSTextField!
     @IBOutlet weak var statementLabel: NSTextField!
+    @IBOutlet weak var copyToClipboardButton: NSButton!
     weak var iconView: MemberIconView!
+    private var trackingArea: NSTrackingArea?
     
     func instantiateFromNib() {
         var objects: NSArray? = NSArray()
@@ -25,8 +28,28 @@ class StatementCollectionViewItem: NSCollectionViewItem {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        copyToClipboardButton.isHidden = true
         setupIconView()
+    }
+    
+    override func mouseEntered(with event: NSEvent) {
+        onMouse(on: true)
+    }
+    
+    override func mouseExited(with event: NSEvent) {
+        onMouse(on: false)
+    }
+    
+    private func onMouse(on: Bool) {
+        if on {
+            background.isTransparent = false
+            background.fillColor = NSColor.cellLightBackground
+            copyToClipboardButton.isHidden = false
+        } else {
+            background.isTransparent = true
+            background.fillColor = NSColor.clear
+            copyToClipboardButton.isHidden = true
+        }
     }
     
     private func setupIconView() {
@@ -46,11 +69,24 @@ class StatementCollectionViewItem: NSCollectionViewItem {
             userNameLabel.stringValue = presenter.userName()
         }
         statementLabel.stringValue = presenter.statement()
+        
+        if let area = trackingArea {
+            view.removeTrackingArea(area)
+        }
+        view.layoutSubtreeIfNeeded()
+        trackingArea = NSTrackingArea(rect: view.bounds, options: [.mouseEnteredAndExited, .activeAlways], owner: view, userInfo: nil)
+        view.addTrackingArea(trackingArea!)
     }
     
     func calcSize(presenter: StatementCollectionViewItemPresenter) -> CGSize {
         updateView(presenter: presenter)
         view.layoutSubtreeIfNeeded()
         return view.bounds.size
+    }
+    
+    @IBAction func pushCopyToClipboard(_ sender: Any) {
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(statementLabel.stringValue, forType: .string)
     }
 }

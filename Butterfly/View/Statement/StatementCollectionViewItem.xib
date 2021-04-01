@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="StatementCollectionViewItem" customModule="Butterfly" customModuleProvider="target">
             <connections>
+                <outlet property="background" destination="WQ9-ek-OtK" id="7cO-35-2iU"/>
+                <outlet property="copyToClipboardButton" destination="Gc2-ad-Whx" id="Ws7-P6-rgN"/>
                 <outlet property="headerContainer" destination="gTC-6W-gTl" id="VcH-vq-UNb"/>
                 <outlet property="iconImageContainer" destination="Iik-sh-Bgs" id="gHj-6s-Nqo"/>
                 <outlet property="statementLabel" destination="KuO-4t-JTr" id="DCf-rX-m8s"/>
@@ -16,12 +19,20 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView misplaced="YES" id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="300" height="124"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="77"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
+                <box boxType="custom" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="WQ9-ek-OtK">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="77"/>
+                    <view key="contentView" id="f7n-kk-DEq">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="77"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                </box>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qJ5-0y-Mnm">
-                    <rect key="frame" x="16" y="72" width="268" height="52"/>
+                    <rect key="frame" x="16" y="25" width="268" height="52"/>
                     <subviews>
                         <box boxType="custom" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="gTC-6W-gTl">
                             <rect key="frame" x="0.0" y="0.0" width="268" height="52"/>
@@ -81,25 +92,69 @@
                     </customSpacing>
                 </stackView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KuO-4t-JTr">
-                    <rect key="frame" x="14" y="8" width="272" height="64"/>
-                    <textFieldCell key="cell" title="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" id="5Eg-4X-qPv">
+                    <rect key="frame" x="14" y="4" width="244" height="17"/>
+                    <textFieldCell key="cell" title="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" id="5Eg-4X-qPv">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gW7-1h-bDL">
+                    <rect key="frame" x="264" y="8" width="32" height="9"/>
+                    <subviews>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Gc2-ad-Whx">
+                            <rect key="frame" x="0.0" y="-4" width="32" height="17"/>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="paperclip" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="qvs-HA-mLL">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="pushCopyToClipboard:" target="-2" id="Smb-AO-IF2"/>
+                            </connections>
+                        </button>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="g18-3x-whX">
+                            <rect key="frame" x="32" y="0.0" width="0.0" height="9"/>
+                            <constraints>
+                                <constraint firstAttribute="width" id="Kql-QG-Ljx"/>
+                            </constraints>
+                        </customView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="g18-3x-whX" secondAttribute="bottom" id="cWi-4Q-0Oa"/>
+                        <constraint firstItem="g18-3x-whX" firstAttribute="top" secondItem="gW7-1h-bDL" secondAttribute="top" id="jfG-5j-3pt"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="32" id="wtT-p5-9j4"/>
+                    </constraints>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="KuO-4t-JTr" secondAttribute="bottom" constant="8" id="H10-iB-1vP"/>
-                <constraint firstItem="qJ5-0y-Mnm" firstAttribute="trailing" secondItem="KuO-4t-JTr" secondAttribute="trailing" id="Hwg-fh-PHB"/>
+                <constraint firstAttribute="trailing" secondItem="WQ9-ek-OtK" secondAttribute="trailing" id="03O-uK-xh9"/>
+                <constraint firstAttribute="trailing" secondItem="gW7-1h-bDL" secondAttribute="trailing" constant="4" id="GNz-xO-Ohu"/>
+                <constraint firstAttribute="bottom" secondItem="KuO-4t-JTr" secondAttribute="bottom" constant="4" id="H10-iB-1vP"/>
+                <constraint firstAttribute="bottom" secondItem="gW7-1h-bDL" secondAttribute="bottom" constant="8" id="HmO-pL-wWg"/>
+                <constraint firstAttribute="bottom" secondItem="WQ9-ek-OtK" secondAttribute="bottom" id="JJg-BB-BUI"/>
                 <constraint firstItem="qJ5-0y-Mnm" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="16" id="NA6-G9-8cZ"/>
                 <constraint firstItem="qJ5-0y-Mnm" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="O89-5u-aqV"/>
-                <constraint firstItem="KuO-4t-JTr" firstAttribute="top" secondItem="qJ5-0y-Mnm" secondAttribute="bottom" id="dcU-eT-UXz"/>
+                <constraint firstItem="WQ9-ek-OtK" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="Plq-gh-jWm"/>
+                <constraint firstItem="gW7-1h-bDL" firstAttribute="leading" secondItem="KuO-4t-JTr" secondAttribute="trailing" constant="8" id="TCJ-Mq-vDW"/>
+                <constraint firstItem="KuO-4t-JTr" firstAttribute="top" secondItem="qJ5-0y-Mnm" secondAttribute="bottom" constant="4" id="dcU-eT-UXz"/>
                 <constraint firstItem="qJ5-0y-Mnm" firstAttribute="leading" secondItem="KuO-4t-JTr" secondAttribute="leading" id="krz-h1-3EJ"/>
                 <constraint firstAttribute="trailing" secondItem="qJ5-0y-Mnm" secondAttribute="trailing" constant="16" id="shv-my-jUc"/>
+                <constraint firstItem="gW7-1h-bDL" firstAttribute="top" secondItem="KuO-4t-JTr" secondAttribute="top" constant="4" id="vXG-RA-jST"/>
+                <constraint firstItem="WQ9-ek-OtK" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="vcr-bh-95e"/>
             </constraints>
             <point key="canvasLocation" x="-214" y="31"/>
         </customView>
         <customObject id="sG5-c0-YOy" customClass="StatementCollectionViewItem" customModule="Butterfly" customModuleProvider="target"/>
     </objects>
+    <resources>
+        <image name="paperclip" catalog="system" width="15" height="17"/>
+    </resources>
 </document>
