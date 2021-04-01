@@ -246,7 +246,11 @@ class StatementViewController: NSViewController,
         
         let addeds = documentChanges.filter { $0.type == .added }
         addeds.forEach { (addedChange) in
-            statementDataList.insert(addedChange.data, at: addedChange.newIndex)
+            if addedChange.newIndex >= statementDataList.count {
+                statementDataList.append(addedChange.data)
+            } else {
+                statementDataList.insert(addedChange.data, at: addedChange.newIndex)
+            }
         }
         
         collectionView.reloadData()
