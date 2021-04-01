@@ -25,6 +25,8 @@
 		FB0D2FB3260742E6001403A5 /* WorkspaceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FB2260742E6001403A5 /* WorkspaceRepository.swift */; };
 		FB0D2FBA26075CC5001403A5 /* SelectMemberFetchForMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FB926075CC5001403A5 /* SelectMemberFetchForMeeting.swift */; };
 		FB1A2F6B26158D9300FC928C /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB1A2F6A26158D9300FC928C /* AVKit.framework */; };
+		FB1A2F972615999900FC928C /* AudioStopQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1A2F962615999900FC928C /* AudioStopQueue.swift */; };
+		FB1A2F9D2615B8AE00FC928C /* AudioUploaderQueueData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1A2F9C2615B8AE00FC928C /* AudioUploaderQueueData.swift */; };
 		FB204257260C5471006620A2 /* AppScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB204256260C5471006620A2 /* AppScheme.swift */; };
 		FB2603422608D27D00323E4B /* StatementQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603412608D27D00323E4B /* StatementQueue.swift */; };
 		FB2603482608D28F00323E4B /* StatementQueueData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603472608D28F00323E4B /* StatementQueueData.swift */; };
@@ -147,6 +149,8 @@
 		FB0D2FB2260742E6001403A5 /* WorkspaceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceRepository.swift; sourceTree = "<group>"; };
 		FB0D2FB926075CC5001403A5 /* SelectMemberFetchForMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMemberFetchForMeeting.swift; sourceTree = "<group>"; };
 		FB1A2F6A26158D9300FC928C /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		FB1A2F962615999900FC928C /* AudioStopQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStopQueue.swift; sourceTree = "<group>"; };
+		FB1A2F9C2615B8AE00FC928C /* AudioUploaderQueueData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploaderQueueData.swift; sourceTree = "<group>"; };
 		FB204256260C5471006620A2 /* AppScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScheme.swift; sourceTree = "<group>"; };
 		FB2603412608D27D00323E4B /* StatementQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementQueue.swift; sourceTree = "<group>"; };
 		FB2603472608D28F00323E4B /* StatementQueueData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementQueueData.swift; sourceTree = "<group>"; };
@@ -352,9 +356,11 @@
 				FB2603B226120A0B00323E4B /* AudioBufferSize.swift */,
 				FB2603AE2612074E00323E4B /* AudioSystem.swift */,
 				FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */,
+				FB1A2F962615999900FC928C /* AudioStopQueue.swift */,
 				FB2603BF26120C7D00323E4B /* AudioRecorder.swift */,
 				FB2603C526120CA700323E4B /* AudioRecordData.swift */,
 				FB2603CB26120CD100323E4B /* AudioUserDefault.swift */,
+				FB1A2F9C2615B8AE00FC928C /* AudioUploaderQueueData.swift */,
 				FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */,
 				FBD1A83F26132243005BB323 /* AudioUploader.swift */,
 			);
@@ -904,7 +910,9 @@
 				FB9D71802608615F00B7E9DE /* FirestoreStatement.swift in Sources */,
 				FB2603C626120CA700323E4B /* AudioRecordData.swift in Sources */,
 				FB9D71A42608763A00B7E9DE /* SpeechRecognizer.swift in Sources */,
+				FB1A2F972615999900FC928C /* AudioStopQueue.swift in Sources */,
 				FB0D2F882606FEF5001403A5 /* MeetingRepository.swift in Sources */,
+				FB1A2F9D2615B8AE00FC928C /* AudioUploaderQueueData.swift in Sources */,
 				FB0D2F842606FD14001403A5 /* MeetingViewController.swift in Sources */,
 				FB2603C026120C7D00323E4B /* AudioRecorder.swift in Sources */,
 				FB9D719726086D7700B7E9DE /* StatementViewController.swift in Sources */,
