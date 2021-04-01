@@ -15,8 +15,7 @@ class StatementViewController: NSViewController,
                                AudioSystemDelegate,
                                StatementRepositoryDelegate,
                                NSCollectionViewDataSource,
-                               NSCollectionViewDelegateFlowLayout,
-                               ObserveBreakInStatementsDelegate {
+                               NSCollectionViewDelegateFlowLayout {
     @IBOutlet weak var titleLabel: NSTextField!
     @IBOutlet weak var MeetingMemberIconContainer: MeetingMemberIconContainer!
     @IBOutlet weak var collectionView: NSCollectionView!
@@ -74,7 +73,6 @@ class StatementViewController: NSViewController,
     private func startRecognition() {
         speechRecognizer.delegate = self
         audioSystem.delegate = self
-        observeBreakInStatements.delegate = self
         audioSystem.start()
     }
     
@@ -82,7 +80,6 @@ class StatementViewController: NSViewController,
         audioSystem.stop()
         speechRecognizer.delegate = nil
         audioSystem.delegate = nil
-        observeBreakInStatements.delegate = nil
     }
     
     private func previousData(currentIndex: Int) -> StatementRepository.StatementData? {
@@ -164,8 +161,10 @@ class StatementViewController: NSViewController,
         if isAudioInputStart != _isAudioInputStart {
             if _isAudioInputStart {
                 startRecognition()
+                startRecord()
             } else {
                 stopRecognition()
+                stopRecord()
                 AudioUploaderQueue.shared.addUploader(workspaceId: workspaceId, meetingData: meetingData)
             }
             isAudioInputStart = _isAudioInputStart
@@ -194,14 +193,12 @@ class StatementViewController: NSViewController,
     func notifyRenderBuffer(obj: AudioSystem, buffer: AVAudioPCMBuffer, when: AVAudioTime) {
         speechRecognizer.append(buffer: buffer, when: when)
         observeBreakInStatements.checkBreakInStatements(buffer: buffer, when: when)
-        audioRecorder?.write(buffer: buffer)
-    }
-    
-    func didChangeSpeekingState(obj: ObserveBreakInStatements, isSpeeking: Bool, previousBuffers: [AVAudioPCMBuffer]) {
-        if isSpeeking {
-            startRecord()
+        if observeBreakInStatements.isSpeeking {
+            audioRecorder?.write(buffer: buffer)
         } else {
-            stopRecord()
+            let emptyBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameCapacity)
+            emptyBuffer?.frameLength = buffer.frameLength
+            audioRecorder?.write(buffer: emptyBuffer!)
         }
     }
     
