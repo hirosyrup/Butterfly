@@ -24,6 +24,7 @@
 		FB0D2FAF26073E23001403A5 /* FirestoreMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FAE26073E23001403A5 /* FirestoreMeeting.swift */; };
 		FB0D2FB3260742E6001403A5 /* WorkspaceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FB2260742E6001403A5 /* WorkspaceRepository.swift */; };
 		FB0D2FBA26075CC5001403A5 /* SelectMemberFetchForMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FB926075CC5001403A5 /* SelectMemberFetchForMeeting.swift */; };
+		FB1A2F6B26158D9300FC928C /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB1A2F6A26158D9300FC928C /* AVKit.framework */; };
 		FB204257260C5471006620A2 /* AppScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB204256260C5471006620A2 /* AppScheme.swift */; };
 		FB2603422608D27D00323E4B /* StatementQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603412608D27D00323E4B /* StatementQueue.swift */; };
 		FB2603482608D28F00323E4B /* StatementQueueData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603472608D28F00323E4B /* StatementQueueData.swift */; };
@@ -145,6 +146,7 @@
 		FB0D2FAE26073E23001403A5 /* FirestoreMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreMeeting.swift; sourceTree = "<group>"; };
 		FB0D2FB2260742E6001403A5 /* WorkspaceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceRepository.swift; sourceTree = "<group>"; };
 		FB0D2FB926075CC5001403A5 /* SelectMemberFetchForMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMemberFetchForMeeting.swift; sourceTree = "<group>"; };
+		FB1A2F6A26158D9300FC928C /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		FB204256260C5471006620A2 /* AppScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScheme.swift; sourceTree = "<group>"; };
 		FB2603412608D27D00323E4B /* StatementQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementQueue.swift; sourceTree = "<group>"; };
 		FB2603472608D28F00323E4B /* StatementQueueData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementQueueData.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB1A2F6B26158D9300FC928C /* AVKit.framework in Frameworks */,
 				FE979F1D6A67DA01DB4748E0 /* Pods_Butterfly.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,6 +272,7 @@
 		1E63D902095BE873CF505A55 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FB1A2F6A26158D9300FC928C /* AVKit.framework */,
 				A6B93144670685FE55D28ABD /* Pods_Butterfly.framework */,
 				39E695FC21E914F41D36A055 /* Pods_Butterfly_iOS.framework */,
 			);
