@@ -267,6 +267,14 @@ class StatementViewController: NSViewController,
         return item
     }
     
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        guard let indexPath = indexPaths.first else { return }
+        guard let startedAt = meetingData.startedAt else { return }
+        let statementData = statementDataList[indexPath.item]
+        let diff = statementData.createdAt.timeIntervalSince1970 - startedAt.timeIntervalSince1970
+        audioPlayerView.player?.seek(to: CMTime(seconds: diff, preferredTimescale: 1000))
+    }
+    
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
         let statementData = statementDataList[indexPath.item]
         return calcHeightView.calcSize(presenter: StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item)))

@@ -18,12 +18,14 @@ class StatementRepository {
         let id: String
         var statement: String
         var user: StatementUserData
+        let createdAt: Date
         
         init(statement: String, user: StatementUserData) {
             self.id = ""
             self.statement = statement
             self.user = user
             self.original = FirestoreStatementData.new()
+            self.createdAt = self.original.createdAt
         }
         
         init(user: StatementUserData, original: FirestoreStatementData? = nil) {
@@ -31,6 +33,7 @@ class StatementRepository {
             self.original = original ?? FirestoreStatementData.new()
             self.id = self.original.id
             self.statement = self.original.statement
+            self.createdAt = self.original.createdAt
         }
         
         fileprivate func toFirestoreData() -> FirestoreStatementData {
