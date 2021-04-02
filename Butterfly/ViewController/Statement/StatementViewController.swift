@@ -215,16 +215,16 @@ class StatementViewController: NSViewController,
     
     func didStartNewStatement(recognizer: SpeechRecognizer, id: String) {
         if let _you = you {
-            statementQueue.addNewStatement(statementId: id, user: _you)
+            statementQueue.addNewStatement(uuid: id, user: _you)
         }
     }
     
     func didUpdateStatement(recognizer: SpeechRecognizer, id: String, statement: String) {
-        statementQueue.updateStatement(statementId: id, statement: statement)
+        statementQueue.updateStatement(uuid: id, statement: statement)
     }
     
     func didEndStatement(recognizer: SpeechRecognizer, id: String, statement: String) {
-        statementQueue.endStatement(statementId: id, statement: statement)
+        statementQueue.endStatement(uuid: id, statement: statement)
     }
     
     func didChangeStatementData(obj: StatementRepository.Statement, documentChanges: [RepositoryDocumentChange<StatementRepository.StatementData>]) {

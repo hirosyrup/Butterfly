@@ -8,6 +8,7 @@
 import Foundation
 
 struct StatementQueueData {
-    let statementId: String
-    var satementData: StatementRepository.StatementData?
+    let uuid: String
+    var statementData: StatementRepository.StatementData
+    let isCreate: Bool
 }

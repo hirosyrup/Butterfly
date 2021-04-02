@@ -11,6 +11,8 @@ import SwiftyBeaver
 
 class StatementQueue {
     private var queue = [StatementQueueData]()
+    private var currentUploading: StatementQueueData?
+    private var statementList = [(String, StatementRepository.StatementData)]()
     private let repository = StatementRepository.Statement()
     private let workspaceId: String
     private let meetingId: String
@@ -20,48 +22,92 @@ class StatementQueue {
         self.meetingId = meetingId
     }
     
-    func addNewStatement(statementId: String, user: MeetingRepository.MeetingUserData) {
-        if queue.contains(where: { (q) -> Bool in
-            q.statementId == statementId
+    func addNewStatement(uuid: String, user: MeetingRepository.MeetingUserData) {
+        if statementList.contains(where: { (q) -> Bool in
+            q.0 == uuid
         }) {
             return
         }
-        
-        queue.append(StatementQueueData(statementId: statementId, satementData: nil))
+        let statementData = StatementRepository.StatementData(statement: "", user: StatementRepository.StatementUserData(id: user.id,iconName: user.iconName, iconImageUrl: user.iconImageUrl, name: user.name))
+        let newData = StatementQueueData(uuid: uuid, statementData: statementData, isCreate: true)
+        statementList.append((uuid, statementData))
+        queue.append(newData)
+        exec()
+    }
+    
+    func updateStatement(uuid: String, statement: String) {
+        if var statementData = statementList.first(where: { $0.0 == uuid })?.1 {
+            statementData.statement = statement
+            let updateData = StatementQueueData(uuid: uuid, statementData: statementData, isCreate: false)
+            if let queueIndex = queue.firstIndex(where: { $0.statementData.id == uuid }) {
+                queue[queueIndex] = updateData
+            } else {
+                queue.append(updateData)
+            }
+            exec()
+        }
+    }
+    
+    func endStatement(uuid: String, statement: String) {
+        updateStatement(uuid: uuid, statement: statement)
+        if let index = statementList.firstIndex(where: { $0.0 == uuid }) {
+            statementList.remove(at: index)
+        }
+    }
+    
+    private func exec() {
+        guard currentUploading == nil else { return }
+        guard !queue.isEmpty else { return }
+        currentUploading = queue[0]
+        queue.remove(at: 0)
+        if currentUploading!.isCreate {
+            create(uuid: currentUploading!.uuid, statementData: currentUploading!.statementData)
+        } else {
+            update(uuid: currentUploading!.uuid, statementData: currentUploading!.statementData)
+        }
+    }
+    
+    private func updateStatementData(uuid: String, statementData: StatementRepository.StatementData) {
+        if let index = statementList.firstIndex(where: { $0.0 == uuid }) {
+            statementList[index] = (uuid, statementData)
+        }
+    }
+    
+    private func create(uuid: String, statementData: StatementRepository.StatementData) {
         async({ _ -> StatementRepository.StatementData in
-            let data = StatementRepository.StatementData(statement: "", user: StatementRepository.StatementUserData(id: user.id,iconName: user.iconName, iconImageUrl: user.iconImageUrl, name: user.name))
-            return try await(self.repository.create(workspaceId: self.workspaceId, meetingId: self.meetingId, statementData: data))
+            return try await(self.repository.create(workspaceId: self.workspaceId, meetingId: self.meetingId, statementData: statementData))
         }).then({newStatementData in
-            self.updateQueue(statementId: statementId, statementData: newStatementData)
+            self.updateStatementData(uuid: uuid, statementData: newStatementData)
+            self.finish()
+            self.exec()
         }).catch { (error) in
             SwiftyBeaver.self.error(error)
+            self.remandToQueue()
+            self.exec()
         }
     }
     
-    func updateStatement(statementId: String, statement: String) {
-        if let index = queue.firstIndex(where: { $0.statementId == statementId }) {
-            guard var statementData = queue[index].satementData else { return }
-            statementData.statement = statement
-            async({ _ -> StatementRepository.StatementData in
-                return try await(self.repository.update(workspaceId: self.workspaceId, meetingId: self.meetingId, statementData: statementData))
-            }).then({newStatementData in
-                self.updateQueue(statementId: statementId, statementData: newStatementData)
-            }).catch { (error) in
-                SwiftyBeaver.self.error(error)
-            }
+    private func update(uuid: String, statementData: StatementRepository.StatementData) {
+        async({ _ -> StatementRepository.StatementData in
+            return try await(self.repository.update(workspaceId: self.workspaceId, meetingId: self.meetingId, statementData: statementData))
+        }).then({newStatementData in
+            self.updateStatementData(uuid: uuid, statementData: newStatementData)
+            self.finish()
+            self.exec()
+        }).catch { (error) in
+            SwiftyBeaver.self.error(error)
+            self.remandToQueue()
+            self.exec()
         }
     }
     
-    func endStatement(statementId: String, statement: String) {
-        updateStatement(statementId: statementId, statement: statement)
-        if let index = queue.firstIndex(where: { $0.statementId == statementId }) {
-            queue.remove(at: index)
-        }
+    private func finish() {
+        currentUploading = nil
     }
     
-    private func updateQueue(statementId: String, statementData: StatementRepository.StatementData) {
-        if let index = queue.firstIndex(where: { $0.statementId == statementId }) {
-            queue[index].satementData = statementData
-        }
+    private func remandToQueue() {
+        guard let _currentUploading = currentUploading else { return }
+        queue.insert(_currentUploading, at: 0)
+        currentUploading = nil
     }
 }
