@@ -7,6 +7,7 @@
 
 import Foundation
 import Hydra
+import SwiftyBeaver
 
 class StatementQueue {
     private var queue = [StatementQueueData]()
@@ -33,7 +34,7 @@ class StatementQueue {
         }).then({newStatementData in
             self.updateQueue(statementId: statementId, statementData: newStatementData)
         }).catch { (error) in
-            print("\(error)")
+            SwiftyBeaver.self.error(error)
         }
     }
     
@@ -46,7 +47,7 @@ class StatementQueue {
             }).then({newStatementData in
                 self.updateQueue(statementId: statementId, statementData: newStatementData)
             }).catch { (error) in
-                print("\(error)")
+                SwiftyBeaver.self.error(error)
             }
         }
     }

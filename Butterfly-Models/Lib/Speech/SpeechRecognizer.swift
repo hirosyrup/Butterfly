@@ -7,6 +7,7 @@
 
 import Foundation
 import Speech
+import SwiftyBeaver
 
 protocol SpeechRecognizerDelegate: class {
     func didChangeAvailability(recognizer: SpeechRecognizer)
@@ -71,7 +72,7 @@ class SpeechRecognizer: NSObject,
     }
     
     func failedToRequest(request: RecognitionRequest, error: Error) {
-        print("\(error.localizedDescription)")
+        SwiftyBeaver.self.error(error)
     }
     
     func didUpdateStatement(request: RecognitionRequest, statement: String) {

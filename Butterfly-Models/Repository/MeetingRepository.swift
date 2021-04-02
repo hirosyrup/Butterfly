@@ -9,6 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Hydra
+import SwiftyBeaver
 
 protocol MeetingRepositoryDataListDelegate: class {
     func didChangeMeetingDataList(obj: MeetingRepository.Meeting, documentChanges: [RepositoryDocumentChange<MeetingRepository.MeetingData>])
@@ -239,7 +240,7 @@ class MeetingRepository {
                 }).then({ changes in
                     _delegate.didChangeMeetingDataList(obj: self, documentChanges: changes)
                 }).catch { (error) in
-                    print("\(error.localizedDescription)")
+                    SwiftyBeaver.self.error(error)
                 }
             }
         }
@@ -251,7 +252,7 @@ class MeetingRepository {
                 }).then({ meetingData in
                     _delegate.didChangeMeetingData(obj: self, data: meetingData)
                 }).catch { (error) in
-                    print("\(error.localizedDescription)")
+                    SwiftyBeaver.self.error(error)
                 }
             }
         }

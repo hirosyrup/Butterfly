@@ -7,6 +7,7 @@
 
 import Foundation
 import Hydra
+import SwiftyBeaver
 
 protocol StatementRepositoryDelegate: class {
     func didChangeStatementData(obj: StatementRepository.Statement, documentChanges: [RepositoryDocumentChange<StatementRepository.StatementData>])
@@ -143,7 +144,7 @@ class StatementRepository {
                 }).then({ changes in
                     _delegate.didChangeStatementData(obj: self, documentChanges: changes)
                 }).catch { (error) in
-                    print("\(error.localizedDescription)")
+                    SwiftyBeaver.self.error(error)
                 }
             }
         }

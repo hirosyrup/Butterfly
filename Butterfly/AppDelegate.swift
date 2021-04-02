@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import SwiftyBeaver
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -22,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         constructPopover()
+        setupSwiftyBeaver()
         FirestoreSetup().setup()
         IconImage.shared.clearAllCache()
         SpeechRecognizer.shared.requestAuthorization()
@@ -76,6 +78,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popover.contentViewController = mainViewController
         popover.behavior = .transient
         popover.animates = false
+    }
+    
+    private func setupSwiftyBeaver() {
+        let logger = SwiftyBeaver.self
+        logger.addDestination(ConsoleDestination())
+        logger.addDestination(FileDestination())
     }
 
     @objc func show(_ sender: Any?) {
