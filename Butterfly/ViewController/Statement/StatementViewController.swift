@@ -33,12 +33,12 @@ class StatementViewController: NSViewController,
     private var statementQueue: StatementQueue!
     private let statement = StatementRepository.Statement()
     private var statementDataList = [StatementRepository.StatementData]()
-    private var calcHeightView: StatementCollectionViewItem!
     private var lastScrollIndex = 0
     private var audioRecorder: AudioRecorder?
     private var isAudioInputStart = false
     private let observeBreakInStatements = ObserveBreakInStatements(bufferSize: AudioBufferSize.bufferSize, limitTime: nil)
     private var audioComposition: AVMutableComposition?
+    private let calcHeightHelper = CalcStatementCollectionItemHeight()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +47,6 @@ class StatementViewController: NSViewController,
         collectionView.delegate = self
         let nib = NSNib(nibNamed: "StatementCollectionViewItem", bundle: nil)
         collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId))
-        calcHeightView = StatementCollectionViewItem()
-        calcHeightView.instantiateFromNib()
         audioPlayerView.isHidden = true
     }
 
@@ -280,7 +278,8 @@ class StatementViewController: NSViewController,
     
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
         let statementData = statementDataList[indexPath.item]
-        return calcHeightView.calcSize(presenter: StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item)))
+        let presenter = StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item))
+        return calcHeightHelper.calcSize(index: indexPath.item, presenter: presenter)
     }
     
     @IBAction func pushStartEnd(_ sender: Any) {
