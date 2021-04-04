@@ -37,9 +37,10 @@ class StatementQueue {
     
     func updateStatement(uuid: String, statement: String) {
         if var statementData = statementList.first(where: { $0.0 == uuid })?.1 {
+            if statementData.id == "" { return }
             statementData.statement = statement
             let updateData = StatementQueueData(uuid: uuid, statementData: statementData, isCreate: false)
-            if let queueIndex = queue.firstIndex(where: { $0.statementData.id == uuid }) {
+            if let queueIndex = queue.firstIndex(where: { $0.uuid == uuid }) {
                 queue[queueIndex] = updateData
             } else {
                 queue.append(updateData)
