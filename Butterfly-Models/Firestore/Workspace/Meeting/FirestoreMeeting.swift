@@ -28,7 +28,7 @@ class FirestoreMeeting {
     
     func listen(workspaceId: String) {
         guard workspaceListener == nil else { return }
-        workspaceListener = referenceWithoutArchived(workspaceId: workspaceId).addSnapshotListener({ (snapshot, error) in
+        workspaceListener = referenceWithoutArchived(workspaceId: workspaceId).order(by: "status").order(by: "createdAt", descending: true).addSnapshotListener({ (snapshot, error) in
             if let documentChanges = snapshot?.documentChanges {
                 let list = documentChanges.map { (documentChange) -> FirestoreDocumentChangeWithData<FirestoreMeetingData> in
                     let data = documentChange.document.data()
