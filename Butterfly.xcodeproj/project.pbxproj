@@ -103,6 +103,7 @@
 		FBA546292600FA2700112066 /* UploadIconImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA546272600FA2700112066 /* UploadIconImageResponse.swift */; };
 		FBA546382602409800112066 /* PreferencesWorkspaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA546372602409800112066 /* PreferencesWorkspaceViewController.swift */; };
 		FBA5463C260240BF00112066 /* PreferencesWorkspaceInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5463B260240BF00112066 /* PreferencesWorkspaceInputViewController.swift */; };
+		FBC83981261A044E00989820 /* CalcStatementCollectionItemHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83980261A044E00989820 /* CalcStatementCollectionItemHeight.swift */; };
 		FBD1A84026132243005BB323 /* AudioUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A83F26132243005BB323 /* AudioUploader.swift */; };
 		FBD1A844261322B6005BB323 /* AudioUploaderQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */; };
 		FBD1A8482613275B005BB323 /* AudioLocalUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */; };
@@ -219,6 +220,7 @@
 		FBA546272600FA2700112066 /* UploadIconImageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadIconImageResponse.swift; sourceTree = "<group>"; };
 		FBA546372602409800112066 /* PreferencesWorkspaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWorkspaceViewController.swift; sourceTree = "<group>"; };
 		FBA5463B260240BF00112066 /* PreferencesWorkspaceInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWorkspaceInputViewController.swift; sourceTree = "<group>"; };
+		FBC83980261A044E00989820 /* CalcStatementCollectionItemHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcStatementCollectionItemHeight.swift; sourceTree = "<group>"; };
 		FBD1A83F26132243005BB323 /* AudioUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploader.swift; sourceTree = "<group>"; };
 		FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploaderQueue.swift; sourceTree = "<group>"; };
 		FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLocalUrl.swift; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 		FB9D719526086D5C00B7E9DE /* Statement */ = {
 			isa = PBXGroup;
 			children = (
+				FBC8397F261A043900989820 /* Helper */,
 				FB9D719C2608711300B7E9DE /* StatementWindowController.swift */,
 				FB9D719626086D7700B7E9DE /* StatementViewController.swift */,
 				FB2603CF2612271200323E4B /* StatementViewControllerPresenter.swift */,
@@ -596,6 +599,14 @@
 				FB2603D7261360A800323E4B /* AudioStorage.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		FBC8397F261A043900989820 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				FBC83980261A044E00989820 /* CalcStatementCollectionItemHeight.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		FBF9A5B926038A4E00AE78DF /* Shared */ = {
@@ -895,6 +906,7 @@
 				FBA5456825FE5BF100112066 /* AlertBuilder.swift in Sources */,
 				FB523C3D26077D9E00801070 /* FirestoreDocumentChangeWithData.swift in Sources */,
 				FB523C4A26081A3E00801070 /* MeetingMemberIconContainer.swift in Sources */,
+				FBC83981261A044E00989820 /* CalcStatementCollectionItemHeight.swift in Sources */,
 				FBF9A5BD26038A7100AE78DF /* MemberIconView.swift in Sources */,
 				FBF9A5E726056E4F00AE78DF /* NSView+NoClipping.swift in Sources */,
 				FB0D2F7126063965001403A5 /* TextCollectionViewItem.swift in Sources */,
