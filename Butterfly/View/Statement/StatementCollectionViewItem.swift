@@ -62,6 +62,7 @@ class StatementCollectionViewItem: NSCollectionViewItem {
     }
     
     func updateView(presenter: StatementCollectionViewItemPresenter) {
+        onMouse(on: false)
         let isOnlyStatement = presenter.isOnlyStatement()
         headerContainer.isHidden = isOnlyStatement
         if !isOnlyStatement {
