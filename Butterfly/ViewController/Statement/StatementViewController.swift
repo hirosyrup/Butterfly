@@ -37,6 +37,7 @@ class StatementViewController: NSViewController,
     private var audioRecorder: AudioRecorder?
     private var isAudioInputStart = false
     private let observeBreakInStatements = ObserveBreakInStatements(bufferSize: AudioBufferSize.bufferSize, limitTime: nil)
+    private var autoCalcRmsThreshold: AutoCalcRmsThreshold!
     private var audioComposition: AVMutableComposition?
     private let calcHeightHelper = CalcStatementCollectionItemHeight()
     
@@ -48,6 +49,7 @@ class StatementViewController: NSViewController,
         let nib = NSNib(nibNamed: "StatementCollectionViewItem", bundle: nil)
         collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId))
         audioPlayerView.isHidden = true
+        autoCalcRmsThreshold = AutoCalcRmsThreshold(initialThreshold: observeBreakInStatements.rmsThreshold)
     }
 
     override func viewDidAppear() {
@@ -200,6 +202,10 @@ class StatementViewController: NSViewController,
             let emptyBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameCapacity)
             emptyBuffer?.frameLength = buffer.frameLength
             audioRecorder?.write(buffer: emptyBuffer!)
+        }
+        
+        if observeBreakInStatements.isOverThreshold() {
+            observeBreakInStatements.rmsThreshold = autoCalcRmsThreshold.calcThreshold(rms: observeBreakInStatements.currentRms)
         }
     }
     

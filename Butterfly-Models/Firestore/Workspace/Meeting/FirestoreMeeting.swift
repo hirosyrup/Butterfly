@@ -58,7 +58,7 @@ class FirestoreMeeting {
         return FirestoreWorkspace().reference().document(workspaceId).collection(meetingCollectionName)
     }
     
-    func referenceWithoutArchived(workspaceId: String, meetingId: String? = nil) -> Query {
+    func referenceWithoutArchived(workspaceId: String) -> Query {
         return reference(workspaceId: workspaceId).whereField("status", isNotEqualTo: 1)
     }
     
