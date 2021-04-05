@@ -40,6 +40,8 @@ class RecognitionRequest {
     private var statement = ""
     private var state = State.processing
     private var endTimer: Timer?
+    private let updateInterval = TimeInterval(1)
+    private var previousNotifyUpdateDate = Date()
     private let endingInterval = TimeInterval(1)
     
     init(id: String, speechRecognizer: SFSpeechRecognizer) {
@@ -67,7 +69,7 @@ class RecognitionRequest {
             if _result.isFinal {
                 notifyDidEnd()
             } else {
-                delegate?.didUpdateStatement(request: self, statement: statement)
+                notifyUpdate()
             }
         }
     }
@@ -85,6 +87,13 @@ class RecognitionRequest {
         if state == .ending {
             state = .didEnd
             delegate?.didEndStatement(request: self, statement: statement)
+        }
+    }
+    
+    private func notifyUpdate() {
+        if Date().timeIntervalSince1970 - previousNotifyUpdateDate.timeIntervalSince1970 > updateInterval {
+            delegate?.didUpdateStatement(request: self, statement: statement)
+            previousNotifyUpdateDate = Date()
         }
     }
     
