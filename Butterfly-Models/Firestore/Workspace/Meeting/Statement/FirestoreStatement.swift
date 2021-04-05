@@ -89,6 +89,18 @@ class FirestoreStatement {
         }
     }
     
+    func delete(workspaceId: String, meetingId: String, statementId: String) -> Promise<Void> {
+        return Promise<Void>(in: .background, token: nil) { (resolve, reject, _) in
+            self.reference(workspaceId: workspaceId, meetingId: meetingId).document(statementId).delete { (error) in
+                if let _error = error {
+                    reject(_error)
+                } else {
+                    resolve(())
+                }
+            }
+        }
+    }
+    
     private func statementToFirestoreData(data: FirestoreStatementData) -> [String: Any] {
         return [
             "statement": data.statement,

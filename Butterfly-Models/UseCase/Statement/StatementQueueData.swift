@@ -10,5 +10,5 @@ import Foundation
 struct StatementQueueData {
     let uuid: String
     var statementData: StatementRepository.StatementData
-    let isCreate: Bool
+    let type: StatementQueueType
 }

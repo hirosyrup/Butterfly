@@ -29,7 +29,7 @@ class StatementQueue {
             return
         }
         let statementData = StatementRepository.StatementData(statement: "", user: StatementRepository.StatementUserData(id: user.id,iconName: user.iconName, iconImageUrl: user.iconImageUrl, name: user.name))
-        let newData = StatementQueueData(uuid: uuid, statementData: statementData, isCreate: true)
+        let newData = StatementQueueData(uuid: uuid, statementData: statementData, type: .create)
         statementList.append((uuid, statementData))
         queue.append(newData)
         exec()
@@ -39,7 +39,7 @@ class StatementQueue {
         if var statementData = statementList.first(where: { $0.0 == uuid })?.1 {
             if statementData.id == "" { return }
             statementData.statement = statement
-            let updateData = StatementQueueData(uuid: uuid, statementData: statementData, isCreate: false)
+            let updateData = StatementQueueData(uuid: uuid, statementData: statementData, type: .update)
             if let queueIndex = queue.firstIndex(where: { $0.uuid == uuid }) {
                 queue[queueIndex] = updateData
             } else {
@@ -50,9 +50,26 @@ class StatementQueue {
     }
     
     func endStatement(uuid: String, statement: String) {
-        updateStatement(uuid: uuid, statement: statement)
+        if statement.isEmpty {
+            deleteStatement(uuid: uuid)
+        } else {
+            updateStatement(uuid: uuid, statement: statement)
+        }
         if let index = statementList.firstIndex(where: { $0.0 == uuid }) {
             statementList.remove(at: index)
+        }
+    }
+    
+    private func deleteStatement(uuid: String) {
+        if let statementData = statementList.first(where: { $0.0 == uuid })?.1 {
+            if statementData.id == "" { return }
+            let deleteData = StatementQueueData(uuid: uuid, statementData: statementData, type: .delete)
+            if let queueIndex = queue.firstIndex(where: { $0.uuid == uuid }) {
+                queue[queueIndex] = deleteData
+            } else {
+                queue.append(deleteData)
+            }
+            exec()
         }
     }
     
@@ -61,10 +78,13 @@ class StatementQueue {
         guard !queue.isEmpty else { return }
         currentUploading = queue[0]
         queue.remove(at: 0)
-        if currentUploading!.isCreate {
+        switch currentUploading!.type {
+        case .create:
             create(uuid: currentUploading!.uuid, statementData: currentUploading!.statementData)
-        } else {
+        case .update:
             update(uuid: currentUploading!.uuid, statementData: currentUploading!.statementData)
+        case .delete:
+            delete(uuid: currentUploading!.uuid, statementData: currentUploading!.statementData)
         }
     }
     
@@ -93,6 +113,19 @@ class StatementQueue {
             return try await(self.repository.update(workspaceId: self.workspaceId, meetingId: self.meetingId, statementData: statementData))
         }).then({newStatementData in
             self.updateStatementData(uuid: uuid, statementData: newStatementData)
+            self.finish()
+            self.exec()
+        }).catch { (error) in
+            SwiftyBeaver.self.error(error)
+            self.remandToQueue()
+            self.exec()
+        }
+    }
+    
+    private func delete(uuid: String, statementData: StatementRepository.StatementData) {
+        async({ _ -> Void in
+            try await(self.repository.delete(workspaceId: self.workspaceId, meetingId: self.meetingId, statementId: statementData.id))
+        }).then({_ in
             self.finish()
             self.exec()
         }).catch { (error) in

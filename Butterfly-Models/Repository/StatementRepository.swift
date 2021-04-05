@@ -115,6 +115,18 @@ class StatementRepository {
             }
         }
         
+        func delete(workspaceId: String, meetingId: String, statementId: String) -> Promise<Void> {
+            return Promise<Void>(in: .background, token: nil) { (resolve, reject, _) in
+                async({ _ -> Void in
+                    try await(self.statement.delete(workspaceId: workspaceId, meetingId: meetingId, statementId: statementId))
+                }).then({_ in
+                    resolve(())
+                }).catch { (error) in
+                    reject(error)
+                }
+            }
+        }
+        
         private func createStatementData(firestoreStatementData: FirestoreStatementData) -> Promise<StatementData> {
             return Promise<StatementData>(in: .background, token: nil) { (resolve, reject, _) in
                 async({ _ -> StatementData in
