@@ -101,8 +101,8 @@ class MainViewController: NSViewController,
         guard let index = data.userList.firstIndex(where: {$0.id == userData?.id}) else { return }
         var updateData = data
         updateData.userList[index].isEntering = isEntering
-        async({ _ -> MeetingRepository.MeetingData in
-            return try await(MeetingRepository.Meeting().update(workspaceId: workspaceId, meetingData: updateData))
+        async({ _ -> MeetingRepository.MeetingUserData in
+            return try await(MeetingRepository.Meeting().updateUser(workspaceId: workspaceId, meetingData: updateData, userIndex: index))
         }).then { (_) in }
     }
     

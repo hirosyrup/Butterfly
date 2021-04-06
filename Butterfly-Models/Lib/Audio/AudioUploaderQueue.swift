@@ -37,7 +37,7 @@ class AudioUploaderQueue: MeetingRepositoryDataListDelegate {
             try? FileManager.default.removeItem(at: fileInfo.0)
             var updateData = meetingData
             updateData.userList[userIndex].audioFileName = fileInfo.1
-            try await(MeetingRepository.Meeting().update(workspaceId: workspaceId, meetingData: updateData))
+            try await(MeetingRepository.Meeting().updateUser(workspaceId: workspaceId, meetingData: updateData, userIndex: userIndex))
         }).then({
             recordDataList.forEach { (data) in
                 let outputUrl = AudioLocalUrl.createRecordDirectoryUrl().appendingPathComponent(data.fileName)

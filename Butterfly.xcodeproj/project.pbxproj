@@ -106,6 +106,7 @@
 		FBC83981261A044E00989820 /* CalcStatementCollectionItemHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83980261A044E00989820 /* CalcStatementCollectionItemHeight.swift */; };
 		FBC8398C261B5B8100989820 /* StatementQueueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC8398B261B5B8100989820 /* StatementQueueType.swift */; };
 		FBC83997261B61DB00989820 /* AutoCalcRmsThreshold.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83996261B61DB00989820 /* AutoCalcRmsThreshold.swift */; };
+		FBC839A3261CAAEA00989820 /* FirestoreMeetingUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC839A2261CAAEA00989820 /* FirestoreMeetingUser.swift */; };
 		FBD1A84026132243005BB323 /* AudioUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A83F26132243005BB323 /* AudioUploader.swift */; };
 		FBD1A844261322B6005BB323 /* AudioUploaderQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */; };
 		FBD1A8482613275B005BB323 /* AudioLocalUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */; };
@@ -225,6 +226,7 @@
 		FBC83980261A044E00989820 /* CalcStatementCollectionItemHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcStatementCollectionItemHeight.swift; sourceTree = "<group>"; };
 		FBC8398B261B5B8100989820 /* StatementQueueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementQueueType.swift; sourceTree = "<group>"; };
 		FBC83996261B61DB00989820 /* AutoCalcRmsThreshold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCalcRmsThreshold.swift; sourceTree = "<group>"; };
+		FBC839A2261CAAEA00989820 /* FirestoreMeetingUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreMeetingUser.swift; sourceTree = "<group>"; };
 		FBD1A83F26132243005BB323 /* AudioUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploader.swift; sourceTree = "<group>"; };
 		FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploaderQueue.swift; sourceTree = "<group>"; };
 		FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLocalUrl.swift; sourceTree = "<group>"; };
@@ -300,9 +302,9 @@
 		FB0D2F8F26072CE2001403A5 /* Meeting */ = {
 			isa = PBXGroup;
 			children = (
+				FBC839A1261CAA5900989820 /* User */,
 				FB9D717E2608614000B7E9DE /* Statement */,
 				FB0D2F9026072D1B001403A5 /* FirestoreMeetingData.swift */,
-				FB0D2FAA26073CBD001403A5 /* FirestoreMeetingUserData.swift */,
 				FB0D2FAE26073E23001403A5 /* FirestoreMeeting.swift */,
 			);
 			path = Meeting;
@@ -615,6 +617,15 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		FBC839A1261CAA5900989820 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				FB0D2FAA26073CBD001403A5 /* FirestoreMeetingUserData.swift */,
+				FBC839A2261CAAEA00989820 /* FirestoreMeetingUser.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		FBF9A5B926038A4E00AE78DF /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -879,6 +890,7 @@
 				FB26040D2614199300323E4B /* MergeAudio.swift in Sources */,
 				FB2603D02612271200323E4B /* StatementViewControllerPresenter.swift in Sources */,
 				FB523C2B2607738C00801070 /* RepositoryDocumentChange.swift in Sources */,
+				FBC839A3261CAAEA00989820 /* FirestoreMeetingUser.swift in Sources */,
 				FB2603572608DE5B00323E4B /* StatementCollectionViewItemPresenter.swift in Sources */,
 				FB2603CC26120CD100323E4B /* AudioUserDefault.swift in Sources */,
 				FB0D2F7526063999001403A5 /* NSColor+AppColor.swift in Sources */,

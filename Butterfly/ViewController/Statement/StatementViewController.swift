@@ -130,8 +130,8 @@ class StatementViewController: NSViewController,
         if let index = updateData.userList.firstIndex(where: { $0.id == userId }) {
             updateData.startedAt = Date()
             updateData.userList[index].isHost = isHost
-            async({ _ -> MeetingRepository.MeetingData in
-                return try await(MeetingRepository.Meeting().update(workspaceId: self.workspaceId, meetingData: updateData))
+            async({ _ -> MeetingRepository.MeetingUserData in
+                return try await(MeetingRepository.Meeting().updateUser(workspaceId: self.workspaceId, meetingData: updateData, userIndex: index))
             }).then { (_) in }
         }
     }

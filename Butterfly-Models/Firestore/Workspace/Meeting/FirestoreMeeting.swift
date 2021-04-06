@@ -128,16 +128,6 @@ class FirestoreMeeting {
         return [
             "name": data.name,
             "status": data.status,
-            "userList": data.userList.map({ (user) -> [String: Any] in
-                return [
-                    "id": user.id,
-                    "iconName": user.iconName ?? NSNull(),
-                    "name": user.name,
-                    "isHost": user.isHost,
-                    "isEntering": user.isEntering,
-                    "audioFileName": user.audioFileName ?? NSNull()
-                ]
-            }),
             "startedAt": data.startedAt ?? NSNull(),
             "endedAt": data.endedAt ?? NSNull(),
             "createdAt": Timestamp(date: data.createdAt),
@@ -146,21 +136,10 @@ class FirestoreMeeting {
     }
     
     private func firestoreDataToMeeting(snapshot: [String: Any], meetingId: String) -> FirestoreMeetingData {
-        let userRawList = (snapshot["userList"] as? [[String: Any]]) ?? []
         return FirestoreMeetingData(
             id: meetingId,
             name: (snapshot["name"] as? String) ?? "",
             status: (snapshot["status"] as? Int) ?? 0,
-            userList: userRawList.map({ (raw) -> FirestoreMeetingUserData in
-                FirestoreMeetingUserData(
-                    id: (raw["id"] as? String) ?? "",
-                    iconName: raw["iconName"] as? String,
-                    name: (raw["name"] as? String) ?? "",
-                    isHost: (raw["isHost"] as? Bool) ?? false,
-                    isEntering: (raw["isEntering"] as? Bool) ?? false,
-                    audioFileName: raw["audioFileName"] as? String
-                )
-            }),
             startedAt: (snapshot["startedAt"] as? Timestamp)?.dateValue(),
             endedAt: (snapshot["endedAt"] as? Timestamp)?.dateValue(),
             createdAt: (snapshot["createdAt"] as? Timestamp)?.dateValue() ?? Date(),
