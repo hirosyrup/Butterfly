@@ -14,8 +14,16 @@ struct FirestoreMeetingUserData {
     var isHost: Bool
     var isEntering: Bool
     var audioFileName: String?
+    var createdAt: Date
+    var updatedAt: Date
     
     static func new() -> FirestoreMeetingUserData {
-        return FirestoreMeetingUserData(id: "", iconName: nil, name: "", isHost: false, isEntering: false, audioFileName: nil)
+        return FirestoreMeetingUserData(id: "", iconName: nil, name: "", isHost: false, isEntering: false, audioFileName: nil, createdAt: Date(), updatedAt: Date())
+    }
+    
+    func copyCurrentAt() -> FirestoreMeetingUserData {
+        var copied = self
+        copied.updatedAt = Date()
+        return copied
     }
 }

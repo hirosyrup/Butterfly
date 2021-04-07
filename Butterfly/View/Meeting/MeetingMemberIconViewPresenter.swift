@@ -7,22 +7,8 @@
 
 import Foundation
 
-class MeetingMemberIconViewPresenter {
-    private let data: MeetingRepository.MeetingUserData
-    
-    init(data: MeetingRepository.MeetingUserData) {
-        self.data = data
-    }
-    
-    func iconImageUrl() -> URL? {
-        return data.iconImageUrl
-    }
-    
-    func showEnteringIcon() -> Bool {
-        return data.isEntering
-    }
-    
-    func isHost() -> Bool {
-        return data.isHost
-    }
+protocol MeetingMemberIconViewPresenter {
+    func iconImageUrl() -> URL?
+    func showEnteringIcon() -> Bool
+    func isHost() -> Bool
 }

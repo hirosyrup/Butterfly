@@ -9,10 +9,12 @@ import Cocoa
 
 class StatementViewControllerPresenter {
     private let meetingData: MeetingRepository.MeetingData
-    private let you: MeetingRepository.MeetingUserData?
+    private let meetingUserDataList: [MeetingUserRepository.MeetingUserData]
+    private let you: MeetingUserRepository.MeetingUserData?
     
-    init(meetingData: MeetingRepository.MeetingData, you: MeetingRepository.MeetingUserData?) {
+    init(meetingData: MeetingRepository.MeetingData, meetingUserDataList: [MeetingUserRepository.MeetingUserData], you: MeetingUserRepository.MeetingUserData?) {
         self.meetingData = meetingData
+        self.meetingUserDataList = meetingUserDataList
         self.you = you
     }
     
@@ -21,8 +23,8 @@ class StatementViewControllerPresenter {
     }
     
     func isHiddenRecordingLabel() -> Bool {
-        if let hostIndex = meetingData.userList.firstIndex(where: { $0.isHost }) {
-            if meetingData.userList[hostIndex].id == you?.id {
+        if let hostIndex = meetingUserDataList.firstIndex(where: { $0.isHost }) {
+            if meetingUserDataList[hostIndex].id == you?.id {
                 return true
             } else {
                 return !(meetingData.startedAt != nil && meetingData.endedAt == nil)
@@ -38,8 +40,8 @@ class StatementViewControllerPresenter {
             return true
         }
         
-        if let hostIndex = meetingData.userList.firstIndex(where: { $0.isHost }) {
-            return meetingData.userList[hostIndex].id != _you.id
+        if let hostIndex = meetingUserDataList.firstIndex(where: { $0.isHost }) {
+            return meetingUserDataList[hostIndex].id != _you.id
         } else {
             return false
         }
@@ -54,6 +56,6 @@ class StatementViewControllerPresenter {
     }
     
     func meetingMemberIconPresenters() -> [MeetingMemberIconViewPresenter] {
-        return meetingData.userList.map { MeetingMemberIconViewPresenter(data: $0) }
+        return meetingUserDataList.map { StatementMemberIconViewPresenter(data: $0) }
     }
 }

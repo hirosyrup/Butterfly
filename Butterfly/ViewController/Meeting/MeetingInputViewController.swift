@@ -23,7 +23,7 @@ class MeetingInputViewController: NSViewController,
     fileprivate var hostUserId: String!
     fileprivate var meetingData: MeetingRepository.MeetingData!
     private var isProcessing = false
-    private var selectedUserDataList = [MeetingRepository.MeetingUserData]()
+    private var selectedUserDataList = [MeetingRepository.MeetingIconData]()
     
     fileprivate weak var delegate: MeetingInputViewControllerDelegate?
     
@@ -33,7 +33,7 @@ class MeetingInputViewController: NSViewController,
         let vc = storyboard.instantiateController(withIdentifier: identifier) as! MeetingInputViewController
         vc.workspaceId = workspaceId
         vc.hostUserId = hostUserId
-        vc.meetingData = meetingData ?? MeetingRepository.MeetingData(userList: [])
+        vc.meetingData = meetingData ?? MeetingRepository.MeetingData(iconList: [])
         vc.delegate = delegate
         return vc
     }
@@ -56,7 +56,7 @@ class MeetingInputViewController: NSViewController,
     }
     
     private func createInitialSelectedUserList() -> [SelectMemberUserData] {
-        return meetingData.userList.map { SelectMemberUserData(id: $0.id, iconImageUrl: $0.iconImageUrl, name: $0.name) }
+        return meetingData.iconList.map { SelectMemberUserData(id: $0.id, iconImageUrl: $0.iconImageUrl, name: $0.name) }
     }
     
     private func updateViews() {
@@ -86,7 +86,7 @@ class MeetingInputViewController: NSViewController,
         updateViews()
         var newMeetingData = meetingData!
         newMeetingData.name = nameTextField.stringValue
-        newMeetingData.userList = selectedUserDataList
+        newMeetingData.iconList = selectedUserDataList
         async({ _ -> MeetingRepository.MeetingData in
             return try await(SaveMeeting(workspaceId: self.workspaceId, data: newMeetingData).save())
         }).then({ savedMeetingData in

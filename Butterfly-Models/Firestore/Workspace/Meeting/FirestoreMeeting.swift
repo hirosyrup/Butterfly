@@ -128,6 +128,13 @@ class FirestoreMeeting {
         return [
             "name": data.name,
             "status": data.status,
+            "iconList": data.iconList.map({ (icon) -> [String: Any] in
+                return [
+                    "id": icon.id,
+                    "iconName": icon.iconName ?? NSNull(),
+                    "name": icon.name
+                ]
+            }),
             "startedAt": data.startedAt ?? NSNull(),
             "endedAt": data.endedAt ?? NSNull(),
             "createdAt": Timestamp(date: data.createdAt),
@@ -136,10 +143,18 @@ class FirestoreMeeting {
     }
     
     private func firestoreDataToMeeting(snapshot: [String: Any], meetingId: String) -> FirestoreMeetingData {
+        let iconRawList = (snapshot["iconList"] as? [[String: Any]]) ?? []
         return FirestoreMeetingData(
             id: meetingId,
             name: (snapshot["name"] as? String) ?? "",
             status: (snapshot["status"] as? Int) ?? 0,
+            iconList: iconRawList.map({ (raw) -> FirestoreMeetingIconData in
+                FirestoreMeetingIconData(
+                    id: (raw["id"] as? String) ?? "",
+                    iconName: raw["iconName"] as? String,
+                    name: (raw["name"] as? String) ?? ""
+                )
+            }),
             startedAt: (snapshot["startedAt"] as? Timestamp)?.dateValue(),
             endedAt: (snapshot["endedAt"] as? Timestamp)?.dateValue(),
             createdAt: (snapshot["createdAt"] as? Timestamp)?.dateValue() ?? Date(),

@@ -24,9 +24,9 @@ class AudioUploaderQueue: MeetingRepositoryDataListDelegate {
         }
     }
     
-    func addUploader(workspaceId: String, meetingData: MeetingRepository.MeetingData) {
+    func addUploader(workspaceId: String, meetingData: MeetingRepository.MeetingData, meetingUserDataList: [MeetingUserRepository.MeetingUserData]) {
         guard uploaders.first(where: { $0.meetingId == meetingData.id }) == nil else { return }
-        guard let userIndex = meetingData.userList.firstIndex(where: { $0.id == self.userId }) else { return }
+        guard let userIndex = meetingUserDataList.firstIndex(where: { $0.id == self.userId }) else { return }
         let recordDataList = AudioUserDefault.shared.audioRecordDataList().filter({ $0.meetingId == meetingData.id })
         guard !recordDataList.isEmpty else { return }
         
@@ -35,9 +35,9 @@ class AudioUploaderQueue: MeetingRepositoryDataListDelegate {
         async({ _ -> Void in
             let fileInfo = try await(uploader.upload())
             try? FileManager.default.removeItem(at: fileInfo.0)
-            var updateData = meetingData
-            updateData.userList[userIndex].audioFileName = fileInfo.1
-            try await(MeetingRepository.Meeting().updateUser(workspaceId: workspaceId, meetingData: updateData, userIndex: userIndex))
+            var updateUserData = meetingUserDataList[userIndex]
+            updateUserData.audioFileName = fileInfo.1
+            try await(MeetingUserRepository.User().update(workspaceId: workspaceId, meetingId: meetingData.id, meetingUserData: updateUserData))
         }).then({
             recordDataList.forEach { (data) in
                 let outputUrl = AudioLocalUrl.createRecordDirectoryUrl().appendingPathComponent(data.fileName)
@@ -52,9 +52,13 @@ class AudioUploaderQueue: MeetingRepositoryDataListDelegate {
         modifieds.forEach { (modified) in
             let data = modified.data
             if data.endedAt != nil {
-                if data.userList.first(where: { $0.id == self.userId && $0.audioFileName == nil }) != nil {
-                    addUploader(workspaceId: obj.listenWorkspaceId!, meetingData: data)
-                }
+                async({ _ -> [MeetingUserRepository.MeetingUserData] in
+                    return try await(MeetingUserRepository.User().index(workspaceId: obj.listenWorkspaceId!, meetingId: data.id))
+                }).then({ meetingUserDataList in
+                    if meetingUserDataList.first(where: { $0.id == self.userId && $0.audioFileName == nil }) != nil {
+                        self.addUploader(workspaceId: obj.listenWorkspaceId!, meetingData: data, meetingUserDataList: meetingUserDataList)
+                    }
+                })
             }
         }
     }

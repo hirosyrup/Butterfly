@@ -11,15 +11,17 @@ import AVFoundation
 
 class MergeAudio {
     private let meetingData: MeetingRepository.MeetingData
+    private let meetingUserDataList: [MeetingUserRepository.MeetingUserData]
     
-    init(meetingData: MeetingRepository.MeetingData) {
+    init(meetingData: MeetingRepository.MeetingData, meetingUserDataList: [MeetingUserRepository.MeetingUserData]) {
         self.meetingData = meetingData
+        self.meetingUserDataList = meetingUserDataList
     }
     
     func merge() -> Promise<AVMutableComposition> {
         return Promise<AVMutableComposition>(in: .background, token: nil) { (resolve, reject, _) in
             async({ _ -> AVMutableComposition in
-                let audioFileNames = self.meetingData.userList.filter { $0.audioFileName != nil }.map { $0.audioFileName! }
+                let audioFileNames = self.meetingUserDataList.filter { $0.audioFileName != nil }.map { $0.audioFileName! }
                 try audioFileNames.forEach { (fileName) in
                     let fileUrl = AudioLocalUrl.createAudioDirectoryUrl().appendingPathComponent(fileName)
                     if !FileManager.default.fileExists(atPath: fileUrl.path) {

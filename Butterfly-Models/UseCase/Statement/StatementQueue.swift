@@ -22,7 +22,7 @@ class StatementQueue {
         self.meetingId = meetingId
     }
     
-    func addNewStatement(uuid: String, user: MeetingRepository.MeetingUserData) {
+    func addNewStatement(uuid: String, user: MeetingUserRepository.MeetingUserData) {
         if statementList.contains(where: { (q) -> Bool in
             q.0 == uuid
         }) {

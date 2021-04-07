@@ -14,6 +14,7 @@ class StatementViewController: NSViewController,
                                SpeechRecognizerDelegate,
                                AudioSystemDelegate,
                                StatementRepositoryDelegate,
+                               MeetingUserRepositoryDataListDelegate,
                                NSCollectionViewDataSource,
                                NSCollectionViewDelegateFlowLayout {
     @IBOutlet weak var titleLabel: NSTextField!
@@ -29,8 +30,10 @@ class StatementViewController: NSViewController,
     private var meetingData: MeetingRepository.MeetingData!
     private let speechRecognizer = SpeechRecognizer.shared
     private let audioSystem = AudioSystem.shared
-    private var you: MeetingRepository.MeetingUserData?
+    private var userList = [MeetingUserRepository.MeetingUserData]()
+    private var you: MeetingUserRepository.MeetingUserData?
     private var statementQueue: StatementQueue!
+    private let meetingUser = MeetingUserRepository.User()
     private let statement = StatementRepository.Statement()
     private var statementDataList = [StatementRepository.StatementData]()
     private var lastScrollIndex = 0
@@ -52,6 +55,11 @@ class StatementViewController: NSViewController,
         autoCalcRmsThreshold = AutoCalcRmsThreshold(initialThreshold: observeBreakInStatements.rmsThreshold)
     }
 
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        meetingUser.listen(workspaceId: workspaceId, meetingId: meetingData.id, dataListDelegate: self)
+    }
+    
     override func viewDidAppear() {
         statement.listen(workspaceId: workspaceId, meetingId: meetingData.id)
         updateAudioInputState()
@@ -61,6 +69,11 @@ class StatementViewController: NSViewController,
         stopRecognition()
         stopRecord()
         statement.unlisten()
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        meetingUser.unlisten()
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
@@ -97,9 +110,9 @@ class StatementViewController: NSViewController,
     
     private func updateViews() {
         if let currentUser = AuthUser.shared.currentUser() {
-            you = meetingData.userList.first { $0.id == currentUser.uid }
+            you = userList.first { $0.id == currentUser.uid }
         }
-        let presenter = StatementViewControllerPresenter(meetingData: meetingData, you: you)
+        let presenter = StatementViewControllerPresenter(meetingData: meetingData, meetingUserDataList: userList, you: you)
         titleLabel.stringValue = presenter.title()
         MeetingMemberIconContainer.updateView(presenters: presenter.meetingMemberIconPresenters())
         startEndButton.isHidden = presenter.isHiddenOfStartButton()
@@ -112,7 +125,7 @@ class StatementViewController: NSViewController,
             recordAudioDownloadIndicator.startAnimation(self)
             audioPlayerView.isHidden = true
             async({ _ -> AVMutableComposition in
-                return try await(MergeAudio(meetingData: self.meetingData).merge())
+                return try await(MergeAudio(meetingData: self.meetingData, meetingUserDataList: self.userList).merge())
             }).then({ composition in
                 self.audioPlayerView.isHidden = false
                 self.audioPlayerView.player = AVPlayer(playerItem: AVPlayerItem(asset: composition))
@@ -127,11 +140,13 @@ class StatementViewController: NSViewController,
     
     private func startAudioInput(userId: String, isHost: Bool) {
         guard var updateData = meetingData else { return }
-        if let index = updateData.userList.firstIndex(where: { $0.id == userId }) {
+        if let index = userList.firstIndex(where: { $0.id == userId }) {
             updateData.startedAt = Date()
-            updateData.userList[index].isHost = isHost
-            async({ _ -> MeetingRepository.MeetingUserData in
-                return try await(MeetingRepository.Meeting().updateUser(workspaceId: self.workspaceId, meetingData: updateData, userIndex: index))
+            var updateUserData = userList[index]
+            updateUserData.isHost = isHost
+            async({ _ -> MeetingUserRepository.MeetingUserData in
+                try await(MeetingRepository.Meeting().update(workspaceId: self.workspaceId, meetingData: updateData))
+                return try await(MeetingUserRepository.User().update(workspaceId: self.workspaceId, meetingId: updateData.id, meetingUserData: updateUserData))
             }).then { (_) in }
         }
     }
@@ -168,7 +183,7 @@ class StatementViewController: NSViewController,
             } else {
                 stopRecognition()
                 stopRecord()
-                AudioUploaderQueue.shared.addUploader(workspaceId: workspaceId, meetingData: meetingData)
+                AudioUploaderQueue.shared.addUploader(workspaceId: workspaceId, meetingData: meetingData, meetingUserDataList: userList)
             }
             isAudioInputStart = _isAudioInputStart
         }
@@ -261,6 +276,11 @@ class StatementViewController: NSViewController,
         if !statementDataList.isEmpty {
             collectionView.animator().scrollToItems(at: [IndexPath(item: statementDataList.count - 1, section: 0)], scrollPosition: .bottom)
         }
+    }
+    
+    func didChangeMeetingUserDataList(obj: MeetingUserRepository.User, documentChanges: [RepositoryDocumentChange<MeetingUserRepository.MeetingUserData>]) {
+        userList = meetingUser.createUserListFromDocumentChanges(prevUserList: userList, documentChanges: documentChanges)
+        updateViews()
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {

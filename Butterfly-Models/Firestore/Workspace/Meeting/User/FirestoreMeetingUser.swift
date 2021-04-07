@@ -122,7 +122,9 @@ class FirestoreMeetingUser {
             "name": data.name,
             "isHost": data.isHost,
             "isEntering": data.isEntering,
-            "audioFileName": data.audioFileName ?? NSNull()
+            "audioFileName": data.audioFileName ?? NSNull(),
+            "createdAt": Timestamp(date: data.createdAt),
+            "updatedAt": Timestamp(date: data.updatedAt)
         ]
     }
     
@@ -133,7 +135,9 @@ class FirestoreMeetingUser {
             name: (snapshot["name"] as? String) ?? "",
             isHost: (snapshot["isHost"] as? Bool) ?? false,
             isEntering: (snapshot["isEntering"] as? Bool) ?? false,
-            audioFileName: snapshot["audioFileName"] as? String
+            audioFileName: snapshot["audioFileName"] as? String,
+            createdAt: (snapshot["createdAt"] as? Timestamp)?.dateValue() ?? Date(),
+            updatedAt: (snapshot["updatedAt"] as? Timestamp)?.dateValue() ?? Date()
         )
     }
 }

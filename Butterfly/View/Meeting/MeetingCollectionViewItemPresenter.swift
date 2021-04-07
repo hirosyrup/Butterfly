@@ -28,6 +28,6 @@ class MeetingCollectionViewItemPresenter {
     }
     
     func meetingMemberIconViewPresenters() -> [MeetingMemberIconViewPresenter] {
-        return data.userList.map { MeetingMemberIconViewPresenter(data: $0) }
+        return data.iconList.map { MeetingCollectionMemberIconViewPresenter(data: $0) }
     }
 }

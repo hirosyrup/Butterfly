@@ -11,13 +11,14 @@ struct FirestoreMeetingData {
     var id: String
     var name: String
     var status: Int
+    var iconList: [FirestoreMeetingIconData]
     var startedAt: Date?
     var endedAt: Date?
     var createdAt: Date
     var updatedAt: Date
     
     static func new() -> FirestoreMeetingData {
-        return FirestoreMeetingData(id: "", name: "", status: 0, startedAt: nil, endedAt: nil, createdAt: Date(), updatedAt: Date())
+        return FirestoreMeetingData(id: "", name: "", status: 0, iconList: [], startedAt: nil, endedAt: nil, createdAt: Date(), updatedAt: Date())
     }
     
     func copyCurrentAt() -> FirestoreMeetingData {
