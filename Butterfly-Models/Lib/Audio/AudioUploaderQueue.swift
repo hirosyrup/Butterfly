@@ -26,7 +26,7 @@ class AudioUploaderQueue: MeetingRepositoryDataListDelegate {
     
     func addUploader(workspaceId: String, meetingData: MeetingRepository.MeetingData, meetingUserDataList: [MeetingUserRepository.MeetingUserData]) {
         guard uploaders.first(where: { $0.meetingId == meetingData.id }) == nil else { return }
-        guard let userIndex = meetingUserDataList.firstIndex(where: { $0.id == self.userId }) else { return }
+        guard let userIndex = meetingUserDataList.firstIndex(where: { $0.userId == self.userId }) else { return }
         let recordDataList = AudioUserDefault.shared.audioRecordDataList().filter({ $0.meetingId == meetingData.id })
         guard !recordDataList.isEmpty else { return }
         
@@ -55,7 +55,7 @@ class AudioUploaderQueue: MeetingRepositoryDataListDelegate {
                 async({ _ -> [MeetingUserRepository.MeetingUserData] in
                     return try await(MeetingUserRepository.User().index(workspaceId: obj.listenWorkspaceId!, meetingId: data.id))
                 }).then({ meetingUserDataList in
-                    if meetingUserDataList.first(where: { $0.id == self.userId && $0.audioFileName == nil }) != nil {
+                    if meetingUserDataList.first(where: { $0.userId == self.userId && $0.audioFileName == nil }) != nil {
                         self.addUploader(workspaceId: obj.listenWorkspaceId!, meetingData: data, meetingUserDataList: meetingUserDataList)
                     }
                 })

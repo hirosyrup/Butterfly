@@ -199,6 +199,21 @@ class MeetingRepository {
                     let meetingId = meetingData.original.id
                     let firestoreMeetingData = meetingData.toFirestoreData().copyCurrentAt()
                     let savedFirestoreMeetingData = try await(self.meeting.update(workspaceId: workspaceId, meetingId: meetingId, data: firestoreMeetingData))
+                    return try await(self.createMeetingData(workspaceId: workspaceId, firestoreMeetingData: savedFirestoreMeetingData))
+                }).then({newMeetingData in
+                    resolve(newMeetingData)
+                }).catch { (error) in
+                    reject(error)
+                }
+            }
+        }
+        
+        func updateWithUser(workspaceId: String, meetingData: MeetingData) -> Promise<MeetingData> {
+            return Promise<MeetingData>(in: .background, token: nil) { (resolve, reject, _) in
+                async({ _ -> MeetingData in
+                    let meetingId = meetingData.original.id
+                    let firestoreMeetingData = meetingData.toFirestoreData().copyCurrentAt()
+                    let savedFirestoreMeetingData = try await(self.meeting.update(workspaceId: workspaceId, meetingId: meetingId, data: firestoreMeetingData))
                     try await(self.meetingUser.deleteAll(workspaceId: workspaceId, meetingId: meetingData.id))
                     let _ = try meetingData.iconList.map({ (user) -> FirestoreMeetingUserData in
                         return try await(self.meetingUser.add(workspaceId: workspaceId, meetingId: savedFirestoreMeetingData.id, data: user.createMeetingUserData()))

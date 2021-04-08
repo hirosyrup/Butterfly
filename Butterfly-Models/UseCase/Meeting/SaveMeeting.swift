@@ -24,7 +24,7 @@ class SaveMeeting {
                 if self.data.id.isEmpty {
                     return try await(self.meeting.create(workspaceId: self.workspaceId, meetingData: self.data))
                 } else {
-                    return try await(self.meeting.update(workspaceId: self.workspaceId, meetingData: self.data))
+                    return try await(self.meeting.updateWithUser(workspaceId: self.workspaceId, meetingData: self.data))
                 }
             }).then({ meetingData in
                 resolve(meetingData)

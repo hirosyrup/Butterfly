@@ -122,6 +122,7 @@ class StatementViewController: NSViewController,
     }
     
     private func setupRecordAudioIfNeeded() {
+        guard !userList.isEmpty else { return }
         if meetingData.startedAt != nil && meetingData.endedAt != nil {
             recordAudioDownloadIndicator.startAnimation(self)
             audioPlayerView.isHidden = true
@@ -141,7 +142,7 @@ class StatementViewController: NSViewController,
     
     private func startAudioInput(userId: String, isHost: Bool) {
         guard var updateData = meetingData else { return }
-        if let index = userList.firstIndex(where: { $0.id == userId }) {
+        if let index = userList.firstIndex(where: { $0.userId == userId }) {
             updateData.startedAt = Date()
             var updateUserData = userList[index]
             updateUserData.isHost = isHost
@@ -304,6 +305,7 @@ class StatementViewController: NSViewController,
         userList = meetingUser.createUserListFromDocumentChanges(prevUserList: userList, documentChanges: documentChanges)
         updateViews()
         enter()
+        setupRecordAudioIfNeeded()
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -334,7 +336,7 @@ class StatementViewController: NSViewController,
     @IBAction func pushStartEnd(_ sender: Any) {
         if startEndButton.state == .on {
             if let _you = you {
-                startAudioInput(userId: _you.id, isHost: true)
+                startAudioInput(userId: _you.userId, isHost: true)
             }
         } else {
             endAudioInput()
