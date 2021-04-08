@@ -46,6 +46,10 @@ class SpeechRecognizer: NSObject,
         }
     }
     
+    func setRmsThreshold(threshold: Float) {
+        observeBreakInStatements.rmsThreshold = threshold
+    }
+    
     func append(buffer: AVAudioPCMBuffer, when: AVAudioTime){
         observeBreakInStatements.checkBreakInStatements(buffer: buffer, when: when)
         recognitionRequests.forEach { $0.append(buffer: buffer) }

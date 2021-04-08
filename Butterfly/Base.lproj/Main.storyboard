@@ -1072,13 +1072,13 @@ DQ
                                 </connections>
                             </box>
                             <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SIB-OR-x3s">
-                                <rect key="frame" x="0.0" y="44" width="300" height="405"/>
+                                <rect key="frame" x="0.0" y="44" width="300" height="398"/>
                                 <clipView key="contentView" id="vT8-z1-Vkn">
-                                    <rect key="frame" x="1" y="1" width="298" height="403"/>
+                                    <rect key="frame" x="1" y="1" width="298" height="396"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView selectable="YES" id="vcA-km-RXn">
-                                            <rect key="frame" x="0.0" y="0.0" width="298" height="403"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="298" height="396"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="mIG-VV-FLe">
                                                 <size key="itemSize" width="300" height="150"/>
@@ -1092,7 +1092,7 @@ DQ
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="3ra-M1-mRb">
-                                    <rect key="frame" x="283" y="1" width="16" height="395"/>
+                                    <rect key="frame" x="283" y="1" width="16" height="376"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -1155,11 +1155,20 @@ DQ
                             <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="QVs-Du-Ts5">
                                 <rect key="frame" x="142" y="14" width="16" height="16"/>
                             </progressIndicator>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Vye-oK-bNJ">
+                                <rect key="frame" x="0.0" y="441" width="300" height="8"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="8" id="kGD-W9-e76"/>
+                                </constraints>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="8oK-Ne-dqQ" secondAttribute="bottom" constant="4" id="0Wq-aE-ArW"/>
+                            <constraint firstItem="Vye-oK-bNJ" firstAttribute="leading" secondItem="Pi5-4C-Jb9" secondAttribute="leading" id="1Yh-VP-sUv"/>
+                            <constraint firstAttribute="trailing" secondItem="Vye-oK-bNJ" secondAttribute="trailing" id="2AR-pU-9Bz"/>
                             <constraint firstItem="ptg-ij-JhR" firstAttribute="leading" secondItem="Pi5-4C-Jb9" secondAttribute="leading" id="8eO-WW-64e"/>
-                            <constraint firstItem="SIB-OR-x3s" firstAttribute="top" secondItem="8d4-4n-qdV" secondAttribute="bottom" constant="16" id="IGh-XB-c35"/>
+                            <constraint firstItem="vcA-km-RXn" firstAttribute="top" secondItem="Vye-oK-bNJ" secondAttribute="bottom" id="F41-2y-WPu"/>
+                            <constraint firstItem="Vye-oK-bNJ" firstAttribute="top" secondItem="8d4-4n-qdV" secondAttribute="bottom" constant="16" id="FgW-Bt-UIh"/>
                             <constraint firstItem="8d4-4n-qdV" firstAttribute="leading" secondItem="Pi5-4C-Jb9" secondAttribute="leading" constant="16" id="K7l-xk-Bv3"/>
                             <constraint firstItem="ODp-E9-2gS" firstAttribute="centerY" secondItem="SgE-r7-bpd" secondAttribute="centerY" id="KvV-r1-xvk"/>
                             <constraint firstItem="8d4-4n-qdV" firstAttribute="centerY" secondItem="SgE-r7-bpd" secondAttribute="centerY" id="QPe-xf-M6O"/>
@@ -1184,6 +1193,7 @@ DQ
                         <outlet property="MeetingMemberIconContainer" destination="mJX-lg-u99" id="Izf-Ax-sX7"/>
                         <outlet property="audioPlayerView" destination="ptg-ij-JhR" id="UGt-oE-feh"/>
                         <outlet property="collectionView" destination="vcA-km-RXn" id="UeY-De-Qks"/>
+                        <outlet property="levelMeterContainer" destination="Vye-oK-bNJ" id="dqc-NL-dak"/>
                         <outlet property="recordAudioDownloadIndicator" destination="QVs-Du-Ts5" id="IN1-AA-Ber"/>
                         <outlet property="recordingLabel" destination="Y83-TD-fXx" id="sxB-3a-jVp"/>
                         <outlet property="startEndButton" destination="8oK-Ne-dqQ" id="hlG-F5-iw4"/>
@@ -1197,7 +1207,7 @@ DQ
         <scene sceneID="bXC-He-p1F">
             <objects>
                 <viewController id="POT-CU-vZT" customClass="StatementShareViewController" customModule="Butterfly" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="jjQ-Ez-foo">
+                    <view key="view" id="jjQ-Ez-foo">
                         <rect key="frame" x="0.0" y="0.0" width="270" height="70"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -1359,7 +1369,7 @@ cmVjdGlvboAIgAdPERDeTU0AKgAAABAAAAAAAAAAAAAQAQAAAwAAAAEAAQAAAQEAAwAAAAEAAQAAAQIA
 AwAAAAQAAADWAQMAAwAAAAEAAQAAAQYAAwAAAAEAAgAAAQoAAwAAAAEAAQAAAREABAAAAAEAAAAIARIA
 AwAAAAEAAQAAARUAAwAAAAEABAAAARYAAwAAAAEAAQAAARcABAAAAAEAAAAIARwAAwAAAAEAAQAAASgA
 AwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAQAAADeh3MABwAAD/gAAADmAAAAAAAQABAAEAAQAAMA
-AwADAAMAAA/4YXBwbAIQAABtbnRyUkdCIFhZWiAH5AALABoACQAyAABhY3NwQVBQTAAAAABBUFBMAAAA
+AwADAAMAAA/4YXBwbAIQAABtbnRyUkdCIFhZWiAH5QAEAAQAEgANABhhY3NwQVBQTAAAAABBUFBMAAAA
 AAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWFwcGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAABJkZXNjAAABXAAAAGJkc2NtAAABwAAABJxjcHJ0AAAGXAAAACN3dHB0AAAG
 gAAAABRyWFlaAAAGlAAAABRnWFlaAAAGqAAAABRiWFlaAAAGvAAAABRyVFJDAAAG0AAACAxhYXJnAAAO
@@ -1386,7 +1396,7 @@ cgBXAGEAcgBuAGEAIABMAEMARAkwCQIJFwlACSgAIABMAEMARABMAEMARAAgDioONQBMAEMARAAgAGUA
 bgAgAGMAbwBsAG8AcgBGAGEAcgBiAC0ATABDAEQAQwBvAGwAbwByACAATABDAEQATABDAEQAIABDAG8A
 bABvAHIAaQBkAG8ASwBvAGwAbwByACAATABDAEQDiAOzA8cDwQPJA7wDtwAgA78DuAPMA70DtwAgAEwA
 QwBEAEYA5AByAGcALQBMAEMARABSAGUAbgBrAGwAaQAgAEwAQwBEAEwAQwBEACAAYQAgAEMAbwByAGUA
-czCrMOkw/ABMAEMARHRleHQAAAAAQ29weXJpZ2h0IEFwcGxlIEluYy4sIDIwMjAAAFhZWiAAAAAAAADz
+czCrMOkw/ABMAEMARHRleHQAAAAAQ29weXJpZ2h0IEFwcGxlIEluYy4sIDIwMjEAAFhZWiAAAAAAAADz
 UQABAAAAARbMWFlaIAAAAAAAAIPfAAA9v////7tYWVogAAAAAAAASr8AALE3AAAKuVhZWiAAAAAAAAAo
 OAAAEQsAAMi5Y3VydgAAAAAAAAQAAAAABQAKAA8AFAAZAB4AIwAoAC0AMgA2ADsAQABFAEoATwBUAFkA
 XgBjAGgAbQByAHcAfACBAIYAiwCQAJUAmgCfAKMAqACtALIAtwC8AMEAxgDLANAA1QDbAOAA5QDrAPAA
@@ -1434,7 +1444,7 @@ AQEAAwAAAAEAAgAAAQIAAwAAAAQAAAEWAQMAAwAAAAEAAQAAAQYAAwAAAAEAAgAAAQoAAwAAAAEAAQAA
 AREABAAAAAEAAAAIARIAAwAAAAEAAQAAARUAAwAAAAEABAAAARYAAwAAAAEAAgAAARcABAAAAAEAAAAg
 ARoABQAAAAEAAAEGARsABQAAAAEAAAEOARwAAwAAAAEAAQAAASgAAwAAAAEAAgAAAVIAAwAAAAEAAQAA
 AVMAAwAAAAQAAAEeh3MABwAAD/gAAAEmAAAAAAAAAJAAAAABAAAAkAAAAAEAEAAQABAAEAADAAMAAwAD
-AAAP+GFwcGwCEAAAbW50clJHQiBYWVogB+QACwAaAAkAMgAAYWNzcEFQUEwAAAAAQVBQTAAAAAAAAAAA
+AAAP+GFwcGwCEAAAbW50clJHQiBYWVogB+UABAAEABIADQAYYWNzcEFQUEwAAAAAQVBQTAAAAAAAAAAA
 AAAAAAAAAAAAAPbWAAEAAAAA0y1hcHBsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAASZGVzYwAAAVwAAABiZHNjbQAAAcAAAAScY3BydAAABlwAAAAjd3RwdAAABoAAAAAU
 clhZWgAABpQAAAAUZ1hZWgAABqgAAAAUYlhZWgAABrwAAAAUclRSQwAABtAAAAgMYWFyZwAADtwAAAAg
@@ -1461,7 +1471,7 @@ AHIAbgBhACAATABDAEQJMAkCCRcJQAkoACAATABDAEQATABDAEQAIA4qDjUATABDAEQAIABlAG4AIABj
 AG8AbABvAHIARgBhAHIAYgAtAEwAQwBEAEMAbwBsAG8AcgAgAEwAQwBEAEwAQwBEACAAQwBvAGwAbwBy
 AGkAZABvAEsAbwBsAG8AcgAgAEwAQwBEA4gDswPHA8EDyQO8A7cAIAO/A7gDzAO9A7cAIABMAEMARABG
 AOQAcgBnAC0ATABDAEQAUgBlAG4AawBsAGkAIABMAEMARABMAEMARAAgAGEAIABDAG8AcgBlAHMwqzDp
-MPwATABDAER0ZXh0AAAAAENvcHlyaWdodCBBcHBsZSBJbmMuLCAyMDIwAABYWVogAAAAAAAA81EAAQAA
+MPwATABDAER0ZXh0AAAAAENvcHlyaWdodCBBcHBsZSBJbmMuLCAyMDIxAABYWVogAAAAAAAA81EAAQAA
 AAEWzFhZWiAAAAAAAACD3wAAPb////+7WFlaIAAAAAAAAEq/AACxNwAACrlYWVogAAAAAAAAKDgAABEL
 AADIuWN1cnYAAAAAAAAEAAAAAAUACgAPABQAGQAeACMAKAAtADIANgA7AEAARQBKAE8AVABZAF4AYwBo
 AG0AcgB3AHwAgQCGAIsAkACVAJoAnwCjAKgArQCyALcAvADBAMYAywDQANUA2wDgAOUA6wDwAPYA+wEB
@@ -1508,7 +1518,7 @@ AAADAAAAAQADAAABAQADAAAAAQADAAABAgADAAAABAAAAT4BAwADAAAAAQABAAABBgADAAAAAQACAAAB
 CgADAAAAAQABAAABEQAEAAAAAQAAAAgBEgADAAAAAQABAAABFQADAAAAAQAEAAABFgADAAAAAQADAAAB
 FwAEAAAAAQAAAEgBGgAFAAAAAQAAAS4BGwAFAAAAAQAAATYBHAADAAAAAQABAAABKAADAAAAAQACAAAB
 UgADAAAAAQABAAABUwADAAAABAAAAUaHcwAHAAAP+AAAAU4AAAAAAAAA2AAAAAEAAADYAAAAAQAQABAA
-EAAQAAMAAwADAAMAAA/4YXBwbAIQAABtbnRyUkdCIFhZWiAH5AALABoACQAyAABhY3NwQVBQTAAAAABB
+EAAQAAMAAwADAAMAAA/4YXBwbAIQAABtbnRyUkdCIFhZWiAH5QAEAAQAEgANABhhY3NwQVBQTAAAAABB
 UFBMAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWFwcGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAABJkZXNjAAABXAAAAGJkc2NtAAABwAAABJxjcHJ0AAAGXAAAACN3
 dHB0AAAGgAAAABRyWFlaAAAGlAAAABRnWFlaAAAGqAAAABRiWFlaAAAGvAAAABRyVFJDAAAG0AAACAxh
@@ -1535,7 +1545,7 @@ bABlAHUAcgBXAGEAcgBuAGEAIABMAEMARAkwCQIJFwlACSgAIABMAEMARABMAEMARAAgDioONQBMAEMA
 RAAgAGUAbgAgAGMAbwBsAG8AcgBGAGEAcgBiAC0ATABDAEQAQwBvAGwAbwByACAATABDAEQATABDAEQA
 IABDAG8AbABvAHIAaQBkAG8ASwBvAGwAbwByACAATABDAEQDiAOzA8cDwQPJA7wDtwAgA78DuAPMA70D
 twAgAEwAQwBEAEYA5AByAGcALQBMAEMARABSAGUAbgBrAGwAaQAgAEwAQwBEAEwAQwBEACAAYQAgAEMA
-bwByAGUAczCrMOkw/ABMAEMARHRleHQAAAAAQ29weXJpZ2h0IEFwcGxlIEluYy4sIDIwMjAAAFhZWiAA
+bwByAGUAczCrMOkw/ABMAEMARHRleHQAAAAAQ29weXJpZ2h0IEFwcGxlIEluYy4sIDIwMjEAAFhZWiAA
 AAAAAADzUQABAAAAARbMWFlaIAAAAAAAAIPfAAA9v////7tYWVogAAAAAAAASr8AALE3AAAKuVhZWiAA
 AAAAAAAoOAAAEQsAAMi5Y3VydgAAAAAAAAQAAAAABQAKAA8AFAAZAB4AIwAoAC0AMgA2ADsAQABFAEoA
 TwBUAFkAXgBjAGgAbQByAHcAfACBAIYAiwCQAJUAmgCfAKMAqACtALIAtwC8AMEAxgDLANAA1QDbAOAA

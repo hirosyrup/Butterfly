@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe" customClass="StatementLevelMeter" customModule="Butterfly" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="16"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <levelIndicator verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Pp-h5-Gws">
+                    <rect key="frame" x="0.0" y="-2" width="300" height="18"/>
+                    <levelIndicatorCell key="cell" alignment="left" maxValue="100" warningValue="60" criticalValue="90" levelIndicatorStyle="continuousCapacity" id="4fM-Y0-TyK"/>
+                    <color key="fillColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="warningFillColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                    <color key="criticalFillColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                </levelIndicator>
+                <box fixedFrame="YES" boxType="custom" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="6it-4U-R8j">
+                    <rect key="frame" x="0.0" y="0.0" width="3" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="Fgb-QC-h3Y">
+                        <rect key="frame" x="0.0" y="0.0" width="3" height="16"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="fillColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="3Pp-h5-Gws" secondAttribute="bottom" id="M80-lC-Bei"/>
+                <constraint firstItem="3Pp-h5-Gws" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="N7Q-EL-YfJ"/>
+                <constraint firstItem="3Pp-h5-Gws" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="mS0-lg-hjT"/>
+                <constraint firstAttribute="trailing" secondItem="3Pp-h5-Gws" secondAttribute="trailing" id="uEx-Ul-TjT"/>
+            </constraints>
+            <connections>
+                <outlet property="levelMeter" destination="3Pp-h5-Gws" id="dmT-eU-uhG"/>
+                <outlet property="thresholdMark" destination="6it-4U-R8j" id="sBh-Z3-F9I"/>
+            </connections>
+            <point key="canvasLocation" x="-198" y="-4"/>
+        </customView>
+    </objects>
+</document>

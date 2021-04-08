@@ -24,6 +24,8 @@ class StatementViewController: NSViewController,
     @IBOutlet weak var recordingLabel: NSBox!
     @IBOutlet weak var recordAudioDownloadIndicator: NSProgressIndicator!
     @IBOutlet weak var audioPlayerView: AVPlayerView!
+    @IBOutlet weak var levelMeterContainer: NSView!
+    weak var levelMeter: StatementLevelMeter!
     
     private let cellId = "StatementCollectionViewItem"
     private var workspaceId: String!
@@ -53,6 +55,9 @@ class StatementViewController: NSViewController,
         collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId))
         audioPlayerView.isHidden = true
         autoCalcRmsThreshold = AutoCalcRmsThreshold(initialThreshold: observeBreakInStatements.rmsThreshold)
+        levelMeter = StatementLevelMeter.createFromNib(owner: nil)
+        levelMeter.frame = levelMeterContainer.bounds
+        levelMeterContainer.addSubview(levelMeter)
     }
 
     override func viewWillAppear() {
@@ -187,6 +192,7 @@ class StatementViewController: NSViewController,
                 stopRecord()
                 AudioUploaderQueue.shared.addUploader(workspaceId: workspaceId, meetingData: meetingData, meetingUserDataList: userList)
             }
+            levelMeter.setEnable(enabled: _isAudioInputStart)
             isAudioInputStart = _isAudioInputStart
         }
     }
@@ -243,8 +249,13 @@ class StatementViewController: NSViewController,
         }
         
         if observeBreakInStatements.isOverThreshold() {
-            observeBreakInStatements.rmsThreshold = autoCalcRmsThreshold.calcThreshold(rms: observeBreakInStatements.currentRms)
+            let threshold = autoCalcRmsThreshold.calcThreshold(rms: observeBreakInStatements.currentRms)
+            observeBreakInStatements.rmsThreshold = threshold
+            speechRecognizer.setRmsThreshold(threshold: threshold)
+            levelMeter.updateThreshold(threshold: Double(threshold))
         }
+        
+        levelMeter.setRms(rms: Double(observeBreakInStatements.currentRms))
     }
     
     func didChangeAvailability(recognizer: SpeechRecognizer) {
