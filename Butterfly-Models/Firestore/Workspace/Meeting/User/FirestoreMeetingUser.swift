@@ -23,7 +23,7 @@ class FirestoreMeetingUser {
     
     func listen(workspaceId: String, meetingId: String ) {
         guard meetingUserListener == nil else { return }
-        meetingUserListener = reference(workspaceId: workspaceId, meetingId: meetingId).addSnapshotListener({ (snapshot, error) in
+        meetingUserListener = reference(workspaceId: workspaceId, meetingId: meetingId).order(by: "userId").addSnapshotListener({ (snapshot, error) in
             if let documentChanges = snapshot?.documentChanges {
                 let list = documentChanges.map { (documentChange) -> FirestoreDocumentChangeWithData<FirestoreMeetingUserData> in
                     let data = documentChange.document.data()

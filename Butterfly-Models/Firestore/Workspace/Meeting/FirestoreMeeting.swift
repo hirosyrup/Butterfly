@@ -148,7 +148,7 @@ class FirestoreMeeting {
             id: meetingId,
             name: (snapshot["name"] as? String) ?? "",
             status: (snapshot["status"] as? Int) ?? 0,
-            iconList: iconRawList.map({ (raw) -> FirestoreMeetingIconData in
+            iconList: iconRawList.sorted(by: { ($0["userId"] as! String) > ($1["userId"] as! String) }).map({ (raw) -> FirestoreMeetingIconData in
                 FirestoreMeetingIconData(
                     userId: (raw["userId"] as? String) ?? "",
                     iconName: raw["iconName"] as? String,
