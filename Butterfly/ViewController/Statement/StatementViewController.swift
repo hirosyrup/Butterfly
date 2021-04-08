@@ -69,6 +69,7 @@ class StatementViewController: NSViewController,
         stopRecognition()
         stopRecord()
         statement.unlisten()
+        exit()
     }
     
     override func viewDidDisappear() {
@@ -110,7 +111,7 @@ class StatementViewController: NSViewController,
     
     private func updateViews() {
         if let currentUser = AuthUser.shared.currentUser() {
-            you = userList.first { $0.id == currentUser.uid }
+            you = userList.first { $0.userId == currentUser.uid }
         }
         let presenter = StatementViewControllerPresenter(meetingData: meetingData, meetingUserDataList: userList, you: you)
         titleLabel.stringValue = presenter.title()
@@ -186,6 +187,27 @@ class StatementViewController: NSViewController,
                 AudioUploaderQueue.shared.addUploader(workspaceId: workspaceId, meetingData: meetingData, meetingUserDataList: userList)
             }
             isAudioInputStart = _isAudioInputStart
+        }
+    }
+    
+    
+    private func enter() {
+        guard var _you = you else { return }
+        if !_you.isEntering {
+            async({ _ -> MeetingUserRepository.MeetingUserData in
+                _you.isEntering = true
+                return try await(MeetingUserRepository.User().update(workspaceId: self.workspaceId, meetingId: self.meetingData.id, meetingUserData: _you))
+            }).then { (_) in }
+        }
+    }
+    
+    private func exit() {
+        guard var _you = you else { return }
+        if _you.isEntering {
+            async({ _ -> MeetingUserRepository.MeetingUserData in
+                _you.isEntering = false
+                return try await(MeetingUserRepository.User().update(workspaceId: self.workspaceId, meetingId: self.meetingData.id, meetingUserData: _you))
+            }).then { (_) in }
         }
     }
     
@@ -281,6 +303,7 @@ class StatementViewController: NSViewController,
     func didChangeMeetingUserDataList(obj: MeetingUserRepository.User, documentChanges: [RepositoryDocumentChange<MeetingUserRepository.MeetingUserData>]) {
         userList = meetingUser.createUserListFromDocumentChanges(prevUserList: userList, documentChanges: documentChanges)
         updateViews()
+        enter()
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -25,7 +25,7 @@ class SelectMemberFetchForMeeting: SelectMemberFetchProtocol {
             }).then({ dataList in
                 self.originalUserDataList = self.mergeMeetingUserListToUserDataList(originalMeetingData: self.meetingData, userList: dataList)
                 let selectMemberList = dataList.map({ (userData) -> SelectMemberUserData in
-                    return SelectMemberUserData(id: userData.id, iconImageUrl: userData.iconImageUrl, name: userData.name)
+                    return SelectMemberUserData(id: userData.userId, iconImageUrl: userData.iconImageUrl, name: userData.name)
                 })
                 resolve(selectMemberList)
             }).catch { (error) in
@@ -40,7 +40,7 @@ class SelectMemberFetchForMeeting: SelectMemberFetchProtocol {
     
     private func mergeMeetingUserListToUserDataList(originalMeetingData: MeetingRepository.MeetingData, userList: [MeetingRepository.MeetingIconData]) -> [MeetingRepository.MeetingIconData] {
         return userList.map { (user) -> MeetingRepository.MeetingIconData in
-            if let index = originalMeetingData.iconList.firstIndex(where: {$0.id == user.id}) {
+            if let index = originalMeetingData.iconList.firstIndex(where: {$0.userId == user.userId}) {
                 return originalMeetingData.iconList[index]
             } else {
                 return user

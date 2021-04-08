@@ -9,6 +9,7 @@ import Foundation
 
 struct FirestoreMeetingUserData {
     var id: String
+    var userId: String
     var iconName: String?
     var name: String
     var isHost: Bool
@@ -18,7 +19,7 @@ struct FirestoreMeetingUserData {
     var updatedAt: Date
     
     static func new() -> FirestoreMeetingUserData {
-        return FirestoreMeetingUserData(id: "", iconName: nil, name: "", isHost: false, isEntering: false, audioFileName: nil, createdAt: Date(), updatedAt: Date())
+        return FirestoreMeetingUserData(id: "", userId: "", iconName: nil, name: "", isHost: false, isEntering: false, audioFileName: nil, createdAt: Date(), updatedAt: Date())
     }
     
     func copyCurrentAt() -> FirestoreMeetingUserData {

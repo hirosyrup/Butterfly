@@ -118,6 +118,7 @@ class FirestoreMeetingUser {
     private func meetingUserToFirestoreData(data: FirestoreMeetingUserData) -> [String: Any] {
         return [
             "id": data.id,
+            "userId": data.userId,
             "iconName": data.iconName ?? NSNull(),
             "name": data.name,
             "isHost": data.isHost,
@@ -131,6 +132,7 @@ class FirestoreMeetingUser {
     private func firestoreDataToMeetingUser(snapshot: [String: Any], meetingUserId: String) -> FirestoreMeetingUserData {
         return FirestoreMeetingUserData(
             id: meetingUserId,
+            userId: (snapshot["userId"] as? String) ?? "",
             iconName: snapshot["iconName"] as? String,
             name: (snapshot["name"] as? String) ?? "",
             isHost: (snapshot["isHost"] as? Bool) ?? false,

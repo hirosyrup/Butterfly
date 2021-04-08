@@ -8,11 +8,11 @@
 import Foundation
 
 struct FirestoreMeetingIconData {
-    var id: String
+    var userId: String
     var iconName: String?
     var name: String
     
     static func new() -> FirestoreMeetingIconData {
-        return FirestoreMeetingIconData(id: "", iconName: nil, name: "")
+        return FirestoreMeetingIconData(userId: "", iconName: nil, name: "")
     }
 }

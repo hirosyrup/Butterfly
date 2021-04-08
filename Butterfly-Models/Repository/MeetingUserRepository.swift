@@ -19,6 +19,7 @@ class MeetingUserRepository {
     struct MeetingUserData {
         fileprivate let original: FirestoreMeetingUserData
         let id: String
+        let userId: String
         let iconName: String?
         let iconImageUrl: URL?
         let name: String
@@ -30,6 +31,7 @@ class MeetingUserRepository {
         init(iconImageUrl: URL?, audioFileUrl: URL?, firestoreData: FirestoreMeetingUserData) {
             self.original = firestoreData
             self.id = self.original.id
+            self.userId = self.original.userId
             self.iconName = self.original.iconName
             self.iconImageUrl = iconImageUrl
             self.name = self.original.name
@@ -41,6 +43,7 @@ class MeetingUserRepository {
         
         fileprivate func toFirestoreData() -> FirestoreMeetingUserData {
             var firestoreData = original
+            firestoreData.userId = userId
             firestoreData.iconName = iconName
             firestoreData.name = name
             firestoreData.isHost = isHost

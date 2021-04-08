@@ -53,38 +53,38 @@ class MeetingRepository {
             firestoreData.startedAt = startedAt
             firestoreData.endedAt = endedAt
             firestoreData.iconList = iconList.map({ (user) -> FirestoreMeetingIconData in
-                return FirestoreMeetingIconData(id: user.id, iconName: user.iconName, name: user.name)
+                return FirestoreMeetingIconData(userId: user.userId, iconName: user.iconName, name: user.name)
             })
             return firestoreData
         }
     }
     
     struct MeetingIconData {
-        let id: String
+        let userId: String
         let iconName: String?
         let iconImageUrl: URL?
         let name: String
         
         init(iconImageUrl: URL?, firestoreData: FirestoreMeetingIconData) {
             self.iconImageUrl = iconImageUrl
-            self.id = firestoreData.id
+            self.userId = firestoreData.userId
             self.iconName = firestoreData.iconName
             self.name = firestoreData.name
         }
         
         init(iconImageUrl: URL?, firestoreData: FirestoreUserData) {
             self.iconImageUrl = iconImageUrl
-            self.id = firestoreData.id
+            self.userId = firestoreData.id
             self.iconName = firestoreData.iconName
             self.name = firestoreData.name
         }
         
         fileprivate func toFirestoreData() -> FirestoreMeetingIconData {
-            return FirestoreMeetingIconData(id: id, iconName: iconName, name: name)
+            return FirestoreMeetingIconData(userId: userId, iconName: iconName, name: name)
         }
         
         fileprivate func createMeetingUserData() -> FirestoreMeetingUserData {
-            return FirestoreMeetingUserData(id: id, iconName: iconName, name: name, isHost: false, isEntering: false, audioFileName: nil, createdAt: Date(), updatedAt: Date())
+            return FirestoreMeetingUserData(id: "", userId: userId, iconName: iconName, name: name, isHost: false, isEntering: false, audioFileName: nil, createdAt: Date(), updatedAt: Date())
         }
     }
     

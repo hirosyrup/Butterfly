@@ -130,7 +130,7 @@ class FirestoreMeeting {
             "status": data.status,
             "iconList": data.iconList.map({ (icon) -> [String: Any] in
                 return [
-                    "id": icon.id,
+                    "userId": icon.userId,
                     "iconName": icon.iconName ?? NSNull(),
                     "name": icon.name
                 ]
@@ -150,7 +150,7 @@ class FirestoreMeeting {
             status: (snapshot["status"] as? Int) ?? 0,
             iconList: iconRawList.map({ (raw) -> FirestoreMeetingIconData in
                 FirestoreMeetingIconData(
-                    id: (raw["id"] as? String) ?? "",
+                    userId: (raw["userId"] as? String) ?? "",
                     iconName: raw["iconName"] as? String,
                     name: (raw["name"] as? String) ?? ""
                 )

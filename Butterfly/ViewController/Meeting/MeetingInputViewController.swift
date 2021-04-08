@@ -56,7 +56,7 @@ class MeetingInputViewController: NSViewController,
     }
     
     private func createInitialSelectedUserList() -> [SelectMemberUserData] {
-        return meetingData.iconList.map { SelectMemberUserData(id: $0.id, iconImageUrl: $0.iconImageUrl, name: $0.name) }
+        return meetingData.iconList.map { SelectMemberUserData(id: $0.userId, iconImageUrl: $0.iconImageUrl, name: $0.name) }
     }
     
     private func updateViews() {
