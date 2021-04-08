@@ -320,6 +320,7 @@ class StatementViewController: NSViewController,
     }
     
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        collectionView.deselectItems(at: indexPaths)
         guard let indexPath = indexPaths.first else { return }
         guard let startedAt = meetingData.startedAt else { return }
         let statementData = statementDataList[indexPath.item]
