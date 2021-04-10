@@ -39,7 +39,14 @@ class PreferencesFirebaseViewController: NSViewController {
                     let fileName = url.lastPathComponent
                     self.plistNameLabel.stringValue = fileName
                     self.settingUserDefault.saveFirebasePlistUrl(url: toUrl)
-                    FirestoreSetup().setup()
+                    FirestoreSetup().setup { (neetUpdate) in
+                        if neetUpdate {
+                            let alert = AlertBuilder.createNeedUpdateAlert()
+                            if alert.runModal() == .alertFirstButtonReturn {
+                                NSApplication.shared.terminate(self)
+                            }
+                        }
+                    }
                 }
             }
         })

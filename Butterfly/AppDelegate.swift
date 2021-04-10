@@ -22,9 +22,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.action = #selector(show(_:))
         }
         
-        constructPopover()
         setupSwiftyBeaver()
-        FirestoreSetup().setup()
+        FirestoreSetup().setup { (neetUpdate) in
+            if neetUpdate {
+                let alert = AlertBuilder.createNeedUpdateAlert()
+                if alert.runModal() == .alertFirstButtonReturn {
+                    NSApplication.shared.terminate(self)
+                }
+            } else {
+                self.constructPopover()
+            }
+        }
         IconImage.shared.clearAllCache()
         SpeechRecognizer.shared.requestAuthorization()
         AudioSystem.shared.setup()
