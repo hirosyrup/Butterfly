@@ -30,7 +30,7 @@ class StatementViewController: NSViewController,
     private let cellId = "StatementCollectionViewItem"
     private var workspaceId: String!
     private var meetingData: MeetingRepository.MeetingData!
-    private let speechRecognizer = SpeechRecognizer.shared
+    private let speechRecognizer = SpeechRecognizerApple.shared
     private let audioSystem = AudioSystem.shared
     private var userList = [MeetingUserRepository.MeetingUserData]()
     private var you: MeetingUserRepository.MeetingUserData?

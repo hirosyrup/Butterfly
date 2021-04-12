@@ -1,5 +1,5 @@
 //
-//  RecognitionRequest.swift
+//  RecognitionRequestApple.swift
 //  Butterfly
 //
 //  Created by 岩井 宏晃 on 2021/03/22.
@@ -8,25 +8,13 @@
 import Foundation
 import Speech
 
-protocol RecognitionRequestDelegate: class {
-    func failedToRequest(request: RecognitionRequest, error: Error)
-    func didUpdateStatement(request: RecognitionRequest, statement: String)
-    func didEndStatement(request: RecognitionRequest, statement: String)
+protocol RecognitionRequestAppleDelegate: class {
+    func failedToRequest(request: RecognitionRequestApple, error: Error)
+    func didUpdateStatement(request: RecognitionRequestApple, statement: String)
+    func didEndStatement(request: RecognitionRequestApple, statement: String)
 }
 
-enum RecognitionRequestError: Error {
-    case unableToCreateRequest
-}
-
-extension RecognitionRequestError: LocalizedError {
-    var errorDescription: String? {
-        switch self {
-        case .unableToCreateRequest: return "Unable to create a SFSpeechAudioBufferRecognitionRequest object"
-        }
-    }
-}
-
-class RecognitionRequest {
+class RecognitionRequestApple {
     enum State {
         case processing
         case ending
@@ -36,7 +24,7 @@ class RecognitionRequest {
     let id: String
     private var recognitionTask: SFSpeechRecognitionTask!
     private let recognitionRequest: SFSpeechAudioBufferRecognitionRequest
-    weak var delegate: RecognitionRequestDelegate?
+    weak var delegate: RecognitionRequestAppleDelegate?
     private var statement = ""
     private var state = State.processing
     private var endTimer: Timer?

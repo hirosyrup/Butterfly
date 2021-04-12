@@ -14,6 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let popover = NSPopover()
     private var schemeOpenUrls: [URL]?
     private var didLaunch = false
+    private let speechRecognizerAuthorization = SpeechRecognizerAuthorization()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if let button = statusItem.button {
@@ -34,7 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
         IconImage.shared.clearAllCache()
-        SpeechRecognizer.shared.requestAuthorization()
+        speechRecognizerAuthorization.requestAuthorization()
         AudioSystem.shared.setup()
         
         if let urls = schemeOpenUrls {
