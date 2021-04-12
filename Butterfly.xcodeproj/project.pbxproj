@@ -118,6 +118,8 @@
 		FBC83A892624853900989820 /* SpeechRecognizerAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83A882624853900989820 /* SpeechRecognizerAuthorization.swift */; };
 		FBC83A8D262485EA00989820 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83A8C262485EA00989820 /* SpeechRecognizer.swift */; };
 		FBC83A912624865C00989820 /* SpeechRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83A902624865C00989820 /* SpeechRecognizerDelegate.swift */; };
+		FBC83A9D2624892A00989820 /* SpeechRecognizerAmiVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83A9C2624892A00989820 /* SpeechRecognizerAmiVoice.swift */; };
+		FBC83AA32624893F00989820 /* RecognitionRequestAmiVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83AA22624893F00989820 /* RecognitionRequestAmiVoice.swift */; };
 		FBD1A84026132243005BB323 /* AudioUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A83F26132243005BB323 /* AudioUploader.swift */; };
 		FBD1A844261322B6005BB323 /* AudioUploaderQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */; };
 		FBD1A8482613275B005BB323 /* AudioLocalUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */; };
@@ -249,6 +251,8 @@
 		FBC83A882624853900989820 /* SpeechRecognizerAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpeechRecognizerAuthorization.swift; path = Apple/SpeechRecognizerAuthorization.swift; sourceTree = "<group>"; };
 		FBC83A8C262485EA00989820 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		FBC83A902624865C00989820 /* SpeechRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerDelegate.swift; sourceTree = "<group>"; };
+		FBC83A9C2624892A00989820 /* SpeechRecognizerAmiVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerAmiVoice.swift; sourceTree = "<group>"; };
+		FBC83AA22624893F00989820 /* RecognitionRequestAmiVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionRequestAmiVoice.swift; sourceTree = "<group>"; };
 		FBD1A83F26132243005BB323 /* AudioUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploader.swift; sourceTree = "<group>"; };
 		FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploaderQueue.swift; sourceTree = "<group>"; };
 		FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLocalUrl.swift; sourceTree = "<group>"; };
@@ -449,6 +453,7 @@
 		FB9D71A926087AE500B7E9DE /* Speech */ = {
 			isa = PBXGroup;
 			children = (
+				FBC83A9B2624891300989820 /* AmiVoice */,
 				FBC83A652624832200989820 /* Apple */,
 				FBC83996261B61DB00989820 /* AutoCalcRmsThreshold.swift */,
 				FB9D71AA26087BD500B7E9DE /* ObserveBreakInStatements.swift */,
@@ -673,6 +678,15 @@
 				FB9D71B22608854100B7E9DE /* RecognitionRequestApple.swift */,
 			);
 			path = Apple;
+			sourceTree = "<group>";
+		};
+		FBC83A9B2624891300989820 /* AmiVoice */ = {
+			isa = PBXGroup;
+			children = (
+				FBC83A9C2624892A00989820 /* SpeechRecognizerAmiVoice.swift */,
+				FBC83AA22624893F00989820 /* RecognitionRequestAmiVoice.swift */,
+			);
+			path = AmiVoice;
 			sourceTree = "<group>";
 		};
 		FBF9A5B926038A4E00AE78DF /* Shared */ = {
@@ -995,6 +1009,7 @@
 				FBC83A8D262485EA00989820 /* SpeechRecognizer.swift in Sources */,
 				FB523C2F2607739600801070 /* RepositoryDocumentChangeType.swift in Sources */,
 				FBC83A912624865C00989820 /* SpeechRecognizerDelegate.swift in Sources */,
+				FBC83A9D2624892A00989820 /* SpeechRecognizerAmiVoice.swift in Sources */,
 				FB9D71802608615F00B7E9DE /* FirestoreStatement.swift in Sources */,
 				FB2603C626120CA700323E4B /* AudioRecordData.swift in Sources */,
 				FB9D71A42608763A00B7E9DE /* SpeechRecognizerApple.swift in Sources */,
@@ -1005,6 +1020,7 @@
 				FBA544B425FA61EA00112066 /* SettingUserDefault.swift in Sources */,
 				FBA2883C25F8896600D1B3BD /* MainViewController.swift in Sources */,
 				FBA544C425FCF43600112066 /* PreferencesUserViewController.swift in Sources */,
+				FBC83AA32624893F00989820 /* RecognitionRequestAmiVoice.swift in Sources */,
 				FBA546382602409800112066 /* PreferencesWorkspaceViewController.swift in Sources */,
 				FB2603AF2612074E00323E4B /* AudioSystem.swift in Sources */,
 				FBA5463C260240BF00112066 /* PreferencesWorkspaceInputViewController.swift in Sources */,

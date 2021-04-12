@@ -7,6 +7,7 @@ pod 'FirebaseFirestoreSwift'
 pod 'Firebase/Storage'
 pod 'HydraAsync'
 pod 'SwiftyBeaver'
+pod 'Starscream'
 end
 
 target 'Butterfly-iOS' do
@@ -18,4 +19,5 @@ pod 'FirebaseFirestoreSwift'
 pod 'Firebase/Storage'
 pod 'HydraAsync'
 pod 'SwiftyBeaver'
+pod 'Starscream'
 end

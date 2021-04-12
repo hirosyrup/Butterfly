@@ -307,6 +307,7 @@ PODS:
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
   - PromisesObjC (1.2.12)
+  - Starscream (4.0.4)
   - SwiftyBeaver (1.9.3)
 
 DEPENDENCIES:
@@ -315,6 +316,7 @@ DEPENDENCIES:
   - FirebaseAuth
   - FirebaseFirestoreSwift
   - HydraAsync
+  - Starscream
   - SwiftyBeaver
 
 SPEC REPOS:
@@ -337,6 +339,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - Starscream
     - SwiftyBeaver
 
 SPEC CHECKSUMS:
@@ -358,8 +361,9 @@ SPEC CHECKSUMS:
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftyBeaver: 2e8acd6fc90c6d0a27055867a290794926d57c02
 
-PODFILE CHECKSUM: a5d3818f2be0b998e254310e36aae8ef950fe8ec
+PODFILE CHECKSUM: e3b3f1877d54dde16397d5674829269de8ea7d5f
 
 COCOAPODS: 1.10.1
