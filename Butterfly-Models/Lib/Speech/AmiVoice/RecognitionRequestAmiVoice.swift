@@ -28,14 +28,10 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
         case error
     }
     
-    struct Response {
-        let text: String
-    }
-    
     let id: String
     let apiKey: String
     weak var delegate: RecognitionRequestAmiVoiceDelegate?
-    private var statement = ""
+    private var statements = [String]()
     private var state = State.idle
     private var endTimer: Timer?
     private let updateInterval = TimeInterval(1)
@@ -43,7 +39,7 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
     private let endingInterval = TimeInterval(1)
     private let socket: WebSocket
     private var bufferList = [AVAudioPCMBuffer]()
-    private let requestBufferCount = 10
+    private let requestBufferCount = 5
     private let downFormat = AVAudioFormat(commonFormat: AVAudioCommonFormat.pcmFormatInt16, sampleRate: 16000.0, channels: 1, interleaved: true)!
     private let errorHeader = "AmiVoiceError: "
     
@@ -51,7 +47,7 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
         self.id = id
         self.apiKey = apiKey
         var request = URLRequest(url: URL(string: "wss://acp-api.amivoice.com/v1/")!)
-        request.timeoutInterval = 5
+        request.timeoutInterval = 30
         socket = WebSocket(request: request)
         socket.delegate = self
         socket.connect()
@@ -63,7 +59,7 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
     }
     
     private func endRequest() {
-        guard state == .processing else { return}
+        guard state == .ending else { return}
         socket.write(string: "e")
     }
     
@@ -89,13 +85,17 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
         bufferList.append(newbuffer)
         guard state == .processing else { return}
         if bufferList.count >= requestBufferCount {
-            socket.write(data: createRequestData())
-            bufferList.removeAll()
+            sendData()
         }
     }
     
+    private func sendData() {
+        socket.write(data: createRequestData())
+        bufferList.removeAll()
+    }
+    
     private func createRequestData() -> Data {
-        var data = Data()
+        var data = "p".data(using: .utf8)!
         bufferList.forEach { (buffer) in
             if let channelData = buffer.int16ChannelData?[0] {
                 let appendData = Data(buffer: UnsafeBufferPointer(start:channelData, count: Int(buffer.frameLength)))
@@ -105,65 +105,64 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
         return data
     }
     
-    private func setEndTimerIfNeeded() {
-        if state == .ending {
-            endTimer = Timer.scheduledTimer(withTimeInterval: endingInterval, repeats: false, block: { (_) in
-                self.end()
-                self.endTimer = nil
-            })
-        }
-    }
-    
     private func end(forced: Bool = false) {
         if forced || state == .ending {
             state = .didEnd
             socket.disconnect()
-            delegate?.didEndStatement(request: self, statement: statement)
+            delegate?.didEndStatement(request: self, statement: joinedStatement())
         }
     }
     
     private func notifyUpdate() {
         if Date().timeIntervalSince1970 - previousNotifyUpdateDate.timeIntervalSince1970 > updateInterval {
-            delegate?.didUpdateStatement(request: self, statement: statement)
+            delegate?.didUpdateStatement(request: self, statement: joinedStatement())
             previousNotifyUpdateDate = Date()
         }
     }
     
-    private func updateStatement(recievedText: String) {
-        statement = recievedText
-    }
-    
-    private func parseRecievedText(text: String) throws -> Response? {
-        if text.first == "s" {
+    private func parseRecievedText(text: String) throws -> Bool {
+        let firstChar = text.first
+        if firstChar == "s" {
             if text.count > 1 {
                 throw NSError(domain: "\(errorHeader)\(text)", code: -1, userInfo: nil)
             } else {
                 state = .processing
             }
-        } else if text.first == "p" && text.count > 1 {
+        } else if firstChar == "p" && text.count > 1 {
             throw NSError(domain: "\(errorHeader)\(text)", code: -1, userInfo: nil)
-        } else if text.first == "e" && text.count > 1 {
-            throw NSError(domain: "\(errorHeader)\(text)", code: -1, userInfo: nil)
-        } else if text.first == "A" {
+        } else if firstChar == "e" {
+            if text.count > 1 {
+                throw NSError(domain: "\(errorHeader)\(text)", code: -1, userInfo: nil)
+            } else {
+                end()
+            }
+        } else if firstChar == "C" {
+            statements.append("")
+        } else if firstChar == "A" {
             if let json = try JSONSerialization.jsonObject(with: removeCommandString(text: text).data(using: .utf8)!) as? [String: Any] {
                 if let message = json["message"] as? String, !message.isEmpty {
                     SwiftyBeaver.self.error("\(errorHeader)\(message)")
-                    return nil
+                    return false
                 } else {
-                    return Response(text: (json["text"] as? String) ?? "")
+                    statements[statements.count - 1] = (json["text"] as? String) ?? ""
+                    return true
                 }
             }
-        } else if text.first == "U" {
+        } else if firstChar == "U" {
             if let json = try JSONSerialization.jsonObject(with: removeCommandString(text: text).data(using: .utf8)!) as? [String: Any] {
-                let text = (json["text"] as? String) ?? ""
-                return Response(text: text.replacingOccurrences(of: "…", with: ""))
+                statements[statements.count - 1] = (json["text"] as? String) ?? ""
+                return true
             }
         }
-        return nil
+        return false
     }
     
     private func removeCommandString(text: String) -> String {
         return String(text[text.index(text.startIndex, offsetBy: 2)...])
+    }
+    
+    private func joinedStatement() -> String {
+        return statements.joined(separator: "\n")
     }
     
     func append(buffer: AVAudioPCMBuffer) {
@@ -179,7 +178,6 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
     func endAudio() {
         state = .ending
         endRequest()
-        setEndTimerIfNeeded()
     }
     
     func didReceive(event: WebSocketEvent, client: WebSocket) {
@@ -192,8 +190,7 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
                     state = .disconnected
                     end(forced: true)
                 case .text(let text):
-                    if let response = try parseRecievedText(text: text) {
-                        updateStatement(recievedText: response.text)
+                    if try parseRecievedText(text: text) {
                         notifyUpdate()
                     }
                 case .binary(_):
