@@ -120,6 +120,7 @@
 		FBC83A912624865C00989820 /* SpeechRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83A902624865C00989820 /* SpeechRecognizerDelegate.swift */; };
 		FBC83A9D2624892A00989820 /* SpeechRecognizerAmiVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83A9C2624892A00989820 /* SpeechRecognizerAmiVoice.swift */; };
 		FBC83AA32624893F00989820 /* RecognitionRequestAmiVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83AA22624893F00989820 /* RecognitionRequestAmiVoice.swift */; };
+		FBC83AB02628904800989820 /* PreferencesAdvancedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83AAF2628904800989820 /* PreferencesAdvancedViewController.swift */; };
 		FBD1A84026132243005BB323 /* AudioUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A83F26132243005BB323 /* AudioUploader.swift */; };
 		FBD1A844261322B6005BB323 /* AudioUploaderQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */; };
 		FBD1A8482613275B005BB323 /* AudioLocalUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */; };
@@ -253,6 +254,7 @@
 		FBC83A902624865C00989820 /* SpeechRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerDelegate.swift; sourceTree = "<group>"; };
 		FBC83A9C2624892A00989820 /* SpeechRecognizerAmiVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerAmiVoice.swift; sourceTree = "<group>"; };
 		FBC83AA22624893F00989820 /* RecognitionRequestAmiVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionRequestAmiVoice.swift; sourceTree = "<group>"; };
+		FBC83AAF2628904800989820 /* PreferencesAdvancedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesAdvancedViewController.swift; sourceTree = "<group>"; };
 		FBD1A83F26132243005BB323 /* AudioUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploader.swift; sourceTree = "<group>"; };
 		FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploaderQueue.swift; sourceTree = "<group>"; };
 		FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLocalUrl.swift; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 				FB0D2F7A26063FBF001403A5 /* PreferencesWorkspaceCollectionData.swift */,
 				FBA546372602409800112066 /* PreferencesWorkspaceViewController.swift */,
 				FBA5463B260240BF00112066 /* PreferencesWorkspaceInputViewController.swift */,
+				FBC83AAF2628904800989820 /* PreferencesAdvancedViewController.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -1017,6 +1020,7 @@
 				FB0D2F842606FD14001403A5 /* MeetingViewController.swift in Sources */,
 				FB2603C026120C7D00323E4B /* AudioRecorder.swift in Sources */,
 				FB9D719726086D7700B7E9DE /* StatementViewController.swift in Sources */,
+				FBC83AB02628904800989820 /* PreferencesAdvancedViewController.swift in Sources */,
 				FBA544B425FA61EA00112066 /* SettingUserDefault.swift in Sources */,
 				FBA2883C25F8896600D1B3BD /* MainViewController.swift in Sources */,
 				FBA544C425FCF43600112066 /* PreferencesUserViewController.swift in Sources */,
