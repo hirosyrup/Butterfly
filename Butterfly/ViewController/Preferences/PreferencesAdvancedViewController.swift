@@ -16,6 +16,14 @@ class PreferencesAdvancedViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateViews()
     }
     
+    private func updateViews() {
+        amiVoiceSettingsContainer.isHidden = amiVoiceEnableSwitch.state != .on
+    }
+    
+    @IBAction func switchEnableAmiVoice(_ sender: Any) {
+        updateViews()
+    }
 }
