@@ -70,17 +70,31 @@ class FirestoreUser {
         return [
             "iconName": data.iconName ?? NSNull(),
             "name": data.name,
+            "workspaceIdList": data.workspaceIdList,
+            "advancedSettingData": [
+                "enableAmiVoice": data.advancedSettingData.enableAmiVoice,
+                "turnedOnByDefault": data.advancedSettingData.turnedOnByDefault,
+                "amiVoiceApiUrl": data.advancedSettingData.amiVoiceApiUrl,
+                "amiVoiceApiKey": data.advancedSettingData.amiVoiceApiKey
+            ],
             "createdAt": Timestamp(date: data.createdAt),
             "updatedAt": Timestamp(date: data.updatedAt)
         ]
     }
     
     private func firestoreDataToUser(snapshot: [String: Any], userId: String) -> FirestoreUserData {
+        let advancedSettingData = (snapshot["advancedSettingData"] as? [String: Any]) ?? [:]
         return FirestoreUserData(
             id: userId,
             iconName: snapshot["iconName"] as? String,
             name: (snapshot["name"] as? String) ?? "",
             workspaceIdList: (snapshot["workspaceIdList"] as? [String]) ?? [],
+            advancedSettingData: FirestoreUserAdvancedSettingData(
+                enableAmiVoice: (advancedSettingData["enableAmiVoice"] as? Bool) ?? false,
+                turnedOnByDefault: (advancedSettingData["turnedOnByDefault"] as? Bool) ?? false,
+                amiVoiceApiUrl: (advancedSettingData["amiVoiceApiUrl"] as? String) ?? "",
+                amiVoiceApiKey: (advancedSettingData["amiVoiceApiKey"] as? String) ?? ""
+            ),
             createdAt: (snapshot["createdAt"] as? Timestamp)?.dateValue() ?? Date(),
             updatedAt: (snapshot["updatedAt"] as? Timestamp)?.dateValue() ?? Date()
         )

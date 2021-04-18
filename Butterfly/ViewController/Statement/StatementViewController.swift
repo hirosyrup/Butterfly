@@ -25,12 +25,14 @@ class StatementViewController: NSViewController,
     @IBOutlet weak var recordAudioDownloadIndicator: NSProgressIndicator!
     @IBOutlet weak var audioPlayerView: AVPlayerView!
     @IBOutlet weak var levelMeterContainer: NSView!
+    @IBOutlet weak var speechRecognizerSegmentedControl: NSSegmentedControl!
+    @IBOutlet weak var speechRecognizerControlContainer: NSView!
     weak var levelMeter: StatementLevelMeter!
     
     private let cellId = "StatementCollectionViewItem"
     private var workspaceId: String!
     private var meetingData: MeetingRepository.MeetingData!
-    private let speechRecognizer = SpeechRecognizerAmiVoice.shared
+    private var speechRecognizer: SpeechRecognizer?
     private let audioSystem = AudioSystem.shared
     private var userList = [MeetingUserRepository.MeetingUserData]()
     private var you: MeetingUserRepository.MeetingUserData?
@@ -92,14 +94,13 @@ class StatementViewController: NSViewController,
     }
     
     private func startRecognition() {
-        speechRecognizer.delegate = self
         audioSystem.delegate = self
         audioSystem.start()
     }
     
     private func stopRecognition() {
         audioSystem.stop()
-        speechRecognizer.delegate = nil
+        speechRecognizer?.setDelegate(delegate: nil)
         audioSystem.delegate = nil
     }
     
@@ -115,15 +116,21 @@ class StatementViewController: NSViewController,
     }
     
     private func updateViews() {
-        if let currentUser = AuthUser.shared.currentUser() {
-            you = userList.first { $0.userId == currentUser.uid }
-        }
         let presenter = StatementViewControllerPresenter(meetingData: meetingData, meetingUserDataList: userList, you: you)
         titleLabel.stringValue = presenter.title()
         MeetingMemberIconContainer.updateView(presenters: presenter.meetingMemberIconPresenters())
         startEndButton.isHidden = presenter.isHiddenOfStartButton()
         startEndButton.state = presenter.startEndButtonState()
         recordingLabel.isHidden = presenter.isHiddenRecordingLabel()
+    }
+    
+    private func updateYou() {
+        if let currentUser = AuthUser.shared.currentUser() {
+            if let _you = userList.first(where: { $0.userId == currentUser.uid }), _you.id != you?.id {
+                you = _you
+                setupSpeechRecognizer()
+            }
+        }
     }
     
     private func setupRecordAudioIfNeeded() {
@@ -143,6 +150,37 @@ class StatementViewController: NSViewController,
                 self.recordAudioDownloadIndicator.stopAnimation(self)
             }
         }
+    }
+    
+    private func setupSpeechRecognizer() {
+        guard let _you = you else { return }
+        speechRecognizerControlContainer.isHidden = true
+        async({ _ -> PreferencesRepository.UserData in
+            return try await(PreferencesRepository.User().findOrCreate(userId: _you.userId))
+        }).then({ userData in
+            let advancedSettingData = userData.advancedSettingData
+            if advancedSettingData.enableAmiVoice && !advancedSettingData.amiVoiceApiKey.isEmpty && !advancedSettingData.amiVoiceApiUrl.isEmpty {
+                self.speechRecognizerControlContainer.isHidden = false
+                self.speechRecognizerSegmentedControl.selectedSegment = userData.advancedSettingData.turnedOnByDefault ? 1 : 0
+                let amiVoice = SpeechRecognizerAmiVoice.shared
+                amiVoice.apiKey = advancedSettingData.amiVoiceApiKey
+                amiVoice.apiUrlString = advancedSettingData.amiVoiceApiUrl
+            }
+            self.updateSpeechRecognizer()
+        })
+    }
+    
+    private func updateSpeechRecognizer() {
+        speechRecognizer?.setDelegate(delegate: nil)
+        switch speechRecognizerSegmentedControl.selectedSegment {
+        case 0:
+            speechRecognizer = SpeechRecognizerApple.shared
+        case 1:
+            speechRecognizer = SpeechRecognizerAmiVoice.shared
+        default:
+            break
+        }
+        speechRecognizer?.setDelegate(delegate: self)
     }
     
     private func startAudioInput(userId: String, isHost: Bool) {
@@ -238,7 +276,7 @@ class StatementViewController: NSViewController,
     }
     
     func notifyRenderBuffer(obj: AudioSystem, buffer: AVAudioPCMBuffer, when: AVAudioTime) {
-        speechRecognizer.append(buffer: buffer, when: when)
+        speechRecognizer?.append(buffer: buffer, when: when)
         observeBreakInStatements.checkBreakInStatements(buffer: buffer, when: when)
         if observeBreakInStatements.isSpeeking {
             audioRecorder?.write(buffer: buffer)
@@ -251,7 +289,7 @@ class StatementViewController: NSViewController,
         if observeBreakInStatements.isOverThreshold() {
             let threshold = autoCalcRmsThreshold.calcThreshold(rms: observeBreakInStatements.currentRms)
             observeBreakInStatements.rmsThreshold = threshold
-            speechRecognizer.setRmsThreshold(threshold: threshold)
+            speechRecognizer?.setRmsThreshold(threshold: threshold)
             levelMeter.updateThreshold(threshold: Double(threshold))
         }
         
@@ -314,6 +352,7 @@ class StatementViewController: NSViewController,
     
     func didChangeMeetingUserDataList(obj: MeetingUserRepository.User, documentChanges: [RepositoryDocumentChange<MeetingUserRepository.MeetingUserData>]) {
         userList = meetingUser.createUserListFromDocumentChanges(prevUserList: userList, documentChanges: documentChanges)
+        updateYou()
         updateViews()
         enter()
         setupRecordAudioIfNeeded()
@@ -353,5 +392,9 @@ class StatementViewController: NSViewController,
         } else {
             endAudioInput()
         }
+    }
+    
+    @IBAction func changeSpeechRecognizerSetting(_ sender: Any) {
+        updateSpeechRecognizer()
     }
 }

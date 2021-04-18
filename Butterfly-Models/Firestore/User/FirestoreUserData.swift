@@ -12,11 +12,25 @@ struct FirestoreUserData {
     var iconName: String?
     var name: String
     var workspaceIdList: [String]
+    var advancedSettingData: FirestoreUserAdvancedSettingData
     var createdAt: Date
     var updatedAt: Date
     
     static func new() -> FirestoreUserData {
-        return FirestoreUserData(id: "", iconName: nil, name: "Anonymous", workspaceIdList: [], createdAt: Date(), updatedAt: Date())
+        return FirestoreUserData(
+            id: "",
+            iconName: nil,
+            name: "Anonymous",
+            workspaceIdList: [],
+            advancedSettingData: FirestoreUserAdvancedSettingData(
+                enableAmiVoice: false,
+                turnedOnByDefault: false,
+                amiVoiceApiUrl: "",
+                amiVoiceApiKey: ""
+            ),
+            createdAt: Date(),
+            updatedAt: Date()
+        )
     }
     
     func copyCurrentAt() -> FirestoreUserData {

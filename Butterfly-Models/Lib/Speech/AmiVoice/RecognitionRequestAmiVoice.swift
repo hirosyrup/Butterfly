@@ -43,10 +43,10 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
     private let downFormat = AVAudioFormat(commonFormat: AVAudioCommonFormat.pcmFormatInt16, sampleRate: 16000.0, channels: 1, interleaved: true)!
     private let errorHeader = "AmiVoiceError: "
     
-    init(id: String, apiKey: String) {
+    init(id: String, apiKey: String, apiUrlString: String) {
         self.id = id
         self.apiKey = apiKey
-        var request = URLRequest(url: URL(string: "wss://acp-api.amivoice.com/v1/")!)
+        var request = URLRequest(url: URL(string: apiUrlString)!)
         request.timeoutInterval = 30
         socket = WebSocket(request: request)
         socket.delegate = self

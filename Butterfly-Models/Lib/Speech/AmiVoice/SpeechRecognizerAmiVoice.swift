@@ -14,7 +14,8 @@ class SpeechRecognizerAmiVoice: SpeechRecognizer,
                                 RecognitionRequestAmiVoiceDelegate {
     static let shared = SpeechRecognizerAmiVoice()
     
-    private let apiKey = ""
+    var apiKey = ""
+    var apiUrlString = ""
     private let observeBreakInStatements = ObserveBreakInStatements(bufferSize: AudioBufferSize.bufferSize)
     private var recognitionRequests = [RecognitionRequestAmiVoice]()
     private var currentRecognitionRequest: RecognitionRequestAmiVoice?
@@ -34,9 +35,13 @@ class SpeechRecognizerAmiVoice: SpeechRecognizer,
         recognitionRequests.forEach { $0.append(buffer: buffer) }
     }
     
+    func setDelegate(delegate: SpeechRecognizerDelegate?) {
+        self.delegate = delegate
+    }
+    
     func didChangeSpeekingState(obj: ObserveBreakInStatements, isSpeeking: Bool, previousBuffers: [AVAudioPCMBuffer]) {
         if isSpeeking {
-            let newRecognitionRequest = RecognitionRequestAmiVoice(id: UUID().uuidString, apiKey: apiKey)
+            let newRecognitionRequest = RecognitionRequestAmiVoice(id: UUID().uuidString, apiKey: apiKey, apiUrlString: apiUrlString)
             newRecognitionRequest.delegate = self
             currentRecognitionRequest = newRecognitionRequest
             recognitionRequests.append(newRecognitionRequest)

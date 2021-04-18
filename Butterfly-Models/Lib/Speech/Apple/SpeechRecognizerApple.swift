@@ -39,6 +39,10 @@ class SpeechRecognizerApple: NSObject,
         recognitionRequests.forEach { $0.append(buffer: buffer) }
     }
     
+    func setDelegate(delegate: SpeechRecognizerDelegate?) {
+        self.delegate = delegate
+    }
+    
     func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
         delegate?.didChangeAvailability(recognizer: self)
     }

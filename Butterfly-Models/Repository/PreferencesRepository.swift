@@ -14,6 +14,7 @@ class PreferencesRepository {
         var iconName: String?
         var iconImageUrl: URL?
         var name: String
+        var advancedSettingData: UserAdvancedSettingData
         
         init(iconImageUrl: URL?, original: FirestoreUserData? = nil) {
             
@@ -22,14 +23,33 @@ class PreferencesRepository {
             self.id = self.original.id
             self.iconName = self.original.iconName
             self.name = self.original.name
+            self.advancedSettingData = UserAdvancedSettingData(
+                enableAmiVoice: self.original.advancedSettingData.enableAmiVoice,
+                turnedOnByDefault: self.original.advancedSettingData.turnedOnByDefault,
+                amiVoiceApiUrl: self.original.advancedSettingData.amiVoiceApiUrl,
+                amiVoiceApiKey: self.original.advancedSettingData.amiVoiceApiKey
+            )
         }
         
         fileprivate func toFirestoreData() -> FirestoreUserData {
             var firestoreData = original
             firestoreData.iconName = iconName
             firestoreData.name = name
+            firestoreData.advancedSettingData = FirestoreUserAdvancedSettingData(
+                enableAmiVoice: advancedSettingData.enableAmiVoice,
+                turnedOnByDefault: advancedSettingData.turnedOnByDefault,
+                amiVoiceApiUrl: advancedSettingData.amiVoiceApiUrl,
+                amiVoiceApiKey: advancedSettingData.amiVoiceApiKey
+            )
             return firestoreData
         }
+    }
+    
+    struct UserAdvancedSettingData {
+        var enableAmiVoice: Bool
+        var turnedOnByDefault: Bool
+        var amiVoiceApiUrl: String
+        var amiVoiceApiKey: String
     }
 
     struct WorkspaceData {

@@ -121,6 +121,8 @@
 		FBC83A9D2624892A00989820 /* SpeechRecognizerAmiVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83A9C2624892A00989820 /* SpeechRecognizerAmiVoice.swift */; };
 		FBC83AA32624893F00989820 /* RecognitionRequestAmiVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83AA22624893F00989820 /* RecognitionRequestAmiVoice.swift */; };
 		FBC83AB02628904800989820 /* PreferencesAdvancedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83AAF2628904800989820 /* PreferencesAdvancedViewController.swift */; };
+		FBC83ABC2629D5B100989820 /* FirestoreUserAdvancedSettingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83ABB2629D5B100989820 /* FirestoreUserAdvancedSettingData.swift */; };
+		FBC83ACA262B27EC00989820 /* SaveAdvanced.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83AC9262B27EC00989820 /* SaveAdvanced.swift */; };
 		FBD1A84026132243005BB323 /* AudioUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A83F26132243005BB323 /* AudioUploader.swift */; };
 		FBD1A844261322B6005BB323 /* AudioUploaderQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */; };
 		FBD1A8482613275B005BB323 /* AudioLocalUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */; };
@@ -255,6 +257,8 @@
 		FBC83A9C2624892A00989820 /* SpeechRecognizerAmiVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerAmiVoice.swift; sourceTree = "<group>"; };
 		FBC83AA22624893F00989820 /* RecognitionRequestAmiVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionRequestAmiVoice.swift; sourceTree = "<group>"; };
 		FBC83AAF2628904800989820 /* PreferencesAdvancedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesAdvancedViewController.swift; sourceTree = "<group>"; };
+		FBC83ABB2629D5B100989820 /* FirestoreUserAdvancedSettingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreUserAdvancedSettingData.swift; sourceTree = "<group>"; };
+		FBC83AC9262B27EC00989820 /* SaveAdvanced.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveAdvanced.swift; sourceTree = "<group>"; };
 		FBD1A83F26132243005BB323 /* AudioUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploader.swift; sourceTree = "<group>"; };
 		FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploaderQueue.swift; sourceTree = "<group>"; };
 		FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLocalUrl.swift; sourceTree = "<group>"; };
@@ -606,6 +610,7 @@
 			isa = PBXGroup;
 			children = (
 				FBA545CA25FFA28B00112066 /* FirestoreUserData.swift */,
+				FBC83ABB2629D5B100989820 /* FirestoreUserAdvancedSettingData.swift */,
 				FBA545DD25FFA3D300112066 /* FirestoreUser.swift */,
 			);
 			path = User;
@@ -621,6 +626,7 @@
 				FBA546272600FA2700112066 /* UploadIconImageResponse.swift */,
 				FBF9A6272606302200AE78DF /* SaveWorkspace.swift */,
 				FB0D2FA126073025001403A5 /* SelectMemberFetchForPreferences.swift */,
+				FBC83AC9262B27EC00989820 /* SaveAdvanced.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -970,6 +976,7 @@
 				FBA545DE25FFA3D300112066 /* FirestoreUser.swift in Sources */,
 				FBE3653E2616178200EA9471 /* AudioExport.swift in Sources */,
 				FB204257260C5471006620A2 /* AppScheme.swift in Sources */,
+				FBC83ACA262B27EC00989820 /* SaveAdvanced.swift in Sources */,
 				FBF9A5CD260392D500AE78DF /* SelectMemberViewController.swift in Sources */,
 				FB0D2F9826072EC1001403A5 /* SelectMemberFetchProtocol.swift in Sources */,
 				FBFCAAC525FF2FCA00D66CC9 /* AuthUser.swift in Sources */,
@@ -1012,6 +1019,7 @@
 				FBC83A8D262485EA00989820 /* SpeechRecognizer.swift in Sources */,
 				FB523C2F2607739600801070 /* RepositoryDocumentChangeType.swift in Sources */,
 				FBC83A912624865C00989820 /* SpeechRecognizerDelegate.swift in Sources */,
+				FBC83ABC2629D5B100989820 /* FirestoreUserAdvancedSettingData.swift in Sources */,
 				FBC83A9D2624892A00989820 /* SpeechRecognizerAmiVoice.swift in Sources */,
 				FB9D71802608615F00B7E9DE /* FirestoreStatement.swift in Sources */,
 				FB2603C626120CA700323E4B /* AudioRecordData.swift in Sources */,
