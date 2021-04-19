@@ -126,9 +126,11 @@ class StatementViewController: NSViewController,
     
     private func updateYou() {
         if let currentUser = AuthUser.shared.currentUser() {
-            if let _you = userList.first(where: { $0.userId == currentUser.uid }), _you.id != you?.id {
+            if let _you = userList.first(where: { $0.userId == currentUser.uid }) {
+                if _you.id != you?.id {
+                    setupSpeechRecognizer()
+                }
                 you = _you
-                setupSpeechRecognizer()
             }
         }
     }

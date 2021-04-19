@@ -264,14 +264,14 @@
                                 <rect key="frame" x="20" y="27" width="421" height="253"/>
                                 <subviews>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="hty-ed-iSW">
-                                        <rect key="frame" x="161" y="142" width="100" height="122"/>
+                                        <rect key="frame" x="161" y="153" width="100" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="LL0-xT-kx9"/>
                                             <constraint firstAttribute="width" constant="100" id="a7v-1q-f4X"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="person.circle" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="uS7-9r-0iC">
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="person_circle" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="uS7-9r-0iC">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system" size="50"/>
+                                            <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="pushIconImageButton:" target="g1C-ll-sB6" id="7Ny-Kz-9FD"/>
@@ -1281,12 +1281,12 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ODp-E9-2gS">
-                                <rect key="frame" x="256" y="466" width="40" height="18"/>
+                                <rect key="frame" x="267" y="466" width="18" height="18"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="S54-Uq-Pkq"/>
+                                    <constraint firstAttribute="width" constant="18" id="S54-Uq-Pkq"/>
                                     <constraint firstAttribute="height" constant="18" id="a9C-oj-Tsr"/>
                                 </constraints>
-                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="share" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="a5p-Yb-OjA">
+                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="share" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="a5p-Yb-OjA">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -1371,7 +1371,7 @@ DQ
                             <constraint firstAttribute="trailing" secondItem="ptg-ij-JhR" secondAttribute="trailing" id="XUG-81-peJ"/>
                             <constraint firstItem="Y83-TD-fXx" firstAttribute="centerX" secondItem="Pi5-4C-Jb9" secondAttribute="centerX" id="Xq9-7m-4EW"/>
                             <constraint firstAttribute="trailing" secondItem="SIB-OR-x3s" secondAttribute="trailing" id="Ycs-Af-V5I"/>
-                            <constraint firstItem="ODp-E9-2gS" firstAttribute="leading" secondItem="mJX-lg-u99" secondAttribute="trailing" constant="4" id="YlR-D8-c7O"/>
+                            <constraint firstItem="ODp-E9-2gS" firstAttribute="leading" secondItem="mJX-lg-u99" secondAttribute="trailing" constant="15" id="YlR-D8-c7O"/>
                             <constraint firstItem="ptg-ij-JhR" firstAttribute="top" secondItem="SIB-OR-x3s" secondAttribute="bottom" id="Zit-NW-Sz9"/>
                             <constraint firstItem="SIB-OR-x3s" firstAttribute="leading" secondItem="Pi5-4C-Jb9" secondAttribute="leading" id="cbh-h3-EVb"/>
                             <constraint firstItem="EGi-Mu-Bri" firstAttribute="top" secondItem="8d4-4n-qdV" secondAttribute="bottom" constant="16" id="dob-RF-EoO"/>
@@ -1380,7 +1380,7 @@ DQ
                             <constraint firstAttribute="bottom" secondItem="ptg-ij-JhR" secondAttribute="bottom" id="hgl-h5-Pem"/>
                             <constraint firstItem="QVs-Du-Ts5" firstAttribute="centerX" secondItem="8oK-Ne-dqQ" secondAttribute="centerX" id="mUg-Z2-WtO"/>
                             <constraint firstItem="SgE-r7-bpd" firstAttribute="leading" secondItem="8d4-4n-qdV" secondAttribute="trailing" constant="8" symbolic="YES" id="rBJ-87-AZi"/>
-                            <constraint firstAttribute="trailing" secondItem="ODp-E9-2gS" secondAttribute="trailing" constant="4" id="xa0-7O-iuJ"/>
+                            <constraint firstAttribute="trailing" secondItem="ODp-E9-2gS" secondAttribute="trailing" constant="15" id="xa0-7O-iuJ"/>
                             <constraint firstItem="8oK-Ne-dqQ" firstAttribute="top" secondItem="SIB-OR-x3s" secondAttribute="bottom" constant="12" id="xnk-nD-BZl"/>
                         </constraints>
                     </view>
@@ -1415,10 +1415,10 @@ DQ
                                         <rect key="frame" x="0.0" y="0.0" width="90" height="70"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IWN-Xy-SCP">
-                                                <rect key="frame" x="15" y="31" width="60" height="24"/>
+                                                <rect key="frame" x="33" y="31" width="24" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="24" id="F4G-m9-F4t"/>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="b03-fc-jcT"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="b03-fc-jcT"/>
                                                 </constraints>
                                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="export" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="NRK-9H-8gq">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1448,9 +1448,9 @@ DQ
                                         <rect key="frame" x="90" y="0.0" width="90" height="70"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zDg-k4-e8b">
-                                                <rect key="frame" x="15" y="31" width="60" height="24"/>
+                                                <rect key="frame" x="33" y="31" width="24" height="24"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="SBD-dA-ayX"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="SBD-dA-ayX"/>
                                                     <constraint firstAttribute="height" constant="24" id="c1V-dE-jsL"/>
                                                 </constraints>
                                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="export_audio" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="U4S-xF-IhZ">
@@ -1481,9 +1481,9 @@ DQ
                                         <rect key="frame" x="180" y="0.0" width="90" height="70"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6XC-VP-Kd0">
-                                                <rect key="frame" x="15" y="31" width="60" height="24"/>
+                                                <rect key="frame" x="33" y="31" width="24" height="24"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="J0i-Nn-xU4"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="J0i-Nn-xU4"/>
                                                     <constraint firstAttribute="height" constant="24" id="vhv-2w-3CW"/>
                                                 </constraints>
                                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="deep_link" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="2oY-vX-rMT">
@@ -1554,7 +1554,7 @@ DQ
         <image name="export" width="11" height="14"/>
         <image name="export_audio" width="13" height="13"/>
         <image name="pencil" width="11" height="11"/>
-        <image name="person.circle" catalog="system" width="15" height="15"/>
+        <image name="person_circle" width="13" height="13"/>
         <image name="popUpButtonCell:Te8-aW-J6H:image" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T
