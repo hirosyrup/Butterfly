@@ -262,10 +262,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hiQ-8P-jjf">
-                                <rect key="frame" x="20" y="59" width="421" height="221"/>
+                                <rect key="frame" x="20" y="27" width="421" height="253"/>
                                 <subviews>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="hty-ed-iSW">
-                                        <rect key="frame" x="161" y="110" width="100" height="122"/>
+                                        <rect key="frame" x="161" y="142" width="100" height="122"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="LL0-xT-kx9"/>
                                             <constraint firstAttribute="width" constant="100" id="a7v-1q-f4X"/>
@@ -279,7 +279,7 @@
                                         </connections>
                                     </button>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FnN-ru-2LW">
-                                        <rect key="frame" x="81" y="88" width="260" height="21"/>
+                                        <rect key="frame" x="81" y="120" width="260" height="21"/>
                                         <subviews>
                                             <box boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="5b2-0q-R5V">
                                                 <rect key="frame" x="0.0" y="5" width="16" height="16"/>
@@ -340,6 +340,38 @@
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
                                     </stackView>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F6X-6z-acl">
+                                        <rect key="frame" x="161" y="88" width="100" height="20"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rue-sC-m1q">
+                                                <rect key="frame" x="-2" y="4" width="64" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Language" id="gjn-4Q-8gX">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VYI-3O-Dda">
+                                                <rect key="frame" x="65" y="-4" width="39" height="25"/>
+                                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" autoenablesItems="NO" id="3qa-UB-BcV">
+                                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="menu"/>
+                                                    <menu key="menu" autoenablesItems="NO" id="lyQ-Wc-vGH"/>
+                                                </popUpButtonCell>
+                                                <connections>
+                                                    <action selector="didChangeLanguagePopup:" target="g1C-ll-sB6" id="b3U-Jt-zZF"/>
+                                                </connections>
+                                            </popUpButton>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zui-pJ-ZhH">
                                         <rect key="frame" x="103" y="60" width="216" height="16"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Email verification is not completed." id="4ZZ-PX-GTn">
@@ -368,8 +400,10 @@
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -378,7 +412,7 @@
                                 </customSpacing>
                             </stackView>
                             <box boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="N6U-gA-Rqp">
-                                <rect key="frame" x="20" y="-69" width="421" height="128"/>
+                                <rect key="frame" x="20" y="-101" width="421" height="128"/>
                                 <view key="contentView" id="bB5-XF-yRn">
                                     <rect key="frame" x="1" y="1" width="419" height="126"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -478,6 +512,8 @@
                         <outlet property="fetchUserIndicator" destination="IkX-9p-6nC" id="R76-yh-eaZ"/>
                         <outlet property="iconImageButton" destination="hty-ed-iSW" id="2LA-kN-9DX"/>
                         <outlet property="iconImageHeightConstraint" destination="LL0-xT-kx9" id="CPd-xN-S4J"/>
+                        <outlet property="languageContainer" destination="F6X-6z-acl" id="FBt-Wz-glG"/>
+                        <outlet property="languagePopupButton" destination="VYI-3O-Dda" id="qnd-Xc-U9G"/>
                         <outlet property="nameEditContainer" destination="FnN-ru-2LW" id="pBc-OJ-YiR"/>
                         <outlet property="noteLabel" destination="gHW-EH-dI1" id="PPA-nw-uS8"/>
                         <outlet property="passwordTextField" destination="anP-nO-71k" id="lkP-TD-YWP"/>

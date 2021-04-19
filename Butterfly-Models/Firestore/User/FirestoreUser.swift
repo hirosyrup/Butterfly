@@ -70,6 +70,7 @@ class FirestoreUser {
         return [
             "iconName": data.iconName ?? NSNull(),
             "name": data.name,
+            "language": data.language,
             "workspaceIdList": data.workspaceIdList,
             "advancedSettingData": [
                 "enableAmiVoice": data.advancedSettingData.enableAmiVoice,
@@ -88,6 +89,7 @@ class FirestoreUser {
             id: userId,
             iconName: snapshot["iconName"] as? String,
             name: (snapshot["name"] as? String) ?? "",
+            language: (snapshot["language"] as? String) ?? (Locale.preferredLanguages.first ?? ""),
             workspaceIdList: (snapshot["workspaceIdList"] as? [String]) ?? [],
             advancedSettingData: FirestoreUserAdvancedSettingData(
                 enableAmiVoice: (advancedSettingData["enableAmiVoice"] as? Bool) ?? false,

@@ -14,6 +14,7 @@ class PreferencesRepository {
         var iconName: String?
         var iconImageUrl: URL?
         var name: String
+        var language: String
         var advancedSettingData: UserAdvancedSettingData
         
         init(iconImageUrl: URL?, original: FirestoreUserData? = nil) {
@@ -23,6 +24,7 @@ class PreferencesRepository {
             self.id = self.original.id
             self.iconName = self.original.iconName
             self.name = self.original.name
+            self.language = self.original.language
             self.advancedSettingData = UserAdvancedSettingData(
                 enableAmiVoice: self.original.advancedSettingData.enableAmiVoice,
                 turnedOnByDefault: self.original.advancedSettingData.turnedOnByDefault,
@@ -35,6 +37,7 @@ class PreferencesRepository {
             var firestoreData = original
             firestoreData.iconName = iconName
             firestoreData.name = name
+            firestoreData.language = language
             firestoreData.advancedSettingData = FirestoreUserAdvancedSettingData(
                 enableAmiVoice: advancedSettingData.enableAmiVoice,
                 turnedOnByDefault: advancedSettingData.turnedOnByDefault,

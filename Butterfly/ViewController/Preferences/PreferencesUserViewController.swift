@@ -7,6 +7,7 @@
 
 import Cocoa
 import Hydra
+import Speech
 
 class PreferencesUserViewController: NSViewController,
                                      NSTextFieldDelegate,
@@ -36,6 +37,8 @@ class PreferencesUserViewController: NSViewController,
     @IBOutlet weak var userNameTextField: EditableNSTextField!
     @IBOutlet weak var userNameLabel: NSTextField!
     @IBOutlet weak var editUserNameButton: NSButton!
+    @IBOutlet weak var languageContainer: NSStackView!
+    @IBOutlet weak var languagePopupButton: NSPopUpButton!
     @IBOutlet weak var iconImageHeightConstraint: NSLayoutConstraint!
     
     private let settingUserDefault = SettingUserDefault.shared
@@ -43,12 +46,14 @@ class PreferencesUserViewController: NSViewController,
     private var userData: PreferencesRepository.UserData?
     private var isNameEdit = false
     private var requestState = RequestState.none
+    private var languageOptions = [PopupButtonOption]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
         passwordTextField.delegate = self
         setupIconImageButton()
+        setupLanguagePopupButton()
         fetchUser()
     }
     
@@ -72,6 +77,13 @@ class PreferencesUserViewController: NSViewController,
         iconImageButton.layer?.cornerRadius = iconImageHeightConstraint.constant / 2.0
     }
     
+    private func setupLanguagePopupButton() {
+        languageOptions = SFSpeechRecognizer.supportedLocales().map { PopupButtonOption(id: $0.identifier, value: $0.localizedString(forIdentifier: $0.identifier) ?? "") }
+        languageOptions = languageOptions.sorted(by: { $0.value < $1.value })
+        languagePopupButton.addItem(withTitle: "")
+        languagePopupButton.addItems(withTitles: languageOptions.map { $0.value })
+    }
+    
     private func updateViews() {
         signInButton.isHidden = false
         signUpButton.isHidden = false
@@ -86,6 +98,7 @@ class PreferencesUserViewController: NSViewController,
         userNameTextField.isHidden = false
         userNameLabel.isHidden = false
         editUserNameButton.isHidden = false
+        languageContainer.isHidden = false
         
         signInButton.isEnabled = true
         signUpButton.isEnabled = true
@@ -115,6 +128,7 @@ class PreferencesUserViewController: NSViewController,
             userNameTextField.isHidden = true
             userNameLabel.isHidden = true
             editUserNameButton.isHidden = true
+            languageContainer.isHidden = true
         case .isPocessingSignIn:
             signInIndicator.startAnimation(self)
             signOutButton.isHidden = true
@@ -125,6 +139,7 @@ class PreferencesUserViewController: NSViewController,
             userNameTextField.isHidden = true
             userNameLabel.isHidden = true
             editUserNameButton.isHidden = true
+            languageContainer.isHidden = true
             emailTextField.isEnabled = false
             passwordTextField.isEnabled = false
             signInButton.isEnabled = false
@@ -139,6 +154,7 @@ class PreferencesUserViewController: NSViewController,
             userNameTextField.isHidden = true
             userNameLabel.isHidden = true
             editUserNameButton.isHidden = true
+            languageContainer.isHidden = true
             emailTextField.isEnabled = false
             passwordTextField.isEnabled = false
             signInButton.isEnabled = false
@@ -183,6 +199,7 @@ class PreferencesUserViewController: NSViewController,
                 userNameTextField.isHidden = true
                 userNameLabel.isHidden = true
                 editUserNameButton.isHidden = true
+                languageContainer.isHidden = true
             } else if authUser.isSignIn() {
                 if authUser.isEmailVerified() {
                     signInButton.isHidden = true
@@ -200,6 +217,11 @@ class PreferencesUserViewController: NSViewController,
                         userNameLabel.stringValue = userData?.name ?? ""
                         editUserNameButton.image = NSImage(named: "pencil")
                     }
+                    if let index = languageOptions.firstIndex(where: {$0.id == userData?.language}) {
+                        let itemIndex = index + 1
+                        languagePopupButton.selectItem(at: itemIndex)
+                        languagePopupButton.setTitle(languageOptions[index].value)
+                    }
                 } else {
                     signInButton.isHidden = true
                     signUpButton.isHidden = true
@@ -213,6 +235,7 @@ class PreferencesUserViewController: NSViewController,
                     userNameTextField.isHidden = true
                     userNameLabel.isHidden = true
                     editUserNameButton.isHidden = true
+                    languageContainer.isHidden = true
                 }
             } else {
                 signOutButton.isHidden = true
@@ -223,6 +246,7 @@ class PreferencesUserViewController: NSViewController,
                 userNameTextField.isHidden = true
                 userNameLabel.isHidden = true
                 editUserNameButton.isHidden = true
+                languageContainer.isHidden = true
                 
                 if emailTextField.stringValue.isEmpty || passwordTextField.stringValue.isEmpty{
                     signInButton.isEnabled = false
@@ -419,5 +443,20 @@ class PreferencesUserViewController: NSViewController,
                 }
             }
         })
+    }
+    
+    @IBAction func didChangeLanguagePopup(_ sender: Any) {
+        let index = languagePopupButton.indexOfSelectedItem - 1
+        if var _userData = userData, languageOptions.count > index {
+            _userData.language = languageOptions[index].id
+            async({ _ -> PreferencesRepository.UserData in
+                return try await(PreferencesRepository.User().update(userData: _userData))
+            }).then({ savedUserData in
+                self.userData = savedUserData
+                self.updateViews()
+            }).catch { (error) in
+                AlertBuilder.createErrorAlert(title: "Error", message: "Failed to update the language. \(error.localizedDescription)").runModal()
+            }
+        }
     }
 }

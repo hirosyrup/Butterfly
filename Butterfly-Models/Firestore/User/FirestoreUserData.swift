@@ -11,6 +11,7 @@ struct FirestoreUserData {
     var id: String
     var iconName: String?
     var name: String
+    var language: String
     var workspaceIdList: [String]
     var advancedSettingData: FirestoreUserAdvancedSettingData
     var createdAt: Date
@@ -21,6 +22,7 @@ struct FirestoreUserData {
             id: "",
             iconName: nil,
             name: "Anonymous",
+            language: Locale.preferredLanguages.first ?? "",
             workspaceIdList: [],
             advancedSettingData: FirestoreUserAdvancedSettingData(
                 enableAmiVoice: false,
