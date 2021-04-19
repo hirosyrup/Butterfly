@@ -313,7 +313,7 @@
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="trh-3o-cWe">
                                                 <rect key="frame" x="237" y="-2" width="26" height="26"/>
-                                                <buttonCell key="cell" type="round" bezelStyle="circular" image="pencil" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="sMg-Qk-9R4">
+                                                <buttonCell key="cell" type="round" bezelStyle="circular" image="pencil" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="sMg-Qk-9R4">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
@@ -571,7 +571,7 @@
                                     <constraint firstAttribute="height" constant="22" id="dWa-i1-Eny"/>
                                     <constraint firstAttribute="width" constant="24" id="ppp-Ru-gaf"/>
                                 </constraints>
-                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ayy-JE-zB9">
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="add" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ayy-JE-zB9">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -946,12 +946,12 @@ DQ
                                 </connections>
                             </button>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dEi-t4-9OR">
-                                <rect key="frame" x="16" y="424.5" width="18" height="24"/>
+                                <rect key="frame" x="16" y="427" width="18" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="Kb4-ya-zUM"/>
                                     <constraint firstAttribute="width" constant="18" id="v82-uW-lyH"/>
                                 </constraints>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="proportionallyDown" image="NSTouchBarSearchTemplate" id="gzh-dd-UwA"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="proportionallyDown" image="search" id="gzh-dd-UwA"/>
                                 <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             </imageView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="2Wm-mq-Blb">
@@ -1266,14 +1266,14 @@ DQ
                                 <color key="fillColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                             </box>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8oK-Ne-dqQ">
-                                <rect key="frame" x="128" y="0.5" width="45" height="42.5"/>
+                                <rect key="frame" x="140" y="12" width="20" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="gLF-RG-Ahq"/>
-                                    <constraint firstAttribute="height" constant="36" id="qAj-wM-Bd5"/>
+                                    <constraint firstAttribute="width" constant="20" id="gLF-RG-Ahq"/>
+                                    <constraint firstAttribute="height" constant="20" id="qAj-wM-Bd5"/>
                                 </constraints>
-                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSTouchBarRecordStartTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="cg2-9s-ufV">
+                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="circle_fill" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="cg2-9s-ufV">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system" size="16"/>
+                                    <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <color key="contentTintColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
@@ -1281,14 +1281,14 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ODp-E9-2gS">
-                                <rect key="frame" x="256" y="453.5" width="40.5" height="44.5"/>
+                                <rect key="frame" x="256" y="466" width="40" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="S54-Uq-Pkq"/>
-                                    <constraint firstAttribute="height" constant="36" id="a9C-oj-Tsr"/>
+                                    <constraint firstAttribute="height" constant="18" id="a9C-oj-Tsr"/>
                                 </constraints>
-                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSShareTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="a5p-Yb-OjA">
+                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="share" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="a5p-Yb-OjA">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system" size="15"/>
+                                    <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <segue destination="POT-CU-vZT" kind="popover" popoverAnchorView="ODp-E9-2gS" popoverBehavior="t" preferredEdge="maxY" id="M3y-nN-gOK"/>
@@ -1355,7 +1355,7 @@ DQ
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="8oK-Ne-dqQ" secondAttribute="bottom" constant="4" id="0Wq-aE-ArW"/>
+                            <constraint firstAttribute="bottom" secondItem="8oK-Ne-dqQ" secondAttribute="bottom" constant="12" id="0Wq-aE-ArW"/>
                             <constraint firstItem="Vye-oK-bNJ" firstAttribute="leading" secondItem="Pi5-4C-Jb9" secondAttribute="leading" id="1Yh-VP-sUv"/>
                             <constraint firstItem="EGi-Mu-Bri" firstAttribute="leading" secondItem="Pi5-4C-Jb9" secondAttribute="leading" id="1yR-cm-RVr"/>
                             <constraint firstAttribute="trailing" secondItem="Vye-oK-bNJ" secondAttribute="trailing" id="2AR-pU-9Bz"/>
@@ -1381,7 +1381,7 @@ DQ
                             <constraint firstItem="QVs-Du-Ts5" firstAttribute="centerX" secondItem="8oK-Ne-dqQ" secondAttribute="centerX" id="mUg-Z2-WtO"/>
                             <constraint firstItem="SgE-r7-bpd" firstAttribute="leading" secondItem="8d4-4n-qdV" secondAttribute="trailing" constant="8" symbolic="YES" id="rBJ-87-AZi"/>
                             <constraint firstAttribute="trailing" secondItem="ODp-E9-2gS" secondAttribute="trailing" constant="4" id="xa0-7O-iuJ"/>
-                            <constraint firstItem="8oK-Ne-dqQ" firstAttribute="top" secondItem="SIB-OR-x3s" secondAttribute="bottom" constant="4" id="xnk-nD-BZl"/>
+                            <constraint firstItem="8oK-Ne-dqQ" firstAttribute="top" secondItem="SIB-OR-x3s" secondAttribute="bottom" constant="12" id="xnk-nD-BZl"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1415,14 +1415,14 @@ DQ
                                         <rect key="frame" x="0.0" y="0.0" width="90" height="70"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IWN-Xy-SCP">
-                                                <rect key="frame" x="15" y="15.5" width="60" height="56"/>
+                                                <rect key="frame" x="15" y="31" width="60" height="24"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="F4G-m9-F4t"/>
+                                                    <constraint firstAttribute="height" constant="24" id="F4G-m9-F4t"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="b03-fc-jcT"/>
                                                 </constraints>
-                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="arrow.down.doc" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="NRK-9H-8gq">
+                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="export" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="NRK-9H-8gq">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system" size="23"/>
+                                                    <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="pushExportCsv:" target="POT-CU-vZT" id="tt8-IT-QrS"/>
@@ -1448,13 +1448,14 @@ DQ
                                         <rect key="frame" x="90" y="0.0" width="90" height="70"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zDg-k4-e8b">
-                                                <rect key="frame" x="15" y="30" width="60" height="26"/>
+                                                <rect key="frame" x="15" y="31" width="60" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="SBD-dA-ayX"/>
+                                                    <constraint firstAttribute="height" constant="24" id="c1V-dE-jsL"/>
                                                 </constraints>
-                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSTouchBarDownloadTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="U4S-xF-IhZ">
+                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="export_audio" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="U4S-xF-IhZ">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system" size="23"/>
+                                                    <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="pushExportAudio:" target="POT-CU-vZT" id="90p-as-4Pg"/>
@@ -1480,14 +1481,14 @@ DQ
                                         <rect key="frame" x="180" y="0.0" width="90" height="70"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6XC-VP-Kd0">
-                                                <rect key="frame" x="15" y="16" width="60" height="54"/>
+                                                <rect key="frame" x="15" y="31" width="60" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="J0i-Nn-xU4"/>
-                                                    <constraint firstAttribute="height" constant="44" id="vhv-2w-3CW"/>
+                                                    <constraint firstAttribute="height" constant="24" id="vhv-2w-3CW"/>
                                                 </constraints>
-                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="link.circle" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="2oY-vX-rMT">
+                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="deep_link" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="2oY-vX-rMT">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system" size="23"/>
+                                                    <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="pushCopyDeepLink:" target="POT-CU-vZT" id="E2y-nG-gO9"/>
@@ -1547,13 +1548,12 @@ DQ
     </inferredMetricsTieBreakers>
     <resources>
         <image name="NSAddTemplate" width="14" height="13"/>
-        <image name="NSShareTemplate" width="15" height="17"/>
-        <image name="NSTouchBarDownloadTemplate" width="15" height="15"/>
-        <image name="NSTouchBarRecordStartTemplate" width="15" height="15"/>
-        <image name="NSTouchBarSearchTemplate" width="15" height="15"/>
-        <image name="arrow.down.doc" catalog="system" width="14" height="16"/>
-        <image name="link.circle" catalog="system" width="15" height="15"/>
-        <image name="pencil" catalog="system" width="14" height="13"/>
+        <image name="add" width="11" height="11"/>
+        <image name="circle_fill" width="13" height="13"/>
+        <image name="deep_link" width="13" height="13"/>
+        <image name="export" width="11" height="14"/>
+        <image name="export_audio" width="13" height="13"/>
+        <image name="pencil" width="11" height="11"/>
         <image name="person.circle" catalog="system" width="15" height="15"/>
         <image name="popUpButtonCell:Te8-aW-J6H:image" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
@@ -1868,5 +1868,7 @@ EoQShiOoI60jsCOyI7QjtiO9I78jwTULNRA1HzUjNS41NjVDNVA1ZTVqNW41cDVyNXQ1fTWCNYg1kDWS
 NZQ1ljWYRzhHPUdKR01HWkdfR2dHakdvR3cAAAAAAAACAQAAAAAAAABoAAAAAAAAAAAAAAAAAABHeg
 </mutableData>
         </image>
+        <image name="search" width="12" height="12"/>
+        <image name="share" width="12" height="15"/>
     </resources>
 </document>

@@ -26,7 +26,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YdQ-jG-e2l">
                                 <rect key="frame" x="2" y="2" width="29" height="11"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Host" id="uYj-aL-A7B">
-                                    <font key="font" metaFont="system" size="9"/>
+                                    <font key="font" metaFont="miniSystem"/>
                                     <color key="textColor" red="0.99404761900000005" green="0.9880952381" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textFieldCell>
@@ -42,12 +42,12 @@
                     <color key="fillColor" name="AccentColor"/>
                 </box>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lSH-LM-PeD">
-                    <rect key="frame" x="28" y="25" width="12" height="18"/>
+                    <rect key="frame" x="30" y="30" width="10" height="10"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="12" id="Ntg-Bl-Ax4"/>
-                        <constraint firstAttribute="height" constant="12" id="jZn-pr-EP5"/>
+                        <constraint firstAttribute="width" constant="10" id="Ntg-Bl-Ax4"/>
+                        <constraint firstAttribute="height" constant="10" id="jZn-pr-EP5"/>
                     </constraints>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSTouchBarRecordStartTemplate" id="dbJ-tP-NYq"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="circle_fill" id="dbJ-tP-NYq"/>
                     <color key="contentTintColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                 </imageView>
             </subviews>
@@ -70,7 +70,7 @@
         </customView>
     </objects>
     <resources>
-        <image name="NSTouchBarRecordStartTemplate" width="15" height="15"/>
+        <image name="circle_fill" width="13" height="13"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

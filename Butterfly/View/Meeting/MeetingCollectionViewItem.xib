@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -75,12 +75,12 @@
                             </constraints>
                         </customView>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LDD-WU-R6Q">
-                            <rect key="frame" x="0.0" y="6.5" width="28.5" height="38"/>
+                            <rect key="frame" x="0.0" y="9" width="28" height="32"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="28" id="3pi-0I-hnj"/>
                                 <constraint firstAttribute="height" constant="32" id="d0U-6N-YfE"/>
                             </constraints>
-                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="square.and.pencil" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="h7B-bp-ECC">
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="square_pencil" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="h7B-bp-ECC">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -90,12 +90,12 @@
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eDt-WY-4wL">
-                            <rect key="frame" x="28" y="6.5" width="28" height="37"/>
+                            <rect key="frame" x="28" y="9" width="28" height="32"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="28" id="KQZ-gF-Fwq"/>
                                 <constraint firstAttribute="height" constant="32" id="Lou-n8-y4b"/>
                             </constraints>
-                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="archivebox" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="C8v-kY-arr">
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="archive" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="C8v-kY-arr">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -108,6 +108,8 @@
                     <constraints>
                         <constraint firstItem="EI9-iX-C5Q" firstAttribute="top" secondItem="sel-aB-R8i" secondAttribute="top" id="4Gq-FJ-nDl"/>
                         <constraint firstAttribute="bottom" secondItem="EI9-iX-C5Q" secondAttribute="bottom" id="T94-sZ-hgo"/>
+                        <constraint firstItem="LDD-WU-R6Q" firstAttribute="centerY" secondItem="sel-aB-R8i" secondAttribute="centerY" id="Ujb-oj-Aru"/>
+                        <constraint firstItem="eDt-WY-4wL" firstAttribute="centerY" secondItem="sel-aB-R8i" secondAttribute="centerY" id="yMF-uW-Q5m"/>
                     </constraints>
                     <visibilityPriorities>
                         <integer value="1000"/>
@@ -142,7 +144,7 @@
         <customObject id="gUT-2z-Reh" customClass="MeetingCollectionViewItem" customModule="Butterfly" customModuleProvider="target"/>
     </objects>
     <resources>
-        <image name="archivebox" catalog="system" width="16" height="14"/>
-        <image name="square.and.pencil" catalog="system" width="17" height="15"/>
+        <image name="archive" width="13" height="12"/>
+        <image name="square_pencil" width="13" height="13"/>
     </resources>
 </document>
