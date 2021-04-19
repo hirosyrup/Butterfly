@@ -45,7 +45,7 @@ class TextCollectionViewItem: NSCollectionViewItem {
             label.textColor = NSColor.white
         } else {
             background.fillColor = NSColor.clear
-            label.textColor = NSColor.black
+            label.textColor = NSColor.textColor
         }
     }
 }
