@@ -16,7 +16,7 @@ class SpeechRecognizerApple: NSObject,
                              RecognitionRequestAppleDelegate {
     static let shared = SpeechRecognizerApple()
     
-    let speechRecognizer: SFSpeechRecognizer
+    private var speechRecognizer: SFSpeechRecognizer?
     private let observeBreakInStatements = ObserveBreakInStatements(bufferSize: AudioBufferSize.bufferSize)
     private var recognitionRequests = [RecognitionRequestApple]()
     private var currentRecognitionRequest: RecognitionRequestApple?
@@ -24,10 +24,13 @@ class SpeechRecognizerApple: NSObject,
     weak var delegate: SpeechRecognizerDelegate?
     
     override init() {
-        self.speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja_JP"))!
         super.init()
-        self.speechRecognizer.delegate = self
         self.observeBreakInStatements.delegate = self
+    }
+    
+    func setupRecognizer(languageIdentifier: String) {
+        speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: languageIdentifier))
+        speechRecognizer?.delegate = self
     }
     
     func setRmsThreshold(threshold: Float) {
@@ -48,18 +51,17 @@ class SpeechRecognizerApple: NSObject,
     }
     
     func didChangeSpeekingState(obj: ObserveBreakInStatements, isSpeeking: Bool, previousBuffers: [AVAudioPCMBuffer]) {
+        guard let _speechRecognizer = speechRecognizer else { return }
         if isSpeeking {
-            let newRecognitionRequest = RecognitionRequestApple(id: UUID().uuidString, speechRecognizer: speechRecognizer)
+            let newRecognitionRequest = RecognitionRequestApple(id: UUID().uuidString, speechRecognizer: _speechRecognizer)
             newRecognitionRequest.delegate = self
             currentRecognitionRequest = newRecognitionRequest
             recognitionRequests.append(newRecognitionRequest)
             previousBuffers.forEach { newRecognitionRequest.append(buffer: $0) }
             delegate?.didStartNewStatement(recognizer: self, id: newRecognitionRequest.id)
-            print("start speaking")
         } else {
             currentRecognitionRequest?.endAudio()
             currentRecognitionRequest = nil
-            print("end speaking")
         }
     }
     
