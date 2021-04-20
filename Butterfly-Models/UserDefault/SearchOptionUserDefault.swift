@@ -12,9 +12,9 @@ class SearchOptionUserDefault {
     
     let userDefault = UserDefaults.standard
     
-    let dateSegmentKey = "dateSegment"
-    let dateRangeStartKey = "dateRangeStart"
-    let dateRangeEndKey = "dateRangeEnd"
+    private let dateSegmentKey = "dateSegment"
+    private let dateRangeStartKey = "dateRangeStart"
+    private let dateRangeEndKey = "dateRangeEnd"
     
     init() {
         let interval = Date().timeIntervalSince1970

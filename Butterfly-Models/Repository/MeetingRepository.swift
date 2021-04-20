@@ -127,10 +127,10 @@ class MeetingRepository {
             meeting.dataDelegate = self
         }
         
-        func listen(workspaceId: String, dataListDelegate: MeetingRepositoryDataListDelegate) {
+        func listen(workspaceId: String, startAt: Date?, endAt: Date?, dataListDelegate: MeetingRepositoryDataListDelegate) {
             self.dataListDelegate = dataListDelegate
             listenWorkspaceId = workspaceId
-            meeting.listen(workspaceId: workspaceId)
+            meeting.listen(workspaceId: workspaceId, startAt: startAt, endAt: endAt)
         }
         
         func listen(workspaceId: String, meetingId: String, dataDelegate: MeetingRepositoryDataDelegate) {

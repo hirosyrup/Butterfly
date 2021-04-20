@@ -26,9 +26,16 @@ class FirestoreMeeting {
     weak var dataDelegate: FirestoreMeetingDataDelegate?
     private var workspaceListener: ListenerRegistration?
     
-    func listen(workspaceId: String) {
+    func listen(workspaceId: String, startAt: Date?, endAt: Date?) {
         guard workspaceListener == nil else { return }
-        workspaceListener = referenceWithoutArchived(workspaceId: workspaceId).order(by: "status").order(by: "createdAt", descending: true).addSnapshotListener({ (snapshot, error) in
+        var ref = referenceWithoutArchived(workspaceId: workspaceId)
+        if startAt != nil {
+            ref = ref.whereField("createdAt", isGreaterThan: startAt!)
+        }
+        if endAt != nil {
+            ref = ref.whereField("createdAt", isLessThan: endAt!)
+        }
+        workspaceListener = ref.order(by: "createdAt", descending: true).addSnapshotListener({ (snapshot, error) in
             if let documentChanges = snapshot?.documentChanges {
                 let list = documentChanges.map { (documentChange) -> FirestoreDocumentChangeWithData<FirestoreMeetingData> in
                     let data = documentChange.document.data()
@@ -59,7 +66,7 @@ class FirestoreMeeting {
     }
     
     func referenceWithoutArchived(workspaceId: String) -> Query {
-        return reference(workspaceId: workspaceId).whereField("status", isNotEqualTo: 1)
+        return reference(workspaceId: workspaceId).whereField("status", isEqualTo: 0)
     }
     
     func index(workspaceId: String) -> Promise<[FirestoreMeetingData]> {

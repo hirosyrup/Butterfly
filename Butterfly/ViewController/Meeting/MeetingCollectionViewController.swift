@@ -38,11 +38,11 @@ class MeetingCollectionViewController: NSViewController,
         collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId))
     }
     
-    func changeWorkspaceId(workspaceId: String) {
+    func changeSearchParams(workspaceId: String, startAt: Date?, endAt: Date?) {
         meetingDataList = []
         loadingIndicator.startAnimation(self)
         meetingRepository.unlisten()
-        meetingRepository.listen(workspaceId: workspaceId, dataListDelegate: self)
+        meetingRepository.listen(workspaceId: workspaceId, startAt: startAt, endAt: endAt, dataListDelegate: self)
         self.workspaceId = workspaceId
     }
     

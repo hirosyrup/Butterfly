@@ -67,7 +67,14 @@ class MeetingViewController: NSViewController,
     
     private func reloadCollection() {
         guard let workspaceId = selectedWorkspaceData()?.id else { return }
-        collectionViewController.changeWorkspaceId(workspaceId: workspaceId)
+        let userDefault = SearchOptionUserDefault.shared
+        var startAt: Date? = nil
+        var endAt: Date? = nil
+        if userDefault.dateSegment() != 0 {
+            startAt = userDefault.dateRangeStart()
+            endAt = userDefault.dateRangeEnd()
+        }
+        collectionViewController.changeSearchParams(workspaceId: workspaceId, startAt: startAt, endAt: endAt)
     }
     
     private func updateDateFilterLabel() {
@@ -90,6 +97,7 @@ class MeetingViewController: NSViewController,
     
     func willClose(vc: MeetingDateInputViewController) {
         updateDateFilterLabel()
+        reloadCollection()
     }
     
     @IBAction func didChangePopup(_ sender: Any) {

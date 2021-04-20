@@ -19,7 +19,7 @@ class AudioUploaderQueue: MeetingRepositoryDataListDelegate {
         meetingRepositories.forEach { $0.unlisten() }
         meetingRepositories = workspaceIds.map { (workspaceId) -> MeetingRepository.Meeting in
             let meeting = MeetingRepository.Meeting()
-            meeting.listen(workspaceId: workspaceId, dataListDelegate: self)
+            meeting.listen(workspaceId: workspaceId, startAt: nil, endAt: nil, dataListDelegate: self)
             return meeting
         }
     }
