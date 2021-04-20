@@ -897,6 +897,163 @@ DQ
             </objects>
             <point key="canvasLocation" x="1671" y="882"/>
         </scene>
+        <!--Meeting Date Input View Controller-->
+        <scene sceneID="UWe-kW-0VA">
+            <objects>
+                <viewController id="KdL-H3-sf8" customClass="MeetingDateInputViewController" customModule="Butterfly" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="22e-id-XGf">
+                        <rect key="frame" x="0.0" y="0.0" width="381" height="168"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vom-sf-eFl">
+                                <rect key="frame" x="18" y="125" width="345" height="24"/>
+                                <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fill" style="rounded" trackingMode="selectOne" id="J92-Xn-8xZ">
+                                    <font key="font" metaFont="system"/>
+                                    <segments>
+                                        <segment label="None" selected="YES"/>
+                                        <segment label="Year" tag="1"/>
+                                        <segment label="Month and Year"/>
+                                        <segment label="Date range"/>
+                                    </segments>
+                                </segmentedCell>
+                                <connections>
+                                    <action selector="didChangeSegmentControl:" target="KdL-H3-sf8" id="kNg-EJ-06p"/>
+                                </connections>
+                            </segmentedControl>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PuC-LI-63i">
+                                <rect key="frame" x="20" y="16" width="341" height="98"/>
+                                <subviews>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="dEC-wD-7yL">
+                                        <rect key="frame" x="89" y="98" width="163" height="0.0"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" id="8CL-XA-fCq"/>
+                                        </constraints>
+                                    </customView>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2su-Eg-QZ5">
+                                        <rect key="frame" x="145" y="64" width="51" height="26"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mY3-XS-sqy">
+                                                <rect key="frame" x="-2" y="5" width="34" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="2021" id="jOS-xc-fLU">
+                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Au1-bh-ZTm">
+                                                <rect key="frame" x="35" y="-1" width="19" height="28"/>
+                                                <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="8JZ-hQ-R4x"/>
+                                                <connections>
+                                                    <action selector="didChangeYearStepper:" target="KdL-H3-sf8" id="HJ9-nc-UdE"/>
+                                                </connections>
+                                            </stepper>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ORx-d2-SEb">
+                                        <rect key="frame" x="134" y="32" width="77" height="28"/>
+                                        <datePickerCell key="cell" refusesFirstResponder="YES" alignment="left" drawsBackground="NO" useCurrentDate="YES" id="zNv-Ft-B1a">
+                                            <font key="font" metaFont="system"/>
+                                            <date key="date" timeIntervalSinceReferenceDate="640621292.02569997">
+                                                <!--2021-04-20 14:21:32 +0000-->
+                                            </date>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <datePickerElements key="datePickerElements" year="YES" month="YES"/>
+                                        </datePickerCell>
+                                    </datePicker>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HiL-GB-FOZ">
+                                        <rect key="frame" x="65" y="0.0" width="211" height="24"/>
+                                        <subviews>
+                                            <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mPC-mJ-MYj">
+                                                <rect key="frame" x="0.0" y="0.0" width="97" height="28"/>
+                                                <datePickerCell key="cell" refusesFirstResponder="YES" alignment="left" drawsBackground="NO" useCurrentDate="YES" id="7FY-fL-gt8">
+                                                    <font key="font" metaFont="system"/>
+                                                    <date key="date" timeIntervalSinceReferenceDate="640621356.547719">
+                                                        <!--2021-04-20 14:22:36 +0000-->
+                                                    </date>
+                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                </datePickerCell>
+                                            </datePicker>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2KP-Au-SWm">
+                                                <rect key="frame" x="100" y="4" width="11" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="-" id="tdu-0G-rZA">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pdz-f1-jNi">
+                                                <rect key="frame" x="117" y="0.0" width="97" height="28"/>
+                                                <datePickerCell key="cell" refusesFirstResponder="YES" alignment="left" drawsBackground="NO" useCurrentDate="YES" id="bpb-Qk-LjI">
+                                                    <font key="font" metaFont="system"/>
+                                                    <date key="date" timeIntervalSinceReferenceDate="640621412.130597">
+                                                        <!--2021-04-20 14:23:32 +0000-->
+                                                    </date>
+                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                </datePickerCell>
+                                            </datePicker>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="vom-sf-eFl" secondAttribute="trailing" constant="20" id="5qZ-9O-PCj"/>
+                            <constraint firstItem="PuC-LI-63i" firstAttribute="trailing" secondItem="vom-sf-eFl" secondAttribute="trailing" id="7Fi-qi-nUL"/>
+                            <constraint firstItem="PuC-LI-63i" firstAttribute="leading" secondItem="vom-sf-eFl" secondAttribute="leading" id="7ek-D8-a6i"/>
+                            <constraint firstAttribute="bottom" secondItem="PuC-LI-63i" secondAttribute="bottom" constant="16" id="fUF-C3-Od1"/>
+                            <constraint firstItem="vom-sf-eFl" firstAttribute="leading" secondItem="22e-id-XGf" secondAttribute="leading" constant="20" id="qsY-HB-2Pd"/>
+                            <constraint firstItem="vom-sf-eFl" firstAttribute="top" secondItem="22e-id-XGf" secondAttribute="top" constant="20" id="raM-L0-4PK"/>
+                            <constraint firstItem="PuC-LI-63i" firstAttribute="top" secondItem="vom-sf-eFl" secondAttribute="bottom" constant="12" id="xjF-XK-DaR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dateRangeEndPicker" destination="pdz-f1-jNi" id="3qV-jw-NY3"/>
+                        <outlet property="dateRangeInputContainer" destination="HiL-GB-FOZ" id="Bex-hq-2MW"/>
+                        <outlet property="dateRangeStartPicker" destination="mPC-mJ-MYj" id="tyB-7y-BFv"/>
+                        <outlet property="monthAndYearPicker" destination="ORx-d2-SEb" id="V0M-xq-Oi6"/>
+                        <outlet property="segmentedControl" destination="vom-sf-eFl" id="zeb-iz-oaN"/>
+                        <outlet property="yearInputContainer" destination="2su-Eg-QZ5" id="huR-9U-Dmv"/>
+                        <outlet property="yearInputLabel" destination="mY3-XS-sqy" id="ef7-8L-csU"/>
+                        <outlet property="yearInputStepper" destination="Au1-bh-ZTm" id="w0G-LP-NKA"/>
+                    </connections>
+                </viewController>
+                <customObject id="Qnl-71-Mgb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="958.5" y="-342"/>
+        </scene>
         <!--Meeting View Controller-->
         <scene sceneID="VSz-1g-LZn">
             <objects>
@@ -923,7 +1080,7 @@ DQ
                                 </connections>
                             </popUpButton>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c7K-7n-bOE">
-                                <rect key="frame" x="38" y="425" width="282" height="21"/>
+                                <rect key="frame" x="40" y="425" width="280" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Enter search keywords" drawsBackground="YES" id="2Hz-Ej-OyF">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -955,29 +1112,56 @@ DQ
                                 <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             </imageView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="2Wm-mq-Blb">
-                                <rect key="frame" x="0.0" y="16" width="336" height="393"/>
+                                <rect key="frame" x="0.0" y="16" width="336" height="367"/>
                                 <connections>
                                     <segue destination="GyV-7e-xh8" kind="embed" id="IKt-ex-N55"/>
                                 </connections>
                             </containerView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="I5B-U6-Tse">
+                                <rect key="frame" x="16" y="401" width="18" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="18" id="Jez-dW-GJN"/>
+                                </constraints>
+                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="calendar" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="zJh-kf-O7I">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <segue destination="KdL-H3-sf8" kind="popover" popoverAnchorView="I5B-U6-Tse" popoverBehavior="t" preferredEdge="maxY" id="Gmz-Oq-PFL"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MaU-on-a2a">
+                                <rect key="frame" x="40" y="399" width="124" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="No filtering by date." id="uvH-gT-Few">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="c7K-7n-bOE" secondAttribute="trailing" constant="16" id="07h-2s-jOE"/>
+                            <constraint firstItem="I5B-U6-Tse" firstAttribute="top" secondItem="dEi-t4-9OR" secondAttribute="bottom" constant="14" id="1PI-u4-RRh"/>
                             <constraint firstAttribute="trailing" secondItem="4jW-k7-TQA" secondAttribute="trailing" constant="16" id="27Z-E0-ahI"/>
-                            <constraint firstItem="c7K-7n-bOE" firstAttribute="leading" secondItem="dEi-t4-9OR" secondAttribute="trailing" constant="4" id="2ep-RF-Qaz"/>
+                            <constraint firstItem="c7K-7n-bOE" firstAttribute="leading" secondItem="dEi-t4-9OR" secondAttribute="trailing" constant="6" id="2ep-RF-Qaz"/>
                             <constraint firstItem="dEi-t4-9OR" firstAttribute="centerY" secondItem="c7K-7n-bOE" secondAttribute="centerY" id="2zV-hg-SFM"/>
+                            <constraint firstItem="2Wm-mq-Blb" firstAttribute="top" secondItem="MaU-on-a2a" secondAttribute="bottom" constant="16" id="7Lf-0L-192"/>
                             <constraint firstItem="Rig-hc-Pu6" firstAttribute="centerY" secondItem="4jW-k7-TQA" secondAttribute="centerY" id="8ad-tD-2Ed"/>
                             <constraint firstAttribute="bottom" secondItem="2Wm-mq-Blb" secondAttribute="bottom" constant="16" id="C17-I8-ehF"/>
+                            <constraint firstItem="MaU-on-a2a" firstAttribute="centerY" secondItem="I5B-U6-Tse" secondAttribute="centerY" id="MDs-ed-h5B"/>
                             <constraint firstItem="dEi-t4-9OR" firstAttribute="leading" secondItem="AA5-ga-bfm" secondAttribute="leading" constant="16" id="Pt3-Ac-wxg"/>
                             <constraint firstItem="2Wm-mq-Blb" firstAttribute="leading" secondItem="AA5-ga-bfm" secondAttribute="leading" id="Sj4-pk-0D0"/>
                             <constraint firstItem="c7K-7n-bOE" firstAttribute="top" secondItem="4jW-k7-TQA" secondAttribute="bottom" constant="16" id="Uq3-Eg-jzH"/>
                             <constraint firstItem="4jW-k7-TQA" firstAttribute="leading" secondItem="Rig-hc-Pu6" secondAttribute="trailing" constant="12" id="VDw-XX-qSi"/>
-                            <constraint firstItem="2Wm-mq-Blb" firstAttribute="top" secondItem="c7K-7n-bOE" secondAttribute="bottom" constant="16" id="hNT-rQ-wri"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MaU-on-a2a" secondAttribute="trailing" constant="16" id="oLY-SB-yvz"/>
                             <constraint firstAttribute="trailing" secondItem="2Wm-mq-Blb" secondAttribute="trailing" id="oXP-iW-tsj"/>
                             <constraint firstItem="4jW-k7-TQA" firstAttribute="top" secondItem="AA5-ga-bfm" secondAttribute="top" constant="12" id="olZ-QF-PX9"/>
+                            <constraint firstItem="I5B-U6-Tse" firstAttribute="centerX" secondItem="dEi-t4-9OR" secondAttribute="centerX" id="p3N-do-2sR"/>
+                            <constraint firstItem="MaU-on-a2a" firstAttribute="leading" secondItem="c7K-7n-bOE" secondAttribute="leading" constant="2" id="zzj-KQ-qJJ"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="dateFilterLabel" destination="MaU-on-a2a" id="rtO-Fj-IFI"/>
                         <outlet property="loadingIndicator" destination="duw-KK-yvf" id="Jws-G3-a0n"/>
                         <outlet property="noMeetingsLabel" destination="SVS-KU-51N" id="QaW-U4-50Z"/>
                         <outlet property="workspacePopupButton" destination="Rig-hc-Pu6" id="9vg-KO-8GW"/>
@@ -1549,6 +1733,7 @@ DQ
     <resources>
         <image name="NSAddTemplate" width="14" height="13"/>
         <image name="add" width="11" height="11"/>
+        <image name="calendar" width="13" height="12"/>
         <image name="circle_fill" width="13" height="13"/>
         <image name="deep_link" width="13" height="13"/>
         <image name="export" width="11" height="14"/>

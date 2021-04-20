@@ -12,9 +12,11 @@ protocol MeetingViewControllerDelegate: class {
 }
 
 class MeetingViewController: NSViewController,
-                             MeetingCollectionViewControllerDelegate {
+                             MeetingCollectionViewControllerDelegate,
+                             MeetingDateInputViewControllerDelegate {
     
     @IBOutlet weak var workspacePopupButton: NSPopUpButton!
+    @IBOutlet weak var dateFilterLabel: NSTextField!
     private var userData: WorkspaceRepository.UserData?
     private var collectionViewController: MeetingCollectionViewController!
     
@@ -30,12 +32,15 @@ class MeetingViewController: NSViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateDateFilterLabel()
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let vc = segue.destinationController as? MeetingCollectionViewController {
             vc.delegate = self
             collectionViewController = vc
+        } else if let vc = segue.destinationController as? MeetingDateInputViewController {
+            vc.delegate = self
         }
     }
     
@@ -65,6 +70,10 @@ class MeetingViewController: NSViewController,
         collectionViewController.changeWorkspaceId(workspaceId: workspaceId)
     }
     
+    private func updateDateFilterLabel() {
+        dateFilterLabel.stringValue = MeetingViewDateFilterPresenter(userDefault: SearchOptionUserDefault.shared).dateFilterLabel()
+    }
+    
     func setup(userData: WorkspaceRepository.UserData) {
         self.userData = userData
         collectionViewController.userId = userData.id
@@ -77,6 +86,10 @@ class MeetingViewController: NSViewController,
     func didClickItem(vc: MeetingCollectionViewController, data: MeetingRepository.MeetingData) {
         guard let workspaceData = selectedWorkspaceData() else { return }
         delegate?.didClickItem(vc: self, workspaceId: workspaceData.id, data: data)
+    }
+    
+    func willClose(vc: MeetingDateInputViewController) {
+        updateDateFilterLabel()
     }
     
     @IBAction func didChangePopup(_ sender: Any) {

@@ -124,6 +124,9 @@
 		FBC83ABC2629D5B100989820 /* FirestoreUserAdvancedSettingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83ABB2629D5B100989820 /* FirestoreUserAdvancedSettingData.swift */; };
 		FBC83ACA262B27EC00989820 /* SaveAdvanced.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83AC9262B27EC00989820 /* SaveAdvanced.swift */; };
 		FBC83AD9262DCD7600989820 /* PopupButtonOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83AD8262DCD7600989820 /* PopupButtonOption.swift */; };
+		FBC83AE6262F1BF800989820 /* MeetingDateInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83AE5262F1BF800989820 /* MeetingDateInputViewController.swift */; };
+		FBC83AEA262F201900989820 /* SearchOptionUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83AE9262F201900989820 /* SearchOptionUserDefault.swift */; };
+		FBC83AF0262F284500989820 /* MeetingViewDateFilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83AEF262F284500989820 /* MeetingViewDateFilterPresenter.swift */; };
 		FBD1A84026132243005BB323 /* AudioUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A83F26132243005BB323 /* AudioUploader.swift */; };
 		FBD1A844261322B6005BB323 /* AudioUploaderQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */; };
 		FBD1A8482613275B005BB323 /* AudioLocalUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */; };
@@ -261,6 +264,9 @@
 		FBC83ABB2629D5B100989820 /* FirestoreUserAdvancedSettingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreUserAdvancedSettingData.swift; sourceTree = "<group>"; };
 		FBC83AC9262B27EC00989820 /* SaveAdvanced.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveAdvanced.swift; sourceTree = "<group>"; };
 		FBC83AD8262DCD7600989820 /* PopupButtonOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupButtonOption.swift; sourceTree = "<group>"; };
+		FBC83AE5262F1BF800989820 /* MeetingDateInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingDateInputViewController.swift; sourceTree = "<group>"; };
+		FBC83AE9262F201900989820 /* SearchOptionUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOptionUserDefault.swift; sourceTree = "<group>"; };
+		FBC83AEF262F284500989820 /* MeetingViewDateFilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewDateFilterPresenter.swift; sourceTree = "<group>"; };
 		FBD1A83F26132243005BB323 /* AudioUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploader.swift; sourceTree = "<group>"; };
 		FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploaderQueue.swift; sourceTree = "<group>"; };
 		FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLocalUrl.swift; sourceTree = "<group>"; };
@@ -327,8 +333,10 @@
 			isa = PBXGroup;
 			children = (
 				FB0D2F832606FD14001403A5 /* MeetingViewController.swift */,
+				FBC83AEF262F284500989820 /* MeetingViewDateFilterPresenter.swift */,
 				FB523C20260765C800801070 /* MeetingInputViewController.swift */,
 				FB523C362607779100801070 /* MeetingCollectionViewController.swift */,
+				FBC83AE5262F1BF800989820 /* MeetingDateInputViewController.swift */,
 			);
 			path = Meeting;
 			sourceTree = "<group>";
@@ -538,7 +546,7 @@
 		FBA5446725FA557D00112066 /* Butterfly-Models */ = {
 			isa = PBXGroup;
 			children = (
-				FBA544B225FA61CD00112066 /* Settings */,
+				FBA544B225FA61CD00112066 /* UserDefault */,
 				FBA5446825FA55A300112066 /* Firestore */,
 				FBA5455E25FE488D00112066 /* UseCase */,
 				FBA545EA25FFAD2900112066 /* Repository */,
@@ -575,12 +583,13 @@
 			path = Preferences;
 			sourceTree = "<group>";
 		};
-		FBA544B225FA61CD00112066 /* Settings */ = {
+		FBA544B225FA61CD00112066 /* UserDefault */ = {
 			isa = PBXGroup;
 			children = (
 				FBA544B325FA61EA00112066 /* SettingUserDefault.swift */,
+				FBC83AE9262F201900989820 /* SearchOptionUserDefault.swift */,
 			);
-			path = Settings;
+			path = UserDefault;
 			sourceTree = "<group>";
 		};
 		FBA544F125FD04A600112066 /* View */ = {
@@ -992,6 +1001,7 @@
 				FB9D71922608668000B7E9DE /* StatementRepository.swift in Sources */,
 				FBA5456025FE48AF00112066 /* SignUp.swift in Sources */,
 				FB9D718A260861BE00B7E9DE /* FirestoreStatementUserData.swift in Sources */,
+				FBC83AEA262F201900989820 /* SearchOptionUserDefault.swift in Sources */,
 				FB26035F260B946400323E4B /* StatementShareViewController.swift in Sources */,
 				FBA544C025FA667000112066 /* PreferencesWindowController.swift in Sources */,
 				FBC83AD9262DCD7600989820 /* PopupButtonOption.swift in Sources */,
@@ -1046,6 +1056,8 @@
 				FBC839BB261DF54100989820 /* MeetingUserRepository.swift in Sources */,
 				FBF9A60F2605BD8A00AE78DF /* FirestoreWorkspaceData.swift in Sources */,
 				FB9D71B32608854100B7E9DE /* RecognitionRequestApple.swift in Sources */,
+				FBC83AE6262F1BF800989820 /* MeetingDateInputViewController.swift in Sources */,
+				FBC83AF0262F284500989820 /* MeetingViewDateFilterPresenter.swift in Sources */,
 				FBA546192600ECEF00112066 /* IconImage.swift in Sources */,
 				FB0D2F9126072D1B001403A5 /* FirestoreMeetingData.swift in Sources */,
 				FB2603482608D28F00323E4B /* StatementQueueData.swift in Sources */,
