@@ -14,20 +14,20 @@ protocol MeetingViewControllerDelegate: class {
 class MeetingViewController: NSViewController,
                              MeetingCollectionViewControllerDelegate,
                              MeetingDateInputViewControllerDelegate,
-                             MeetingRepositoryDataListDelegate {
+                             MeetingCollectionDataProviderDelegate {
     
     @IBOutlet weak var workspacePopupButton: NSPopUpButton!
     @IBOutlet weak var dateFilterLabel: NSTextField!
     @IBOutlet weak var loadingIndicator: NSProgressIndicator!
     @IBOutlet weak var meetingCollectionViewContainer: NSView!
+    @IBOutlet weak var filteringKeywordTextField: EditableNSTextField!
     
     private var userData: WorkspaceRepository.UserData?
     private var collectionViewController: MeetingCollectionViewController!
     
     weak var delegate: MeetingViewControllerDelegate?
     private var workspaceId = ""
-    private var meetingDataList = [MeetingRepository.MeetingData]()
-    private let meetingRepository = MeetingRepository.Meeting()
+    private let provider = MeetingCollectionDataProvider()
     
     class func create(delegate: MeetingViewControllerDelegate?) -> MeetingViewController {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
@@ -39,6 +39,7 @@ class MeetingViewController: NSViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        provider.delegate = self
         updateDateFilterLabel()
     }
     
@@ -94,11 +95,9 @@ class MeetingViewController: NSViewController,
     }
     
     private func changeSearchParams(workspaceId: String, startAt: Date?, endAt: Date?) {
-        meetingDataList = []
         displayLoading(isDisplay: true)
-        meetingRepository.unlisten()
-        meetingRepository.listen(workspaceId: workspaceId, startAt: startAt, endAt: endAt, dataListDelegate: self)
         self.workspaceId = workspaceId
+        provider.changeSearchParams(workspaceId: workspaceId, startAt: startAt, endAt: endAt)
     }
     
     private func updateDateFilterLabel() {
@@ -124,34 +123,9 @@ class MeetingViewController: NSViewController,
         reloadCollection()
     }
     
-    func didChangeMeetingDataList(obj: MeetingRepository.Meeting, documentChanges: [RepositoryDocumentChange<MeetingRepository.MeetingData>]) {
-        let modifieds = documentChanges.filter { $0.type == .modified }
-        modifieds.forEach { (modified) in
-            if  self.meetingDataList.count > modified.oldIndex {
-                self.meetingDataList[modified.oldIndex] = modified.data
-            }
-        }
-        
-        let removesIndex = documentChanges.filter { $0.type == .removed }.map { $0.oldIndex }
-        var removedMeetingList = [MeetingRepository.MeetingData]()
-        for (index, value) in meetingDataList.enumerated() {
-            if !removesIndex.contains(index) {
-                removedMeetingList.append(value)
-            }
-        }
-        meetingDataList = removedMeetingList
-        
-        let addeds = documentChanges.filter { $0.type == .added }
-        addeds.forEach { (addedChange) in
-            if addedChange.newIndex >= meetingDataList.count {
-                meetingDataList.append(addedChange.data)
-            } else {
-                meetingDataList.insert(addedChange.data, at: addedChange.newIndex)
-            }
-        }
-        
+    func didUpdateDataList(provider: MeetingCollectionDataProvider) {
         displayLoading(isDisplay: false)
-        collectionViewController.update(meetingDataList: meetingDataList, workspaceId: workspaceId)
+        collectionViewController.update(meetingDataList: provider.displayDataList, workspaceId: workspaceId)
     }
     
     @IBAction func didChangePopup(_ sender: Any) {
@@ -164,5 +138,9 @@ class MeetingViewController: NSViewController,
             let vc = MeetingInputViewController.create(workspaceId: workspaceData.id, hostUserId: _userData.id, meetingData: nil)
             presentAsSheet(vc)
         }
+    }
+    
+    @IBAction func didEnterFilteringKeywords(_ sender: Any) {
+        provider.changeFilteringKeyword(keyword: filteringKeywordTextField.stringValue)
     }
 }

@@ -1079,13 +1079,16 @@ DQ
                                     <action selector="didChangePopup:" target="Emo-yc-QHs" id="mrF-6w-7at"/>
                                 </connections>
                             </popUpButton>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c7K-7n-bOE">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c7K-7n-bOE" customClass="EditableNSTextField" customModule="Butterfly" customModuleProvider="target">
                                 <rect key="frame" x="40" y="425" width="280" height="21"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Enter search keywords" drawsBackground="YES" id="2Hz-Ej-OyF">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" refusesFirstResponder="YES" borderStyle="bezel" placeholderString="Enter search keywords" drawsBackground="YES" id="2Hz-Ej-OyF">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <action selector="didEnterFilteringKeywords:" target="Emo-yc-QHs" id="1WC-9H-izd"/>
+                                </connections>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4jW-k7-TQA">
                                 <rect key="frame" x="287" y="455" width="40" height="38"/>
@@ -1167,6 +1170,7 @@ DQ
                     </view>
                     <connections>
                         <outlet property="dateFilterLabel" destination="MaU-on-a2a" id="rtO-Fj-IFI"/>
+                        <outlet property="filteringKeywordTextField" destination="c7K-7n-bOE" id="uBY-aN-E2f"/>
                         <outlet property="loadingIndicator" destination="zQo-mt-dj0" id="eXG-V5-6Ew"/>
                         <outlet property="meetingCollectionViewContainer" destination="2Wm-mq-Blb" id="qYX-FI-hzN"/>
                         <outlet property="workspacePopupButton" destination="Rig-hc-Pu6" id="9vg-KO-8GW"/>

@@ -51,6 +51,7 @@
 		FB523C372607779100801070 /* MeetingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C362607779100801070 /* MeetingCollectionViewController.swift */; };
 		FB523C3D26077D9E00801070 /* FirestoreDocumentChangeWithData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C3C26077D9E00801070 /* FirestoreDocumentChangeWithData.swift */; };
 		FB523C4A26081A3E00801070 /* MeetingMemberIconContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C4926081A3E00801070 /* MeetingMemberIconContainer.swift */; };
+		FB6C6D74262FDE8200735016 /* MeetingCollectionDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */; };
 		FB9D716A260820A700B7E9DE /* MeetingCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */; };
 		FB9D716B260820A700B7E9DE /* MeetingCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB9D7169260820A700B7E9DE /* MeetingCollectionViewItem.xib */; };
 		FB9D71712608289600B7E9DE /* MeetingCollectionViewItemPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D71702608289600B7E9DE /* MeetingCollectionViewItemPresenter.swift */; };
@@ -197,6 +198,7 @@
 		FB523C362607779100801070 /* MeetingCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCollectionViewController.swift; sourceTree = "<group>"; };
 		FB523C3C26077D9E00801070 /* FirestoreDocumentChangeWithData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreDocumentChangeWithData.swift; sourceTree = "<group>"; };
 		FB523C4926081A3E00801070 /* MeetingMemberIconContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingMemberIconContainer.swift; sourceTree = "<group>"; };
+		FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCollectionDataProvider.swift; sourceTree = "<group>"; };
 		FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingCollectionViewItem.swift; sourceTree = "<group>"; };
 		FB9D7169260820A700B7E9DE /* MeetingCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingCollectionViewItem.xib; sourceTree = "<group>"; };
 		FB9D71702608289600B7E9DE /* MeetingCollectionViewItemPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCollectionViewItemPresenter.swift; sourceTree = "<group>"; };
@@ -417,6 +419,22 @@
 				FBE3653D2616178200EA9471 /* AudioExport.swift */,
 			);
 			path = Audio;
+			sourceTree = "<group>";
+		};
+		FB6C6D71262FDE4D00735016 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				FB6C6D72262FDE6D00735016 /* Meeting */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		FB6C6D72262FDE6D00735016 /* Meeting */ = {
+			isa = PBXGroup;
+			children = (
+				FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */,
+			);
+			path = Meeting;
 			sourceTree = "<group>";
 		};
 		FB9D7167260820A700B7E9DE /* Meeting */ = {
@@ -645,6 +663,7 @@
 		FBA545EA25FFAD2900112066 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				FB6C6D71262FDE4D00735016 /* Provider */,
 				FB523C2E2607739600801070 /* RepositoryDocumentChangeType.swift */,
 				FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */,
 				FBA545E325FFACEA00112066 /* PreferencesRepository.swift */,
@@ -1024,6 +1043,7 @@
 				FBF9A5E726056E4F00AE78DF /* NSView+NoClipping.swift in Sources */,
 				FBC839DE2621F03400989820 /* FirestoreDataVersion.swift in Sources */,
 				FB0D2F7126063965001403A5 /* TextCollectionViewItem.swift in Sources */,
+				FB6C6D74262FDE8200735016 /* MeetingCollectionDataProvider.swift in Sources */,
 				FB9D71AB26087BD500B7E9DE /* ObserveBreakInStatements.swift in Sources */,
 				FB0D2FA226073025001403A5 /* SelectMemberFetchForPreferences.swift in Sources */,
 				FBF9A6282606302200AE78DF /* SaveWorkspace.swift in Sources */,
