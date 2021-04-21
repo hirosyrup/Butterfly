@@ -27,7 +27,7 @@ class StatementShareViewController: NSViewController {
     }
     
     private func createStringsForCsv() -> String {
-        let statementStr = dataList.map { "\($0.user.name), \($0.statement)"}.joined(separator: "\n")
+        let statementStr = dataList.map { "\($0.user.name), \($0.statement.replacingOccurrences(of: "\n", with: ""))"}.joined(separator: "\n")
         return "name, statement\n\(statementStr)"
     }
     
@@ -60,6 +60,23 @@ class StatementShareViewController: NSViewController {
                 }).then { (_) in }
             }
         }
+    }
+    
+    @IBAction func pushCopyToClipboard(_ sender: Any) {
+        var previousUserId = ""
+        let statements = dataList.map { (data) -> String in
+            var statement = ""
+            if previousUserId != data.user.id {
+                previousUserId = data.user.id
+                statement += "[\(data.user.name)]\n"
+            }
+            return statement + "\(data.statement.replacingOccurrences(of: "\n", with: ""))"
+        }
+        
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(statements.joined(separator: "\n\n"), forType: .string)
+        dismiss(self)
     }
     
     @IBAction func pushCopyDeepLink(_ sender: Any) {

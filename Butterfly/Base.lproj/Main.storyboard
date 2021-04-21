@@ -1592,17 +1592,17 @@ DQ
             <objects>
                 <viewController id="POT-CU-vZT" customClass="StatementShareViewController" customModule="Butterfly" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="jjQ-Ez-foo">
-                        <rect key="frame" x="0.0" y="0.0" width="270" height="70"/>
+                        <rect key="frame" x="0.0" y="0.0" width="420" height="70"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Ne-AR-gda">
-                                <rect key="frame" x="0.0" y="0.0" width="270" height="70"/>
+                                <rect key="frame" x="0.0" y="0.0" width="420" height="70"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="6nD-v8-J2c">
-                                        <rect key="frame" x="0.0" y="0.0" width="90" height="70"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="105" height="70"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IWN-Xy-SCP">
-                                                <rect key="frame" x="33" y="31" width="24" height="24"/>
+                                                <rect key="frame" x="41" y="31" width="24" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="24" id="F4G-m9-F4t"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="b03-fc-jcT"/>
@@ -1616,7 +1616,7 @@ DQ
                                                 </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4oI-I8-ny0">
-                                                <rect key="frame" x="9" y="9" width="73" height="16"/>
+                                                <rect key="frame" x="16" y="9" width="73" height="16"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="export CSV" id="gGG-gO-mce">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1632,10 +1632,10 @@ DQ
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="DgR-pQ-QiH">
-                                        <rect key="frame" x="90" y="0.0" width="90" height="70"/>
+                                        <rect key="frame" x="105" y="0.0" width="105" height="70"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zDg-k4-e8b">
-                                                <rect key="frame" x="33" y="31" width="24" height="24"/>
+                                                <rect key="frame" x="41" y="31" width="24" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="SBD-dA-ayX"/>
                                                     <constraint firstAttribute="height" constant="24" id="c1V-dE-jsL"/>
@@ -1649,7 +1649,7 @@ DQ
                                                 </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DmY-Tk-yxi">
-                                                <rect key="frame" x="5" y="9" width="81" height="16"/>
+                                                <rect key="frame" x="12" y="9" width="81" height="16"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="export audio" id="9lH-lj-OqK">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1664,11 +1664,44 @@ DQ
                                             <constraint firstItem="DmY-Tk-yxi" firstAttribute="centerX" secondItem="DgR-pQ-QiH" secondAttribute="centerX" id="pKO-Gx-8YO"/>
                                         </constraints>
                                     </customView>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="20l-sH-l6j">
+                                        <rect key="frame" x="210" y="0.0" width="105" height="70"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1mj-g4-shF">
+                                                <rect key="frame" x="5" y="10" width="96" height="14"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="copy to clipboard" id="ryT-Y2-2jp">
+                                                    <font key="font" metaFont="system" size="11"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t5O-zr-j2m">
+                                                <rect key="frame" x="41" y="31" width="24" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="24" id="L53-Fv-U2Q"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="cDD-iN-KlJ"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="clip" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="BBO-pf-QRR">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="pushCopyToClipboard:" target="POT-CU-vZT" id="eog-oO-Dln"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="t5O-zr-j2m" firstAttribute="centerY" secondItem="20l-sH-l6j" secondAttribute="centerY" constant="-8" id="Hou-G9-yXK"/>
+                                            <constraint firstItem="1mj-g4-shF" firstAttribute="centerY" secondItem="20l-sH-l6j" secondAttribute="centerY" constant="18" id="eyF-Cd-YBb"/>
+                                            <constraint firstItem="1mj-g4-shF" firstAttribute="centerX" secondItem="20l-sH-l6j" secondAttribute="centerX" id="gxB-P3-GU1"/>
+                                            <constraint firstItem="t5O-zr-j2m" firstAttribute="centerX" secondItem="20l-sH-l6j" secondAttribute="centerX" id="hC0-0f-gng"/>
+                                        </constraints>
+                                    </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="VgS-nq-MV2">
-                                        <rect key="frame" x="180" y="0.0" width="90" height="70"/>
+                                        <rect key="frame" x="315" y="0.0" width="105" height="70"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6XC-VP-Kd0">
-                                                <rect key="frame" x="33" y="31" width="24" height="24"/>
+                                                <rect key="frame" x="41" y="31" width="24" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="J0i-Nn-xU4"/>
                                                     <constraint firstAttribute="height" constant="24" id="vhv-2w-3CW"/>
@@ -1682,9 +1715,9 @@ DQ
                                                 </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Zh3-R1-nPg">
-                                                <rect key="frame" x="16" y="9" width="59" height="16"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" title="deep link" id="j09-zi-1Zi">
-                                                    <font key="font" metaFont="system"/>
+                                                <rect key="frame" x="9" y="10" width="87" height="15"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="copy deep link" id="j09-zi-1Zi">
+                                                    <font key="font" metaFont="system" size="12"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -1699,15 +1732,17 @@ DQ
                                     </customView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="270" id="UNA-fP-KLD"/>
+                                    <constraint firstAttribute="width" constant="420" id="UNA-fP-KLD"/>
                                     <constraint firstAttribute="height" constant="70" id="bJf-aX-XqZ"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -1738,6 +1773,7 @@ DQ
         <image name="add" width="11" height="11"/>
         <image name="calendar" width="13" height="12"/>
         <image name="circle_fill" width="13" height="13"/>
+        <image name="clip" width="13" height="15"/>
         <image name="deep_link" width="13" height="13"/>
         <image name="export" width="11" height="14"/>
         <image name="export_audio" width="13" height="13"/>
