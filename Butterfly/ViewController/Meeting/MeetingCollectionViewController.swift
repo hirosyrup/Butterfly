@@ -15,17 +15,15 @@ protocol MeetingCollectionViewControllerDelegate: class {
 class MeetingCollectionViewController: NSViewController,
                                        NSCollectionViewDataSource,
                                        NSCollectionViewDelegate,
-                                       MeetingRepositoryDataListDelegate,
                                        MeetingCollectionViewItemDelegate {
-    @IBOutlet weak var loadingIndicator: NSProgressIndicator!
     @IBOutlet weak var noMeetingLabel: NSTextField!
     @IBOutlet weak var collectionView: NSCollectionView!
     
     private let cellId = "MeetingCollectionViewItem"
     private let meetingRepository = MeetingRepository.Meeting()
-    private var meetingDataList = [MeetingRepository.MeetingData]()
     var userId = ""
     private var workspaceId = ""
+    private var meetingDataList = [MeetingRepository.MeetingData]()
     weak var delegate: MeetingCollectionViewControllerDelegate?
     
     override func viewDidLoad() {
@@ -38,12 +36,11 @@ class MeetingCollectionViewController: NSViewController,
         collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId))
     }
     
-    func changeSearchParams(workspaceId: String, startAt: Date?, endAt: Date?) {
-        meetingDataList = []
-        loadingIndicator.startAnimation(self)
-        meetingRepository.unlisten()
-        meetingRepository.listen(workspaceId: workspaceId, startAt: startAt, endAt: endAt, dataListDelegate: self)
+    func update(meetingDataList: [MeetingRepository.MeetingData], workspaceId: String) {
+        self.meetingDataList = meetingDataList
         self.workspaceId = workspaceId
+        collectionView.reloadData()
+        updateViews()
     }
     
     private func updateViews() {
@@ -58,37 +55,6 @@ class MeetingCollectionViewController: NSViewController,
         }).catch { (error) in
             AlertBuilder.createErrorAlert(title: "Error", message: "Failed to delete meeting. \(error.localizedDescription)").runModal()
         }
-    }
-    
-    func didChangeMeetingDataList(obj: MeetingRepository.Meeting, documentChanges: [RepositoryDocumentChange<MeetingRepository.MeetingData>]) {
-        let modifieds = documentChanges.filter { $0.type == .modified }
-        modifieds.forEach { (modified) in
-            if  self.meetingDataList.count > modified.oldIndex {
-                self.meetingDataList[modified.oldIndex] = modified.data
-            }
-        }
-        
-        let removesIndex = documentChanges.filter { $0.type == .removed }.map { $0.oldIndex }
-        var removedMeetingList = [MeetingRepository.MeetingData]()
-        for (index, value) in meetingDataList.enumerated() {
-            if !removesIndex.contains(index) {
-                removedMeetingList.append(value)
-            }
-        }
-        meetingDataList = removedMeetingList
-        
-        let addeds = documentChanges.filter { $0.type == .added }
-        addeds.forEach { (addedChange) in
-            if addedChange.newIndex >= meetingDataList.count {
-                meetingDataList.append(addedChange.data)
-            } else {
-                meetingDataList.insert(addedChange.data, at: addedChange.newIndex)
-            }
-        }
-        
-        loadingIndicator.stopAnimation(self)
-        collectionView.reloadData()
-        updateViews()
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {

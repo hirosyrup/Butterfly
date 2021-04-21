@@ -13,14 +13,21 @@ protocol MeetingViewControllerDelegate: class {
 
 class MeetingViewController: NSViewController,
                              MeetingCollectionViewControllerDelegate,
-                             MeetingDateInputViewControllerDelegate {
+                             MeetingDateInputViewControllerDelegate,
+                             MeetingRepositoryDataListDelegate {
     
     @IBOutlet weak var workspacePopupButton: NSPopUpButton!
     @IBOutlet weak var dateFilterLabel: NSTextField!
+    @IBOutlet weak var loadingIndicator: NSProgressIndicator!
+    @IBOutlet weak var meetingCollectionViewContainer: NSView!
+    
     private var userData: WorkspaceRepository.UserData?
     private var collectionViewController: MeetingCollectionViewController!
     
     weak var delegate: MeetingViewControllerDelegate?
+    private var workspaceId = ""
+    private var meetingDataList = [MeetingRepository.MeetingData]()
+    private let meetingRepository = MeetingRepository.Meeting()
     
     class func create(delegate: MeetingViewControllerDelegate?) -> MeetingViewController {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
@@ -74,7 +81,24 @@ class MeetingViewController: NSViewController,
             startAt = userDefault.dateRangeStart()
             endAt = userDefault.dateRangeEnd()
         }
-        collectionViewController.changeSearchParams(workspaceId: workspaceId, startAt: startAt, endAt: endAt)
+        changeSearchParams(workspaceId: workspaceId, startAt: startAt, endAt: endAt)
+    }
+    
+    private func displayLoading(isDisplay: Bool) {
+        if isDisplay {
+            loadingIndicator.startAnimation(self)
+        } else {
+            loadingIndicator.stopAnimation(self)
+        }
+        meetingCollectionViewContainer.isHidden = isDisplay
+    }
+    
+    private func changeSearchParams(workspaceId: String, startAt: Date?, endAt: Date?) {
+        meetingDataList = []
+        displayLoading(isDisplay: true)
+        meetingRepository.unlisten()
+        meetingRepository.listen(workspaceId: workspaceId, startAt: startAt, endAt: endAt, dataListDelegate: self)
+        self.workspaceId = workspaceId
     }
     
     private func updateDateFilterLabel() {
@@ -98,6 +122,36 @@ class MeetingViewController: NSViewController,
     func willClose(vc: MeetingDateInputViewController) {
         updateDateFilterLabel()
         reloadCollection()
+    }
+    
+    func didChangeMeetingDataList(obj: MeetingRepository.Meeting, documentChanges: [RepositoryDocumentChange<MeetingRepository.MeetingData>]) {
+        let modifieds = documentChanges.filter { $0.type == .modified }
+        modifieds.forEach { (modified) in
+            if  self.meetingDataList.count > modified.oldIndex {
+                self.meetingDataList[modified.oldIndex] = modified.data
+            }
+        }
+        
+        let removesIndex = documentChanges.filter { $0.type == .removed }.map { $0.oldIndex }
+        var removedMeetingList = [MeetingRepository.MeetingData]()
+        for (index, value) in meetingDataList.enumerated() {
+            if !removesIndex.contains(index) {
+                removedMeetingList.append(value)
+            }
+        }
+        meetingDataList = removedMeetingList
+        
+        let addeds = documentChanges.filter { $0.type == .added }
+        addeds.forEach { (addedChange) in
+            if addedChange.newIndex >= meetingDataList.count {
+                meetingDataList.append(addedChange.data)
+            } else {
+                meetingDataList.insert(addedChange.data, at: addedChange.newIndex)
+            }
+        }
+        
+        displayLoading(isDisplay: false)
+        collectionViewController.update(meetingDataList: meetingDataList, workspaceId: workspaceId)
     }
     
     @IBAction func didChangePopup(_ sender: Any) {
