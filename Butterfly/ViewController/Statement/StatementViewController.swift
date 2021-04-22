@@ -19,6 +19,7 @@ class StatementViewController: NSViewController,
                                NSCollectionViewDelegateFlowLayout {
     @IBOutlet weak var titleLabel: NSTextField!
     @IBOutlet weak var MeetingMemberIconContainer: MeetingMemberIconContainer!
+    @IBOutlet weak var collectionContainer: NSScrollView!
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var startEndButton: NSButton!
     @IBOutlet weak var recordingLabel: NSBox!
@@ -27,6 +28,9 @@ class StatementViewController: NSViewController,
     @IBOutlet weak var levelMeterContainer: NSView!
     @IBOutlet weak var speechRecognizerSegmentedControl: NSSegmentedControl!
     @IBOutlet weak var speechRecognizerControlContainer: NSView!
+    @IBOutlet weak var showCollectionButton: NSButton!
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint?
+    
     weak var levelMeter: StatementLevelMeter!
     
     private let cellId = "StatementCollectionViewItem"
@@ -47,6 +51,7 @@ class StatementViewController: NSViewController,
     private var autoCalcRmsThreshold: AutoCalcRmsThreshold!
     private var audioComposition: AVMutableComposition?
     private let calcHeightHelper = CalcStatementCollectionItemHeight()
+    private var collectionViewHeightConstant: CGFloat = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +65,8 @@ class StatementViewController: NSViewController,
         levelMeter = StatementLevelMeter.createFromNib(owner: nil)
         levelMeter.frame = levelMeterContainer.bounds
         levelMeterContainer.addSubview(levelMeter)
+        collectionViewHeightConstant = collectionViewHeightConstraint?.constant ?? 0.0
+        collectionViewHeightConstraint?.constant = 0.0
     }
 
     override func viewWillAppear() {
@@ -122,13 +129,14 @@ class StatementViewController: NSViewController,
         startEndButton.isHidden = presenter.isHiddenOfStartButton()
         startEndButton.state = presenter.startEndButtonState()
         recordingLabel.isHidden = presenter.isHiddenRecordingLabel()
+        showCollectionButton.isHidden = presenter.isHiddenOfShowCollectionButton()
     }
     
     private func updateYou() {
         if let currentUser = AuthUser.shared.currentUser() {
             if let _you = userList.first(where: { $0.userId == currentUser.uid }) {
                 if _you.id != you?.id {
-                    setupSpeechRecognizer()
+                    setupSpeechRecognizer(you: _you)
                 }
                 you = _you
             }
@@ -154,11 +162,23 @@ class StatementViewController: NSViewController,
         }
     }
     
-    private func setupSpeechRecognizer() {
-        guard let _you = you else { return }
+    private func setupCollectionViewHeight() {
+        if meetingData.startedAt != nil && meetingData.endedAt != nil {
+            collectionViewHeightConstraint?.constant = collectionViewHeightConstant
+            showCollectionButton.state = .on
+            if let constraint = collectionViewHeightConstraint {
+                collectionContainer.removeConstraint(constraint)
+            }
+        } else {
+            collectionViewHeightConstraint?.constant = 0.0
+            showCollectionButton.state = .off
+        }
+    }
+    
+    private func setupSpeechRecognizer(you: MeetingUserRepository.MeetingUserData) {
         speechRecognizerControlContainer.isHidden = true
         async({ _ -> PreferencesRepository.UserData in
-            return try await(PreferencesRepository.User().findOrCreate(userId: _you.userId))
+            return try await(PreferencesRepository.User().findOrCreate(userId: you.userId))
         }).then({ userData in
             let advancedSettingData = userData.advancedSettingData
             if advancedSettingData.enableAmiVoice && !advancedSettingData.amiVoiceApiKey.isEmpty && !advancedSettingData.amiVoiceApiUrl.isEmpty {
@@ -260,12 +280,20 @@ class StatementViewController: NSViewController,
         }
     }
     
+    private func reloadCollectionView() {
+        collectionView.reloadData()
+        if !statementDataList.isEmpty {
+            collectionView.animator().scrollToItems(at: [IndexPath(item: statementDataList.count - 1, section: 0)], scrollPosition: .bottom)
+        }
+    }
+    
     func setup(workspaceId: String, meetingData: MeetingRepository.MeetingData) {
         self.workspaceId = workspaceId
         self.meetingData = meetingData
         statementQueue = StatementQueue(workspaceId: workspaceId, meetingId: meetingData.id)
         updateViews()
         setupRecordAudioIfNeeded()
+        setupCollectionViewHeight()
     }
     
     func updateMeetingData(meetingData: MeetingRepository.MeetingData) {
@@ -273,6 +301,7 @@ class StatementViewController: NSViewController,
         updateAudioInputState()
         updateViews()
         setupRecordAudioIfNeeded()
+        setupCollectionViewHeight()
     }
     
     func audioEngineStartError(obj: AudioSystem, error: Error) {
@@ -348,9 +377,8 @@ class StatementViewController: NSViewController,
             }
         }
         
-        collectionView.reloadData()
-        if !statementDataList.isEmpty {
-            collectionView.animator().scrollToItems(at: [IndexPath(item: statementDataList.count - 1, section: 0)], scrollPosition: .bottom)
+        if showCollectionButton.state == .on {
+            reloadCollectionView()
         }
     }
     
@@ -400,5 +428,18 @@ class StatementViewController: NSViewController,
     
     @IBAction func changeSpeechRecognizerSetting(_ sender: Any) {
         updateSpeechRecognizer()
+    }
+    
+    @IBAction func pushShowCollectionButton(_ sender: Any) {
+        let buttonState = showCollectionButton.state
+        NSAnimationContext.runAnimationGroup { (context) in
+            context.duration = 0.25
+            context.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            self.collectionViewHeightConstraint?.animator().constant = buttonState == .on ? collectionViewHeightConstant : 0.0
+        } completionHandler: {
+            if buttonState == .on {
+                self.reloadCollectionView()
+            }
+        }
     }
 }

@@ -47,6 +47,10 @@ class StatementViewControllerPresenter {
         }
     }
     
+    func isHiddenOfShowCollectionButton() -> Bool {
+        return isHiddenOfStartButton()
+    }
+    
     func startEndButtonState() -> NSControl.StateValue {
         if meetingData.startedAt != nil && meetingData.endedAt == nil {
             return .on

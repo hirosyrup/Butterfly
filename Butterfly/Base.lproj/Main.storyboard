@@ -1493,11 +1493,11 @@ DQ
                 <customObject id="hl6-nq-3RF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <viewController title="Meeting" storyboardIdentifier="StatementViewController" id="CKB-Nz-iEY" customClass="StatementViewController" customModule="Butterfly" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Pi5-4C-Jb9">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="500"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="512"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8d4-4n-qdV">
-                                <rect key="frame" x="14" y="465" width="132" height="19"/>
+                                <rect key="frame" x="14" y="477" width="132" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="160" id="So0-h7-SPa"/>
                                 </constraints>
@@ -1508,7 +1508,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <box boxType="custom" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="mJX-lg-u99" customClass="MeetingMemberIconContainer" customModule="Butterfly" customModuleProvider="target">
-                                <rect key="frame" x="152" y="457" width="100" height="36"/>
+                                <rect key="frame" x="152" y="469" width="100" height="36"/>
                                 <view key="contentView" id="SgE-r7-bpd">
                                     <rect key="frame" x="0.0" y="0.0" width="100" height="36"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1523,13 +1523,13 @@ DQ
                                 </connections>
                             </box>
                             <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SIB-OR-x3s">
-                                <rect key="frame" x="0.0" y="44" width="300" height="368"/>
+                                <rect key="frame" x="0.0" y="44" width="300" height="380"/>
                                 <clipView key="contentView" id="vT8-z1-Vkn">
-                                    <rect key="frame" x="1" y="1" width="298" height="366"/>
+                                    <rect key="frame" x="1" y="1" width="298" height="378"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView selectable="YES" id="vcA-km-RXn">
-                                            <rect key="frame" x="0.0" y="0.0" width="298" height="366"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="298" height="378"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="mIG-VV-FLe">
                                                 <size key="itemSize" width="300" height="150"/>
@@ -1538,18 +1538,35 @@ DQ
                                         </collectionView>
                                     </subviews>
                                 </clipView>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="380" id="n68-1N-UsJ"/>
+                                </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="QQ4-gZ-9xb">
                                     <rect key="frame" x="-100" y="-100" width="233" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="3ra-M1-mRb">
-                                    <rect key="frame" x="283" y="1" width="16" height="366"/>
+                                    <rect key="frame" x="283" y="1" width="16" height="-1"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
                             <avPlayerView controlsStyle="inline" translatesAutoresizingMaskIntoConstraints="NO" id="ptg-ij-JhR">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
                             </avPlayerView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lkL-TU-EO7">
+                                <rect key="frame" x="276" y="22" width="28" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="chD-cB-JY3"/>
+                                    <constraint firstAttribute="width" constant="20" id="yyp-3z-NhB"/>
+                                </constraints>
+                                <buttonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" image="popUpButtonCell:Te8-aW-J6H:image" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="clx-Su-OpP">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="pushShowCollectionButton:" target="CKB-Nz-iEY" id="usg-Ux-H44"/>
+                                </connections>
+                            </button>
                             <box boxType="custom" borderWidth="0.0" cornerRadius="14" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Y83-TD-fXx">
                                 <rect key="frame" x="107" y="8" width="86" height="28"/>
                                 <view key="contentView" id="ghz-2Y-paU">
@@ -1590,7 +1607,7 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ODp-E9-2gS">
-                                <rect key="frame" x="267" y="466" width="18" height="18"/>
+                                <rect key="frame" x="267" y="478" width="18" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="18" id="S54-Uq-Pkq"/>
                                     <constraint firstAttribute="height" constant="18" id="a9C-oj-Tsr"/>
@@ -1607,13 +1624,13 @@ DQ
                                 <rect key="frame" x="142" y="14" width="16" height="16"/>
                             </progressIndicator>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Vye-oK-bNJ">
-                                <rect key="frame" x="0.0" y="411" width="300" height="8"/>
+                                <rect key="frame" x="0.0" y="423" width="300" height="8"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="8" id="kGD-W9-e76"/>
                                 </constraints>
                             </customView>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EGi-Mu-Bri">
-                                <rect key="frame" x="0.0" y="419" width="300" height="30"/>
+                                <rect key="frame" x="0.0" y="431" width="300" height="30"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="mOv-Q4-zeA">
                                         <rect key="frame" x="0.0" y="30" width="300" height="0.0"/>
@@ -1674,9 +1691,11 @@ DQ
                             <constraint firstItem="8d4-4n-qdV" firstAttribute="leading" secondItem="Pi5-4C-Jb9" secondAttribute="leading" constant="16" id="K7l-xk-Bv3"/>
                             <constraint firstItem="ODp-E9-2gS" firstAttribute="centerY" secondItem="SgE-r7-bpd" secondAttribute="centerY" id="KvV-r1-xvk"/>
                             <constraint firstItem="8d4-4n-qdV" firstAttribute="centerY" secondItem="SgE-r7-bpd" secondAttribute="centerY" id="QPe-xf-M6O"/>
+                            <constraint firstAttribute="trailing" secondItem="lkL-TU-EO7" secondAttribute="trailing" id="S3h-2I-5mj"/>
                             <constraint firstItem="QVs-Du-Ts5" firstAttribute="centerY" secondItem="8oK-Ne-dqQ" secondAttribute="centerY" id="SIe-yd-e6R"/>
                             <constraint firstAttribute="trailing" secondItem="EGi-Mu-Bri" secondAttribute="trailing" id="SXF-SN-CN6"/>
                             <constraint firstItem="8d4-4n-qdV" firstAttribute="top" secondItem="Pi5-4C-Jb9" secondAttribute="top" constant="16" id="Ump-5n-CqS"/>
+                            <constraint firstItem="lkL-TU-EO7" firstAttribute="top" secondItem="SIB-OR-x3s" secondAttribute="bottom" constant="-1" id="W6l-Cs-DbY"/>
                             <constraint firstAttribute="trailing" secondItem="ptg-ij-JhR" secondAttribute="trailing" id="XUG-81-peJ"/>
                             <constraint firstItem="Y83-TD-fXx" firstAttribute="centerX" secondItem="Pi5-4C-Jb9" secondAttribute="centerX" id="Xq9-7m-4EW"/>
                             <constraint firstAttribute="trailing" secondItem="SIB-OR-x3s" secondAttribute="trailing" id="Ycs-Af-V5I"/>
@@ -1696,10 +1715,13 @@ DQ
                     <connections>
                         <outlet property="MeetingMemberIconContainer" destination="mJX-lg-u99" id="Izf-Ax-sX7"/>
                         <outlet property="audioPlayerView" destination="ptg-ij-JhR" id="UGt-oE-feh"/>
+                        <outlet property="collectionContainer" destination="SIB-OR-x3s" id="QgL-dF-Cxt"/>
                         <outlet property="collectionView" destination="vcA-km-RXn" id="UeY-De-Qks"/>
+                        <outlet property="collectionViewHeightConstraint" destination="n68-1N-UsJ" id="WfG-H5-YX0"/>
                         <outlet property="levelMeterContainer" destination="Vye-oK-bNJ" id="dqc-NL-dak"/>
                         <outlet property="recordAudioDownloadIndicator" destination="QVs-Du-Ts5" id="IN1-AA-Ber"/>
                         <outlet property="recordingLabel" destination="Y83-TD-fXx" id="sxB-3a-jVp"/>
+                        <outlet property="showCollectionButton" destination="lkL-TU-EO7" id="IQF-aM-C6Y"/>
                         <outlet property="speechRecognizerControlContainer" destination="PN6-eO-k1c" id="i2Y-rb-7UH"/>
                         <outlet property="speechRecognizerSegmentedControl" destination="AVR-FV-F3f" id="reP-ZB-3Pn"/>
                         <outlet property="startEndButton" destination="8oK-Ne-dqQ" id="hlG-F5-iw4"/>
