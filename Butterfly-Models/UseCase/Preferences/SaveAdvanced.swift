@@ -38,6 +38,12 @@ class SaveAdvanced {
         data.advancedSettingData.amiVoiceApiKey = amiVoiceApiKey
         return update(data: data)
     }
+    
+    func updateAmiVoiceApiEngine(amiVoiceApiEngine: String) -> Promise<PreferencesRepository.UserData>{
+        var data = original
+        data.advancedSettingData.amiVoiceEngine = amiVoiceApiEngine
+        return update(data: data)
+    }
 
     private func update(data: PreferencesRepository.UserData) -> Promise<PreferencesRepository.UserData> {
         return PreferencesRepository.User().update(userData: data)

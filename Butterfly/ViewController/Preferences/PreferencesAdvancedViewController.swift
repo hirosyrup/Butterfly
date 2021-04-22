@@ -14,6 +14,7 @@ class PreferencesAdvancedViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var turnedOnByDefaultSwitch: NSSwitch!
     @IBOutlet weak var amiVoiceApiUrlTextField: EditableNSTextField!
     @IBOutlet weak var amiVoiceApiKeyTextField: EditableNSTextField!
+    @IBOutlet weak var amiVoiceApiEngineTextField: EditableNSTextField!
     
     private let authUser = AuthUser.shared
     private var userData: PreferencesRepository.UserData?
@@ -22,6 +23,7 @@ class PreferencesAdvancedViewController: NSViewController, NSTextFieldDelegate {
         super.viewDidLoad()
         amiVoiceApiUrlTextField.delegate = self
         amiVoiceApiKeyTextField.delegate = self
+        amiVoiceApiEngineTextField.delegate = self
         updateViews()
         fetchUser()
     }
@@ -36,6 +38,7 @@ class PreferencesAdvancedViewController: NSViewController, NSTextFieldDelegate {
         amiVoiceSettingsContainer.isHidden = amiVoiceEnableSwitch.state != .on
         amiVoiceApiUrlTextField.stringValue = _userData.advancedSettingData.amiVoiceApiUrl
         amiVoiceApiKeyTextField.stringValue = _userData.advancedSettingData.amiVoiceApiKey
+        amiVoiceApiEngineTextField.stringValue = _userData.advancedSettingData.amiVoiceEngine
     }
     
     private func showErrorAlert(error: Error) {
@@ -85,6 +88,21 @@ class PreferencesAdvancedViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
+    private func updateAmiVoiceApiEngine() {
+        guard let _userData = userData else {
+            return
+        }
+        let amiVoiceApiEngine = amiVoiceApiEngineTextField.stringValue
+        async({ _ -> PreferencesRepository.UserData in
+            return try await(SaveAdvanced(data: _userData).updateAmiVoiceApiEngine(amiVoiceApiEngine: amiVoiceApiEngine))
+        }).then({ updateData in
+            self.userData = updateData
+            self.updateViews()
+        }).catch { (error) in
+            self.showErrorAlert(error: error)
+        }
+    }
+    
     @IBAction func switchEnableAmiVoice(_ sender: Any) {
         guard let _userData = userData else {
             return
@@ -120,6 +138,8 @@ class PreferencesAdvancedViewController: NSViewController, NSTextFieldDelegate {
             updateAmiVoiceApiUrl()
         } else if (obj.object as? EditableNSTextField) === amiVoiceApiKeyTextField {
             updateAmiVoiceApiKey()
+        } else if (obj.object as? EditableNSTextField) === amiVoiceApiEngineTextField {
+            updateAmiVoiceApiEngine()
         }
     }
 }

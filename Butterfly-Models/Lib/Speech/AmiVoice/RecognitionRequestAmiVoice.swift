@@ -30,6 +30,7 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
     
     let id: String
     let apiKey: String
+    private let apiEngine: String
     weak var delegate: RecognitionRequestAmiVoiceDelegate?
     private var statements = [String]()
     private var state = State.idle
@@ -43,9 +44,10 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
     private let downFormat = AVAudioFormat(commonFormat: AVAudioCommonFormat.pcmFormatInt16, sampleRate: 16000.0, channels: 1, interleaved: true)!
     private let errorHeader = "AmiVoiceError: "
     
-    init(id: String, apiKey: String, apiUrlString: String) {
+    init(id: String, apiKey: String, apiEngine: String, apiUrlString: String) {
         self.id = id
         self.apiKey = apiKey
+        self.apiEngine = apiEngine
         var request = URLRequest(url: URL(string: apiUrlString)!)
         request.timeoutInterval = 30
         socket = WebSocket(request: request)
@@ -55,7 +57,7 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
     
     private func startRequest() {
         guard state == .connected else { return}
-        socket.write(string: "s lsb16k -a-general authorization=\(apiKey)")
+        socket.write(string: "s lsb16k \(apiEngine) authorization=\(apiKey)")
     }
     
     private func endRequest() {

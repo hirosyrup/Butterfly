@@ -28,6 +28,7 @@ class PreferencesRepository {
             self.advancedSettingData = UserAdvancedSettingData(
                 enableAmiVoice: self.original.advancedSettingData.enableAmiVoice,
                 turnedOnByDefault: self.original.advancedSettingData.turnedOnByDefault,
+                amiVoiceEngine: self.original.advancedSettingData.amiVoiceEngine,
                 amiVoiceApiUrl: self.original.advancedSettingData.amiVoiceApiUrl,
                 amiVoiceApiKey: self.original.advancedSettingData.amiVoiceApiKey
             )
@@ -41,6 +42,7 @@ class PreferencesRepository {
             firestoreData.advancedSettingData = FirestoreUserAdvancedSettingData(
                 enableAmiVoice: advancedSettingData.enableAmiVoice,
                 turnedOnByDefault: advancedSettingData.turnedOnByDefault,
+                amiVoiceEngine: advancedSettingData.amiVoiceEngine,
                 amiVoiceApiUrl: advancedSettingData.amiVoiceApiUrl,
                 amiVoiceApiKey: advancedSettingData.amiVoiceApiKey
             )
@@ -51,6 +53,7 @@ class PreferencesRepository {
     struct UserAdvancedSettingData {
         var enableAmiVoice: Bool
         var turnedOnByDefault: Bool
+        var amiVoiceEngine: String
         var amiVoiceApiUrl: String
         var amiVoiceApiKey: String
     }

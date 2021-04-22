@@ -10,6 +10,7 @@ import Foundation
 struct FirestoreUserAdvancedSettingData {
     var enableAmiVoice: Bool
     var turnedOnByDefault: Bool
+    var amiVoiceEngine: String
     var amiVoiceApiUrl: String
     var amiVoiceApiKey: String
 }

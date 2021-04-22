@@ -167,6 +167,7 @@ class StatementViewController: NSViewController,
                 let amiVoice = SpeechRecognizerAmiVoice.shared
                 amiVoice.apiKey = advancedSettingData.amiVoiceApiKey
                 amiVoice.apiUrlString = advancedSettingData.amiVoiceApiUrl
+                amiVoice.apiEngine = advancedSettingData.amiVoiceEngine
             }
             SpeechRecognizerApple.shared.setupRecognizer(languageIdentifier: userData.language)
             self.updateSpeechRecognizer()

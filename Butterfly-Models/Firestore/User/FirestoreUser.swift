@@ -75,6 +75,7 @@ class FirestoreUser {
             "advancedSettingData": [
                 "enableAmiVoice": data.advancedSettingData.enableAmiVoice,
                 "turnedOnByDefault": data.advancedSettingData.turnedOnByDefault,
+                "amiVoiceEngine": data.advancedSettingData.amiVoiceEngine,
                 "amiVoiceApiUrl": data.advancedSettingData.amiVoiceApiUrl,
                 "amiVoiceApiKey": data.advancedSettingData.amiVoiceApiKey
             ],
@@ -94,6 +95,7 @@ class FirestoreUser {
             advancedSettingData: FirestoreUserAdvancedSettingData(
                 enableAmiVoice: (advancedSettingData["enableAmiVoice"] as? Bool) ?? false,
                 turnedOnByDefault: (advancedSettingData["turnedOnByDefault"] as? Bool) ?? false,
+                amiVoiceEngine: (advancedSettingData["amiVoiceEngine"] as? String) ?? "-a-general",
                 amiVoiceApiUrl: (advancedSettingData["amiVoiceApiUrl"] as? String) ?? "",
                 amiVoiceApiKey: (advancedSettingData["amiVoiceApiKey"] as? String) ?? ""
             ),

@@ -27,6 +27,7 @@ struct FirestoreUserData {
             advancedSettingData: FirestoreUserAdvancedSettingData(
                 enableAmiVoice: false,
                 turnedOnByDefault: false,
+                amiVoiceEngine: "",
                 amiVoiceApiUrl: "",
                 amiVoiceApiKey: ""
             ),
