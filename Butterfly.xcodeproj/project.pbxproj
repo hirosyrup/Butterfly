@@ -53,6 +53,8 @@
 		FB523C4A26081A3E00801070 /* MeetingMemberIconContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C4926081A3E00801070 /* MeetingMemberIconContainer.swift */; };
 		FB64DB702631BEFA00A3BA32 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DB6E2631BEFA00A3BA32 /* AboutViewController.swift */; };
 		FB64DB712631BEFA00A3BA32 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB64DB6F2631BEFA00A3BA32 /* AboutViewController.xib */; };
+		FB64DB8D26346C6900A3BA32 /* MLStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DB8C26346C6900A3BA32 /* MLStorage.swift */; };
+		FB64DB8E26346C6900A3BA32 /* MLStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DB8C26346C6900A3BA32 /* MLStorage.swift */; };
 		FB6C6D74262FDE8200735016 /* MeetingCollectionDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */; };
 		FB9D716A260820A700B7E9DE /* MeetingCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */; };
 		FB9D716B260820A700B7E9DE /* MeetingCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB9D7169260820A700B7E9DE /* MeetingCollectionViewItem.xib */; };
@@ -202,6 +204,7 @@
 		FB523C4926081A3E00801070 /* MeetingMemberIconContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingMemberIconContainer.swift; sourceTree = "<group>"; };
 		FB64DB6E2631BEFA00A3BA32 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		FB64DB6F2631BEFA00A3BA32 /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
+		FB64DB8C26346C6900A3BA32 /* MLStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLStorage.swift; sourceTree = "<group>"; };
 		FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCollectionDataProvider.swift; sourceTree = "<group>"; };
 		FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingCollectionViewItem.swift; sourceTree = "<group>"; };
 		FB9D7169260820A700B7E9DE /* MeetingCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingCollectionViewItem.xib; sourceTree = "<group>"; };
@@ -694,6 +697,7 @@
 			children = (
 				FBA546182600ECEF00112066 /* IconImage.swift */,
 				FB2603D7261360A800323E4B /* AudioStorage.swift */,
+				FB64DB8C26346C6900A3BA32 /* MLStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -1025,6 +1029,7 @@
 				FBC83ACA262B27EC00989820 /* SaveAdvanced.swift in Sources */,
 				FBF9A5CD260392D500AE78DF /* SelectMemberViewController.swift in Sources */,
 				FB0D2F9826072EC1001403A5 /* SelectMemberFetchProtocol.swift in Sources */,
+				FB64DB8D26346C6900A3BA32 /* MLStorage.swift in Sources */,
 				FBFCAAC525FF2FCA00D66CC9 /* AuthUser.swift in Sources */,
 				FBC8398C261B5B8100989820 /* StatementQueueType.swift in Sources */,
 				FBA545E425FFACEA00112066 /* PreferencesRepository.swift in Sources */,
@@ -1116,6 +1121,7 @@
 				FBA545D625FFA3AA00112066 /* FirestoreUserData.swift in Sources */,
 				FBA545D725FFA3AA00112066 /* SignUp.swift in Sources */,
 				FBA545D825FFA3AA00112066 /* SignIn.swift in Sources */,
+				FB64DB8E26346C6900A3BA32 /* MLStorage.swift in Sources */,
 				FBF9A6102605BD8A00AE78DF /* FirestoreWorkspaceData.swift in Sources */,
 				FBA545D925FFA3AA00112066 /* SignOut.swift in Sources */,
 				FBA545DF25FFA3D300112066 /* FirestoreUser.swift in Sources */,

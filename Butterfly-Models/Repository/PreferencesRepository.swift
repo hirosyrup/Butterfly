@@ -63,12 +63,16 @@ class PreferencesRepository {
         let id: String
         var name: String
         var users: [UserData]
+        var isEnableSpeakerRecognition: Bool
+        var mlFileName: String?
         
         init(users: [UserData], original: FirestoreWorkspaceData? = nil) {
             self.users = users
             self.original = original ?? FirestoreWorkspaceData.new()
             self.id = self.original.id
             self.name = self.original.name
+            self.isEnableSpeakerRecognition = self.original.isEnableSpeakerRecognition
+            self.mlFileName = self.original.mlFileName
         }
         
         fileprivate func toFirestoreData() -> FirestoreWorkspaceData {
@@ -77,6 +81,8 @@ class PreferencesRepository {
             firestoreData.userIdList = users.map({ (user) -> String in
                 return user.id
             })
+            firestoreData.isEnableSpeakerRecognition = isEnableSpeakerRecognition
+            firestoreData.mlFileName = mlFileName
             return firestoreData
         }
     }

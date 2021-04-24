@@ -84,7 +84,7 @@ class PreferencesWorkspaceInputViewController: NSViewController,
         newWorkspaceData.name = nameTextField.stringValue
         newWorkspaceData.users = selectedUserDataList
         async({ _ -> PreferencesRepository.WorkspaceData in
-            return try await(SaveWorkspace(data: newWorkspaceData).save())
+            return try await(SaveWorkspace(data: newWorkspaceData, MLFileUrl: nil).save())
         }).then({ savedWorkspaceData in
             self.delegate?.willDismiss(vc: self)
             self.dismiss(self)

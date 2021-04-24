@@ -85,6 +85,8 @@ class FirestoreWorkspace {
         return [
             "name": data.name,
             "userIdList": data.userIdList,
+            "isEnableSpeakerRecognition": data.isEnableSpeakerRecognition,
+            "mlFileName": data.mlFileName ?? NSNull(),
             "createdAt": Timestamp(date: data.createdAt),
             "updatedAt": Timestamp(date: data.updatedAt)
         ]
@@ -95,6 +97,8 @@ class FirestoreWorkspace {
             id: workspaceId,
             name: (snapshot["name"] as? String) ?? "",
             userIdList: (snapshot["userIdList"] as? [String]) ?? [],
+            isEnableSpeakerRecognition: (snapshot["isEnableSpeakerRecognition"] as? Bool) ?? false,
+            mlFileName: snapshot["mlFileName"] as? String,
             createdAt: (snapshot["createdAt"] as? Timestamp)?.dateValue() ?? Date(),
             updatedAt: (snapshot["updatedAt"] as? Timestamp)?.dateValue() ?? Date()
         )

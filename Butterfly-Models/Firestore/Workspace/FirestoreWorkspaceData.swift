@@ -11,11 +11,21 @@ struct FirestoreWorkspaceData {
     var id: String
     var name: String
     var userIdList: [String]
+    var isEnableSpeakerRecognition: Bool
+    var mlFileName: String?
     var createdAt: Date
     var updatedAt: Date
     
     static func new() -> FirestoreWorkspaceData {
-        return FirestoreWorkspaceData(id: "", name: "", userIdList: [], createdAt: Date(), updatedAt: Date())
+        return FirestoreWorkspaceData(
+            id: "",
+            name: "",
+            userIdList: [],
+            isEnableSpeakerRecognition: false,
+            mlFileName: nil,
+            createdAt: Date(),
+            updatedAt: Date()
+        )
     }
     
     func copyCurrentAt() -> FirestoreWorkspaceData {

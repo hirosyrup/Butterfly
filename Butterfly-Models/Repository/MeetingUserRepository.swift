@@ -26,9 +26,8 @@ class MeetingUserRepository {
         var isHost: Bool
         var isEntering: Bool
         var audioFileName: String?
-        var audioFileUrl: URL?
         
-        init(iconImageUrl: URL?, audioFileUrl: URL?, firestoreData: FirestoreMeetingUserData) {
+        init(iconImageUrl: URL?, firestoreData: FirestoreMeetingUserData) {
             self.original = firestoreData
             self.id = self.original.id
             self.userId = self.original.userId
@@ -38,7 +37,6 @@ class MeetingUserRepository {
             self.isHost = self.original.isHost
             self.isEntering = self.original.isEntering
             self.audioFileName = self.original.audioFileName
-            self.audioFileUrl = audioFileUrl
         }
         
         fileprivate func toFirestoreData() -> FirestoreMeetingUserData {
@@ -139,8 +137,7 @@ class MeetingUserRepository {
             return Promise<MeetingUserData>(in: .background, token: nil) { (resolve, reject, _) in
                 async({ _ -> MeetingUserData in
                     let iconUrl = firestoreMeetingUserData.iconName == nil ? nil : try await(self.iconImage.fetchDownloadUrl(fileName: firestoreMeetingUserData.iconName!))
-                    let audioFileUrl = firestoreMeetingUserData.audioFileName == nil ? nil : try await(self.audioStorage.fetchDownloadUrl(fileName: firestoreMeetingUserData.iconName!))
-                    return MeetingUserData(iconImageUrl: iconUrl, audioFileUrl: audioFileUrl, firestoreData: firestoreMeetingUserData)
+                    return MeetingUserData(iconImageUrl: iconUrl, firestoreData: firestoreMeetingUserData)
                 }).then({newMeetingUserData in
                     resolve(newMeetingUserData)
                 }).catch { (error) in
