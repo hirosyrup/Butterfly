@@ -7,6 +7,7 @@
 
 import Foundation
 import Hydra
+import CoreML
 
 class DownloadMLFile {
     private let fileName: String
@@ -21,10 +22,15 @@ class DownloadMLFile {
                 let fileUrl = MLFileLocalUrl.createLocalUrl().appendingPathComponent(self.fileName)
                 if !FileManager.default.fileExists(atPath: fileUrl.path) {
                     if let downloadUrl = try await(MLStorage().fetchDownloadUrl(fileName: self.fileName)) {
-                        if let audioData = try? Data(contentsOf: downloadUrl) {
-                            try audioData.write(to: fileUrl)
+                        if let mlFileData = try? Data(contentsOf: downloadUrl) {
+                            try mlFileData.write(to: fileUrl)
                         }
                     }
+                }
+                let compiledFileUrl = MLFileLocalUrl.createLocalUrl().appendingPathComponent("\(self.fileName)c")
+                if !FileManager.default.fileExists(atPath: compiledFileUrl.path) {
+                    let url = try MLModel.compileModel(at: fileUrl)
+                    try FileManager.default.copyItem(at: url, to: compiledFileUrl)
                 }
             }).then({ _ in
                 resolve(())
