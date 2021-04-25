@@ -56,7 +56,15 @@ class MainViewController: NSViewController,
         loadingIndicator.startAnimation(self)
         isLoadingUserData = true
         async({ _ -> WorkspaceRepository.UserData? in
-            return try await(WorkspaceRepository.User(userId: userId).fetch())
+            let userData = try await(WorkspaceRepository.User(userId: userId).fetch())
+            if let workspaceList = userData?.workspaceList{
+                try workspaceList.forEach { (workspace) in
+                    if let mlFileName = workspace.mlFileName {
+                        try await(DownloadMLFile(fileName: mlFileName).download())
+                    }
+                }
+            }
+            return userData
         }).then({ userData in
             self.userData = userData
             self.isLoadingUserData = false

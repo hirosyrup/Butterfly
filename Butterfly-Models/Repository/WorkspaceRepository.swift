@@ -26,10 +26,14 @@ class WorkspaceRepository {
     struct WorkspaceData {
         let id: String
         let name: String
+        let isEnableSpeakerRecognition: Bool
+        let mlFileName: String?
         
         init(firestoreData: FirestoreWorkspaceData) {
             self.id = firestoreData.id
             self.name = firestoreData.name
+            self.isEnableSpeakerRecognition = firestoreData.isEnableSpeakerRecognition
+            self.mlFileName = firestoreData.mlFileName
         }
     }
     

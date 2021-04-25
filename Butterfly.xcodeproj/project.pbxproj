@@ -55,6 +55,10 @@
 		FB64DB712631BEFA00A3BA32 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB64DB6F2631BEFA00A3BA32 /* AboutViewController.xib */; };
 		FB64DB8D26346C6900A3BA32 /* MLStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DB8C26346C6900A3BA32 /* MLStorage.swift */; };
 		FB64DB8E26346C6900A3BA32 /* MLStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DB8C26346C6900A3BA32 /* MLStorage.swift */; };
+		FB64DB932635B12A00A3BA32 /* MLFileLocalUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DB922635B12A00A3BA32 /* MLFileLocalUrl.swift */; };
+		FB64DB942635B12A00A3BA32 /* MLFileLocalUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DB922635B12A00A3BA32 /* MLFileLocalUrl.swift */; };
+		FB64DB9A2635B26700A3BA32 /* DownloadMLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DB992635B26700A3BA32 /* DownloadMLFile.swift */; };
+		FB64DB9B2635B26700A3BA32 /* DownloadMLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DB992635B26700A3BA32 /* DownloadMLFile.swift */; };
 		FB6C6D74262FDE8200735016 /* MeetingCollectionDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */; };
 		FB9D716A260820A700B7E9DE /* MeetingCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */; };
 		FB9D716B260820A700B7E9DE /* MeetingCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB9D7169260820A700B7E9DE /* MeetingCollectionViewItem.xib */; };
@@ -205,6 +209,8 @@
 		FB64DB6E2631BEFA00A3BA32 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		FB64DB6F2631BEFA00A3BA32 /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		FB64DB8C26346C6900A3BA32 /* MLStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLStorage.swift; sourceTree = "<group>"; };
+		FB64DB922635B12A00A3BA32 /* MLFileLocalUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLFileLocalUrl.swift; sourceTree = "<group>"; };
+		FB64DB992635B26700A3BA32 /* DownloadMLFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMLFile.swift; sourceTree = "<group>"; };
 		FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCollectionDataProvider.swift; sourceTree = "<group>"; };
 		FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingCollectionViewItem.swift; sourceTree = "<group>"; };
 		FB9D7169260820A700B7E9DE /* MeetingCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingCollectionViewItem.xib; sourceTree = "<group>"; };
@@ -437,6 +443,14 @@
 			path = About;
 			sourceTree = "<group>";
 		};
+		FB64DB912635B10B00A3BA32 /* SpeakerRecognition */ = {
+			isa = PBXGroup;
+			children = (
+				FB64DB922635B12A00A3BA32 /* MLFileLocalUrl.swift */,
+			);
+			path = SpeakerRecognition;
+			sourceTree = "<group>";
+		};
 		FB6C6D71262FDE4D00735016 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
@@ -496,6 +510,7 @@
 				FB204255260C545C006620A2 /* Util */,
 				FB2603BE26120C0700323E4B /* Audio */,
 				FB9D71A926087AE500B7E9DE /* Speech */,
+				FB64DB912635B10B00A3BA32 /* SpeakerRecognition */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -673,6 +688,7 @@
 				FBF9A6272606302200AE78DF /* SaveWorkspace.swift */,
 				FB0D2FA126073025001403A5 /* SelectMemberFetchForPreferences.swift */,
 				FBC83AC9262B27EC00989820 /* SaveAdvanced.swift */,
+				FB64DB992635B26700A3BA32 /* DownloadMLFile.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -1022,6 +1038,7 @@
 				FB0D2F7526063999001403A5 /* NSColor+AppColor.swift in Sources */,
 				FB0D2FB3260742E6001403A5 /* WorkspaceRepository.swift in Sources */,
 				FBF9A6142605BDD600AE78DF /* FirestoreWorkspace.swift in Sources */,
+				FB64DB932635B12A00A3BA32 /* MLFileLocalUrl.swift in Sources */,
 				FBD1A84026132243005BB323 /* AudioUploader.swift in Sources */,
 				FBA545DE25FFA3D300112066 /* FirestoreUser.swift in Sources */,
 				FBE3653E2616178200EA9471 /* AudioExport.swift in Sources */,
@@ -1046,6 +1063,7 @@
 				FBC83AD9262DCD7600989820 /* PopupButtonOption.swift in Sources */,
 				FB523C21260765C800801070 /* MeetingInputViewController.swift in Sources */,
 				FBC839C5261DFE2300989820 /* StatementMemberIconViewPresenter.swift in Sources */,
+				FB64DB9A2635B26700A3BA32 /* DownloadMLFile.swift in Sources */,
 				FB0D2F9E26072F60001403A5 /* SelectMemberUserData.swift in Sources */,
 				FBA5459025FE620700112066 /* SignIn.swift in Sources */,
 				FB0D2FAB26073CBD001403A5 /* FirestoreMeetingUserData.swift in Sources */,
@@ -1116,6 +1134,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB64DB942635B12A00A3BA32 /* MLFileLocalUrl.swift in Sources */,
 				FB0D2FA526073947001403A5 /* SelectMemberFetchForPreferences.swift in Sources */,
 				FBF9A6152605BDD600AE78DF /* FirestoreWorkspace.swift in Sources */,
 				FBA545D625FFA3AA00112066 /* FirestoreUserData.swift in Sources */,
@@ -1132,6 +1151,7 @@
 				FBA5443625FA554200112066 /* ViewController.swift in Sources */,
 				FBF9A6292606302200AE78DF /* SaveWorkspace.swift in Sources */,
 				FBA5443225FA554200112066 /* AppDelegate.swift in Sources */,
+				FB64DB9B2635B26700A3BA32 /* DownloadMLFile.swift in Sources */,
 				FBA546292600FA2700112066 /* UploadIconImageResponse.swift in Sources */,
 				FBA5443425FA554200112066 /* SceneDelegate.swift in Sources */,
 				FBA5447425FA55E500112066 /* FirestoreSetup.swift in Sources */,

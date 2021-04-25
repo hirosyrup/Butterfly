@@ -726,8 +726,8 @@
         <scene sceneID="lfU-JD-IyU">
             <objects>
                 <viewController storyboardIdentifier="PreferencesWorkspaceInputViewController" id="y0a-4f-gt5" customClass="PreferencesWorkspaceInputViewController" customModule="Butterfly" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="wIG-em-0Mr">
-                        <rect key="frame" x="0.0" y="0.0" width="453" height="416"/>
+                    <view key="view" id="wIG-em-0Mr">
+                        <rect key="frame" x="0.0" y="0.0" width="453" height="412"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rgm-XO-DhI">
@@ -814,6 +814,9 @@ DQ
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="22" id="yPK-9c-zkZ"/>
                                                 </constraints>
+                                                <connections>
+                                                    <action selector="changeEnableSpeakerRecognitionSwitch:" target="y0a-4f-gt5" id="qMo-nu-Tu5"/>
+                                                </connections>
                                             </switch>
                                         </subviews>
                                         <constraints>
@@ -837,10 +840,13 @@ DQ
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
+                                                <connections>
+                                                    <action selector="pushUploadMLFileButton:" target="y0a-4f-gt5" id="dEn-yr-RJb"/>
+                                                </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Z9Q-0I-0wc">
                                                 <rect key="frame" x="134" y="8" width="265" height="16"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="lMW-D2-vEK">
+                                                <textFieldCell key="cell" lineBreakMode="clipping" id="lMW-D2-vEK">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -866,6 +872,9 @@ DQ
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
+                            <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="oPd-jJ-B5m">
+                                <rect key="frame" x="256" y="15" width="16" height="16"/>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
                             <constraint firstItem="rgm-XO-DhI" firstAttribute="top" secondItem="sBm-up-UVe" secondAttribute="bottom" constant="20" id="0G9-7B-rCR"/>
@@ -883,16 +892,23 @@ DQ
                             <constraint firstAttribute="bottom" secondItem="OTd-6Z-28U" secondAttribute="bottom" constant="13" id="cTb-ef-aEl"/>
                             <constraint firstItem="Xbn-yN-jwR" firstAttribute="top" secondItem="wIG-em-0Mr" secondAttribute="top" constant="20" id="eba-pz-KGu"/>
                             <constraint firstItem="PnU-Vu-eeZ" firstAttribute="trailing" secondItem="aCp-sS-Dhb" secondAttribute="trailing" id="exR-Lf-KPM"/>
+                            <constraint firstItem="ydV-Ff-igq" firstAttribute="leading" secondItem="oPd-jJ-B5m" secondAttribute="trailing" constant="16" id="goP-yF-i5U"/>
                             <constraint firstItem="sBm-up-UVe" firstAttribute="leading" secondItem="wIG-em-0Mr" secondAttribute="leading" constant="20" id="mbr-US-LSZ"/>
+                            <constraint firstItem="oPd-jJ-B5m" firstAttribute="centerY" secondItem="ydV-Ff-igq" secondAttribute="centerY" id="tYd-lA-Feo"/>
                             <constraint firstItem="ydV-Ff-igq" firstAttribute="centerY" secondItem="OTd-6Z-28U" secondAttribute="centerY" id="umU-Z5-Wwk"/>
                             <constraint firstItem="PnU-Vu-eeZ" firstAttribute="leading" secondItem="aCp-sS-Dhb" secondAttribute="leading" id="yGd-WP-SKL"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="MLFileNameLabel" destination="Z9Q-0I-0wc" id="VEH-YM-eru"/>
+                        <outlet property="MLFileUploadViewContainer" destination="LKq-UI-rTc" id="95u-IV-r8E"/>
                         <outlet property="cancelButton" destination="ydV-Ff-igq" id="MUY-EU-pea"/>
+                        <outlet property="enableSpeakerRecognitionSwitch" destination="LrX-Ie-8pb" id="OfJ-0I-b4W"/>
                         <outlet property="memberSelectContainer" destination="aCp-sS-Dhb" id="A9u-8R-inz"/>
                         <outlet property="nameTextField" destination="sBm-up-UVe" id="v5Z-6f-u7y"/>
                         <outlet property="okButton" destination="OTd-6Z-28U" id="wPE-UM-UGj"/>
+                        <outlet property="saveIndicator" destination="oPd-jJ-B5m" id="mPG-G2-x9o"/>
+                        <outlet property="uploadMLFileButton" destination="hvS-qg-68z" id="8PA-7h-UBC"/>
                     </connections>
                 </viewController>
                 <customObject id="88T-Fu-py7" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
