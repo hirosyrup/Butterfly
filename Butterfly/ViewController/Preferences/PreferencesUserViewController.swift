@@ -40,6 +40,9 @@ class PreferencesUserViewController: NSViewController,
     @IBOutlet weak var languageContainer: NSStackView!
     @IBOutlet weak var languagePopupButton: NSPopUpButton!
     @IBOutlet weak var iconImageHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var voicePrintContainer: NSStackView!
+    @IBOutlet weak var voicePrintCheckMark: NSImageView!
+    @IBOutlet weak var createVoicePrintButton: NSButton!
     
     private let settingUserDefault = SettingUserDefault.shared
     private let authUser = AuthUser.shared
@@ -99,6 +102,8 @@ class PreferencesUserViewController: NSViewController,
         userNameLabel.isHidden = false
         editUserNameButton.isHidden = false
         languageContainer.isHidden = false
+        fetchUserIndicator.isHidden = true
+        voicePrintContainer.isHidden = true
         
         signInButton.isEnabled = true
         signUpButton.isEnabled = true
@@ -114,6 +119,7 @@ class PreferencesUserViewController: NSViewController,
         
         switch requestState {
         case .isFetchingUser:
+            fetchUserIndicator.isHidden = false
             fetchUserIndicator.startAnimation(self)
             signInButton.isHidden = true
             signUpButton.isHidden = true
@@ -209,6 +215,7 @@ class PreferencesUserViewController: NSViewController,
                     emailTextField.isHidden = true
                     passwordTextField.isHidden = true
                     signInContainer.isHidden = true
+                    voicePrintContainer.isHidden = false
                     if isNameEdit {
                         userNameLabel.isHidden = true
                         editUserNameButton.image = NSImage(named: "checkmark")
@@ -221,6 +228,13 @@ class PreferencesUserViewController: NSViewController,
                         let itemIndex = index + 1
                         languagePopupButton.selectItem(at: itemIndex)
                         languagePopupButton.setTitle(languageOptions[index].value)
+                    }
+                    if userData?.voicePrintName != nil {
+                        createVoicePrintButton.stringValue = "Upldate voiceprint"
+                        voicePrintCheckMark.isHidden = false
+                    } else {
+                        createVoicePrintButton.stringValue = "Create voiceprint"
+                        voicePrintCheckMark.isHidden = true
                     }
                 } else {
                     signInButton.isHidden = true

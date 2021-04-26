@@ -79,6 +79,7 @@ class FirestoreUser {
                 "amiVoiceApiUrl": data.advancedSettingData.amiVoiceApiUrl,
                 "amiVoiceApiKey": data.advancedSettingData.amiVoiceApiKey
             ],
+            "voicePrintName": data.voicePrintName ?? NSNull(),
             "createdAt": Timestamp(date: data.createdAt),
             "updatedAt": Timestamp(date: data.updatedAt)
         ]
@@ -99,6 +100,7 @@ class FirestoreUser {
                 amiVoiceApiUrl: (advancedSettingData["amiVoiceApiUrl"] as? String) ?? "",
                 amiVoiceApiKey: (advancedSettingData["amiVoiceApiKey"] as? String) ?? ""
             ),
+            voicePrintName: snapshot["voicePrintName"] as? String,
             createdAt: (snapshot["createdAt"] as? Timestamp)?.dateValue() ?? Date(),
             updatedAt: (snapshot["updatedAt"] as? Timestamp)?.dateValue() ?? Date()
         )

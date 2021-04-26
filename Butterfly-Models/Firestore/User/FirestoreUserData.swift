@@ -14,6 +14,7 @@ struct FirestoreUserData {
     var language: String
     var workspaceIdList: [String]
     var advancedSettingData: FirestoreUserAdvancedSettingData
+    var voicePrintName: String?
     var createdAt: Date
     var updatedAt: Date
     
@@ -31,6 +32,7 @@ struct FirestoreUserData {
                 amiVoiceApiUrl: "",
                 amiVoiceApiKey: ""
             ),
+            voicePrintName: nil,
             createdAt: Date(),
             updatedAt: Date()
         )

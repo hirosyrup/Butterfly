@@ -16,6 +16,7 @@ class PreferencesRepository {
         var name: String
         var language: String
         var advancedSettingData: UserAdvancedSettingData
+        var voicePrintName: String?
         
         init(iconImageUrl: URL?, original: FirestoreUserData? = nil) {
             
@@ -32,6 +33,7 @@ class PreferencesRepository {
                 amiVoiceApiUrl: self.original.advancedSettingData.amiVoiceApiUrl,
                 amiVoiceApiKey: self.original.advancedSettingData.amiVoiceApiKey
             )
+            self.voicePrintName = self.original.voicePrintName
         }
         
         fileprivate func toFirestoreData() -> FirestoreUserData {
@@ -46,6 +48,7 @@ class PreferencesRepository {
                 amiVoiceApiUrl: advancedSettingData.amiVoiceApiUrl,
                 amiVoiceApiKey: advancedSettingData.amiVoiceApiKey
             )
+            firestoreData.voicePrintName = voicePrintName
             return firestoreData
         }
     }
