@@ -230,7 +230,7 @@ class PreferencesUserViewController: NSViewController,
                         languagePopupButton.setTitle(languageOptions[index].value)
                     }
                     if userData?.voicePrintName != nil {
-                        createVoicePrintButton.stringValue = "Upldate voiceprint"
+                        createVoicePrintButton.stringValue = "Update voiceprint"
                         voicePrintCheckMark.isHidden = false
                     } else {
                         createVoicePrintButton.stringValue = "Create voiceprint"

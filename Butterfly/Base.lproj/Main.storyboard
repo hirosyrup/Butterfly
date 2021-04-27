@@ -677,13 +677,45 @@
             <objects>
                 <viewController id="dgP-3P-nJF" sceneMemberID="viewController">
                     <view key="view" id="CfK-Eg-a7a">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="81"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="k6b-IV-wtH">
+                                <rect key="frame" x="99" y="49" width="252" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Speak for 10 seconds to get a voiceprint." id="cNw-bP-TWJ">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dYg-Vz-Qmg">
+                                <rect key="frame" x="188" y="12" width="75" height="32"/>
+                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SKm-hy-cYC">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="GEZ-cC-C5q">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="8"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="8" id="35P-gD-I2t"/>
+                                </constraints>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="GEZ-cC-C5q" firstAttribute="leading" secondItem="CfK-Eg-a7a" secondAttribute="leading" id="DYv-Lb-eh2"/>
+                            <constraint firstAttribute="bottom" secondItem="GEZ-cC-C5q" secondAttribute="bottom" id="FqR-Z7-PJc"/>
+                            <constraint firstItem="k6b-IV-wtH" firstAttribute="centerY" secondItem="CfK-Eg-a7a" secondAttribute="centerY" constant="-16" id="GDO-5D-tis"/>
+                            <constraint firstAttribute="trailing" secondItem="GEZ-cC-C5q" secondAttribute="trailing" id="HVM-h0-mZC"/>
+                            <constraint firstItem="dYg-Vz-Qmg" firstAttribute="centerX" secondItem="CfK-Eg-a7a" secondAttribute="centerX" id="N1W-s9-1aD"/>
+                            <constraint firstItem="k6b-IV-wtH" firstAttribute="centerX" secondItem="CfK-Eg-a7a" secondAttribute="centerX" id="hH0-d2-seG"/>
+                            <constraint firstItem="dYg-Vz-Qmg" firstAttribute="centerY" secondItem="CfK-Eg-a7a" secondAttribute="centerY" constant="12" id="krq-iB-n7B"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="mXO-wB-pBf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1925" y="1760"/>
+            <point key="canvasLocation" x="1925" y="1650.5"/>
         </scene>
         <!--Workspace-->
         <scene sceneID="gsR-dC-wHE">
