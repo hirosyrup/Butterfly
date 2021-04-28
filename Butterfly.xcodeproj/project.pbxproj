@@ -60,6 +60,7 @@
 		FB64DB9A2635B26700A3BA32 /* DownloadMLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DB992635B26700A3BA32 /* DownloadMLFile.swift */; };
 		FB64DB9B2635B26700A3BA32 /* DownloadMLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DB992635B26700A3BA32 /* DownloadMLFile.swift */; };
 		FB6C6D74262FDE8200735016 /* MeetingCollectionDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */; };
+		FB84FD05263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB84FD04263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift */; };
 		FB9D716A260820A700B7E9DE /* MeetingCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */; };
 		FB9D716B260820A700B7E9DE /* MeetingCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB9D7169260820A700B7E9DE /* MeetingCollectionViewItem.xib */; };
 		FB9D71712608289600B7E9DE /* MeetingCollectionViewItemPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D71702608289600B7E9DE /* MeetingCollectionViewItemPresenter.swift */; };
@@ -212,6 +213,7 @@
 		FB64DB922635B12A00A3BA32 /* MLFileLocalUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLFileLocalUrl.swift; sourceTree = "<group>"; };
 		FB64DB992635B26700A3BA32 /* DownloadMLFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMLFile.swift; sourceTree = "<group>"; };
 		FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCollectionDataProvider.swift; sourceTree = "<group>"; };
+		FB84FD04263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesUserVoiceprintViewController.swift; sourceTree = "<group>"; };
 		FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingCollectionViewItem.swift; sourceTree = "<group>"; };
 		FB9D7169260820A700B7E9DE /* MeetingCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingCollectionViewItem.xib; sourceTree = "<group>"; };
 		FB9D71702608289600B7E9DE /* MeetingCollectionViewItemPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCollectionViewItemPresenter.swift; sourceTree = "<group>"; };
@@ -625,6 +627,7 @@
 				FBA544BF25FA667000112066 /* PreferencesWindowController.swift */,
 				FBA544AC25FA5D2400112066 /* PreferencesFirebaseViewController.swift */,
 				FBA544C325FCF43600112066 /* PreferencesUserViewController.swift */,
+				FB84FD04263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift */,
 				FB0D2F7A26063FBF001403A5 /* PreferencesWorkspaceCollectionData.swift */,
 				FBA546372602409800112066 /* PreferencesWorkspaceViewController.swift */,
 				FBA5463B260240BF00112066 /* PreferencesWorkspaceInputViewController.swift */,
@@ -1091,6 +1094,7 @@
 				FBF9A5C626038BCC00AE78DF /* NSImageView+AsyncLoad.swift in Sources */,
 				FBC83A8D262485EA00989820 /* SpeechRecognizer.swift in Sources */,
 				FB523C2F2607739600801070 /* RepositoryDocumentChangeType.swift in Sources */,
+				FB84FD05263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift in Sources */,
 				FBC83A912624865C00989820 /* SpeechRecognizerDelegate.swift in Sources */,
 				FBC83ABC2629D5B100989820 /* FirestoreUserAdvancedSettingData.swift in Sources */,
 				FBC83A9D2624892A00989820 /* SpeechRecognizerAmiVoice.swift in Sources */,
