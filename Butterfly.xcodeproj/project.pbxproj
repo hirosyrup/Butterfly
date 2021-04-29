@@ -59,6 +59,9 @@
 		FB64DB942635B12A00A3BA32 /* MLFileLocalUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DB922635B12A00A3BA32 /* MLFileLocalUrl.swift */; };
 		FB64DB9A2635B26700A3BA32 /* DownloadMLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DB992635B26700A3BA32 /* DownloadMLFile.swift */; };
 		FB64DB9B2635B26700A3BA32 /* DownloadMLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DB992635B26700A3BA32 /* DownloadMLFile.swift */; };
+		FB64DBA1263AF53A00A3BA32 /* AudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBA0263AF53A00A3BA32 /* AudioFile.swift */; };
+		FB64DBA7263AF97600A3BA32 /* VoiceprintStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBA6263AF97600A3BA32 /* VoiceprintStorage.swift */; };
+		FB64DBAB263AFE8B00A3BA32 /* Rms.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBAA263AFE8B00A3BA32 /* Rms.swift */; };
 		FB6C6D74262FDE8200735016 /* MeetingCollectionDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */; };
 		FB84FD05263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB84FD04263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift */; };
 		FB9D716A260820A700B7E9DE /* MeetingCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */; };
@@ -212,6 +215,9 @@
 		FB64DB8C26346C6900A3BA32 /* MLStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLStorage.swift; sourceTree = "<group>"; };
 		FB64DB922635B12A00A3BA32 /* MLFileLocalUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLFileLocalUrl.swift; sourceTree = "<group>"; };
 		FB64DB992635B26700A3BA32 /* DownloadMLFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMLFile.swift; sourceTree = "<group>"; };
+		FB64DBA0263AF53A00A3BA32 /* AudioFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFile.swift; sourceTree = "<group>"; };
+		FB64DBA6263AF97600A3BA32 /* VoiceprintStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceprintStorage.swift; sourceTree = "<group>"; };
+		FB64DBAA263AFE8B00A3BA32 /* Rms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rms.swift; sourceTree = "<group>"; };
 		FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCollectionDataProvider.swift; sourceTree = "<group>"; };
 		FB84FD04263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesUserVoiceprintViewController.swift; sourceTree = "<group>"; };
 		FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingCollectionViewItem.swift; sourceTree = "<group>"; };
@@ -423,9 +429,11 @@
 		FB2603BE26120C0700323E4B /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				FB64DBAA263AFE8B00A3BA32 /* Rms.swift */,
 				FB2603B226120A0B00323E4B /* AudioBufferSize.swift */,
 				FB2603AE2612074E00323E4B /* AudioSystem.swift */,
 				FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */,
+				FB64DBA0263AF53A00A3BA32 /* AudioFile.swift */,
 				FB2603BF26120C7D00323E4B /* AudioRecorder.swift */,
 				FB2603C526120CA700323E4B /* AudioRecordData.swift */,
 				FB2603CB26120CD100323E4B /* AudioUserDefault.swift */,
@@ -717,6 +725,7 @@
 				FBA546182600ECEF00112066 /* IconImage.swift */,
 				FB2603D7261360A800323E4B /* AudioStorage.swift */,
 				FB64DB8C26346C6900A3BA32 /* MLStorage.swift */,
+				FB64DBA6263AF97600A3BA32 /* VoiceprintStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -1055,9 +1064,12 @@
 				FBA545E425FFACEA00112066 /* PreferencesRepository.swift in Sources */,
 				FBA545CB25FFA28B00112066 /* FirestoreUserData.swift in Sources */,
 				FB0D2F8C26071930001403A5 /* FirestoreObserver.swift in Sources */,
+				FB64DBA7263AF97600A3BA32 /* VoiceprintStorage.swift in Sources */,
 				FB26039F2610BA6A00323E4B /* MeetingMemberIconView.swift in Sources */,
+				FB64DBAB263AFE8B00A3BA32 /* Rms.swift in Sources */,
 				FBA544F325FD04BB00112066 /* EditableNSTextField.swift in Sources */,
 				FB9D71922608668000B7E9DE /* StatementRepository.swift in Sources */,
+				FB64DBA1263AF53A00A3BA32 /* AudioFile.swift in Sources */,
 				FBA5456025FE48AF00112066 /* SignUp.swift in Sources */,
 				FB9D718A260861BE00B7E9DE /* FirestoreStatementUserData.swift in Sources */,
 				FBC83AEA262F201900989820 /* SearchOptionUserDefault.swift in Sources */,

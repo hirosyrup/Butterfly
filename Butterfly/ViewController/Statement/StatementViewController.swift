@@ -47,7 +47,7 @@ class StatementViewController: NSViewController,
     private var lastScrollIndex = 0
     private var audioRecorder: AudioRecorder?
     private var isAudioInputStart = false
-    private let observeBreakInStatements = ObserveBreakInStatements(bufferSize: AudioBufferSize.bufferSize, limitTime: nil)
+    private let observeBreakInStatements = ObserveBreakInStatements(limitTime: nil)
     private var autoCalcRmsThreshold: AutoCalcRmsThreshold!
     private var audioComposition: AVMutableComposition?
     private let calcHeightHelper = CalcStatementCollectionItemHeight()

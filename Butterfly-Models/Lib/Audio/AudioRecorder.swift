@@ -10,7 +10,7 @@ import AVFoundation
 
 class AudioRecorder {
     private let fileName: String
-    private let audioFile: AVAudioFile?
+    private let audioFile: AudioFile
     private let startTime: Float
     private let meetingId: String
     init(startTime: Float, meetingId: String, inputFormat: AVAudioFormat) {
@@ -19,13 +19,7 @@ class AudioRecorder {
         fileName = "\(UUID().uuidString).m4a"
         let localUrl = AudioLocalUrl.createRecordDirectoryUrl()
         let saveUrl = localUrl.appendingPathComponent("\(fileName)")
-        let format = AVAudioFormat(settings: [
-            AVFormatIDKey: kAudioFormatMPEG4AAC,
-            AVSampleRateKey: inputFormat.sampleRate,
-            AVNumberOfChannelsKey: inputFormat.channelCount,
-            AVEncoderAudioQualityKey: AVAudioQuality.medium
-        ])!
-        audioFile = try? AVAudioFile(forWriting: saveUrl, settings: format.settings)
+        audioFile = AudioFile(saveUrl: saveUrl, inputFormat: inputFormat)
     }
     
     func stop() {
@@ -34,6 +28,6 @@ class AudioRecorder {
     }
     
     func write(buffer: AVAudioPCMBuffer) {
-        try? audioFile?.write(from: buffer)
+        try? audioFile.write(buffer: buffer)
     }
 }

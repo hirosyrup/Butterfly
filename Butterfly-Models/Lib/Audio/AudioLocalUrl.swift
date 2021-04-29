@@ -27,4 +27,12 @@ class AudioLocalUrl {
         }
         return url
     }
+    
+    static func createVoiceprintDirectoryUrl() -> URL {
+        let url = createLocalUrl().appendingPathComponent("voiceprint")
+        if !FileManager.default.fileExists(atPath: url.path) {
+            try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+        }
+        return url
+    }
 }

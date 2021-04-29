@@ -11,7 +11,8 @@ import Speech
 
 class PreferencesUserViewController: NSViewController,
                                      NSTextFieldDelegate,
-                                     AuthUserNotification {
+                                     AuthUserNotification,
+                                     PreferencesUserVoiceprintViewControllerDelegate {
     enum RequestState {
         case none
         case isFetchingUser
@@ -73,6 +74,13 @@ class PreferencesUserViewController: NSViewController,
     override func viewWillDisappear() {
         super.viewWillDisappear()
         authUser.removeObserver(observer: self)
+    }
+    
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if let vc = segue.destinationController as? PreferencesUserVoiceprintViewController {
+            vc.setupData(data: userData!)
+            vc.delegate = self
+        }
     }
     
     private func setupIconImageButton() {
@@ -230,10 +238,10 @@ class PreferencesUserViewController: NSViewController,
                         languagePopupButton.setTitle(languageOptions[index].value)
                     }
                     if userData?.voicePrintName != nil {
-                        createVoicePrintButton.stringValue = "Update voiceprint"
+                        createVoicePrintButton.title = "Update voiceprint"
                         voicePrintCheckMark.isHidden = false
                     } else {
-                        createVoicePrintButton.stringValue = "Create voiceprint"
+                        createVoicePrintButton.title = "Create voiceprint"
                         voicePrintCheckMark.isHidden = true
                     }
                 } else {
@@ -380,6 +388,11 @@ class PreferencesUserViewController: NSViewController,
             firestoreObserver.unlistenWorkspace()
         }
         fetchUser()
+    }
+    
+    func didUploadVoiceprint(vc: PreferencesUserVoiceprintViewController, data: PreferencesRepository.UserData) {
+        userData = data
+        updateViews()
     }
     
     @IBAction func pushSignIn(_ sender: Any) {

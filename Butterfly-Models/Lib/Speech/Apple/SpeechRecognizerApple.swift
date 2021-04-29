@@ -17,7 +17,7 @@ class SpeechRecognizerApple: NSObject,
     static let shared = SpeechRecognizerApple()
     
     private var speechRecognizer: SFSpeechRecognizer?
-    private let observeBreakInStatements = ObserveBreakInStatements(bufferSize: AudioBufferSize.bufferSize)
+    private let observeBreakInStatements = ObserveBreakInStatements()
     private var recognitionRequests = [RecognitionRequestApple]()
     private var currentRecognitionRequest: RecognitionRequestApple?
     

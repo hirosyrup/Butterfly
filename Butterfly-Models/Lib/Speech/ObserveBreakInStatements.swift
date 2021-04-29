@@ -21,32 +21,26 @@ class ObserveBreakInStatements {
     private let offThreshold = TimeInterval(1)
     private(set) var isSpeeking = false
     private var speekingStartDate: Date?
-    let bufferSize: UInt32
     private var previousBuffers = [AVAudioPCMBuffer]()
     private let bufferlimit = 5
     
-    init(bufferSize: UInt32, limitTime: TimeInterval? = TimeInterval(50)) {
-        self.bufferSize = bufferSize
+    init(limitTime: TimeInterval? = TimeInterval(50)) {
         self.limitTime = limitTime
     }
     
     func checkBreakInStatements(buffer: AVAudioPCMBuffer, when: AVAudioTime) {
-        if let channelData = buffer.floatChannelData?[0] {
-            updatePreviousBuffer(buffer: buffer)
-            let channelDataArray = Array(UnsafeBufferPointer(start:channelData, count: Int(bufferSize)))
-            let sum = channelDataArray.reduce(Float(0.0)) {$0 + $1 * $1} / Float(bufferSize)
-            currentRms = 10.0 * log10(sqrtf(sum))
-            if isOverThreshold() {
-                onDate = Date()
-                checkSpeekingDuration()
-                if !isSpeeking {
-                    updateSpeeakingStateTo(true)
-                }
-            } else {
-                if checkOffTime() {
-                    if isSpeeking {
-                        updateSpeeakingStateTo(false)
-                    }
+        updatePreviousBuffer(buffer: buffer)
+        currentRms = Rms.calculate(buffer: buffer)
+        if isOverThreshold() {
+            onDate = Date()
+            checkSpeekingDuration()
+            if !isSpeeking {
+                updateSpeeakingStateTo(true)
+            }
+        } else {
+            if checkOffTime() {
+                if isSpeeking {
+                    updateSpeeakingStateTo(false)
                 }
             }
         }

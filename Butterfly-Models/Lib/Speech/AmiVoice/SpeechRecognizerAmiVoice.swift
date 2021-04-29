@@ -17,7 +17,7 @@ class SpeechRecognizerAmiVoice: SpeechRecognizer,
     var apiKey = ""
     var apiUrlString = ""
     var apiEngine = ""
-    private let observeBreakInStatements = ObserveBreakInStatements(bufferSize: AudioBufferSize.bufferSize)
+    private let observeBreakInStatements = ObserveBreakInStatements()
     private var recognitionRequests = [RecognitionRequestAmiVoice]()
     private var currentRecognitionRequest: RecognitionRequestAmiVoice?
     
