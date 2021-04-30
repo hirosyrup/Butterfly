@@ -44,6 +44,8 @@
 		FB2603D8261360A800323E4B /* AudioStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603D7261360A800323E4B /* AudioStorage.swift */; };
 		FB2603D9261360A800323E4B /* AudioStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603D7261360A800323E4B /* AudioStorage.swift */; };
 		FB26040D2614199300323E4B /* MergeAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB26040C2614199300323E4B /* MergeAudio.swift */; };
+		FB44D229263BD11C008084C4 /* ExportLearningDataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB44D228263BD11C008084C4 /* ExportLearningDataset.swift */; };
+		FB44D22A263BD11C008084C4 /* ExportLearningDataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB44D228263BD11C008084C4 /* ExportLearningDataset.swift */; };
 		FB523C21260765C800801070 /* MeetingInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C20260765C800801070 /* MeetingInputViewController.swift */; };
 		FB523C252607681C00801070 /* SaveMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C242607681B00801070 /* SaveMeeting.swift */; };
 		FB523C2B2607738C00801070 /* RepositoryDocumentChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */; };
@@ -203,6 +205,7 @@
 		FB2603CF2612271200323E4B /* StatementViewControllerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementViewControllerPresenter.swift; sourceTree = "<group>"; };
 		FB2603D7261360A800323E4B /* AudioStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStorage.swift; sourceTree = "<group>"; };
 		FB26040C2614199300323E4B /* MergeAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeAudio.swift; sourceTree = "<group>"; };
+		FB44D228263BD11C008084C4 /* ExportLearningDataset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportLearningDataset.swift; sourceTree = "<group>"; };
 		FB523C20260765C800801070 /* MeetingInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingInputViewController.swift; sourceTree = "<group>"; };
 		FB523C242607681B00801070 /* SaveMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMeeting.swift; sourceTree = "<group>"; };
 		FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDocumentChange.swift; sourceTree = "<group>"; };
@@ -700,6 +703,7 @@
 				FB0D2FA126073025001403A5 /* SelectMemberFetchForPreferences.swift */,
 				FBC83AC9262B27EC00989820 /* SaveAdvanced.swift */,
 				FB64DB992635B26700A3BA32 /* DownloadMLFile.swift */,
+				FB44D228263BD11C008084C4 /* ExportLearningDataset.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -1058,6 +1062,7 @@
 				FBC83ACA262B27EC00989820 /* SaveAdvanced.swift in Sources */,
 				FBF9A5CD260392D500AE78DF /* SelectMemberViewController.swift in Sources */,
 				FB0D2F9826072EC1001403A5 /* SelectMemberFetchProtocol.swift in Sources */,
+				FB44D229263BD11C008084C4 /* ExportLearningDataset.swift in Sources */,
 				FB64DB8D26346C6900A3BA32 /* MLStorage.swift in Sources */,
 				FBFCAAC525FF2FCA00D66CC9 /* AuthUser.swift in Sources */,
 				FBC8398C261B5B8100989820 /* StatementQueueType.swift in Sources */,
@@ -1164,6 +1169,7 @@
 				FBA545DA25FFA3AA00112066 /* AuthUser.swift in Sources */,
 				FBA544FF25FD12EE00112066 /* SettingUserDefault.swift in Sources */,
 				FBA546242600F47700112066 /* UploadIconImage.swift in Sources */,
+				FB44D22A263BD11C008084C4 /* ExportLearningDataset.swift in Sources */,
 				FBA5443625FA554200112066 /* ViewController.swift in Sources */,
 				FBF9A6292606302200AE78DF /* SaveWorkspace.swift in Sources */,
 				FBA5443225FA554200112066 /* AppDelegate.swift in Sources */,

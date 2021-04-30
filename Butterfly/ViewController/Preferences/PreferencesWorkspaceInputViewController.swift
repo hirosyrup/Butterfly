@@ -24,6 +24,8 @@ class PreferencesWorkspaceInputViewController: NSViewController,
     @IBOutlet weak var MLFileNameLabel: NSTextField!
     @IBOutlet weak var MLFileUploadViewContainer: NSView!
     @IBOutlet weak var saveIndicator: NSProgressIndicator!
+    @IBOutlet weak var exportLearningDatasetButton: NSButton!
+    @IBOutlet weak var exportLearningDatasetIndicator: NSProgressIndicator!
     
     fileprivate var workspaceData: PreferencesRepository.WorkspaceData!
     private var isProcessing = false
@@ -89,6 +91,20 @@ class PreferencesWorkspaceInputViewController: NSViewController,
         MLFileNameLabel.stringValue = selectedUploadMLFileUrl?.lastPathComponent ?? ""
     }
     
+    private func exportLearningDataset(outputUrl: URL) {
+        self.exportLearningDatasetButton.isEnabled = false
+        self.exportLearningDatasetIndicator.startAnimation(self)
+        async({ _ -> Void in
+            return try await(ExportLearningDataset(exportUrl: outputUrl, userDataList: self.selectedUserDataList).export())
+        }).then({ _ in
+        }).catch { (error) in
+            AlertBuilder.createErrorAlert(title: "Error", message: "Failed to export a learning dataset. \(error.localizedDescription)").runModal()
+        }.always(in: .main) {
+            self.exportLearningDatasetButton.isEnabled = true
+            self.exportLearningDatasetIndicator.stopAnimation(self)
+        }
+    }
+    
     func controlTextDidChange(_ obj: Notification) {
         updateViews()
     }
@@ -143,6 +159,22 @@ class PreferencesWorkspaceInputViewController: NSViewController,
                 if let url = openPanel.url {
                     self.selectedUploadMLFileUrl = url
                     self.updateViews()
+                }
+            }
+        })
+    }
+    
+    @IBAction func pushExportLearningDatasetButton(_ sender: Any) {
+        guard let window = NSApp.keyWindow else { return }
+        let openPanel = NSOpenPanel()
+        openPanel.canChooseFiles = false
+        openPanel.canChooseDirectories = true
+        openPanel.allowsMultipleSelection = false
+        openPanel.message = "Select a directory to export a learning data set."
+        openPanel.beginSheetModal(for: window, completionHandler: { (response) in
+            if response == .OK {
+                if let url = openPanel.url {
+                    self.exportLearningDataset(outputUrl: url)
                 }
             }
         })
