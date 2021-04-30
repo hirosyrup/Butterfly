@@ -97,19 +97,20 @@ class MainViewController: NSViewController,
         }
     }
     
-    private func showStatementWindowController(workspaceId: String, data: MeetingRepository.MeetingData) {
-        let wc = StatementWindowController.create(workspaceId: workspaceId, meetingData: data)
+    private func showStatementWindowController(workspaceId: String, workspaceMLFileName: String?, data: MeetingRepository.MeetingData) {
+        let wc = StatementWindowController.create(workspaceId: workspaceId, workspaceMLFileName: workspaceMLFileName, meetingData: data)
         wc.delegate = self
         wc.showWindow(window)
         statementWindowController = wc
     }
     
     func openMeeting(workspaceId: String, meetingId: String) {
-        async({ _ -> MeetingRepository.MeetingData? in
-            return try await(MeetingRepository.Meeting().fetch(workspaceId: workspaceId, meetingId: meetingId))
-        }).then({ meetingData in
-            if let data = meetingData {
-                self.showStatementWindowController(workspaceId: workspaceId, data: data)
+        async({ _ -> (WorkspaceRepository.WorkspaceData?, MeetingRepository.MeetingData?) in
+            let workspaceData = try await(WorkspaceRepository.Workspace(workspaceId: workspaceId).fetch())
+            return (workspaceData, try await(MeetingRepository.Meeting().fetch(workspaceId: workspaceId, meetingId: meetingId)))
+        }).then({ dataTuple in
+            if let workspaceData = dataTuple.0, let meetingData = dataTuple.1 {
+                self.showStatementWindowController(workspaceId: workspaceId, workspaceMLFileName: workspaceData.mlFileName, data: meetingData)
             } else {
                 AlertBuilder.createErrorAlert(title: "Error", message: "Not Found the meeting.").runModal()
             }
@@ -132,8 +133,8 @@ class MainViewController: NSViewController,
         updateViews()
     }
     
-    func didClickItem(vc: MeetingViewController, workspaceId: String, data: MeetingRepository.MeetingData) {
-        showStatementWindowController(workspaceId: workspaceId, data: data)
+    func didClickItem(vc: MeetingViewController, workspaceId: String, workspaceMLFileName: String?, data: MeetingRepository.MeetingData) {
+        showStatementWindowController(workspaceId: workspaceId, workspaceMLFileName: workspaceMLFileName, data: data)
     }
     
     @IBAction func pushPreferences(_ sender: Any) {

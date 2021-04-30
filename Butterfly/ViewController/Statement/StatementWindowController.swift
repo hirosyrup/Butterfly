@@ -19,13 +19,13 @@ class StatementWindowController: NSWindowController, NSWindowDelegate, MeetingRe
     private let meeting = MeetingRepository.Meeting()
     weak var statementViewController: StatementViewController?
     
-    class func create(workspaceId: String, meetingData: MeetingRepository.MeetingData) -> StatementWindowController {
+    class func create(workspaceId: String, workspaceMLFileName: String?, meetingData: MeetingRepository.MeetingData) -> StatementWindowController {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         let identifier = NSStoryboard.SceneIdentifier("StatementWindowController")
         let wc = storyboard.instantiateController(withIdentifier: identifier) as! StatementWindowController
         wc.workspaceId = workspaceId
         wc.meetingData = meetingData
-        wc.setup(workspaceId: workspaceId, meetingData: meetingData)
+        wc.setup(workspaceId: workspaceId, workspaceMLFileName: workspaceMLFileName, meetingData: meetingData)
         wc.meeting.listen(workspaceId: workspaceId, meetingId: meetingData.id, dataDelegate: wc)
         return wc
     }
@@ -36,9 +36,9 @@ class StatementWindowController: NSWindowController, NSWindowDelegate, MeetingRe
         window?.delegate = self
     }
     
-    private func setup(workspaceId: String, meetingData: MeetingRepository.MeetingData) {
+    private func setup(workspaceId: String, workspaceMLFileName: String?, meetingData: MeetingRepository.MeetingData) {
         if let vc = contentViewController as? StatementViewController {
-            vc.setup(workspaceId: workspaceId, meetingData: meetingData)
+            vc.setup(workspaceId: workspaceId, workspaceMLFileName: workspaceMLFileName, meetingData: meetingData)
             statementViewController = vc
         }
     }

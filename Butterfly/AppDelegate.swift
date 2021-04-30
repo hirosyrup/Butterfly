@@ -32,17 +32,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             } else {
                 self.constructPopover()
+                self.didLaunch = true
+                if let urls = self.schemeOpenUrls {
+                    urls.forEach { self.openScheme(url: $0) }
+                }
             }
         }
         IconImage.shared.clearAllCache()
         speechRecognizerAuthorization.requestAuthorization()
         AudioSystem.shared.setup()
-        
-        if let urls = schemeOpenUrls {
-            urls.forEach { self.openScheme(url: $0) }
-        }
-        
-        didLaunch = true
     }
     
     func application(_ application: NSApplication, open urls: [URL]) {

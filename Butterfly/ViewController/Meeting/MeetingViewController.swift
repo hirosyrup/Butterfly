@@ -8,7 +8,7 @@
 import Cocoa
 
 protocol MeetingViewControllerDelegate: class {
-    func didClickItem(vc: MeetingViewController, workspaceId: String, data: MeetingRepository.MeetingData)
+    func didClickItem(vc: MeetingViewController, workspaceId: String, workspaceMLFileName: String?, data: MeetingRepository.MeetingData)
 }
 
 class MeetingViewController: NSViewController,
@@ -115,7 +115,7 @@ class MeetingViewController: NSViewController,
     
     func didClickItem(vc: MeetingCollectionViewController, data: MeetingRepository.MeetingData) {
         guard let workspaceData = selectedWorkspaceData() else { return }
-        delegate?.didClickItem(vc: self, workspaceId: workspaceData.id, data: data)
+        delegate?.didClickItem(vc: self, workspaceId: workspaceData.id, workspaceMLFileName: workspaceData.mlFileName, data: data)
     }
     
     func willClose(vc: MeetingDateInputViewController) {

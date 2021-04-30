@@ -72,4 +72,28 @@ class WorkspaceRepository {
             }
         }
     }
+    
+    class Workspace {
+        private let workspace = FirestoreWorkspace()
+        private let workspaceId: String
+        
+        init(workspaceId: String) {
+            self.workspaceId = workspaceId
+        }
+        
+        func fetch() -> Promise<WorkspaceData?> {
+            return Promise<WorkspaceData?>(in: .background, token: nil) { (resolve, reject, _) in
+                async({ _ -> WorkspaceData? in
+                    guard let firestoreWorkspaceData = try await(self.workspace.fetch(workspaceId: self.workspaceId)) else {
+                        return nil
+                    }
+                    return WorkspaceData(firestoreData: firestoreWorkspaceData)
+                }).then({ workspaceData in
+                    resolve(workspaceData)
+                }).catch { (error) in
+                    reject(error)
+                }
+            }
+        }
+    }
 }

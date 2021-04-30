@@ -35,6 +35,7 @@ class StatementViewController: NSViewController,
     
     private let cellId = "StatementCollectionViewItem"
     private var workspaceId: String!
+    private var workspaceMLFileName: String?
     private var meetingData: MeetingRepository.MeetingData!
     private var speechRecognizer: SpeechRecognizer?
     private let audioSystem = AudioSystem.shared
@@ -287,8 +288,9 @@ class StatementViewController: NSViewController,
         }
     }
     
-    func setup(workspaceId: String, meetingData: MeetingRepository.MeetingData) {
+    func setup(workspaceId: String, workspaceMLFileName: String?, meetingData: MeetingRepository.MeetingData) {
         self.workspaceId = workspaceId
+        self.workspaceMLFileName = workspaceMLFileName
         self.meetingData = meetingData
         statementQueue = StatementQueue(workspaceId: workspaceId, meetingId: meetingData.id)
         updateViews()
