@@ -28,6 +28,20 @@ class SpeechRecognizerApple: NSObject,
         self.observeBreakInStatements.delegate = self
     }
     
+    private func startNewStatement(speechRecognizer: SFSpeechRecognizer, previousBuffers: [AVAudioPCMBuffer]) {
+        let newRecognitionRequest = RecognitionRequestApple(id: UUID().uuidString, speechRecognizer: speechRecognizer)
+        newRecognitionRequest.delegate = self
+        currentRecognitionRequest = newRecognitionRequest
+        recognitionRequests.append(newRecognitionRequest)
+        previousBuffers.forEach { newRecognitionRequest.append(buffer: $0) }
+        delegate?.didStartNewStatement(recognizer: self, id: newRecognitionRequest.id)
+    }
+    
+    private func endStatement() {
+        currentRecognitionRequest?.endAudio()
+        currentRecognitionRequest = nil
+    }
+    
     func setupRecognizer(languageIdentifier: String) {
         speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: languageIdentifier))
         speechRecognizer?.delegate = self
@@ -46,6 +60,12 @@ class SpeechRecognizerApple: NSObject,
         self.delegate = delegate
     }
     
+    func executeForceLineBreak() {
+        guard let _speechRecognizer = speechRecognizer else { return }
+        endStatement()
+        startNewStatement(speechRecognizer: _speechRecognizer, previousBuffers: [])
+    }
+    
     func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
         delegate?.didChangeAvailability(recognizer: self)
     }
@@ -53,16 +73,11 @@ class SpeechRecognizerApple: NSObject,
     func didChangeSpeekingState(obj: ObserveBreakInStatements, isSpeeking: Bool, previousBuffers: [AVAudioPCMBuffer]) {
         guard let _speechRecognizer = speechRecognizer else { return }
         if isSpeeking {
-            let newRecognitionRequest = RecognitionRequestApple(id: UUID().uuidString, speechRecognizer: _speechRecognizer)
-            newRecognitionRequest.delegate = self
-            currentRecognitionRequest = newRecognitionRequest
-            recognitionRequests.append(newRecognitionRequest)
-            previousBuffers.forEach { newRecognitionRequest.append(buffer: $0) }
-            delegate?.didStartNewStatement(recognizer: self, id: newRecognitionRequest.id)
+            startNewStatement(speechRecognizer: _speechRecognizer, previousBuffers: previousBuffers)
         } else {
-            currentRecognitionRequest?.endAudio()
-            currentRecognitionRequest = nil
+            endStatement()
         }
+        delegate?.didChangeSpeekingState(recognizer: self, isSpeeking: isSpeeking)
     }
     
     func failedToRequest(request: RecognitionRequestApple, error: Error) {

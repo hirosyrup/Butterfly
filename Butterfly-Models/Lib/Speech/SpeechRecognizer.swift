@@ -12,4 +12,5 @@ protocol SpeechRecognizer {
     func setRmsThreshold(threshold: Float)
     func append(buffer: AVAudioPCMBuffer, when: AVAudioTime)
     func setDelegate(delegate: SpeechRecognizerDelegate?)
+    func executeForceLineBreak()
 }

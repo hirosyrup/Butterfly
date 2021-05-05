@@ -27,7 +27,7 @@ class StatementShareViewController: NSViewController {
     }
     
     private func createStringsForCsv() -> String {
-        let statementStr = dataList.map { "\($0.user.name), \($0.statement.replacingOccurrences(of: "\n", with: ""))"}.joined(separator: "\n")
+        let statementStr = dataList.map { "\($0.user?.name ?? DefaultUserName.name), \($0.statement.replacingOccurrences(of: "\n", with: ""))"}.joined(separator: "\n")
         return "name, statement\n\(statementStr)"
     }
     
@@ -63,12 +63,12 @@ class StatementShareViewController: NSViewController {
     }
     
     @IBAction func pushCopyToClipboard(_ sender: Any) {
-        var previousUserId = ""
+        var previousUserId: String? = nil
         let statements = dataList.map { (data) -> String in
             var statement = ""
-            if previousUserId != data.user.id {
-                previousUserId = data.user.id
-                statement += "[\(data.user.name)]\n"
+            if previousUserId != data.user?.id {
+                previousUserId = data.user?.id
+                statement += "[\(data.user?.name ?? DefaultUserName.name)]\n"
             }
             return statement + "\(data.statement.replacingOccurrences(of: "\n", with: ""))"
         }

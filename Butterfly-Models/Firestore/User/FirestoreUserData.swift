@@ -22,7 +22,7 @@ struct FirestoreUserData {
         return FirestoreUserData(
             id: "",
             iconName: nil,
-            name: "Anonymous",
+            name: DefaultUserName.name,
             language: Locale.preferredLanguages.first ?? "",
             workspaceIdList: [],
             advancedSettingData: FirestoreUserAdvancedSettingData(

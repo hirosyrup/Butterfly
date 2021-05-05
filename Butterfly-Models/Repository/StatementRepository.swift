@@ -18,10 +18,10 @@ class StatementRepository {
         fileprivate let original: FirestoreStatementData
         let id: String
         var statement: String
-        var user: StatementUserData
+        var user: StatementUserData?
         let createdAt: Date
         
-        init(statement: String, user: StatementUserData) {
+        init(statement: String, user: StatementUserData?) {
             self.id = ""
             self.statement = statement
             self.user = user
@@ -29,7 +29,7 @@ class StatementRepository {
             self.createdAt = self.original.createdAt
         }
         
-        init(user: StatementUserData, original: FirestoreStatementData? = nil) {
+        init(user: StatementUserData?, original: FirestoreStatementData? = nil) {
             self.user = user
             self.original = original ?? FirestoreStatementData.new()
             self.id = self.original.id
@@ -40,7 +40,7 @@ class StatementRepository {
         fileprivate func toFirestoreData() -> FirestoreStatementData {
             var firestoreData = original
             firestoreData.statement = statement
-            firestoreData.user = user.toFirestoreData()
+            firestoreData.user = user?.toFirestoreData()
             return firestoreData
         }
     }
@@ -130,12 +130,14 @@ class StatementRepository {
         private func createStatementData(firestoreStatementData: FirestoreStatementData) -> Promise<StatementData> {
             return Promise<StatementData>(in: .background, token: nil) { (resolve, reject, _) in
                 async({ _ -> StatementData in
-                    let user = firestoreStatementData.user
-                    var iconUrl: URL?
-                    if let iconName = user.iconName {
-                        iconUrl = try await(self.iconImage.fetchDownloadUrl(fileName: iconName))
+                    var statementUserData: StatementUserData? = nil
+                    if let user = firestoreStatementData.user {
+                        var iconUrl: URL?
+                        if let iconName = user.iconName {
+                            iconUrl = try await(self.iconImage.fetchDownloadUrl(fileName: iconName))
+                        }
+                        statementUserData = StatementUserData(iconImageUrl: iconUrl, firestoreData: user)
                     }
-                    let statementUserData = StatementUserData(iconImageUrl: iconUrl, firestoreData: user)
                     
                     return StatementData(user: statementUserData, original: firestoreStatementData)
                 }).then({newStatementData in

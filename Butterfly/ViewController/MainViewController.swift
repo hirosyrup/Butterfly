@@ -110,7 +110,8 @@ class MainViewController: NSViewController,
             return (workspaceData, try await(MeetingRepository.Meeting().fetch(workspaceId: workspaceId, meetingId: meetingId)))
         }).then({ dataTuple in
             if let workspaceData = dataTuple.0, let meetingData = dataTuple.1 {
-                self.showStatementWindowController(workspaceId: workspaceId, workspaceMLFileName: workspaceData.mlFileName, data: meetingData)
+                let mlFileName = workspaceData.isEnableSpeakerRecognition ? workspaceData.mlFileName : nil
+                self.showStatementWindowController(workspaceId: workspaceId, workspaceMLFileName: mlFileName, data: meetingData)
             } else {
                 AlertBuilder.createErrorAlert(title: "Error", message: "Not Found the meeting.").runModal()
             }

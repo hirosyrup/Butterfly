@@ -102,28 +102,36 @@ class FirestoreStatement {
     }
     
     private func statementToFirestoreData(data: FirestoreStatementData) -> [String: Any] {
+        var userData: [String: Any]? = nil
+        if let user = data.user {
+            userData = [
+                "id": user.id,
+                "iconName": user.iconName ?? NSNull(),
+                "name": user.name
+            ]
+        }
         return [
             "statement": data.statement,
-            "user": [
-                "id": data.user.id,
-                "iconName": data.user.iconName ?? NSNull(),
-                "name": data.user.name
-            ] as [String: Any],
+            "user": userData ?? NSNull(),
             "createdAt": Timestamp(date: data.createdAt),
             "updatedAt": Timestamp(date: data.updatedAt)
         ]
     }
     
     private func firestoreDataToStatement(snapshot: [String: Any], statementId: String) -> FirestoreStatementData {
-        let userRaw = (snapshot["user"] as? [String: Any]) ?? [String: Any]()
+        let userRaw = (snapshot["user"] as? [String: Any])
+        var userData: FirestoreStatementUserData? = nil
+        if let raw = userRaw {
+            userData = FirestoreStatementUserData(
+                id: (raw["id"] as? String) ?? "",
+                iconName: raw["iconName"] as? String,
+                name: (raw["name"] as? String) ?? ""
+            )
+        }
         return FirestoreStatementData(
             id: statementId,
             statement: (snapshot["statement"] as? String) ?? "",
-            user: FirestoreStatementUserData(
-                id: (userRaw["id"] as? String) ?? "",
-                iconName: userRaw["iconName"] as? String,
-                name: (userRaw["name"] as? String) ?? ""
-            ),
+            user: userData,
             createdAt: (snapshot["createdAt"] as? Timestamp)?.dateValue() ?? Date(),
             updatedAt: (snapshot["updatedAt"] as? Timestamp)?.dateValue() ?? Date()
         )

@@ -64,6 +64,10 @@
 		FB64DBA1263AF53A00A3BA32 /* AudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBA0263AF53A00A3BA32 /* AudioFile.swift */; };
 		FB64DBA7263AF97600A3BA32 /* VoiceprintStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBA6263AF97600A3BA32 /* VoiceprintStorage.swift */; };
 		FB64DBAB263AFE8B00A3BA32 /* Rms.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBAA263AFE8B00A3BA32 /* Rms.swift */; };
+		FB64DBB6263D990000A3BA32 /* SpeakerRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBB5263D990000A3BA32 /* SpeakerRecognizer.swift */; };
+		FB64DBB7263D990000A3BA32 /* SpeakerRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBB5263D990000A3BA32 /* SpeakerRecognizer.swift */; };
+		FB64DBBB2642DDC100A3BA32 /* DefaultUserName.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBBA2642DDC100A3BA32 /* DefaultUserName.swift */; };
+		FB64DBBC2642DDC100A3BA32 /* DefaultUserName.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBBA2642DDC100A3BA32 /* DefaultUserName.swift */; };
 		FB6C6D74262FDE8200735016 /* MeetingCollectionDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */; };
 		FB84FD05263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB84FD04263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift */; };
 		FB9D716A260820A700B7E9DE /* MeetingCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */; };
@@ -221,6 +225,8 @@
 		FB64DBA0263AF53A00A3BA32 /* AudioFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFile.swift; sourceTree = "<group>"; };
 		FB64DBA6263AF97600A3BA32 /* VoiceprintStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceprintStorage.swift; sourceTree = "<group>"; };
 		FB64DBAA263AFE8B00A3BA32 /* Rms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rms.swift; sourceTree = "<group>"; };
+		FB64DBB5263D990000A3BA32 /* SpeakerRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerRecognizer.swift; sourceTree = "<group>"; };
+		FB64DBBA2642DDC100A3BA32 /* DefaultUserName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUserName.swift; sourceTree = "<group>"; };
 		FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCollectionDataProvider.swift; sourceTree = "<group>"; };
 		FB84FD04263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesUserVoiceprintViewController.swift; sourceTree = "<group>"; };
 		FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingCollectionViewItem.swift; sourceTree = "<group>"; };
@@ -401,6 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				FB204256260C5471006620A2 /* AppScheme.swift */,
+				FB64DBBA2642DDC100A3BA32 /* DefaultUserName.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -460,6 +467,7 @@
 			isa = PBXGroup;
 			children = (
 				FB64DB922635B12A00A3BA32 /* MLFileLocalUrl.swift */,
+				FB64DBB5263D990000A3BA32 /* SpeakerRecognizer.swift */,
 			);
 			path = SpeakerRecognition;
 			sourceTree = "<group>";
@@ -1057,6 +1065,7 @@
 				FB64DB932635B12A00A3BA32 /* MLFileLocalUrl.swift in Sources */,
 				FBD1A84026132243005BB323 /* AudioUploader.swift in Sources */,
 				FBA545DE25FFA3D300112066 /* FirestoreUser.swift in Sources */,
+				FB64DBBB2642DDC100A3BA32 /* DefaultUserName.swift in Sources */,
 				FBE3653E2616178200EA9471 /* AudioExport.swift in Sources */,
 				FB204257260C5471006620A2 /* AppScheme.swift in Sources */,
 				FBC83ACA262B27EC00989820 /* SaveAdvanced.swift in Sources */,
@@ -1074,6 +1083,7 @@
 				FB64DBAB263AFE8B00A3BA32 /* Rms.swift in Sources */,
 				FBA544F325FD04BB00112066 /* EditableNSTextField.swift in Sources */,
 				FB9D71922608668000B7E9DE /* StatementRepository.swift in Sources */,
+				FB64DBB6263D990000A3BA32 /* SpeakerRecognizer.swift in Sources */,
 				FB64DBA1263AF53A00A3BA32 /* AudioFile.swift in Sources */,
 				FBA5456025FE48AF00112066 /* SignUp.swift in Sources */,
 				FB9D718A260861BE00B7E9DE /* FirestoreStatementUserData.swift in Sources */,
@@ -1173,12 +1183,14 @@
 				FBA5443625FA554200112066 /* ViewController.swift in Sources */,
 				FBF9A6292606302200AE78DF /* SaveWorkspace.swift in Sources */,
 				FBA5443225FA554200112066 /* AppDelegate.swift in Sources */,
+				FB64DBB7263D990000A3BA32 /* SpeakerRecognizer.swift in Sources */,
 				FB64DB9B2635B26700A3BA32 /* DownloadMLFile.swift in Sources */,
 				FBA546292600FA2700112066 /* UploadIconImageResponse.swift in Sources */,
 				FBA5443425FA554200112066 /* SceneDelegate.swift in Sources */,
 				FBA5447425FA55E500112066 /* FirestoreSetup.swift in Sources */,
 				FBA545E525FFACEA00112066 /* PreferencesRepository.swift in Sources */,
 				FBA5461A2600ECEF00112066 /* IconImage.swift in Sources */,
+				FB64DBBC2642DDC100A3BA32 /* DefaultUserName.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

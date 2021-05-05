@@ -27,6 +27,20 @@ class SpeechRecognizerAmiVoice: SpeechRecognizer,
         self.observeBreakInStatements.delegate = self
     }
     
+    private func startNewStatement(previousBuffers: [AVAudioPCMBuffer]) {
+        let newRecognitionRequest = RecognitionRequestAmiVoice(id: UUID().uuidString, apiKey: apiKey, apiEngine: apiEngine, apiUrlString: apiUrlString)
+        newRecognitionRequest.delegate = self
+        currentRecognitionRequest = newRecognitionRequest
+        recognitionRequests.append(newRecognitionRequest)
+        previousBuffers.forEach { newRecognitionRequest.append(buffer: $0) }
+        delegate?.didStartNewStatement(recognizer: self, id: newRecognitionRequest.id)
+    }
+    
+    private func endStatement() {
+        currentRecognitionRequest?.endAudio()
+        currentRecognitionRequest = nil
+    }
+    
     func setRmsThreshold(threshold: Float) {
         observeBreakInStatements.rmsThreshold = threshold
     }
@@ -40,18 +54,18 @@ class SpeechRecognizerAmiVoice: SpeechRecognizer,
         self.delegate = delegate
     }
     
+    func executeForceLineBreak() {
+        endStatement()
+        startNewStatement(previousBuffers: [])
+    }
+    
     func didChangeSpeekingState(obj: ObserveBreakInStatements, isSpeeking: Bool, previousBuffers: [AVAudioPCMBuffer]) {
         if isSpeeking {
-            let newRecognitionRequest = RecognitionRequestAmiVoice(id: UUID().uuidString, apiKey: apiKey, apiEngine: apiEngine, apiUrlString: apiUrlString)
-            newRecognitionRequest.delegate = self
-            currentRecognitionRequest = newRecognitionRequest
-            recognitionRequests.append(newRecognitionRequest)
-            previousBuffers.forEach { newRecognitionRequest.append(buffer: $0) }
-            delegate?.didStartNewStatement(recognizer: self, id: newRecognitionRequest.id)
+            startNewStatement(previousBuffers: previousBuffers)
         } else {
-            currentRecognitionRequest?.endAudio()
-            currentRecognitionRequest = nil
+            endStatement()
         }
+        delegate?.didChangeSpeekingState(recognizer: self, isSpeeking: isSpeeking)
     }
     
     func failedToRequest(request: RecognitionRequestAmiVoice, error: Error) {

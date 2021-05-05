@@ -17,11 +17,19 @@ class StatementCollectionViewItemPresenter {
     }
     
     func userName() -> String {
-        return data.user.name
+        if let user = data.user {
+            return user.name
+        } else {
+            return DefaultUserName.name
+        }
     }
     
     func iconImageUrl() -> URL? {
-        return data.user.iconImageUrl
+        if let user = data.user {
+            return user.iconImageUrl
+        } else {
+            return nil
+        }
     }
     
     func statement() -> String {
@@ -32,6 +40,6 @@ class StatementCollectionViewItemPresenter {
         guard let _previousData = previousData else {
             return false
         }
-        return data.user.id == _previousData.user.id
+        return data.user?.id == _previousData.user?.id
     }
 }

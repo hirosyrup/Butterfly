@@ -27,7 +27,8 @@ class DownloadMLFile {
                         }
                     }
                 }
-                let compiledFileUrl = MLFileLocalUrl.createLocalUrl().appendingPathComponent("\(self.fileName)c")
+                let compiledFileName = MLFileLocalUrl.createCompiledModelFileName(modelFileName: self.fileName)
+                let compiledFileUrl = MLFileLocalUrl.createLocalUrl().appendingPathComponent(compiledFileName)
                 if !FileManager.default.fileExists(atPath: compiledFileUrl.path) {
                     let url = try MLModel.compileModel(at: fileUrl)
                     try FileManager.default.copyItem(at: url, to: compiledFileUrl)

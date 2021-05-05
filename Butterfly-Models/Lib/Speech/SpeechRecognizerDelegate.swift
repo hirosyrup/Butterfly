@@ -13,4 +13,5 @@ protocol SpeechRecognizerDelegate: class {
     func didStartNewStatement(recognizer: SpeechRecognizer, id: String)
     func didUpdateStatement(recognizer: SpeechRecognizer, id: String, statement: String)
     func didEndStatement(recognizer: SpeechRecognizer, id: String, statement: String)
+    func didChangeSpeekingState(recognizer: SpeechRecognizer, isSpeeking: Bool)
 }

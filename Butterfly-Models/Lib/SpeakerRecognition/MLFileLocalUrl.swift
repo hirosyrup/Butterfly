@@ -15,4 +15,8 @@ class MLFileLocalUrl {
         }
         return url
     }
+    
+    static func createCompiledModelFileName(modelFileName: String) -> String {
+        return "\(modelFileName)c"
+    }
 }

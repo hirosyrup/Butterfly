@@ -10,12 +10,12 @@ import Foundation
 struct FirestoreStatementData {
     var id: String
     var statement: String
-    var user: FirestoreStatementUserData
+    var user: FirestoreStatementUserData?
     var createdAt: Date
     var updatedAt: Date
     
     static func new() -> FirestoreStatementData {
-        return FirestoreStatementData(id: "", statement: "", user:FirestoreStatementUserData.new(), createdAt: Date(), updatedAt: Date())
+        return FirestoreStatementData(id: "", statement: "", user: nil, createdAt: Date(), updatedAt: Date())
     }
     
     func copyCurrentAt() -> FirestoreStatementData {

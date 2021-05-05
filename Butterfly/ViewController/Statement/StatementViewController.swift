@@ -13,6 +13,7 @@ import AVKit
 class StatementViewController: NSViewController,
                                SpeechRecognizerDelegate,
                                AudioSystemDelegate,
+                               SpeakerRecognizerDelegate,
                                StatementRepositoryDelegate,
                                MeetingUserRepositoryDataListDelegate,
                                NSCollectionViewDataSource,
@@ -35,12 +36,13 @@ class StatementViewController: NSViewController,
     
     private let cellId = "StatementCollectionViewItem"
     private var workspaceId: String!
-    private var workspaceMLFileName: String?
+    private var speakerRecognizer: SpeakerRecognizer?
     private var meetingData: MeetingRepository.MeetingData!
     private var speechRecognizer: SpeechRecognizer?
     private let audioSystem = AudioSystem.shared
     private var userList = [MeetingUserRepository.MeetingUserData]()
     private var you: MeetingUserRepository.MeetingUserData?
+    private var currentSpeaker: MeetingUserRepository.MeetingUserData?
     private var statementQueue: StatementQueue!
     private let meetingUser = MeetingUserRepository.User()
     private let statement = StatementRepository.Statement()
@@ -104,12 +106,18 @@ class StatementViewController: NSViewController,
     private func startRecognition() {
         audioSystem.delegate = self
         audioSystem.start()
+        do {
+            try speakerRecognizer?.start()
+        } catch {
+            AlertBuilder.createErrorAlert(title: "Error", message: "Failed to start speaker recognization. \(error.localizedDescription)").runModal()
+        }
     }
     
     private func stopRecognition() {
         audioSystem.stop()
         speechRecognizer?.setDelegate(delegate: nil)
         audioSystem.delegate = nil
+        speakerRecognizer?.stop()
     }
     
     private func previousData(currentIndex: Int) -> StatementRepository.StatementData? {
@@ -138,6 +146,9 @@ class StatementViewController: NSViewController,
             if let _you = userList.first(where: { $0.userId == currentUser.uid }) {
                 if _you.id != you?.id {
                     setupSpeechRecognizer(you: _you)
+                }
+                if speakerRecognizer == nil {
+                    currentSpeaker = _you
                 }
                 you = _you
             }
@@ -290,7 +301,14 @@ class StatementViewController: NSViewController,
     
     func setup(workspaceId: String, workspaceMLFileName: String?, meetingData: MeetingRepository.MeetingData) {
         self.workspaceId = workspaceId
-        self.workspaceMLFileName = workspaceMLFileName
+        if let _workspaceMLFileName = workspaceMLFileName {
+            let compiledFileName = MLFileLocalUrl.createCompiledModelFileName(modelFileName: _workspaceMLFileName)
+            let compileModelFileUrl = MLFileLocalUrl.createLocalUrl().appendingPathComponent(compiledFileName)
+            if FileManager.default.fileExists(atPath: compileModelFileUrl.path) {
+                self.speakerRecognizer = SpeakerRecognizer(compileModelFileUrl: compileModelFileUrl, format: audioSystem.inputFormat)
+                self.speakerRecognizer?.delegate = self
+            }
+        }
         self.meetingData = meetingData
         statementQueue = StatementQueue(workspaceId: workspaceId, meetingId: meetingData.id)
         updateViews()
@@ -312,6 +330,7 @@ class StatementViewController: NSViewController,
     
     func notifyRenderBuffer(obj: AudioSystem, buffer: AVAudioPCMBuffer, when: AVAudioTime) {
         speechRecognizer?.append(buffer: buffer, when: when)
+        speakerRecognizer?.analyze(buffer: buffer, when: when)
         observeBreakInStatements.checkBreakInStatements(buffer: buffer, when: when)
         if observeBreakInStatements.isSpeeking {
             audioRecorder?.write(buffer: buffer)
@@ -340,17 +359,22 @@ class StatementViewController: NSViewController,
     }
     
     func didStartNewStatement(recognizer: SpeechRecognizer, id: String) {
-        if let _you = you {
-            statementQueue.addNewStatement(uuid: id, user: _you)
-        }
+        statementQueue.addNewStatement(uuid: id, user: currentSpeaker)
     }
     
     func didUpdateStatement(recognizer: SpeechRecognizer, id: String, statement: String) {
-        statementQueue.updateStatement(uuid: id, statement: statement)
+        statementQueue.updateStatement(uuid: id, statement: statement, user: currentSpeaker)
     }
     
     func didEndStatement(recognizer: SpeechRecognizer, id: String, statement: String) {
-        statementQueue.endStatement(uuid: id, statement: statement)
+        statementQueue.endStatement(uuid: id, statement: statement, user: currentSpeaker)
+    }
+    
+    func didChangeSpeekingState(recognizer: SpeechRecognizer, isSpeeking: Bool) {
+        if isSpeeking == false, let _speakerRecognizer = speakerRecognizer {
+            _speakerRecognizer.resetSpeaker()
+            currentSpeaker = nil
+        }
     }
     
     func didChangeStatementData(obj: StatementRepository.Statement, documentChanges: [RepositoryDocumentChange<StatementRepository.StatementData>]) {
@@ -390,6 +414,13 @@ class StatementViewController: NSViewController,
         updateViews()
         enter()
         setupRecordAudioIfNeeded()
+    }
+    
+    func didChangeSpeaker(recognizer: SpeakerRecognizer, speakerUserId: String?) {
+        if currentSpeaker != nil && currentSpeaker!.id != speakerUserId {
+            speechRecognizer?.executeForceLineBreak()
+        }
+        currentSpeaker = userList.first { $0.id == speakerUserId }
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
