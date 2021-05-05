@@ -68,6 +68,10 @@
 		FB64DBB7263D990000A3BA32 /* SpeakerRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBB5263D990000A3BA32 /* SpeakerRecognizer.swift */; };
 		FB64DBBB2642DDC100A3BA32 /* DefaultUserName.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBBA2642DDC100A3BA32 /* DefaultUserName.swift */; };
 		FB64DBBC2642DDC100A3BA32 /* DefaultUserName.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBBA2642DDC100A3BA32 /* DefaultUserName.swift */; };
+		FB64DBC02642F3F800A3BA32 /* StatementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBBF2642F3F800A3BA32 /* StatementController.swift */; };
+		FB64DBC12642F3F800A3BA32 /* StatementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBBF2642F3F800A3BA32 /* StatementController.swift */; };
+		FB64DBC82642F80C00A3BA32 /* StatementShareViewControllerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBC72642F80C00A3BA32 /* StatementShareViewControllerData.swift */; };
+		FB64DBC92642F80C00A3BA32 /* StatementShareViewControllerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBC72642F80C00A3BA32 /* StatementShareViewControllerData.swift */; };
 		FB6C6D74262FDE8200735016 /* MeetingCollectionDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */; };
 		FB84FD05263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB84FD04263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift */; };
 		FB9D716A260820A700B7E9DE /* MeetingCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */; };
@@ -227,6 +231,8 @@
 		FB64DBAA263AFE8B00A3BA32 /* Rms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rms.swift; sourceTree = "<group>"; };
 		FB64DBB5263D990000A3BA32 /* SpeakerRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerRecognizer.swift; sourceTree = "<group>"; };
 		FB64DBBA2642DDC100A3BA32 /* DefaultUserName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUserName.swift; sourceTree = "<group>"; };
+		FB64DBBF2642F3F800A3BA32 /* StatementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementController.swift; sourceTree = "<group>"; };
+		FB64DBC72642F80C00A3BA32 /* StatementShareViewControllerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementShareViewControllerData.swift; sourceTree = "<group>"; };
 		FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCollectionDataProvider.swift; sourceTree = "<group>"; };
 		FB84FD04263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesUserVoiceprintViewController.swift; sourceTree = "<group>"; };
 		FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingCollectionViewItem.swift; sourceTree = "<group>"; };
@@ -415,10 +421,12 @@
 		FB2603402608D26200323E4B /* Statement */ = {
 			isa = PBXGroup;
 			children = (
+				FB64DBC62642F7F800A3BA32 /* Data */,
 				FBC8398B261B5B8100989820 /* StatementQueueType.swift */,
 				FB2603472608D28F00323E4B /* StatementQueueData.swift */,
 				FB2603412608D27D00323E4B /* StatementQueue.swift */,
 				FB26040C2614199300323E4B /* MergeAudio.swift */,
+				FB64DBBF2642F3F800A3BA32 /* StatementController.swift */,
 			);
 			path = Statement;
 			sourceTree = "<group>";
@@ -470,6 +478,14 @@
 				FB64DBB5263D990000A3BA32 /* SpeakerRecognizer.swift */,
 			);
 			path = SpeakerRecognition;
+			sourceTree = "<group>";
+		};
+		FB64DBC62642F7F800A3BA32 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				FB64DBC72642F80C00A3BA32 /* StatementShareViewControllerData.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		FB6C6D71262FDE4D00735016 /* Provider */ = {
@@ -1090,6 +1106,7 @@
 				FBC83AEA262F201900989820 /* SearchOptionUserDefault.swift in Sources */,
 				FB26035F260B946400323E4B /* StatementShareViewController.swift in Sources */,
 				FBA544C025FA667000112066 /* PreferencesWindowController.swift in Sources */,
+				FB64DBC02642F3F800A3BA32 /* StatementController.swift in Sources */,
 				FBC83AD9262DCD7600989820 /* PopupButtonOption.swift in Sources */,
 				FB523C21260765C800801070 /* MeetingInputViewController.swift in Sources */,
 				FBC839C5261DFE2300989820 /* StatementMemberIconViewPresenter.swift in Sources */,
@@ -1097,6 +1114,7 @@
 				FB0D2F9E26072F60001403A5 /* SelectMemberUserData.swift in Sources */,
 				FBA5459025FE620700112066 /* SignIn.swift in Sources */,
 				FB0D2FAB26073CBD001403A5 /* FirestoreMeetingUserData.swift in Sources */,
+				FB64DBC82642F80C00A3BA32 /* StatementShareViewControllerData.swift in Sources */,
 				FB0D2FAF26073E23001403A5 /* FirestoreMeeting.swift in Sources */,
 				FBF9A5EB2605898A00AE78DF /* SelectMemberCollectionData.swift in Sources */,
 				FBF9A5D32603957B00AE78DF /* SelectMemberCollectionViewItem.swift in Sources */,
@@ -1171,6 +1189,7 @@
 				FBA545D625FFA3AA00112066 /* FirestoreUserData.swift in Sources */,
 				FBA545D725FFA3AA00112066 /* SignUp.swift in Sources */,
 				FBA545D825FFA3AA00112066 /* SignIn.swift in Sources */,
+				FB64DBC92642F80C00A3BA32 /* StatementShareViewControllerData.swift in Sources */,
 				FB64DB8E26346C6900A3BA32 /* MLStorage.swift in Sources */,
 				FBF9A6102605BD8A00AE78DF /* FirestoreWorkspaceData.swift in Sources */,
 				FBA545D925FFA3AA00112066 /* SignOut.swift in Sources */,
@@ -1191,6 +1210,7 @@
 				FBA545E525FFACEA00112066 /* PreferencesRepository.swift in Sources */,
 				FBA5461A2600ECEF00112066 /* IconImage.swift in Sources */,
 				FB64DBBC2642DDC100A3BA32 /* DefaultUserName.swift in Sources */,
+				FB64DBC12642F3F800A3BA32 /* StatementController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

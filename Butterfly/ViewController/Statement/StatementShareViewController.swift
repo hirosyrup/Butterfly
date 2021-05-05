@@ -12,10 +12,7 @@ import Hydra
 class StatementShareViewController: NSViewController {
     @IBOutlet weak var exportAudioButton: NSButton!
     
-    var workspaceId: String = ""
-    var meetingData: MeetingRepository.MeetingData!
-    var dataList = [StatementRepository.StatementData]()
-    var audioComposition: AVMutableComposition?
+    var data: StatementShareViewControllerData!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,18 +20,18 @@ class StatementShareViewController: NSViewController {
     }
     
     private func updateView() {
-        exportAudioButton.isEnabled = audioComposition != nil
+        exportAudioButton.isEnabled = data.audioComposition != nil
     }
     
     private func createStringsForCsv() -> String {
-        let statementStr = dataList.map { "\($0.user?.name ?? DefaultUserName.name), \($0.statement.replacingOccurrences(of: "\n", with: ""))"}.joined(separator: "\n")
+        let statementStr = data.statementDataList.map { "\($0.user?.name ?? DefaultUserName.name), \($0.statement.replacingOccurrences(of: "\n", with: ""))"}.joined(separator: "\n")
         return "name, statement\n\(statementStr)"
     }
     
     @IBAction func pushExportCsv(_ sender: Any) {
         let savePanel = NSSavePanel()
         savePanel.canCreateDirectories = true
-        savePanel.nameFieldStringValue = "\(meetingData.name).csv"
+        savePanel.nameFieldStringValue = "\(data.meetingData.name).csv"
         savePanel.begin { (response) in
             if response == .OK {
                 guard let url = savePanel.url else { return }
@@ -48,10 +45,10 @@ class StatementShareViewController: NSViewController {
     }
     
     @IBAction func pushExportAudio(_ sender: Any) {
-        guard let composition = audioComposition else { return }
+        guard let composition = data.audioComposition else { return }
         let savePanel = NSSavePanel()
         savePanel.canCreateDirectories = true
-        savePanel.nameFieldStringValue = "\(meetingData.name).m4a"
+        savePanel.nameFieldStringValue = "\(data.meetingData.name).m4a"
         savePanel.begin { (response) in
             if response == .OK {
                 guard let url = savePanel.url else { return }
@@ -64,7 +61,7 @@ class StatementShareViewController: NSViewController {
     
     @IBAction func pushCopyToClipboard(_ sender: Any) {
         var previousUserId: String? = nil
-        let statements = dataList.map { (data) -> String in
+        let statements = data.statementDataList.map { (data) -> String in
             var statement = ""
             if previousUserId != data.user?.id {
                 previousUserId = data.user?.id
@@ -82,7 +79,7 @@ class StatementShareViewController: NSViewController {
     @IBAction func pushCopyDeepLink(_ sender: Any) {
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
-        pasteboard.setString(AppScheme().openMeetingScheme(workspaceId: workspaceId, meetingId: meetingData.id), forType: .string)
+        pasteboard.setString(AppScheme().openMeetingScheme(workspaceId: workspaceId, meetingId: data.meetingData.id), forType: .string)
         dismiss(self)
     }
 }
