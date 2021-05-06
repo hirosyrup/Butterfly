@@ -32,6 +32,7 @@ class StatementViewController: NSViewController,
     
     private let cellId = "StatementCollectionViewItem"
     private var statementController: StatementController!
+    private var audioComposition: AVMutableComposition?
     private let statement = StatementRepository.Statement()
     private var statementDataList = [StatementRepository.StatementData]()
     private var lastScrollIndex = 0
@@ -46,6 +47,7 @@ class StatementViewController: NSViewController,
         let nib = NSNib(nibNamed: "StatementCollectionViewItem", bundle: nil)
         collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId))
         audioPlayerView.isHidden = true
+        speechRecognizerControlContainer.isHidden = true
         levelMeter = StatementLevelMeter.createFromNib(owner: nil)
         levelMeter.frame = levelMeterContainer.bounds
         levelMeterContainer.addSubview(levelMeter)
@@ -64,10 +66,8 @@ class StatementViewController: NSViewController,
     }
     
     override func viewWillDisappear() {
-        statementController.stopRecognition()
-        stopRecord()
+        statementController.close()
         statement.unlisten()
-        exit()
     }
     
     override func viewDidDisappear() {
@@ -76,8 +76,14 @@ class StatementViewController: NSViewController,
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-        if let vc = segue.destinationController as? StatementShareViewController{
-            vc.data = statementController.createStatementShareViewControllerData(statementDataList: statementDataList)
+        if let vc = segue.destinationController as? StatementShareViewController {
+            let data = StatementShareViewControllerData(
+                workspaceId: statementController.workspaceId,
+                meetingData: statementController.meetingData,
+                statementDataList: statementDataList,
+                audioComposition: audioComposition
+            )
+            vc.data = data
         }
     }
 
@@ -106,12 +112,14 @@ class StatementViewController: NSViewController,
     }
     
     private func setupRecordAudioIfNeeded() {
+        let userList = statementController.userList
         guard !userList.isEmpty else { return }
-        if meetingData.startedAt != nil && meetingData.endedAt != nil {
+        let meetingData = statementController.meetingData
+        if meetingData.isFinished() {
             recordAudioDownloadIndicator.startAnimation(self)
             audioPlayerView.isHidden = true
             async({ _ -> AVMutableComposition in
-                return try await(MergeAudio(meetingData: self.meetingData, meetingUserDataList: self.userList).merge())
+                return try await(MergeAudio(meetingData: meetingData, meetingUserDataList: userList).merge())
             }).then({ composition in
                 self.audioPlayerView.isHidden = false
                 self.audioPlayerView.player = AVPlayer(playerItem: AVPlayerItem(asset: composition))
@@ -125,7 +133,8 @@ class StatementViewController: NSViewController,
     }
     
     private func setupCollectionViewHeight() {
-        if meetingData.startedAt != nil && meetingData.endedAt != nil {
+        let meetingData = statementController.meetingData
+        if meetingData.isFinished() {
             collectionViewHeightConstraint?.constant = collectionViewHeightConstant
             showCollectionButton.state = .on
             if let constraint = collectionViewHeightConstraint {
@@ -137,92 +146,9 @@ class StatementViewController: NSViewController,
         }
     }
     
-    private func setupSpeechRecognizer(you: MeetingUserRepository.MeetingUserData) {
-        speechRecognizerControlContainer.isHidden = true
-        async({ _ -> PreferencesRepository.UserData in
-            return try await(PreferencesRepository.User().findOrCreate(userId: you.userId))
-        }).then({ userData in
-            let advancedSettingData = userData.advancedSettingData
-            if advancedSettingData.enableAmiVoice && !advancedSettingData.amiVoiceApiKey.isEmpty && !advancedSettingData.amiVoiceApiUrl.isEmpty {
-                self.speechRecognizerControlContainer.isHidden = false
-                self.speechRecognizerSegmentedControl.selectedSegment = userData.advancedSettingData.turnedOnByDefault ? 1 : 0
-                let amiVoice = SpeechRecognizerAmiVoice.shared
-                amiVoice.apiKey = advancedSettingData.amiVoiceApiKey
-                amiVoice.apiUrlString = advancedSettingData.amiVoiceApiUrl
-                amiVoice.apiEngine = advancedSettingData.amiVoiceEngine
-            }
-            SpeechRecognizerApple.shared.setupRecognizer(languageIdentifier: userData.language)
-            self.updateSpeechRecognizer()
-        })
-    }
-    
     private func updateSpeechRecognizer() {
-        speechRecognizer?.setDelegate(delegate: nil)
-        switch speechRecognizerSegmentedControl.selectedSegment {
-        case 0:
-            speechRecognizer = SpeechRecognizerApple.shared
-        case 1:
-            speechRecognizer = SpeechRecognizerAmiVoice.shared
-        default:
-            break
-        }
-        speechRecognizer?.setDelegate(delegate: self)
-    }
-    
-    private func startAudioInput(userId: String, isHost: Bool) {
-        guard var updateData = meetingData else { return }
-        if let index = userList.firstIndex(where: { $0.userId == userId }) {
-            updateData.startedAt = Date()
-            var updateUserData = userList[index]
-            updateUserData.isHost = isHost
-            async({ _ -> MeetingUserRepository.MeetingUserData in
-                try await(MeetingRepository.Meeting().update(workspaceId: self.workspaceId, meetingData: updateData))
-                return try await(MeetingUserRepository.User().update(workspaceId: self.workspaceId, meetingId: updateData.id, meetingUserData: updateUserData))
-            }).then { (_) in }
-        }
-    }
-    
-    private func endAudioInput() {
-        guard var updateData = meetingData else { return }
-        updateData.endedAt = Date()
-        async({ _ -> MeetingRepository.MeetingData in
-            return try await(MeetingRepository.Meeting().update(workspaceId: self.workspaceId, meetingData: updateData))
-        }).then { (_) in }
-    }
-    
-    private func startRecord() {
-        guard audioRecorder == nil else { return }
-        if let startedAt = meetingData.startedAt {
-            let interval = Date().timeIntervalSince1970 - startedAt.timeIntervalSince1970
-            audioRecorder = AudioRecorder(startTime: Float(interval), meetingId: meetingData.id, inputFormat: audioSystem.inputFormat)
-        }
-    }
-    
-    private func stopRecord() {
-        guard let recorder = audioRecorder else { return }
-        recorder.stop()
-        audioRecorder = nil
-    }
-    
-    private func updateAudioInputState() {
-        guard you != nil else { return }
-        let _isAudioInputStart = meetingData.startedAt != nil && meetingData.endedAt == nil
-        if isAudioInputStart != _isAudioInputStart {
-            do {
-                if _isAudioInputStart {
-                    try statementController.startRecognition()
-                    startRecord()
-                } else {
-                    statementController.stopRecognition()
-                    stopRecord()
-                    AudioUploaderQueue.shared.addUploader(workspaceId: workspaceId, meetingData: meetingData, meetingUserDataList: userList)
-                }
-                levelMeter.setEnable(enabled: _isAudioInputStart)
-                isAudioInputStart = _isAudioInputStart
-            } catch {
-                AlertBuilder.createErrorAlert(title: "Error", message: "Failed to start speaker recognization. \(error.localizedDescription)").runModal()
-            }
-        }
+        guard let speechRecognizerType = SpeechRecognizerType(rawValue: speechRecognizerSegmentedControl.selectedSegment) else { return }
+        statementController.updateSpeechRecognizer(speechRecognizerType: speechRecognizerType)
     }
     
     private func reloadCollectionView() {
@@ -239,36 +165,6 @@ class StatementViewController: NSViewController,
         setupCollectionViewHeight()
     }
     
-//    func updateMeetingData(meetingData: MeetingRepository.MeetingData) {
-//        self.meetingData = meetingData
-//        updateAudioInputState()
-//        updateViews()
-//        setupRecordAudioIfNeeded()
-//        setupCollectionViewHeight()
-//    }
-    
-    func notifyRenderBuffer(obj: AudioSystem, buffer: AVAudioPCMBuffer, when: AVAudioTime) {
-        speechRecognizer?.append(buffer: buffer, when: when)
-        speakerRecognizer?.analyze(buffer: buffer, when: when)
-        observeBreakInStatements.checkBreakInStatements(buffer: buffer, when: when)
-        if observeBreakInStatements.isSpeeking {
-            audioRecorder?.write(buffer: buffer)
-        } else {
-            let emptyBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameCapacity)
-            emptyBuffer?.frameLength = buffer.frameLength
-            audioRecorder?.write(buffer: emptyBuffer!)
-        }
-        
-        if observeBreakInStatements.isOverThreshold() {
-            let threshold = autoCalcRmsThreshold.calcThreshold(rms: observeBreakInStatements.currentRms)
-            observeBreakInStatements.rmsThreshold = threshold
-            speechRecognizer?.setRmsThreshold(threshold: threshold)
-            levelMeter.updateThreshold(threshold: Double(threshold))
-        }
-        
-        levelMeter.setRms(rms: Double(observeBreakInStatements.currentRms))
-    }
-    
     func didNotCreateRecognitionRequest(controller: StatementController, error: Error) {
         AlertBuilder.createErrorAlert(title: "Error", message: "\(error.localizedDescription)").runModal()
     }
@@ -277,11 +173,23 @@ class StatementViewController: NSViewController,
         AlertBuilder.createErrorAlert(title: "Error", message: "Failed to start audio engine. \(error.localizedDescription)").runModal()
     }
     
-    func didChangeSpeekingState(recognizer: SpeechRecognizer, isSpeeking: Bool) {
-        if isSpeeking == false, let _speakerRecognizer = speakerRecognizer {
-            _speakerRecognizer.resetSpeaker()
-            currentSpeaker = nil
-        }
+    func didUpdateData(controller: StatementController) {
+        setupRecordAudioIfNeeded()
+        updateViews()
+        setupCollectionViewHeight()
+    }
+    
+    func didUpdateSpeechRecognizer(controller: StatementController, recognizerType: SpeechRecognizerType, canSelectRecognizer: Bool) {
+        speechRecognizerControlContainer.isHidden = canSelectRecognizer
+        speechRecognizerSegmentedControl.selectedSegment = recognizerType.rawValue
+    }
+    
+    func didUpdateAudioInputState(controller: StatementController, isAudioInputStart: Bool) {
+        levelMeter.setEnable(enabled: isAudioInputStart)
+    }
+    
+    func failedToUpdateAudioInputState(controller: StatementController, error: Error) {
+        AlertBuilder.createErrorAlert(title: "Error", message: "Failed to start speaker recognization. \(error.localizedDescription)").runModal()
     }
     
     func didChangeStatementData(obj: StatementRepository.Statement, documentChanges: [RepositoryDocumentChange<StatementRepository.StatementData>]) {
@@ -315,21 +223,6 @@ class StatementViewController: NSViewController,
         }
     }
     
-//    func didChangeMeetingUserDataList(obj: MeetingUserRepository.User, documentChanges: [RepositoryDocumentChange<MeetingUserRepository.MeetingUserData>]) {
-//        userList = meetingUser.createUserListFromDocumentChanges(prevUserList: userList, documentChanges: documentChanges)
-//        updateYou()
-//        updateViews()
-//        enter()
-//        setupRecordAudioIfNeeded()
-//    }
-    
-    func didChangeSpeaker(recognizer: SpeakerRecognizer, speakerUserId: String?) {
-        if currentSpeaker != nil && currentSpeaker!.id != speakerUserId {
-            speechRecognizer?.executeForceLineBreak()
-        }
-        currentSpeaker = userList.first { $0.id == speakerUserId }
-    }
-    
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
         return statementDataList.count
     }
@@ -344,7 +237,7 @@ class StatementViewController: NSViewController,
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         collectionView.deselectItems(at: indexPaths)
         guard let indexPath = indexPaths.first else { return }
-        guard let startedAt = meetingData.startedAt else { return }
+        guard let startedAt = statementController.meetingData.startedAt else { return }
         let statementData = statementDataList[indexPath.item]
         let diff = statementData.createdAt.timeIntervalSince1970 - startedAt.timeIntervalSince1970
         audioPlayerView.player?.seek(to: CMTime(seconds: diff, preferredTimescale: 1000))
@@ -357,12 +250,14 @@ class StatementViewController: NSViewController,
     }
     
     @IBAction func pushStartEnd(_ sender: Any) {
-        if startEndButton.state == .on {
-            if let _you = you {
-                startAudioInput(userId: _you.userId, isHost: true)
+        do {
+            if startEndButton.state == .on {
+                try statementController.startMeeting()
+            } else {
+                try statementController.endMeeting()
             }
-        } else {
-            endAudioInput()
+        } catch {
+            AlertBuilder.createErrorAlert(title: "Error", message: error.localizedDescription).runModal()
         }
     }
     

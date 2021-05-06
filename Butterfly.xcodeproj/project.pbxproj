@@ -72,6 +72,8 @@
 		FB64DBC12642F3F800A3BA32 /* StatementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBBF2642F3F800A3BA32 /* StatementController.swift */; };
 		FB64DBC82642F80C00A3BA32 /* StatementShareViewControllerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBC72642F80C00A3BA32 /* StatementShareViewControllerData.swift */; };
 		FB64DBC92642F80C00A3BA32 /* StatementShareViewControllerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBC72642F80C00A3BA32 /* StatementShareViewControllerData.swift */; };
+		FB64DBCF2644341200A3BA32 /* SpeechRecognizerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBCE2644341200A3BA32 /* SpeechRecognizerType.swift */; };
+		FB64DBD02644341200A3BA32 /* SpeechRecognizerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBCE2644341200A3BA32 /* SpeechRecognizerType.swift */; };
 		FB6C6D74262FDE8200735016 /* MeetingCollectionDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */; };
 		FB84FD05263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB84FD04263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift */; };
 		FB9D716A260820A700B7E9DE /* MeetingCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */; };
@@ -233,6 +235,7 @@
 		FB64DBBA2642DDC100A3BA32 /* DefaultUserName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUserName.swift; sourceTree = "<group>"; };
 		FB64DBBF2642F3F800A3BA32 /* StatementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementController.swift; sourceTree = "<group>"; };
 		FB64DBC72642F80C00A3BA32 /* StatementShareViewControllerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementShareViewControllerData.swift; sourceTree = "<group>"; };
+		FB64DBCE2644341200A3BA32 /* SpeechRecognizerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerType.swift; sourceTree = "<group>"; };
 		FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCollectionDataProvider.swift; sourceTree = "<group>"; };
 		FB84FD04263940FA0070BAAA /* PreferencesUserVoiceprintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesUserVoiceprintViewController.swift; sourceTree = "<group>"; };
 		FB9D7168260820A700B7E9DE /* MeetingCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingCollectionViewItem.swift; sourceTree = "<group>"; };
@@ -562,6 +565,7 @@
 				FBC83A882624853900989820 /* SpeechRecognizerAuthorization.swift */,
 				FBC83A902624865C00989820 /* SpeechRecognizerDelegate.swift */,
 				FBC83A8C262485EA00989820 /* SpeechRecognizer.swift */,
+				FB64DBCE2644341200A3BA32 /* SpeechRecognizerType.swift */,
 			);
 			path = Speech;
 			sourceTree = "<group>";
@@ -1147,6 +1151,7 @@
 				FB2603C626120CA700323E4B /* AudioRecordData.swift in Sources */,
 				FB9D71A42608763A00B7E9DE /* SpeechRecognizerApple.swift in Sources */,
 				FB0D2F882606FEF5001403A5 /* MeetingRepository.swift in Sources */,
+				FB64DBCF2644341200A3BA32 /* SpeechRecognizerType.swift in Sources */,
 				FB0D2F842606FD14001403A5 /* MeetingViewController.swift in Sources */,
 				FB2603C026120C7D00323E4B /* AudioRecorder.swift in Sources */,
 				FB9D719726086D7700B7E9DE /* StatementViewController.swift in Sources */,
@@ -1191,6 +1196,7 @@
 				FBA545D825FFA3AA00112066 /* SignIn.swift in Sources */,
 				FB64DBC92642F80C00A3BA32 /* StatementShareViewControllerData.swift in Sources */,
 				FB64DB8E26346C6900A3BA32 /* MLStorage.swift in Sources */,
+				FB64DBD02644341200A3BA32 /* SpeechRecognizerType.swift in Sources */,
 				FBF9A6102605BD8A00AE78DF /* FirestoreWorkspaceData.swift in Sources */,
 				FBA545D925FFA3AA00112066 /* SignOut.swift in Sources */,
 				FBA545DF25FFA3D300112066 /* FirestoreUser.swift in Sources */,
