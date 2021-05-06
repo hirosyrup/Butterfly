@@ -11,6 +11,7 @@ import AVKit
 
 class StatementViewController: NSViewController,
                                StatementRepositoryDelegate,
+                               StatementControllerDelegate,
                                NSCollectionViewDataSource,
                                NSCollectionViewDelegateFlowLayout {
     @IBOutlet weak var titleLabel: NSTextField!
@@ -30,7 +31,7 @@ class StatementViewController: NSViewController,
     weak var levelMeter: StatementLevelMeter!
     
     private let cellId = "StatementCollectionViewItem"
-    private let statementController: StatementController!
+    private var statementController: StatementController!
     private let statement = StatementRepository.Statement()
     private var statementDataList = [StatementRepository.StatementData]()
     private var lastScrollIndex = 0
@@ -92,6 +93,9 @@ class StatementViewController: NSViewController,
     }
     
     private func updateViews() {
+        let meetingData = statementController.meetingData
+        let userList = statementController.userList
+        let you = statementController.you
         let presenter = StatementViewControllerPresenter(meetingData: meetingData, meetingUserDataList: userList, you: you)
         titleLabel.stringValue = presenter.title()
         MeetingMemberIconContainer.updateView(presenters: presenter.meetingMemberIconPresenters())
@@ -99,20 +103,6 @@ class StatementViewController: NSViewController,
         startEndButton.state = presenter.startEndButtonState()
         recordingLabel.isHidden = presenter.isHiddenRecordingLabel()
         showCollectionButton.isHidden = presenter.isHiddenOfShowCollectionButton()
-    }
-    
-    private func updateYou() {
-        if let currentUser = AuthUser.shared.currentUser() {
-            if let _you = userList.first(where: { $0.userId == currentUser.uid }) {
-                if _you.id != you?.id {
-                    setupSpeechRecognizer(you: _you)
-                }
-                if speakerRecognizer == nil {
-                    currentSpeaker = _you
-                }
-                you = _you
-            }
-        }
     }
     
     private func setupRecordAudioIfNeeded() {
@@ -243,33 +233,19 @@ class StatementViewController: NSViewController,
     }
     
     func setup(workspaceId: String, workspaceMLFileName: String?, meetingData: MeetingRepository.MeetingData) {
-        self.workspaceId = workspaceId
-        if let _workspaceMLFileName = workspaceMLFileName {
-            let compiledFileName = MLFileLocalUrl.createCompiledModelFileName(modelFileName: _workspaceMLFileName)
-            let compileModelFileUrl = MLFileLocalUrl.createLocalUrl().appendingPathComponent(compiledFileName)
-            if FileManager.default.fileExists(atPath: compileModelFileUrl.path) {
-                self.speakerRecognizer = SpeakerRecognizer(compileModelFileUrl: compileModelFileUrl, format: audioSystem.inputFormat)
-                self.speakerRecognizer?.delegate = self
-            }
-        }
-        self.meetingData = meetingData
-        statementQueue = StatementQueue(workspaceId: workspaceId, meetingId: meetingData.id)
+        statementController = StatementController(workspaceId: workspaceId, workspaceMLFileName: workspaceMLFileName, initialMeetingData: meetingData)
         updateViews()
         setupRecordAudioIfNeeded()
         setupCollectionViewHeight()
     }
     
-    func updateMeetingData(meetingData: MeetingRepository.MeetingData) {
-        self.meetingData = meetingData
-        updateAudioInputState()
-        updateViews()
-        setupRecordAudioIfNeeded()
-        setupCollectionViewHeight()
-    }
-    
-    func audioEngineStartError(obj: AudioSystem, error: Error) {
-        AlertBuilder.createErrorAlert(title: "Error", message: "Failed to start audio engine. \(error.localizedDescription)").runModal()
-    }
+//    func updateMeetingData(meetingData: MeetingRepository.MeetingData) {
+//        self.meetingData = meetingData
+//        updateAudioInputState()
+//        updateViews()
+//        setupRecordAudioIfNeeded()
+//        setupCollectionViewHeight()
+//    }
     
     func notifyRenderBuffer(obj: AudioSystem, buffer: AVAudioPCMBuffer, when: AVAudioTime) {
         speechRecognizer?.append(buffer: buffer, when: when)
@@ -293,24 +269,12 @@ class StatementViewController: NSViewController,
         levelMeter.setRms(rms: Double(observeBreakInStatements.currentRms))
     }
     
-    func didChangeAvailability(recognizer: SpeechRecognizer) {
-        // TODO
-    }
-    
-    func didNotCreateRecognitionRequest(recognizer: SpeechRecognizer, error: Error) {
+    func didNotCreateRecognitionRequest(controller: StatementController, error: Error) {
         AlertBuilder.createErrorAlert(title: "Error", message: "\(error.localizedDescription)").runModal()
     }
     
-    func didStartNewStatement(recognizer: SpeechRecognizer, id: String) {
-        statementQueue.addNewStatement(uuid: id, user: currentSpeaker)
-    }
-    
-    func didUpdateStatement(recognizer: SpeechRecognizer, id: String, statement: String) {
-        statementQueue.updateStatement(uuid: id, statement: statement, user: currentSpeaker)
-    }
-    
-    func didEndStatement(recognizer: SpeechRecognizer, id: String, statement: String) {
-        statementQueue.endStatement(uuid: id, statement: statement, user: currentSpeaker)
+    func audioEngineStartError(controller: StatementController, error: Error) {
+        AlertBuilder.createErrorAlert(title: "Error", message: "Failed to start audio engine. \(error.localizedDescription)").runModal()
     }
     
     func didChangeSpeekingState(recognizer: SpeechRecognizer, isSpeeking: Bool) {
@@ -351,13 +315,13 @@ class StatementViewController: NSViewController,
         }
     }
     
-    func didChangeMeetingUserDataList(obj: MeetingUserRepository.User, documentChanges: [RepositoryDocumentChange<MeetingUserRepository.MeetingUserData>]) {
-        userList = meetingUser.createUserListFromDocumentChanges(prevUserList: userList, documentChanges: documentChanges)
-        updateYou()
-        updateViews()
-        enter()
-        setupRecordAudioIfNeeded()
-    }
+//    func didChangeMeetingUserDataList(obj: MeetingUserRepository.User, documentChanges: [RepositoryDocumentChange<MeetingUserRepository.MeetingUserData>]) {
+//        userList = meetingUser.createUserListFromDocumentChanges(prevUserList: userList, documentChanges: documentChanges)
+//        updateYou()
+//        updateViews()
+//        enter()
+//        setupRecordAudioIfNeeded()
+//    }
     
     func didChangeSpeaker(recognizer: SpeakerRecognizer, speakerUserId: String?) {
         if currentSpeaker != nil && currentSpeaker!.id != speakerUserId {

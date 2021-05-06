@@ -57,6 +57,18 @@ class MeetingRepository {
             })
             return firestoreData
         }
+        
+        func isStarted() -> Bool {
+            return startedAt != nil
+        }
+        
+        func isFinished() -> Bool {
+            return endedAt != nil
+        }
+        
+        func isInMeeting() -> Bool {
+            return isStarted() && !isFinished()
+        }
     }
     
     struct MeetingIconData {
