@@ -64,7 +64,7 @@ class PreferencesUserVoiceprintViewController: NSViewController, AudioSystemDele
     private func startCountDown() {
         cancelButton.isHidden = true
         startButton.isEnabled = false
-        var count = 10
+        var count = 20
         startButton.title = "\(count)"
         isRecording = true
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (_timer) in

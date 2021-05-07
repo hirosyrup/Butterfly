@@ -23,10 +23,13 @@ class ExportLearningDataset {
     private let trainingDatasetUrl: URL
     private let testDatasetUrl: URL
     private let userDataList: [PreferencesRepository.UserData]
-    private let segmentDuration = 0.5
+    private let segmentDuration = 1.0
     
     init(exportUrl: URL, userDataList: [PreferencesRepository.UserData]) {
         let rootUrl = exportUrl.appendingPathComponent("dataset", isDirectory: true)
+        if FileManager.default.fileExists(atPath: rootUrl.path) {
+            try? FileManager.default.removeItem(at: rootUrl)
+        }
         self.trainingDatasetUrl = rootUrl.appendingPathComponent("training", isDirectory: true)
         self.testDatasetUrl = rootUrl.appendingPathComponent("test", isDirectory: true)
         self.userDataList = userDataList.filter {$0.voicePrintName != nil}
