@@ -270,7 +270,7 @@ class StatementController: SpeechRecognizerDelegate,
         if currentSpeaker != nil && currentSpeaker!.id != speakerUserId {
             speechRecognizer?.executeForceLineBreak()
         }
-        currentSpeaker = userList.first { $0.id == speakerUserId }
+        currentSpeaker = userList.first { $0.userId == speakerUserId }
     }
     
     func notifyRenderBuffer(obj: AudioSystem, buffer: AVAudioPCMBuffer, when: AVAudioTime) {
