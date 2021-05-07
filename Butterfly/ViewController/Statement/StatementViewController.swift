@@ -10,7 +10,7 @@ import Hydra
 import AVKit
 
 class StatementViewController: NSViewController,
-                               StatementRepositoryDelegate,
+                               StatementCollectionDataProviderDelegate,
                                StatementControllerDelegate,
                                NSCollectionViewDataSource,
                                NSCollectionViewDelegateFlowLayout {
@@ -32,16 +32,14 @@ class StatementViewController: NSViewController,
     
     private let cellId = "StatementCollectionViewItem"
     private var statementController: StatementController!
+    private var dataProvider: StatementCollectionDataProvider!
     private var audioComposition: AVMutableComposition?
-    private let statement = StatementRepository.Statement()
-    private var statementDataList = [StatementRepository.StatementData]()
     private var lastScrollIndex = 0
     private let calcHeightHelper = CalcStatementCollectionItemHeight()
     private var collectionViewHeightConstant: CGFloat = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        statement.delegate = self
         collectionView.dataSource = self
         collectionView.delegate = self
         let nib = NSNib(nibNamed: "StatementCollectionViewItem", bundle: nil)
@@ -61,13 +59,13 @@ class StatementViewController: NSViewController,
     }
     
     override func viewDidAppear() {
-        statement.listen(workspaceId: statementController.workspaceId, meetingId: statementController.meetingData.id)
         statementController.up()
+        dataProvider.listenData()
     }
     
     override func viewWillDisappear() {
         statementController.down()
-        statement.unlisten()
+        dataProvider.unlistenData()
     }
     
     override func viewDidDisappear() {
@@ -80,7 +78,7 @@ class StatementViewController: NSViewController,
             let data = StatementShareViewControllerData(
                 workspaceId: statementController.workspaceId,
                 meetingData: statementController.meetingData,
-                statementDataList: statementDataList,
+                statementDataList: dataProvider.statementDataList,
                 audioComposition: audioComposition
             )
             vc.data = data
@@ -91,10 +89,10 @@ class StatementViewController: NSViewController,
         let previousIndex = currentIndex - 1
         if previousIndex < 0 {
             return nil
-        } else if statementDataList.count <= previousIndex {
+        } else if dataProvider.statementDataList.count <= previousIndex {
             return nil
         } else {
-            return statementDataList[previousIndex]
+            return dataProvider.statementDataList[previousIndex]
         }
     }
     
@@ -153,13 +151,15 @@ class StatementViewController: NSViewController,
     
     private func reloadCollectionView() {
         collectionView.reloadData()
-        if !statementDataList.isEmpty {
-            collectionView.animator().scrollToItems(at: [IndexPath(item: statementDataList.count - 1, section: 0)], scrollPosition: .bottom)
+        if !dataProvider.statementDataList.isEmpty {
+            collectionView.animator().scrollToItems(at: [IndexPath(item: dataProvider.statementDataList.count - 1, section: 0)], scrollPosition: .bottom)
         }
     }
     
     func setup(workspaceId: String, workspaceMLFileName: String?, meetingData: MeetingRepository.MeetingData) {
         statementController = StatementController(workspaceId: workspaceId, workspaceMLFileName: workspaceMLFileName, initialMeetingData: meetingData)
+        dataProvider = StatementCollectionDataProvider(workspaceId: workspaceId, meetingId: meetingData.id)
+        dataProvider.delegate = self
         updateViews()
         setupRecordAudioIfNeeded()
         setupCollectionViewHeight()
@@ -200,44 +200,19 @@ class StatementViewController: NSViewController,
         levelMeter.setRms(rms: rms)
     }
     
-    func didChangeStatementData(obj: StatementRepository.Statement, documentChanges: [RepositoryDocumentChange<StatementRepository.StatementData>]) {
-        let modifieds = documentChanges.filter { $0.type == .modified }
-        modifieds.forEach { (modified) in
-            if let index = statementDataList.firstIndex(where: { $0.id == modified.data.id }) {
-                statementDataList[index] = modified.data
-            }
-        }
-        
-        let removesIds = documentChanges.filter { $0.type == .removed }.map { $0.data.id }
-        var removedStatementList = [StatementRepository.StatementData]()
-        statementDataList.forEach {
-            if !removesIds.contains($0.id) {
-                removedStatementList.append($0)
-            }
-        }
-        statementDataList = removedStatementList
-        
-        let addeds = documentChanges.filter { $0.type == .added }
-        addeds.forEach { (addedChange) in
-            if addedChange.newIndex >= statementDataList.count {
-                statementDataList.append(addedChange.data)
-            } else {
-                statementDataList.insert(addedChange.data, at: addedChange.newIndex)
-            }
-        }
-        
+    func didUpdateDataList(provider: StatementCollectionDataProvider) {
         if showCollectionButton.state == .on {
             reloadCollectionView()
         }
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return statementDataList.count
+        return dataProvider.statementDataList.count
     }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId), for: indexPath) as! StatementCollectionViewItem
-        let statementData = statementDataList[indexPath.item]
+        let statementData = dataProvider.statementDataList[indexPath.item]
         item.updateView(presenter: StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item)))
         return item
     }
@@ -246,13 +221,13 @@ class StatementViewController: NSViewController,
         collectionView.deselectItems(at: indexPaths)
         guard let indexPath = indexPaths.first else { return }
         guard let startedAt = statementController.meetingData.startedAt else { return }
-        let statementData = statementDataList[indexPath.item]
+        let statementData = dataProvider.statementDataList[indexPath.item]
         let diff = statementData.createdAt.timeIntervalSince1970 - startedAt.timeIntervalSince1970
         audioPlayerView.player?.seek(to: CMTime(seconds: diff, preferredTimescale: 1000))
     }
     
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-        let statementData = statementDataList[indexPath.item]
+        let statementData = dataProvider.statementDataList[indexPath.item]
         let presenter = StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item))
         return calcHeightHelper.calcSize(index: indexPath.item, presenter: presenter)
     }
