@@ -243,7 +243,7 @@ class StatementController: SpeechRecognizerDelegate,
     }
     
     func didEndStatement(recognizer: SpeechRecognizer, id: String, statement: String) {
-        statementQueue.endStatement(uuid: id, statement: statement, user: currentSpeaker)
+        statementQueue.endStatement(uuid: id, statement: statement)
     }
     
     func didChangeMeetingUserDataList(obj: MeetingUserRepository.User, documentChanges: [RepositoryDocumentChange<MeetingUserRepository.MeetingUserData>]) {

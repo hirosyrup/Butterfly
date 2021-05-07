@@ -19,6 +19,10 @@ class SpeakerRecognizer: NSObject, SNResultsObserving {
     private let streamAnalyzer: SNAudioStreamAnalyzer
     private var currentSpeakerUserId: String?
     private var isStart = false
+    private let checkCount = 2
+    private var checkedCount = 0
+    private var candidateSpeakerUserId: String?
+    
     
     init(compileModelFileUrl: URL, format: AVAudioFormat) {
         self.compileModelFileUrl = compileModelFileUrl
@@ -40,6 +44,7 @@ class SpeakerRecognizer: NSObject, SNResultsObserving {
     
     func resetSpeaker() {
         currentSpeakerUserId = nil
+        checkedCount = 0
     }
     
     func analyze(buffer: AVAudioPCMBuffer, when: AVAudioTime) {
@@ -51,15 +56,24 @@ class SpeakerRecognizer: NSObject, SNResultsObserving {
         guard let result = result as? SNClassificationResult,
               let classification = result.classifications.first else { return }
         
-        guard currentSpeakerUserId != classification.identifier else { return }
-        
-        if classification.confidence >= 0.95 {
-            currentSpeakerUserId = classification.identifier
+        if candidateSpeakerUserId != classification.identifier {
+            candidateSpeakerUserId = classification.identifier
+            checkedCount = 0
+            return
+        } else if candidateSpeakerUserId != nil && classification.confidence < 0.95 {
+            candidateSpeakerUserId = nil
+            checkedCount = 0
+            return
         } else {
-            currentSpeakerUserId = nil
+            if checkedCount < checkCount {
+                checkedCount += 1
+                return
+            }
+            guard currentSpeakerUserId != candidateSpeakerUserId else { return }
+            
+            currentSpeakerUserId = candidateSpeakerUserId
+            delegate?.didChangeSpeaker(recognizer: self, speakerUserId: currentSpeakerUserId)
         }
-        
-        delegate?.didChangeSpeaker(recognizer: self, speakerUserId: currentSpeakerUserId)
     }
     
     func request(_ request: SNRequest, didFailWithError error: Error) {
