@@ -79,7 +79,7 @@ class StatementShareViewController: NSViewController {
     @IBAction func pushCopyDeepLink(_ sender: Any) {
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
-        pasteboard.setString(AppScheme().openMeetingScheme(workspaceId: workspaceId, meetingId: data.meetingData.id), forType: .string)
+        pasteboard.setString(AppScheme().openMeetingScheme(workspaceId: data.workspaceId, meetingId: data.meetingData.id), forType: .string)
         dismiss(self)
     }
 }

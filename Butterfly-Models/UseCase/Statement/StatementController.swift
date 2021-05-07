@@ -16,6 +16,8 @@ protocol StatementControllerDelegate: class {
     func didUpdateSpeechRecognizer(controller: StatementController, recognizerType: SpeechRecognizerType, canSelectRecognizer: Bool)
     func didUpdateAudioInputState(controller: StatementController, isAudioInputStart: Bool)
     func failedToUpdateAudioInputState(controller: StatementController, error: Error)
+    func didUpdateRmsThreshold(controller: StatementController, threshold: Double)
+    func didUpdateRms(controller: StatementController, rms: Double)
 }
 
 class StatementController: SpeechRecognizerDelegate,
@@ -38,23 +40,24 @@ class StatementController: SpeechRecognizerDelegate,
     private let observeBreakInStatements = ObserveBreakInStatements(limitTime: nil)
     private let autoCalcRmsThreshold: AutoCalcRmsThreshold
     private var currentSpeaker: MeetingUserRepository.MeetingUserData?
-    private var statementQueue: StatementQueue!
+    private let statementQueue: StatementQueue
     private let meetingUser = MeetingUserRepository.User()
     private let meeting = MeetingRepository.Meeting()
     
     init(workspaceId: String, workspaceMLFileName: String?, initialMeetingData: MeetingRepository.MeetingData) {
         self.autoCalcRmsThreshold = AutoCalcRmsThreshold(initialThreshold: observeBreakInStatements.rmsThreshold)
         self.workspaceId = workspaceId
+        var _speakerRecognizer: SpeakerRecognizer? = nil
         if let _workspaceMLFileName = workspaceMLFileName {
             let compiledFileName = MLFileLocalUrl.createCompiledModelFileName(modelFileName: _workspaceMLFileName)
             let compileModelFileUrl = MLFileLocalUrl.createLocalUrl().appendingPathComponent(compiledFileName)
             if FileManager.default.fileExists(atPath: compileModelFileUrl.path) {
-                self.speakerRecognizer = SpeakerRecognizer(compileModelFileUrl: compileModelFileUrl, format: audioSystem.inputFormat)
-                self.speakerRecognizer?.delegate = self
+                _speakerRecognizer = SpeakerRecognizer(compileModelFileUrl: compileModelFileUrl, format: audioSystem.inputFormat)
             }
         }
+        self.speakerRecognizer = _speakerRecognizer
         self.meetingData = initialMeetingData
-        statementQueue = StatementQueue(workspaceId: workspaceId, meetingId: initialMeetingData.id)
+        self.statementQueue = StatementQueue(workspaceId: workspaceId, meetingId: initialMeetingData.id)
     }
     
     private func enter() {
@@ -112,7 +115,7 @@ class StatementController: SpeechRecognizerDelegate,
         })
     }
     
-    private func updateAudioInputState() throws {
+    private func updateAudioInputState() {
         guard you != nil else { return }
         let _isAudioInputStart = meetingData.isInMeeting()
         if isAudioInputStart != _isAudioInputStart {
@@ -170,7 +173,12 @@ class StatementController: SpeechRecognizerDelegate,
         speakerRecognizer?.stop()
     }
     
-    func close() {
+    func up() {
+        speakerRecognizer?.delegate = self
+        updateAudioInputState()
+    }
+    
+    func down() {
         stopRecognition()
         stopRecord()
         exit()
@@ -216,6 +224,10 @@ class StatementController: SpeechRecognizerDelegate,
     
     func didChangeAvailability(recognizer: SpeechRecognizer) {
         // TODO
+    }
+    
+    func audioEngineStartError(obj: AudioSystem, error: Error) {
+        delegate?.audioEngineStartError(controller: self, error: error)
     }
     
     func didNotCreateRecognitionRequest(recognizer: SpeechRecognizer, error: Error) {
@@ -277,9 +289,9 @@ class StatementController: SpeechRecognizerDelegate,
             let threshold = autoCalcRmsThreshold.calcThreshold(rms: observeBreakInStatements.currentRms)
             observeBreakInStatements.rmsThreshold = threshold
             speechRecognizer?.setRmsThreshold(threshold: threshold)
-            levelMeter.updateThreshold(threshold: Double(threshold))
+            delegate?.didUpdateRmsThreshold(controller: self, threshold: Double(threshold))
         }
         
-        levelMeter.setRms(rms: Double(observeBreakInStatements.currentRms))
+        delegate?.didUpdateRms(controller: self, rms: Double(observeBreakInStatements.currentRms))
     }
 }

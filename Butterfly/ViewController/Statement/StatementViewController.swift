@@ -61,12 +61,12 @@ class StatementViewController: NSViewController,
     }
     
     override func viewDidAppear() {
-        statement.listen(workspaceId: workspaceId, meetingId: meetingData.id)
-        updateAudioInputState()
+        statement.listen(workspaceId: statementController.workspaceId, meetingId: statementController.meetingData.id)
+        statementController.up()
     }
     
     override func viewWillDisappear() {
-        statementController.close()
+        statementController.down()
         statement.unlisten()
     }
     
@@ -190,6 +190,14 @@ class StatementViewController: NSViewController,
     
     func failedToUpdateAudioInputState(controller: StatementController, error: Error) {
         AlertBuilder.createErrorAlert(title: "Error", message: "Failed to start speaker recognization. \(error.localizedDescription)").runModal()
+    }
+    
+    func didUpdateRmsThreshold(controller: StatementController, threshold: Double) {
+        levelMeter.updateThreshold(threshold: threshold)
+    }
+    
+    func didUpdateRms(controller: StatementController, rms: Double) {
+        levelMeter.setRms(rms: rms)
     }
     
     func didChangeStatementData(obj: StatementRepository.Statement, documentChanges: [RepositoryDocumentChange<StatementRepository.StatementData>]) {
