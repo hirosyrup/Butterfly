@@ -158,6 +158,7 @@ class StatementViewController: NSViewController,
     
     func setup(workspaceId: String, workspaceMLFileName: String?, meetingData: MeetingRepository.MeetingData) {
         statementController = StatementController(workspaceId: workspaceId, workspaceMLFileName: workspaceMLFileName, initialMeetingData: meetingData)
+        statementController.delegate = self
         dataProvider = StatementCollectionDataProvider(workspaceId: workspaceId, meetingId: meetingData.id)
         dataProvider.delegate = self
         updateViews()
