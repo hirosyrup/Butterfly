@@ -181,7 +181,7 @@ class StatementViewController: NSViewController,
     }
     
     func didUpdateSpeechRecognizer(controller: StatementController, recognizerType: SpeechRecognizerType, canSelectRecognizer: Bool) {
-        speechRecognizerControlContainer.isHidden = canSelectRecognizer
+        speechRecognizerControlContainer.isHidden = !canSelectRecognizer
         speechRecognizerSegmentedControl.selectedSegment = recognizerType.rawValue
     }
     

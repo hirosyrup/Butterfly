@@ -22,7 +22,7 @@ class SpeakerRecognizer: NSObject, SNResultsObserving {
     private let checkCount = 2
     private var checkedCount = 0
     private var candidateSpeakerUserId: String?
-    
+    private let analysisQueue = DispatchQueue(label: "com.apple.AnalysisQueue")
     
     init(compileModelFileUrl: URL, format: AVAudioFormat) {
         self.compileModelFileUrl = compileModelFileUrl
@@ -49,19 +49,19 @@ class SpeakerRecognizer: NSObject, SNResultsObserving {
     
     func analyze(buffer: AVAudioPCMBuffer, when: AVAudioTime) {
         guard isStart == true else { return}
-        streamAnalyzer.analyze(buffer, atAudioFramePosition: when.sampleTime)
+        analysisQueue.async {
+            self.streamAnalyzer.analyze(buffer, atAudioFramePosition: when.sampleTime)
+        }
     }
     
     func request(_ request: SNRequest, didProduce result: SNResult) {
         guard let result = result as? SNClassificationResult,
               let classification = result.classifications.first else { return }
-        
+        guard classification.confidence > 0.98 else {
+            return
+        }
         if candidateSpeakerUserId != classification.identifier {
             candidateSpeakerUserId = classification.identifier
-            checkedCount = 0
-            return
-        } else if candidateSpeakerUserId != nil && classification.confidence < 0.95 {
-            candidateSpeakerUserId = nil
             checkedCount = 0
             return
         } else {

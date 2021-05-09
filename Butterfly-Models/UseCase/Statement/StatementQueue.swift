@@ -65,7 +65,7 @@ class StatementQueue {
     
     private func createStatementUserData(user: MeetingUserRepository.MeetingUserData?) -> StatementRepository.StatementUserData? {
         if let _user = user {
-            return StatementRepository.StatementUserData(id: _user.id,iconName: _user.iconName, iconImageUrl: _user.iconImageUrl, name: _user.name)
+            return StatementRepository.StatementUserData(id: _user.userId, iconName: _user.iconName, iconImageUrl: _user.iconImageUrl, name: _user.name)
         } else {
             return nil
         }

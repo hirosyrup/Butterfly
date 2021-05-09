@@ -275,9 +275,9 @@ class StatementController: SpeechRecognizerDelegate,
     
     func notifyRenderBuffer(obj: AudioSystem, buffer: AVAudioPCMBuffer, when: AVAudioTime) {
         speechRecognizer?.append(buffer: buffer, when: when)
-        speakerRecognizer?.analyze(buffer: buffer, when: when)
         observeBreakInStatements.checkBreakInStatements(buffer: buffer, when: when)
         if observeBreakInStatements.isSpeeking {
+            speakerRecognizer?.analyze(buffer: buffer, when: when)
             audioRecorder?.write(buffer: buffer)
         } else {
             let emptyBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameCapacity)
