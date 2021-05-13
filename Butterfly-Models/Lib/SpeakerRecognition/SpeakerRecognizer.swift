@@ -57,7 +57,10 @@ class SpeakerRecognizer: NSObject, SNResultsObserving {
     func request(_ request: SNRequest, didProduce result: SNResult) {
         guard let result = result as? SNClassificationResult,
               let classification = result.classifications.first else { return }
-        guard classification.confidence > 0.98 else {
+        guard classification.confidence > 0.95 else {
+            return
+        }
+        guard classification.identifier != "background" else {
             return
         }
         if candidateSpeakerUserId != classification.identifier {
