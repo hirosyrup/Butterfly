@@ -12,13 +12,17 @@ class AudioFile {
     let saveUrl: URL
     private let audioFile: AVAudioFile?
     
-    init(saveUrl: URL, inputFormat: AVAudioFormat) {
+    static func createStatementQuality(saveUrl: URL, inputFormat: AVAudioFormat) -> AudioFile {
         let format = AVAudioFormat(settings: [
             AVFormatIDKey: kAudioFormatMPEG4AAC,
             AVSampleRateKey: inputFormat.sampleRate,
             AVNumberOfChannelsKey: inputFormat.channelCount,
             AVEncoderAudioQualityKey: AVAudioQuality.medium
         ])!
+        return AudioFile(saveUrl: saveUrl, format: format)
+    }
+    
+    init(saveUrl: URL, format: AVAudioFormat) {
         audioFile = try? AVAudioFile(forWriting: saveUrl, settings: format.settings)
         self.saveUrl = saveUrl
     }

@@ -8,7 +8,6 @@
 import Foundation
 
 enum VoiceprintPaddingType {
-    case spatial
     case poorRecordingEnvironment1
     case poorRecordingEnvironment2
     case noisy

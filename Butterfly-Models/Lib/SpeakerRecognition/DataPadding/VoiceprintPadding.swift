@@ -33,8 +33,6 @@ class VoiceprintPadding {
     private func exportUrl() throws -> URL {
         let folderName: String
         switch type {
-        case .spatial:
-            folderName = "spatial"
         case .poorRecordingEnvironment1:
             folderName = "poorRecordingEnvironment1"
         case .poorRecordingEnvironment2:
@@ -100,11 +98,6 @@ class VoiceprintPadding {
     
     private func createEffectNode() -> AVAudioNode {
         switch type {
-        case .spatial:
-            let node = AVAudioUnitReverb()
-            node.loadFactoryPreset(.smallRoom)
-            node.wetDryMix = 5
-            return node
         case .poorRecordingEnvironment1:
             let node = AVAudioUnitEQ(numberOfBands: 1)
             let param = node.bands.first!

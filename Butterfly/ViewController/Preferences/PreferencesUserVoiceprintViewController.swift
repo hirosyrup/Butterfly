@@ -23,6 +23,7 @@ class PreferencesUserVoiceprintViewController: NSViewController, AudioSystemDele
     private var timer: Timer?
     private var isRecording = false
     private var userData: PreferencesRepository.UserData!
+    private let outputFormat = AudioConverter.voiceprintOutputFormat
     
     weak var delegate: PreferencesUserVoiceprintViewControllerDelegate?
     
@@ -128,15 +129,17 @@ class PreferencesUserVoiceprintViewController: NSViewController, AudioSystemDele
     func notifyRenderBuffer(obj: AudioSystem, buffer: AVAudioPCMBuffer, when: AVAudioTime) {
         levelMeter.setRms(rms: Double(Rms.calculate(buffer: buffer)))
         if isRecording {
-            try? audioFile?.write(buffer: buffer)
+            if let newBuffer = try? AudioConverter.convert(inputBuffer: buffer, format: AudioConverter.voiceprintProcessingFormat) {
+                try? audioFile?.write(buffer: newBuffer)
+            }
         }
     }
     
     @IBAction func pushStartButton(_ sender: Any) {
-        let fileName = "\(UUID().uuidString).m4a"
+        let fileName = "\(UUID().uuidString).wav"
         let localUrl = AudioLocalUrl.createVoiceprintDirectoryUrl()
         let saveUrl = localUrl.appendingPathComponent("\(fileName)")
-        audioFile = AudioFile(saveUrl: saveUrl, inputFormat: audioSystem.inputFormat)
+        audioFile = AudioFile(saveUrl: saveUrl, format: outputFormat)
         startCountDown()
     }
     

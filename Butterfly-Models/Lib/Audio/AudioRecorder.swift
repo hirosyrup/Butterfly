@@ -19,7 +19,7 @@ class AudioRecorder {
         fileName = "\(UUID().uuidString).m4a"
         let localUrl = AudioLocalUrl.createRecordDirectoryUrl()
         let saveUrl = localUrl.appendingPathComponent("\(fileName)")
-        audioFile = AudioFile(saveUrl: saveUrl, inputFormat: inputFormat)
+        audioFile = AudioFile.createStatementQuality(saveUrl: saveUrl, inputFormat: inputFormat)
     }
     
     func stop() {

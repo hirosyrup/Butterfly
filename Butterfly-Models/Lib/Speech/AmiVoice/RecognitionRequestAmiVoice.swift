@@ -41,7 +41,7 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
     private let socket: WebSocket
     private var bufferList = [AVAudioPCMBuffer]()
     private let requestBufferCount = 5
-    private let downFormat = AVAudioFormat(commonFormat: AVAudioCommonFormat.pcmFormatInt16, sampleRate: 16000.0, channels: 1, interleaved: true)!
+    private let downFormat = AudioConverter.amiVoiceFormat
     private let errorHeader = "AmiVoiceError: "
     
     init(id: String, apiKey: String, apiEngine: String, apiUrlString: String) {
@@ -66,24 +66,7 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
     }
     
     private func request(buffer: AVAudioPCMBuffer) throws {
-        guard let converter = AVAudioConverter(from: buffer.format, to: downFormat) else {
-            throw NSError(domain: "\(errorHeader)Failed to create an audio converter.", code: -1, userInfo: nil)
-        }
-        
-        guard let newbuffer = AVAudioPCMBuffer(pcmFormat: downFormat,
-                                               frameCapacity: AVAudioFrameCount(Float(buffer.frameCapacity) * Float(downFormat.sampleRate / buffer.format.sampleRate))) else {
-            throw NSError(domain: "\(errorHeader)Failed to create an pcm buffer.", code: -1, userInfo: nil)
-        }
-        let inputBlock : AVAudioConverterInputBlock = { (inNumPackets, outStatus) -> AVAudioBuffer? in
-            outStatus.pointee = AVAudioConverterInputStatus.haveData
-            let audioBuffer : AVAudioBuffer = buffer
-            return audioBuffer
-        }
-        var error : NSError?
-        converter.convert(to: newbuffer, error: &error, withInputFrom: inputBlock)
-        if let _error = error {
-            throw _error
-        }
+        let newbuffer = try AudioConverter.convert(inputBuffer: buffer, format: downFormat)
         bufferList.append(newbuffer)
         guard state == .processing else { return}
         if bufferList.count >= requestBufferCount {

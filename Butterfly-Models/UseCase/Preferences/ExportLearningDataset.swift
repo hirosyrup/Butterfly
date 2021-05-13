@@ -38,6 +38,15 @@ class ExportLearningDataset {
                 try voiceprintLocalDataList.forEach { (voiceprintLocalData) in
                     try await(self.exportDataset(voiceprintLocalData: voiceprintLocalData))
                 }
+                let backgroundData = VoiceprintLocalData(
+                    userId: "background",
+                    voiceprintLocalUrls: [
+                        Bundle.main.url(forResource: "voiceprint_bacground1", withExtension: "wav")!,
+                        Bundle.main.url(forResource: "voiceprint_bacground2", withExtension: "wav")!,
+                        Bundle.main.url(forResource: "voiceprint_bacground3", withExtension: "wav")!
+                    ]
+                )
+                try await(self.exportDataset(voiceprintLocalData: backgroundData))
             }).then({ _ in
                 resolve(())
             }).catch { (error) in
@@ -74,6 +83,7 @@ class ExportLearningDataset {
                     voiceprintLocalUrls.append(saveUrl)
                     voiceprintLocalUrls.append(try await(VoiceprintPadding(type: .poorRecordingEnvironment1, originalFileUrl: saveUrl).execute()))
                     voiceprintLocalUrls.append(try await(VoiceprintPadding(type: .poorRecordingEnvironment2, originalFileUrl: saveUrl).execute()))
+                    voiceprintLocalUrls.append(try await(VoiceprintPadding(type: .noisy, originalFileUrl: saveUrl).execute()))
                     return VoiceprintLocalData(userId: userData.id, voiceprintLocalUrls: voiceprintLocalUrls)
                 }
             }).then({ saveUrls in
@@ -107,8 +117,8 @@ class ExportLearningDataset {
     
     private func splitAudio(asset: AVAsset, segment: Int, fileNumber: Int, outputUrl: URL) -> Promise<Void> {
         return Promise<Void>(in: .background, token: nil) { (resolve, reject, _) in
-            let session = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A)!
-            session.outputFileType = .m4a
+            let session = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetPassthrough)!
+            session.outputFileType = .wav
             let startTime = CMTime(seconds: Double(segment) * self.segmentDuration, preferredTimescale: 1000)
             if startTime > asset.duration {
                 return
@@ -118,7 +128,7 @@ class ExportLearningDataset {
                 endTime = asset.duration
             }
             session.timeRange = CMTimeRangeFromTimeToTime(start: startTime, end: endTime)
-            session.outputURL = outputUrl.appendingPathComponent("\(fileNumber).m4a")
+            session.outputURL = outputUrl.appendingPathComponent("\(fileNumber).wav")
             session.exportAsynchronously(completionHandler: {
                 switch session.status {
                     case AVAssetExportSession.Status.failed:

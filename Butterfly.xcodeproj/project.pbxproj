@@ -134,6 +134,13 @@
 		FBA546292600FA2700112066 /* UploadIconImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA546272600FA2700112066 /* UploadIconImageResponse.swift */; };
 		FBA546382602409800112066 /* PreferencesWorkspaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA546372602409800112066 /* PreferencesWorkspaceViewController.swift */; };
 		FBA5463C260240BF00112066 /* PreferencesWorkspaceInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5463B260240BF00112066 /* PreferencesWorkspaceInputViewController.swift */; };
+		FBBBD1E8264D6CD500F55292 /* AudioConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBBD1E7264D6CD500F55292 /* AudioConverter.swift */; };
+		FBBBD1F4264D7CBC00F55292 /* voiceprint_bacground1.wav in Resources */ = {isa = PBXBuildFile; fileRef = FBBBD1F1264D7CBC00F55292 /* voiceprint_bacground1.wav */; };
+		FBBBD1F5264D7CBC00F55292 /* voiceprint_bacground1.wav in Resources */ = {isa = PBXBuildFile; fileRef = FBBBD1F1264D7CBC00F55292 /* voiceprint_bacground1.wav */; };
+		FBBBD1F6264D7CBC00F55292 /* voiceprint_bacground3.wav in Resources */ = {isa = PBXBuildFile; fileRef = FBBBD1F2264D7CBC00F55292 /* voiceprint_bacground3.wav */; };
+		FBBBD1F7264D7CBC00F55292 /* voiceprint_bacground3.wav in Resources */ = {isa = PBXBuildFile; fileRef = FBBBD1F2264D7CBC00F55292 /* voiceprint_bacground3.wav */; };
+		FBBBD1F8264D7CBC00F55292 /* voiceprint_bacground2.wav in Resources */ = {isa = PBXBuildFile; fileRef = FBBBD1F3264D7CBC00F55292 /* voiceprint_bacground2.wav */; };
+		FBBBD1F9264D7CBC00F55292 /* voiceprint_bacground2.wav in Resources */ = {isa = PBXBuildFile; fileRef = FBBBD1F3264D7CBC00F55292 /* voiceprint_bacground2.wav */; };
 		FBC83981261A044E00989820 /* CalcStatementCollectionItemHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83980261A044E00989820 /* CalcStatementCollectionItemHeight.swift */; };
 		FBC8398C261B5B8100989820 /* StatementQueueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC8398B261B5B8100989820 /* StatementQueueType.swift */; };
 		FBC83997261B61DB00989820 /* AutoCalcRmsThreshold.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83996261B61DB00989820 /* AutoCalcRmsThreshold.swift */; };
@@ -293,6 +300,10 @@
 		FBA546272600FA2700112066 /* UploadIconImageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadIconImageResponse.swift; sourceTree = "<group>"; };
 		FBA546372602409800112066 /* PreferencesWorkspaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWorkspaceViewController.swift; sourceTree = "<group>"; };
 		FBA5463B260240BF00112066 /* PreferencesWorkspaceInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWorkspaceInputViewController.swift; sourceTree = "<group>"; };
+		FBBBD1E7264D6CD500F55292 /* AudioConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioConverter.swift; sourceTree = "<group>"; };
+		FBBBD1F1264D7CBC00F55292 /* voiceprint_bacground1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = voiceprint_bacground1.wav; sourceTree = "<group>"; };
+		FBBBD1F2264D7CBC00F55292 /* voiceprint_bacground3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = voiceprint_bacground3.wav; sourceTree = "<group>"; };
+		FBBBD1F3264D7CBC00F55292 /* voiceprint_bacground2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = voiceprint_bacground2.wav; sourceTree = "<group>"; };
 		FBC83980261A044E00989820 /* CalcStatementCollectionItemHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcStatementCollectionItemHeight.swift; sourceTree = "<group>"; };
 		FBC8398B261B5B8100989820 /* StatementQueueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementQueueType.swift; sourceTree = "<group>"; };
 		FBC83996261B61DB00989820 /* AutoCalcRmsThreshold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCalcRmsThreshold.swift; sourceTree = "<group>"; };
@@ -470,6 +481,7 @@
 				FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */,
 				FBD1A83F26132243005BB323 /* AudioUploader.swift */,
 				FBE3653D2616178200EA9471 /* AudioExport.swift */,
+				FBBBD1E7264D6CD500F55292 /* AudioConverter.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -665,6 +677,7 @@
 		FBA5446725FA557D00112066 /* Butterfly-Models */ = {
 			isa = PBXGroup;
 			children = (
+				FBBBD1F0264D7CBC00F55292 /* VoiceprintFile */,
 				FBA544B225FA61CD00112066 /* UserDefault */,
 				FBA5446825FA55A300112066 /* Firestore */,
 				FBA5455E25FE488D00112066 /* UseCase */,
@@ -788,6 +801,16 @@
 				FB64DBA6263AF97600A3BA32 /* VoiceprintStorage.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		FBBBD1F0264D7CBC00F55292 /* VoiceprintFile */ = {
+			isa = PBXGroup;
+			children = (
+				FBBBD1F1264D7CBC00F55292 /* voiceprint_bacground1.wav */,
+				FBBBD1F2264D7CBC00F55292 /* voiceprint_bacground3.wav */,
+				FBBBD1F3264D7CBC00F55292 /* voiceprint_bacground2.wav */,
+			);
+			path = VoiceprintFile;
 			sourceTree = "<group>";
 		};
 		FBC8397F261A043900989820 /* Helper */ = {
@@ -978,14 +1001,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBC839D7261F3D3500989820 /* StatementLevelMeter.xib in Resources */,
+				FBBBD1F8264D7CBC00F55292 /* voiceprint_bacground2.wav in Resources */,
 				FBA2883E25F8896700D1B3BD /* Assets.xcassets in Resources */,
 				FB9D716B260820A700B7E9DE /* MeetingCollectionViewItem.xib in Resources */,
 				FB2603512608DC6D00323E4B /* StatementCollectionViewItem.xib in Resources */,
 				FB64DB712631BEFA00A3BA32 /* AboutViewController.xib in Resources */,
 				FBA2884125F8896700D1B3BD /* Main.storyboard in Resources */,
 				FBF9A5D72603958B00AE78DF /* SelectMemberCollectionViewItem.xib in Resources */,
+				FBBBD1F6264D7CBC00F55292 /* voiceprint_bacground3.wav in Resources */,
 				FBF9A5C126038A7E00AE78DF /* MemberIconView.xib in Resources */,
 				FB0D2F7026063965001403A5 /* TextCollectionViewItem.xib in Resources */,
+				FBBBD1F4264D7CBC00F55292 /* voiceprint_bacground1.wav in Resources */,
 				FB2603A32610BA7D00323E4B /* MeetingMemberIconView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -995,7 +1021,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA5443E25FA554200112066 /* LaunchScreen.storyboard in Resources */,
+				FBBBD1F5264D7CBC00F55292 /* voiceprint_bacground1.wav in Resources */,
 				FBA5443B25FA554200112066 /* Assets.xcassets in Resources */,
+				FBBBD1F7264D7CBC00F55292 /* voiceprint_bacground3.wav in Resources */,
+				FBBBD1F9264D7CBC00F55292 /* voiceprint_bacground2.wav in Resources */,
 				FBA5443925FA554200112066 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1205,6 +1234,7 @@
 				FBA546192600ECEF00112066 /* IconImage.swift in Sources */,
 				FB0D2F9126072D1B001403A5 /* FirestoreMeetingData.swift in Sources */,
 				FB2603482608D28F00323E4B /* StatementQueueData.swift in Sources */,
+				FBBBD1E8264D6CD500F55292 /* AudioConverter.swift in Sources */,
 				FB0D2F7B26063FBF001403A5 /* PreferencesWorkspaceCollectionData.swift in Sources */,
 				FBA546282600FA2700112066 /* UploadIconImageResponse.swift in Sources */,
 				FBD1A844261322B6005BB323 /* AudioUploaderQueue.swift in Sources */,
