@@ -12,18 +12,12 @@ import AVFoundation
 class ExportLearningDataset {
     private struct VoiceprintLocalData {
         let userId: String
-        let voiceprintLocalUrl: URL
-    }
-    
-    private struct OutputUrl {
-        let trainingUrl: URL
-        let testUrl: URL
+        let voiceprintLocalUrls: [URL]
     }
     
     private let trainingDatasetUrl: URL
-    private let testDatasetUrl: URL
     private let userDataList: [PreferencesRepository.UserData]
-    private let segmentDuration = 1.0
+    private let segmentDuration = 2.0
     
     init(exportUrl: URL, userDataList: [PreferencesRepository.UserData]) {
         let rootUrl = exportUrl.appendingPathComponent("dataset", isDirectory: true)
@@ -31,7 +25,6 @@ class ExportLearningDataset {
             try? FileManager.default.removeItem(at: rootUrl)
         }
         self.trainingDatasetUrl = rootUrl.appendingPathComponent("training", isDirectory: true)
-        self.testDatasetUrl = rootUrl.appendingPathComponent("test", isDirectory: true)
         self.userDataList = userDataList.filter {$0.voicePrintName != nil}
     }
     
@@ -53,11 +46,8 @@ class ExportLearningDataset {
         }
     }
     
-    private func createOutputUrl(userId: String) -> OutputUrl {
-        return OutputUrl(
-            trainingUrl: makeDirectoryIfNeeded(directory: trainingDatasetUrl.appendingPathComponent(userId, isDirectory: true)),
-            testUrl: makeDirectoryIfNeeded(directory: testDatasetUrl.appendingPathComponent(userId, isDirectory: true))
-        )
+    private func createOutputUrl(userId: String) -> URL {
+        return makeDirectoryIfNeeded(directory: trainingDatasetUrl.appendingPathComponent(userId, isDirectory: true))
     }
     
     private func makeDirectoryIfNeeded(directory: URL) -> URL {
@@ -80,7 +70,11 @@ class ExportLearningDataset {
                             try fileData.write(to: saveUrl)
                         }
                     }
-                    return VoiceprintLocalData(userId: userData.id, voiceprintLocalUrl: saveUrl)
+                    var voiceprintLocalUrls = [URL]()
+                    voiceprintLocalUrls.append(saveUrl)
+                    voiceprintLocalUrls.append(try await(VoiceprintPadding(type: .poorRecordingEnvironment1, originalFileUrl: saveUrl).execute()))
+                    voiceprintLocalUrls.append(try await(VoiceprintPadding(type: .poorRecordingEnvironment2, originalFileUrl: saveUrl).execute()))
+                    return VoiceprintLocalData(userId: userData.id, voiceprintLocalUrls: voiceprintLocalUrls)
                 }
             }).then({ saveUrls in
                 resolve(saveUrls)
@@ -94,13 +88,15 @@ class ExportLearningDataset {
         return Promise<Void>(in: .background, token: nil) { (resolve, reject, _) in
             async({ _ -> Void in
                 let outputUrl = self.createOutputUrl(userId: voiceprintLocalData.userId)
-                let fileUrl = voiceprintLocalData.voiceprintLocalUrl
-                let asset = AVAsset(url: fileUrl)
-                let splitCount = asset.duration.seconds / self.segmentDuration
-                let trainingFileCount = Int(splitCount * 0.75)
-                let testFileCount = Int(splitCount * 0.25)
-                try (0..<trainingFileCount).forEach { try await(self.splitAudio(asset: asset, segment: $0, outputUrl: outputUrl.trainingUrl)) }
-                try (trainingFileCount..<trainingFileCount + testFileCount).forEach { try await(self.splitAudio(asset: asset, segment: $0, outputUrl: outputUrl.testUrl)) }
+                var fileNumber = 0
+                try voiceprintLocalData.voiceprintLocalUrls.forEach { (fileUrl) in
+                    let asset = AVAsset(url: fileUrl)
+                    let splitCount = Int(asset.duration.seconds / self.segmentDuration)
+                    try (0..<splitCount).forEach {
+                        try await(self.splitAudio(asset: asset, segment: $0, fileNumber: fileNumber, outputUrl: outputUrl))
+                        fileNumber += 1
+                    }
+                }
             }).then({ _ in
                 resolve(())
             }).catch { (error) in
@@ -109,7 +105,7 @@ class ExportLearningDataset {
         }
     }
     
-    private func splitAudio(asset: AVAsset, segment: Int, outputUrl: URL) -> Promise<Void> {
+    private func splitAudio(asset: AVAsset, segment: Int, fileNumber: Int, outputUrl: URL) -> Promise<Void> {
         return Promise<Void>(in: .background, token: nil) { (resolve, reject, _) in
             let session = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A)!
             session.outputFileType = .m4a
@@ -121,9 +117,8 @@ class ExportLearningDataset {
             if endTime > asset.duration {
                 endTime = asset.duration
             }
-            
             session.timeRange = CMTimeRangeFromTimeToTime(start: startTime, end: endTime)
-            session.outputURL = outputUrl.appendingPathComponent("\(segment).m4a")
+            session.outputURL = outputUrl.appendingPathComponent("\(fileNumber).m4a")
             session.exportAsynchronously(completionHandler: {
                 switch session.status {
                     case AVAssetExportSession.Status.failed:
