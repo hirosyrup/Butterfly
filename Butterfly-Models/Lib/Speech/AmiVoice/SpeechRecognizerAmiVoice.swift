@@ -33,7 +33,7 @@ class SpeechRecognizerAmiVoice: SpeechRecognizer,
         currentRecognitionRequest = newRecognitionRequest
         recognitionRequests.append(newRecognitionRequest)
         previousBuffers.forEach { newRecognitionRequest.append(buffer: $0) }
-        delegate?.didStartNewStatement(recognizer: self, id: newRecognitionRequest.id)
+        delegate?.didStartNewStatement(recognizer: self, id: newRecognitionRequest.id, speakerId: newRecognitionRequest.currentSpeakerId)
     }
     
     private func endStatement() {
@@ -45,9 +45,10 @@ class SpeechRecognizerAmiVoice: SpeechRecognizer,
         observeBreakInStatements.rmsThreshold = threshold
     }
     
-    func append(buffer: AVAudioPCMBuffer, when: AVAudioTime) {
+    func append(buffer: AVAudioPCMBuffer, when: AVAudioTime, speakerId: String?) {
         observeBreakInStatements.checkBreakInStatements(buffer: buffer, when: when)
         recognitionRequests.forEach { $0.append(buffer: buffer) }
+        currentRecognitionRequest?.currentSpeakerId = speakerId
     }
     
     func setDelegate(delegate: SpeechRecognizerDelegate?) {
@@ -72,14 +73,14 @@ class SpeechRecognizerAmiVoice: SpeechRecognizer,
         SwiftyBeaver.self.error(error)
     }
     
-    func didUpdateStatement(request: RecognitionRequestAmiVoice, statement: String) {
-        delegate?.didUpdateStatement(recognizer: self, id: request.id, statement: statement)
+    func didUpdateStatement(request: RecognitionRequestAmiVoice, statement: String, speakerId: String?) {
+        delegate?.didUpdateStatement(recognizer: self, id: request.id, statement: statement, speakerId: speakerId)
     }
     
-    func didEndStatement(request: RecognitionRequestAmiVoice, statement: String) {
+    func didEndStatement(request: RecognitionRequestAmiVoice, statement: String, speakerId: String?) {
         if let index = recognitionRequests.firstIndex(where: { $0 === request }) {
             recognitionRequests.remove(at: index)
         }
-        delegate?.didEndStatement(recognizer: self, id: request.id, statement: statement)
+        delegate?.didEndStatement(recognizer: self, id: request.id, statement: statement, speakerId: speakerId)
     }
 }

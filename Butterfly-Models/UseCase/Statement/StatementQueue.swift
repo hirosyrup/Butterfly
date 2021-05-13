@@ -35,13 +35,11 @@ class StatementQueue {
         exec()
     }
     
-    func updateStatement(uuid: String, statement: String, user: MeetingUserRepository.MeetingUserData?, shouldUpdateSpeaker: Bool = true) {
+    func updateStatement(uuid: String, statement: String, user: MeetingUserRepository.MeetingUserData?) {
         if var statementData = statementList.first(where: { $0.0 == uuid })?.1 {
             if statementData.id == "" { return }
             statementData.statement = statement
-            if shouldUpdateSpeaker {
-                statementData.user = createStatementUserData(user: user)
-            }
+            statementData.user = createStatementUserData(user: user)
             let updateData = StatementQueueData(uuid: uuid, statementData: statementData, type: .update)
             if let queueIndex = queue.firstIndex(where: { $0.uuid == uuid }) {
                 queue[queueIndex] = updateData
@@ -52,11 +50,11 @@ class StatementQueue {
         }
     }
     
-    func endStatement(uuid: String, statement: String) {
+    func endStatement(uuid: String, statement: String, user: MeetingUserRepository.MeetingUserData?) {
         if statement.isEmpty {
             deleteStatement(uuid: uuid)
         } else {
-            updateStatement(uuid: uuid, statement: statement, user: nil, shouldUpdateSpeaker: false)
+            updateStatement(uuid: uuid, statement: statement, user: user)
         }
         if let index = statementList.firstIndex(where: { $0.0 == uuid }) {
             statementList.remove(at: index)

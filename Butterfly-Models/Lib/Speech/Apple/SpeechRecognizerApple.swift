@@ -34,7 +34,7 @@ class SpeechRecognizerApple: NSObject,
         currentRecognitionRequest = newRecognitionRequest
         recognitionRequests.append(newRecognitionRequest)
         previousBuffers.forEach { newRecognitionRequest.append(buffer: $0) }
-        delegate?.didStartNewStatement(recognizer: self, id: newRecognitionRequest.id)
+        delegate?.didStartNewStatement(recognizer: self, id: newRecognitionRequest.id, speakerId: newRecognitionRequest.currentSpeakerId)
     }
     
     private func endStatement() {
@@ -51,9 +51,10 @@ class SpeechRecognizerApple: NSObject,
         observeBreakInStatements.rmsThreshold = threshold
     }
     
-    func append(buffer: AVAudioPCMBuffer, when: AVAudioTime){
+    func append(buffer: AVAudioPCMBuffer, when: AVAudioTime, speakerId: String?){
         observeBreakInStatements.checkBreakInStatements(buffer: buffer, when: when)
         recognitionRequests.forEach { $0.append(buffer: buffer) }
+        currentRecognitionRequest?.currentSpeakerId = speakerId
     }
     
     func setDelegate(delegate: SpeechRecognizerDelegate?) {
@@ -84,14 +85,14 @@ class SpeechRecognizerApple: NSObject,
         SwiftyBeaver.self.error(error)
     }
     
-    func didUpdateStatement(request: RecognitionRequestApple, statement: String) {
-        delegate?.didUpdateStatement(recognizer: self, id: request.id, statement: statement)
+    func didUpdateStatement(request: RecognitionRequestApple, statement: String, speakerId: String?) {
+        delegate?.didUpdateStatement(recognizer: self, id: request.id, statement: statement, speakerId: speakerId)
     }
     
-    func didEndStatement(request: RecognitionRequestApple, statement: String) {
+    func didEndStatement(request: RecognitionRequestApple, statement: String, speakerId: String?) {
         if let index = recognitionRequests.firstIndex(where: { $0 === request }) {
             recognitionRequests.remove(at: index)
         }
-        delegate?.didEndStatement(recognizer: self, id: request.id, statement: statement)
+        delegate?.didEndStatement(recognizer: self, id: request.id, statement: statement, speakerId: speakerId)
     }
 }

@@ -150,6 +150,11 @@ class StatementController: SpeechRecognizerDelegate,
         audioRecorder = nil
     }
     
+    private func user(id: String?) -> MeetingUserRepository.MeetingUserData? {
+        guard let _id = id else { return nil }
+        return userList.first(where: { $0.userId == _id })
+    }
+    
     func listenData() {
         meetingUser.listen(workspaceId: workspaceId, meetingId: meetingData.id, dataListDelegate: self)
         meeting.listen(workspaceId: workspaceId, meetingId: meetingData.id, dataDelegate: self)
@@ -234,16 +239,16 @@ class StatementController: SpeechRecognizerDelegate,
         delegate?.didNotCreateRecognitionRequest(controller: self, error: error)
     }
     
-    func didStartNewStatement(recognizer: SpeechRecognizer, id: String) {
-        statementQueue.addNewStatement(uuid: id, user: currentSpeaker)
+    func didStartNewStatement(recognizer: SpeechRecognizer, id: String, speakerId: String?) {
+        statementQueue.addNewStatement(uuid: id, user: user(id: speakerId))
     }
     
-    func didUpdateStatement(recognizer: SpeechRecognizer, id: String, statement: String) {
-        statementQueue.updateStatement(uuid: id, statement: statement, user: currentSpeaker)
+    func didUpdateStatement(recognizer: SpeechRecognizer, id: String, statement: String, speakerId: String?) {
+        statementQueue.updateStatement(uuid: id, statement: statement, user: user(id: speakerId))
     }
     
-    func didEndStatement(recognizer: SpeechRecognizer, id: String, statement: String) {
-        statementQueue.endStatement(uuid: id, statement: statement)
+    func didEndStatement(recognizer: SpeechRecognizer, id: String, statement: String, speakerId: String?) {
+        statementQueue.endStatement(uuid: id, statement: statement, user: user(id: speakerId))
     }
     
     func didChangeMeetingUserDataList(obj: MeetingUserRepository.User, documentChanges: [RepositoryDocumentChange<MeetingUserRepository.MeetingUserData>]) {
@@ -274,7 +279,7 @@ class StatementController: SpeechRecognizerDelegate,
     }
     
     func notifyRenderBuffer(obj: AudioSystem, buffer: AVAudioPCMBuffer, when: AVAudioTime) {
-        speechRecognizer?.append(buffer: buffer, when: when)
+        speechRecognizer?.append(buffer: buffer, when: when, speakerId: currentSpeaker?.userId)
         observeBreakInStatements.checkBreakInStatements(buffer: buffer, when: when)
         if observeBreakInStatements.isSpeeking {
             speakerRecognizer?.analyze(buffer: buffer, when: when)

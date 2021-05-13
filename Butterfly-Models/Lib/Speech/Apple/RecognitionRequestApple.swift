@@ -10,8 +10,8 @@ import Speech
 
 protocol RecognitionRequestAppleDelegate: class {
     func failedToRequest(request: RecognitionRequestApple, error: Error)
-    func didUpdateStatement(request: RecognitionRequestApple, statement: String)
-    func didEndStatement(request: RecognitionRequestApple, statement: String)
+    func didUpdateStatement(request: RecognitionRequestApple, statement: String, speakerId: String?)
+    func didEndStatement(request: RecognitionRequestApple, statement: String, speakerId: String?)
 }
 
 class RecognitionRequestApple {
@@ -31,6 +31,7 @@ class RecognitionRequestApple {
     private let updateInterval = TimeInterval(1)
     private var previousNotifyUpdateDate = Date()
     private let endingInterval = TimeInterval(1)
+    var currentSpeakerId: String?
     
     init(id: String, speechRecognizer: SFSpeechRecognizer) {
         self.id = id
@@ -74,13 +75,13 @@ class RecognitionRequestApple {
     private func notifyDidEnd() {
         if state == .ending {
             state = .didEnd
-            delegate?.didEndStatement(request: self, statement: statement)
+            delegate?.didEndStatement(request: self, statement: statement, speakerId: currentSpeakerId)
         }
     }
     
     private func notifyUpdate() {
         if Date().timeIntervalSince1970 - previousNotifyUpdateDate.timeIntervalSince1970 > updateInterval {
-            delegate?.didUpdateStatement(request: self, statement: statement)
+            delegate?.didUpdateStatement(request: self, statement: statement, speakerId: currentSpeakerId)
             previousNotifyUpdateDate = Date()
         }
     }

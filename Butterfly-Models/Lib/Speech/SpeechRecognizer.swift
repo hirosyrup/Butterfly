@@ -10,7 +10,7 @@ import AVFoundation
 
 protocol SpeechRecognizer {
     func setRmsThreshold(threshold: Float)
-    func append(buffer: AVAudioPCMBuffer, when: AVAudioTime)
+    func append(buffer: AVAudioPCMBuffer, when: AVAudioTime, speakerId: String?)
     func setDelegate(delegate: SpeechRecognizerDelegate?)
     func executeForceLineBreak()
 }

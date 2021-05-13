@@ -12,8 +12,8 @@ import SwiftyBeaver
 
 protocol RecognitionRequestAmiVoiceDelegate: class {
     func failedToRequest(request: RecognitionRequestAmiVoice, error: Error)
-    func didUpdateStatement(request: RecognitionRequestAmiVoice, statement: String)
-    func didEndStatement(request: RecognitionRequestAmiVoice, statement: String)
+    func didUpdateStatement(request: RecognitionRequestAmiVoice, statement: String, speakerId: String?)
+    func didEndStatement(request: RecognitionRequestAmiVoice, statement: String, speakerId: String?)
 }
 
 class RecognitionRequestAmiVoice: WebSocketDelegate {
@@ -43,6 +43,7 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
     private let requestBufferCount = 5
     private let downFormat = AudioConverter.amiVoiceFormat
     private let errorHeader = "AmiVoiceError: "
+    var currentSpeakerId: String? = nil
     
     init(id: String, apiKey: String, apiEngine: String, apiUrlString: String) {
         self.id = id
@@ -94,13 +95,13 @@ class RecognitionRequestAmiVoice: WebSocketDelegate {
         if forced || state == .ending {
             state = .didEnd
             socket.disconnect()
-            delegate?.didEndStatement(request: self, statement: joinedStatement())
+            delegate?.didEndStatement(request: self, statement: joinedStatement(), speakerId: currentSpeakerId)
         }
     }
     
     private func notifyUpdate() {
         if Date().timeIntervalSince1970 - previousNotifyUpdateDate.timeIntervalSince1970 > updateInterval {
-            delegate?.didUpdateStatement(request: self, statement: joinedStatement())
+            delegate?.didUpdateStatement(request: self, statement: joinedStatement(), speakerId: currentSpeakerId)
             previousNotifyUpdateDate = Date()
         }
     }
