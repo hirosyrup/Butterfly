@@ -401,6 +401,8 @@ class PreferencesUserViewController: NSViewController,
         SignIn().send(email: emailTextField.stringValue, password: passwordTextField.stringValue) { (error) in
             if let _error = error {
                 AlertBuilder.createErrorAlert(title: "Error", message: "Failed to sign in. \(_error.localizedDescription)").runModal()
+                self.requestState = RequestState.none
+                self.updateViews()
             } else {
                 self.fetchUser()
             }
