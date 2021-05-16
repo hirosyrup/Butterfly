@@ -15,6 +15,7 @@ class PreferencesAdvancedViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var amiVoiceApiUrlTextField: EditableNSTextField!
     @IBOutlet weak var amiVoiceApiKeyTextField: EditableNSTextField!
     @IBOutlet weak var amiVoiceApiEngineTextField: EditableNSTextField!
+    @IBOutlet weak var signInNoticeLabel: NSTextField!
     
     private let authUser = AuthUser.shared
     private var userData: PreferencesRepository.UserData?
@@ -24,15 +25,23 @@ class PreferencesAdvancedViewController: NSViewController, NSTextFieldDelegate {
         amiVoiceApiUrlTextField.delegate = self
         amiVoiceApiKeyTextField.delegate = self
         amiVoiceApiEngineTextField.delegate = self
-        updateViews()
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
         fetchUser()
+        updateViews()
     }
     
     private func updateViews() {
         amiVoiceSettingsContainer.isHidden = true
+        signInNoticeLabel.isHidden = true
         guard let _userData = userData else {
+            signInNoticeLabel.isHidden = false
+            amiVoiceEnableSwitch.isEnabled = false
             return
         }
+        amiVoiceEnableSwitch.isEnabled = true
         amiVoiceEnableSwitch.state = _userData.advancedSettingData.enableAmiVoice ? .on : .off
         turnedOnByDefaultSwitch.state = _userData.advancedSettingData.turnedOnByDefault ? .on : .off
         amiVoiceSettingsContainer.isHidden = amiVoiceEnableSwitch.state != .on
@@ -46,7 +55,7 @@ class PreferencesAdvancedViewController: NSViewController, NSTextFieldDelegate {
     }
     
     private func fetchUser() {
-        if let currentUser = authUser.currentUser() {
+        if let currentUser = authUser.currentUser(), currentUser.isEmailVerified {
             async({ _ -> PreferencesRepository.UserData in
                 return try await(PreferencesRepository.User().findOrCreate(userId: currentUser.uid))
             }).then({ fetchedUserData in
@@ -55,6 +64,8 @@ class PreferencesAdvancedViewController: NSViewController, NSTextFieldDelegate {
             }).catch { (error) in
                 self.showErrorAlert(error: error)
             }
+        } else {
+            userData = nil
         }
     }
     
