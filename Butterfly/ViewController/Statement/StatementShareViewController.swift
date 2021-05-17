@@ -65,14 +65,14 @@ class StatementShareViewController: NSViewController {
             var statement = ""
             if previousUserId != data.user?.id {
                 previousUserId = data.user?.id
-                statement += "[\(data.user?.name ?? DefaultUserName.name)]\n"
+                statement += "\n[\(data.user?.name ?? DefaultUserName.name)]\n"
             }
             return statement + "\(data.statement.replacingOccurrences(of: "\n", with: ""))"
         }
         
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
-        pasteboard.setString(statements.joined(separator: "\n\n"), forType: .string)
+        pasteboard.setString(statements.joined(separator: "\n"), forType: .string)
         dismiss(self)
     }
     
