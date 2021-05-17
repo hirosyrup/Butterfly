@@ -78,7 +78,6 @@ class PreferencesAdvancedViewController: NSViewController, NSTextFieldDelegate {
             return try await(SaveAdvanced(data: _userData).updateAmiVoiceApiUrl(amiVoiceApiUrl: amiVoiceApiUrl))
         }).then({ updateData in
             self.userData = updateData
-            self.updateViews()
         }).catch { (error) in
             self.showErrorAlert(error: error)
         }
@@ -93,7 +92,6 @@ class PreferencesAdvancedViewController: NSViewController, NSTextFieldDelegate {
             return try await(SaveAdvanced(data: _userData).updateAmiVoiceApiKey(amiVoiceApiKey: amiVoiceApiKey))
         }).then({ updateData in
             self.userData = updateData
-            self.updateViews()
         }).catch { (error) in
             self.showErrorAlert(error: error)
         }
@@ -108,7 +106,6 @@ class PreferencesAdvancedViewController: NSViewController, NSTextFieldDelegate {
             return try await(SaveAdvanced(data: _userData).updateAmiVoiceApiEngine(amiVoiceApiEngine: amiVoiceApiEngine))
         }).then({ updateData in
             self.userData = updateData
-            self.updateViews()
         }).catch { (error) in
             self.showErrorAlert(error: error)
         }
