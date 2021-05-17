@@ -109,13 +109,16 @@ class StatementViewController: NSViewController,
         showCollectionButton.isHidden = presenter.isHiddenOfShowCollectionButton()
     }
     
-    private func setupRecordAudioIfNeeded() {
+    private func setupRecordAudioIfNeeded(isUploadingAudio: Bool) {
         let userList = statementController.userList
         guard !userList.isEmpty else { return }
         let meetingData = statementController.meetingData
         if meetingData.isFinished() {
             recordAudioDownloadIndicator.startAnimation(self)
             audioPlayerView.isHidden = true
+            if isUploadingAudio {
+                return
+            }
             async({ _ -> AVMutableComposition in
                 return try await(MergeAudio(meetingData: meetingData, meetingUserDataList: userList).merge())
             }).then({ composition in
@@ -161,7 +164,7 @@ class StatementViewController: NSViewController,
         dataProvider = StatementCollectionDataProvider(workspaceId: workspaceId, meetingId: meetingData.id)
         dataProvider.delegate = self
         updateViews()
-        setupRecordAudioIfNeeded()
+        setupRecordAudioIfNeeded(isUploadingAudio: false)
         setupCollectionViewHeight()
     }
     
@@ -174,7 +177,8 @@ class StatementViewController: NSViewController,
     }
     
     func didUpdateData(controller: StatementController) {
-        setupRecordAudioIfNeeded()
+        let you = controller.you
+        setupRecordAudioIfNeeded(isUploadingAudio: you != nil && you!.audioFileName == nil)
         updateViews()
         setupCollectionViewHeight()
     }
