@@ -1673,7 +1673,7 @@ DQ
                                             <rect key="frame" x="0.0" y="0.0" width="336" height="393"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" id="ZWE-P0-voT">
-                                                <size key="itemSize" width="336" height="50"/>
+                                                <size key="itemSize" width="336" height="58"/>
                                             </collectionViewFlowLayout>
                                             <color key="primaryBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         </collectionView>
