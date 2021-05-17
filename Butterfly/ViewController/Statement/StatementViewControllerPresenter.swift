@@ -27,7 +27,7 @@ class StatementViewControllerPresenter {
             if meetingUserDataList[hostIndex].id == you?.id {
                 return true
             } else {
-                return !(meetingData.startedAt != nil && meetingData.endedAt == nil)
+                return !meetingData.isInMeeting()
             }
         } else {
             return true
@@ -35,8 +35,8 @@ class StatementViewControllerPresenter {
     }
     
     func isHiddenOfStartButton() -> Bool {
-        guard let _you = you else { return false }
-        if meetingData.startedAt != nil && meetingData.endedAt != nil {
+        guard let _you = you else { return true }
+        if meetingData.isFinished() {
             return true
         }
         
@@ -48,11 +48,11 @@ class StatementViewControllerPresenter {
     }
     
     func isHiddenOfShowCollectionButton() -> Bool {
-        return isHiddenOfStartButton()
+        return meetingData.isFinished()
     }
     
     func startEndButtonState() -> NSControl.StateValue {
-        if meetingData.startedAt != nil && meetingData.endedAt == nil {
+        if meetingData.isInMeeting() {
             return .on
         } else {
             return .off
