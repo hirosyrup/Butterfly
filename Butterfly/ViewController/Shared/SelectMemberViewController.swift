@@ -48,12 +48,23 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, 
             self.userDataList = dataList.map({ (userData) -> SelectMemberCollectionData in
                 return SelectMemberCollectionData(userData: userData, selected: self.isAlreadySelected(data: userData))
             })
+            self.delegate?.didChangeSelectedUserList(vc: self, selectedIndices: self.selectedIndices())
             self.memberCollectionView.reloadData()
         }).catch { (error) in
             AlertBuilder.createErrorAlert(title: "Error", message: "Failed to fetch member list. \(error.localizedDescription)").runModal()
         }.always(in: .main) {
             self.fetchIndicator.stopAnimation(self)
         }
+    }
+    
+    private func selectedIndices() -> [Int] {
+        var selectedIndices = [Int]()
+        for (index, value) in userDataList.enumerated() {
+            if value.selected {
+                selectedIndices.append(index)
+            }
+        }
+        return selectedIndices
     }
     
     func isAlreadySelected(data: SelectMemberUserData) -> Bool {
@@ -85,13 +96,8 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, 
                 item.updateView(presenter: presenter)
             }
         }
-        var selectedIndices = [Int]()
-        for (index, value) in userDataList.enumerated() {
-            if value.selected {
-                selectedIndices.append(index)
-            }
-        }
-        delegate?.didChangeSelectedUserList(vc: self, selectedIndices: selectedIndices)
+        
+        delegate?.didChangeSelectedUserList(vc: self, selectedIndices: selectedIndices())
         memberCollectionView.deselectItems(at: indexPaths)
     }
 }
