@@ -9,8 +9,8 @@ import Cocoa
 
 class StatementLevelMeter: NSView {
     @IBOutlet weak var levelMeter: NSLevelIndicator!
-    @IBOutlet weak var thresholdMark: NSBox!
     
+    private var enabled = false
     private let minRms = -70.0
     private let maxRms = 6.0
     private let range = 76.0
@@ -23,17 +23,15 @@ class StatementLevelMeter: NSView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        thresholdMark.isHidden = true
         levelMeter.criticalValue = (-minRms / range) * levelMeter.maxValue
     }
     
     func updateThreshold(threshold: Double) {
-        guard !thresholdMark.isHidden else { return }
+        guard enabled else { return }
         var _threshold = max(minRms, threshold)
         _threshold = min(maxRms, _threshold)
         let rate = (_threshold - minRms) / range
         let x = CGFloat(Double(bounds.width) * rate)
-        thresholdMark.frame = CGRect(x: x, y: 0, width: thresholdMark.bounds.width, height: bounds.height)
         levelMeter.warningValue = rate * levelMeter.maxValue
     }
     
@@ -45,7 +43,7 @@ class StatementLevelMeter: NSView {
     }
     
     func setEnable(enabled: Bool) {
-        thresholdMark.isHidden = !enabled
+        self.enabled = enabled
         levelMeter.doubleValue = 0.0
     }
 }

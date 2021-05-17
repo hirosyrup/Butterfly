@@ -20,15 +20,6 @@
                     <color key="warningFillColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
                     <color key="criticalFillColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                 </levelIndicator>
-                <box fixedFrame="YES" boxType="custom" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="6it-4U-R8j">
-                    <rect key="frame" x="0.0" y="0.0" width="3" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView" id="Fgb-QC-h3Y">
-                        <rect key="frame" x="0.0" y="0.0" width="3" height="16"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </view>
-                    <color key="fillColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </box>
             </subviews>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="3Pp-h5-Gws" secondAttribute="bottom" id="M80-lC-Bei"/>
@@ -38,7 +29,6 @@
             </constraints>
             <connections>
                 <outlet property="levelMeter" destination="3Pp-h5-Gws" id="dmT-eU-uhG"/>
-                <outlet property="thresholdMark" destination="6it-4U-R8j" id="sBh-Z3-F9I"/>
             </connections>
             <point key="canvasLocation" x="-198" y="-4"/>
         </customView>

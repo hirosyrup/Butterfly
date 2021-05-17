@@ -255,6 +255,7 @@ class StatementController: SpeechRecognizerDelegate,
         userList = meetingUser.createUserListFromDocumentChanges(prevUserList: userList, documentChanges: documentChanges)
         updateYou()
         enter()
+        updateAudioInputState()
         delegate?.didUpdateData(controller: self)
     }
     
