@@ -139,8 +139,7 @@ class StatementViewController: NSViewController,
                 collectionContainer.removeConstraint(constraint)
             }
         } else {
-            collectionViewHeightConstraint?.constant = 0.0
-            showCollectionButton.state = .off
+            collectionViewHeightConstraint?.constant = showCollectionButton.state == .on ? collectionViewHeightConstant : 0.0
         }
     }
     
