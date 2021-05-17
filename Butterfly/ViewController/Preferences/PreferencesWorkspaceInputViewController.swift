@@ -16,7 +16,7 @@ class PreferencesWorkspaceInputViewController: NSViewController,
                                                NSTextFieldDelegate,
                                                SelectMemberViewControllerDelegate {
     @IBOutlet weak var okButton: NSButton!
-    @IBOutlet weak var nameTextField: NSTextField!
+    @IBOutlet weak var nameTextField: EditableNSTextField!
     @IBOutlet weak var memberSelectContainer: NSView!
     @IBOutlet weak var cancelButton: NSButton!
     @IBOutlet weak var enableSpeakerRecognitionSwitch: NSSwitch!

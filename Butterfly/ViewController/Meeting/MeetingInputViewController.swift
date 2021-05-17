@@ -16,7 +16,7 @@ class MeetingInputViewController: NSViewController,
                                   NSTextFieldDelegate,
                                   SelectMemberViewControllerDelegate {
     @IBOutlet weak var submitButton: NSButton!
-    @IBOutlet weak var nameTextField: NSTextField!
+    @IBOutlet weak var nameTextField: EditableNSTextField!
     @IBOutlet weak var memberSelectContainer: NSView!
     @IBOutlet weak var cancelButton: NSButton!
     fileprivate var workspaceId: String!

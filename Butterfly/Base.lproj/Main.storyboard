@@ -888,7 +888,7 @@ DQ
                                     <action selector="pushOk:" target="y0a-4f-gt5" id="kNH-ph-aNA"/>
                                 </connections>
                             </button>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sBm-up-UVe">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sBm-up-UVe" customClass="EditableNSTextField" customModule="Butterfly" customModuleProvider="target">
                                 <rect key="frame" x="20" y="379" width="413" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="4UR-KG-Oco">
                                     <font key="font" metaFont="system"/>
@@ -1563,7 +1563,7 @@ DQ
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CdJ-SM-jkx">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CdJ-SM-jkx" customClass="EditableNSTextField" customModule="Butterfly" customModuleProvider="target">
                                 <rect key="frame" x="20" y="276" width="410" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="tna-A5-Paj">
                                     <font key="font" metaFont="system"/>
