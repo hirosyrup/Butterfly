@@ -4,8 +4,6 @@
 <p align="center">
 <a href="https://github.com/hirosyrup/Butterfly/blob/master/README.md">🇺🇸English</a> / <a href="https://github.com/hirosyrup/Butterfly/blob/master/README-ja.md">🇯🇵Japanese</a>
 </p>
-[TOC]
-
 # Butterfly
 
 Butterflyは議事録作成の補助ツールです。以下のような特徴を持っています。
