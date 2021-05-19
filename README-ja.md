@@ -14,6 +14,8 @@ Butterflyは議事録作成の補助ツールです。以下のような特徴�
 * 同時に録音データも保存
 * 書き起こした文章をもとに任意の箇所から音声再生ができるプレビュー機能
 
+<video width="640" controls>   <source src="https://user-images.githubusercontent.com/24717967/118831907-198e7280-b8fb-11eb-86ea-b453e61b1859.mp4" type="video/mp4"> </video>
+
 # 動作環境
 
 macOS 10.15以上
@@ -90,7 +92,21 @@ zipファイルを解凍し、アプリを起動します。
 
 # アプリの使い方
 
+## メイン画面
 
+<img width="320" alt="" src="https://user-images.githubusercontent.com/24717967/118834264-0da3b000-b8fd-11eb-8dd1-e7da4f1277bc.png">
+
+## ユーザー設定
+
+<img width="480" alt="" src="https://user-images.githubusercontent.com/24717967/118833719-a259de00-b8fc-11eb-8391-f1aae7d0aeda.png">
+
+## ワークスペース設定
+
+<img width="480" alt="" src="https://user-images.githubusercontent.com/24717967/118834176-fd8bd080-b8fc-11eb-8341-83218cc817da.png">
+
+## 書き起こし画面
+
+<img width="320" alt="" src="https://user-images.githubusercontent.com/24717967/118834370-244a0700-b8fd-11eb-8d6d-83dbd2813314.png">
 
 # ライセンス
 
