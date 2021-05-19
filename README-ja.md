@@ -14,7 +14,7 @@ Butterflyは議事録作成の補助ツールです。以下のような特徴�
 * 同時に録音データも保存
 * 書き起こした文章をもとに任意の箇所から音声再生ができるプレビュー機能
 
-<video width="640" controls>   <source src="https://user-images.githubusercontent.com/24717967/118831907-198e7280-b8fb-11eb-86ea-b453e61b1859.mp4" type="video/mp4"> </video>
+https://user-images.githubusercontent.com/24717967/118831907-198e7280-b8fb-11eb-86ea-b453e61b1859.mp4
 
 # 動作環境
 
