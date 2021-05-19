@@ -20,6 +20,7 @@ class SpeechRecognizerApple: NSObject,
     private let observeBreakInStatements = ObserveBreakInStatements()
     private var recognitionRequests = [RecognitionRequestApple]()
     private var currentRecognitionRequest: RecognitionRequestApple?
+    private var currentSpeakerId: String?
     
     weak var delegate: SpeechRecognizerDelegate?
     
@@ -31,6 +32,7 @@ class SpeechRecognizerApple: NSObject,
     private func startNewStatement(speechRecognizer: SFSpeechRecognizer, previousBuffers: [AVAudioPCMBuffer]) {
         let newRecognitionRequest = RecognitionRequestApple(id: UUID().uuidString, speechRecognizer: speechRecognizer)
         newRecognitionRequest.delegate = self
+        newRecognitionRequest.currentSpeakerId = currentSpeakerId
         currentRecognitionRequest = newRecognitionRequest
         recognitionRequests.append(newRecognitionRequest)
         previousBuffers.forEach { newRecognitionRequest.append(buffer: $0) }
@@ -55,6 +57,7 @@ class SpeechRecognizerApple: NSObject,
         observeBreakInStatements.checkBreakInStatements(buffer: buffer, when: when)
         recognitionRequests.forEach { $0.append(buffer: buffer) }
         currentRecognitionRequest?.currentSpeakerId = speakerId
+        currentSpeakerId = speakerId
     }
     
     func setDelegate(delegate: SpeechRecognizerDelegate?) {

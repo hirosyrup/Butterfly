@@ -20,6 +20,7 @@ class SpeechRecognizerAmiVoice: SpeechRecognizer,
     private let observeBreakInStatements = ObserveBreakInStatements()
     private var recognitionRequests = [RecognitionRequestAmiVoice]()
     private var currentRecognitionRequest: RecognitionRequestAmiVoice?
+    private var currentSpeakerId: String?
     
     weak var delegate: SpeechRecognizerDelegate?
     
@@ -30,6 +31,7 @@ class SpeechRecognizerAmiVoice: SpeechRecognizer,
     private func startNewStatement(previousBuffers: [AVAudioPCMBuffer]) {
         let newRecognitionRequest = RecognitionRequestAmiVoice(id: UUID().uuidString, apiKey: apiKey, apiEngine: apiEngine, apiUrlString: apiUrlString)
         newRecognitionRequest.delegate = self
+        newRecognitionRequest.currentSpeakerId = currentSpeakerId
         currentRecognitionRequest = newRecognitionRequest
         recognitionRequests.append(newRecognitionRequest)
         previousBuffers.forEach { newRecognitionRequest.append(buffer: $0) }
@@ -49,6 +51,7 @@ class SpeechRecognizerAmiVoice: SpeechRecognizer,
         observeBreakInStatements.checkBreakInStatements(buffer: buffer, when: when)
         recognitionRequests.forEach { $0.append(buffer: buffer) }
         currentRecognitionRequest?.currentSpeakerId = speakerId
+        currentSpeakerId = speakerId
     }
     
     func setDelegate(delegate: SpeechRecognizerDelegate?) {
