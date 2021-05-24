@@ -163,15 +163,39 @@ zipファイルを解凍し、アプリを起動します。
 
 ### 話者認識モデルの作成
 
+以下の手順で機械学習を行い話者認識モデルを作成します。声紋が追加されるごとにモデルを作成し直す必要があります。
+
 1. メニューのPreferencesよりワークスペース設定を開き、ワークスペースの新規追加または編集画面で「Enable speaker recognition」を有効にします。
+
 2. 「Export a learning data set」ボタンを押して任意の場所に学習用の音声ファイルを出力します。
-3. 
 
+3. Xcode経由でCreate MLを起動します。
 
+   <img width="480" alt="" src="https://user-images.githubusercontent.com/24717967/119353120-74e6a900-bcdd-11eb-8f45-2008ed0805be.png">
+
+4. 「Sound Classification」でプロジェクトを作成します。
+
+5. 手順2で出力した学習用音声ファイルが入ったフォルダをドラッグしてセットし、「Train」ボタンをクリックして完了するまでしばらく待ちます。
+   <img width="480" alt="" src="https://user-images.githubusercontent.com/24717967/119353901-677dee80-bcde-11eb-8ff9-406d8c3c47f3.png">
+
+6. 「Output」タブを開いて「Get」ボタンをクリックしてモデルファイルを任意の場所に出力します。
+   <img width="480" alt="" src="https://user-images.githubusercontent.com/24717967/119354114-a7dd6c80-bcde-11eb-9504-4bbd997c38ea.png">
+
+7. ButterflyのPreferencesのワークスペース設定に戻り、ワークスペースの編集画面を開いて「Upload ML File」ボタンをクリックして手順6で出力したモデルファイルを選択します。OKボタンをクリックするとモデルファイルがストレージへアップロードされ設定完了となります。設定したワークスペース内でミーティングを開始すると話者認識が適用された状態で書き起こしされます。
 
 ## 音声認識エンジンAmiVoiceの使用(日本語向け機能)
 
+書き起こしを行うための音声認識エンジンについては、通常はAppleのエンジンを使用しますが、日本語の誤認識が多く精度があまりよくありません。
 
+認識精度を上げたい場合には日本語に強い[AmiVoice](https://acp.amivoice.com/main/)の使用をおすすめします。
+ただし有料です。1時間あたり100〜150円ほどです。契約と支払いはアプリの使用者が行ってください。
+
+AmiVoiceの契約をしたら、AmiVoiceのマイページよりAPI関連の設定情報を取得し、ButterflyのPreferencesのAdvancedタブから設定していきます。以下はログ保存ありの汎用エンジンの設定になりますがログ保存なしやその他のエンジンを使用しても構いません。APIのURLはWebSocketの方を使用してください。
+
+またAmiVoiceを有効にすると、ミーティングウィンドウで音声認識エンジンの切り替えができるようになります。
+「Turned on by default」をオンにするとその切り替え部分の初期値がAmiVoiceになります。
+
+<img width="1000" alt="" src="https://user-images.githubusercontent.com/24717967/119355812-a7de6c00-bce0-11eb-9b0c-ef568983b484.png">
 
 # ライセンス
 
