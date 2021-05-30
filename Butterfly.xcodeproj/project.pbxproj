@@ -168,6 +168,59 @@
 		FBD1A84026132243005BB323 /* AudioUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A83F26132243005BB323 /* AudioUploader.swift */; };
 		FBD1A844261322B6005BB323 /* AudioUploaderQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */; };
 		FBD1A8482613275B005BB323 /* AudioLocalUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */; };
+		FBD7C3F52663D3A700F3C7B6 /* SearchOptionUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83AE9262F201900989820 /* SearchOptionUserDefault.swift */; };
+		FBD7C3F62663D3A700F3C7B6 /* FirestoreDataVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC839DD2621F03400989820 /* FirestoreDataVersion.swift */; };
+		FBD7C3F72663D3A700F3C7B6 /* FirestoreDataVersionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC839EB2621F3FD00989820 /* FirestoreDataVersionData.swift */; };
+		FBD7C3F82663D3A700F3C7B6 /* FirestoreMeetingUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FAA26073CBD001403A5 /* FirestoreMeetingUserData.swift */; };
+		FBD7C3F92663D3A700F3C7B6 /* FirestoreMeetingUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC839A2261CAAEA00989820 /* FirestoreMeetingUser.swift */; };
+		FBD7C3FA2663D3A700F3C7B6 /* FirestoreStatementData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D71852608616A00B7E9DE /* FirestoreStatementData.swift */; };
+		FBD7C3FB2663D3A700F3C7B6 /* FirestoreStatementUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D7189260861BE00B7E9DE /* FirestoreStatementUserData.swift */; };
+		FBD7C3FC2663D3A700F3C7B6 /* FirestoreStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D717F2608615F00B7E9DE /* FirestoreStatement.swift */; };
+		FBD7C3FD2663D3A700F3C7B6 /* FirestoreMeetingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F9026072D1B001403A5 /* FirestoreMeetingData.swift */; };
+		FBD7C3FE2663D3A700F3C7B6 /* FirestoreMeetingIconData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC839B4261DEC2500989820 /* FirestoreMeetingIconData.swift */; };
+		FBD7C3FF2663D3A700F3C7B6 /* FirestoreMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FAE26073E23001403A5 /* FirestoreMeeting.swift */; };
+		FBD7C4002663D3A700F3C7B6 /* FirestoreUserAdvancedSettingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83ABB2629D5B100989820 /* FirestoreUserAdvancedSettingData.swift */; };
+		FBD7C4012663D3A700F3C7B6 /* FirestoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F8B26071930001403A5 /* FirestoreObserver.swift */; };
+		FBD7C4022663D3A700F3C7B6 /* FirestoreDocumentChangeWithData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C3C26077D9E00801070 /* FirestoreDocumentChangeWithData.swift */; };
+		FBD7C4032663D3A700F3C7B6 /* SelectMemberUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F9D26072F60001403A5 /* SelectMemberUserData.swift */; };
+		FBD7C4042663D3A700F3C7B6 /* SelectMemberFetchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F9726072EC1001403A5 /* SelectMemberFetchProtocol.swift */; };
+		FBD7C4052663D3A700F3C7B6 /* SaveAdvanced.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83AC9262B27EC00989820 /* SaveAdvanced.swift */; };
+		FBD7C4062663D3A700F3C7B6 /* SaveMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C242607681B00801070 /* SaveMeeting.swift */; };
+		FBD7C4072663D3A700F3C7B6 /* SelectMemberFetchForMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FB926075CC5001403A5 /* SelectMemberFetchForMeeting.swift */; };
+		FBD7C4082663D3A700F3C7B6 /* StatementQueueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC8398B261B5B8100989820 /* StatementQueueType.swift */; };
+		FBD7C4092663D3A700F3C7B6 /* StatementQueueData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603472608D28F00323E4B /* StatementQueueData.swift */; };
+		FBD7C40A2663D3A700F3C7B6 /* StatementQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603412608D27D00323E4B /* StatementQueue.swift */; };
+		FBD7C40B2663D3A700F3C7B6 /* MergeAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB26040C2614199300323E4B /* MergeAudio.swift */; };
+		FBD7C40C2663D3A700F3C7B6 /* MeetingCollectionDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6C6D73262FDE8200735016 /* MeetingCollectionDataProvider.swift */; };
+		FBD7C40D2663D3A700F3C7B6 /* RepositoryDocumentChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C2E2607739600801070 /* RepositoryDocumentChangeType.swift */; };
+		FBD7C40E2663D3A700F3C7B6 /* RepositoryDocumentChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB523C2A2607738C00801070 /* RepositoryDocumentChange.swift */; };
+		FBD7C40F2663D3A700F3C7B6 /* WorkspaceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2FB2260742E6001403A5 /* WorkspaceRepository.swift */; };
+		FBD7C4102663D3A700F3C7B6 /* MeetingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0D2F872606FEF5001403A5 /* MeetingRepository.swift */; };
+		FBD7C4112663D3A700F3C7B6 /* MeetingUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC839BA261DF54100989820 /* MeetingUserRepository.swift */; };
+		FBD7C4122663D3A700F3C7B6 /* StatementRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D71912608668000B7E9DE /* StatementRepository.swift */; };
+		FBD7C4132663D3A700F3C7B6 /* VoiceprintStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBA6263AF97600A3BA32 /* VoiceprintStorage.swift */; };
+		FBD7C4142663D3A700F3C7B6 /* AppScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB204256260C5471006620A2 /* AppScheme.swift */; };
+		FBD7C4152663D3A700F3C7B6 /* Rms.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBAA263AFE8B00A3BA32 /* Rms.swift */; };
+		FBD7C4162663D3A700F3C7B6 /* AudioBufferSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603B226120A0B00323E4B /* AudioBufferSize.swift */; };
+		FBD7C4172663D3A700F3C7B6 /* AudioSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603AE2612074E00323E4B /* AudioSystem.swift */; };
+		FBD7C4182663D3A700F3C7B6 /* AudioLocalUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */; };
+		FBD7C4192663D3A700F3C7B6 /* AudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64DBA0263AF53A00A3BA32 /* AudioFile.swift */; };
+		FBD7C41A2663D3A700F3C7B6 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603BF26120C7D00323E4B /* AudioRecorder.swift */; };
+		FBD7C41B2663D3A700F3C7B6 /* AudioRecordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603C526120CA700323E4B /* AudioRecordData.swift */; };
+		FBD7C41C2663D3A700F3C7B6 /* AudioUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2603CB26120CD100323E4B /* AudioUserDefault.swift */; };
+		FBD7C41D2663D3A700F3C7B6 /* AudioUploaderQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */; };
+		FBD7C41E2663D3A700F3C7B6 /* AudioUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1A83F26132243005BB323 /* AudioUploader.swift */; };
+		FBD7C41F2663D3A700F3C7B6 /* AudioExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE3653D2616178200EA9471 /* AudioExport.swift */; };
+		FBD7C4202663D3A700F3C7B6 /* AudioConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBBD1E7264D6CD500F55292 /* AudioConverter.swift */; };
+		FBD7C4212663D3A700F3C7B6 /* SpeechRecognizerAmiVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83A9C2624892A00989820 /* SpeechRecognizerAmiVoice.swift */; };
+		FBD7C4222663D3A700F3C7B6 /* RecognitionRequestAmiVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83AA22624893F00989820 /* RecognitionRequestAmiVoice.swift */; };
+		FBD7C4232663D3A700F3C7B6 /* SpeechRecognizerApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D71A32608763A00B7E9DE /* SpeechRecognizerApple.swift */; };
+		FBD7C4242663D3A700F3C7B6 /* RecognitionRequestApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D71B22608854100B7E9DE /* RecognitionRequestApple.swift */; };
+		FBD7C4252663D3A700F3C7B6 /* AutoCalcRmsThreshold.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83996261B61DB00989820 /* AutoCalcRmsThreshold.swift */; };
+		FBD7C4262663D3A700F3C7B6 /* ObserveBreakInStatements.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D71AA26087BD500B7E9DE /* ObserveBreakInStatements.swift */; };
+		FBD7C4272663D3A700F3C7B6 /* SpeechRecognizerAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83A882624853900989820 /* SpeechRecognizerAuthorization.swift */; };
+		FBD7C4282663D3A700F3C7B6 /* SpeechRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83A902624865C00989820 /* SpeechRecognizerDelegate.swift */; };
+		FBD7C4292663D3A700F3C7B6 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83A8C262485EA00989820 /* SpeechRecognizer.swift */; };
 		FBE3653E2616178200EA9471 /* AudioExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE3653D2616178200EA9471 /* AudioExport.swift */; };
 		FBF9A5BD26038A7100AE78DF /* MemberIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A5BC26038A7100AE78DF /* MemberIconView.swift */; };
 		FBF9A5C126038A7E00AE78DF /* MemberIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBF9A5C026038A7E00AE78DF /* MemberIconView.xib */; };
@@ -1249,6 +1302,59 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBD7C3F52663D3A700F3C7B6 /* SearchOptionUserDefault.swift in Sources */,
+				FBD7C3F62663D3A700F3C7B6 /* FirestoreDataVersion.swift in Sources */,
+				FBD7C3F72663D3A700F3C7B6 /* FirestoreDataVersionData.swift in Sources */,
+				FBD7C3F82663D3A700F3C7B6 /* FirestoreMeetingUserData.swift in Sources */,
+				FBD7C3F92663D3A700F3C7B6 /* FirestoreMeetingUser.swift in Sources */,
+				FBD7C3FA2663D3A700F3C7B6 /* FirestoreStatementData.swift in Sources */,
+				FBD7C3FB2663D3A700F3C7B6 /* FirestoreStatementUserData.swift in Sources */,
+				FBD7C3FC2663D3A700F3C7B6 /* FirestoreStatement.swift in Sources */,
+				FBD7C3FD2663D3A700F3C7B6 /* FirestoreMeetingData.swift in Sources */,
+				FBD7C3FE2663D3A700F3C7B6 /* FirestoreMeetingIconData.swift in Sources */,
+				FBD7C3FF2663D3A700F3C7B6 /* FirestoreMeeting.swift in Sources */,
+				FBD7C4002663D3A700F3C7B6 /* FirestoreUserAdvancedSettingData.swift in Sources */,
+				FBD7C4012663D3A700F3C7B6 /* FirestoreObserver.swift in Sources */,
+				FBD7C4022663D3A700F3C7B6 /* FirestoreDocumentChangeWithData.swift in Sources */,
+				FBD7C4032663D3A700F3C7B6 /* SelectMemberUserData.swift in Sources */,
+				FBD7C4042663D3A700F3C7B6 /* SelectMemberFetchProtocol.swift in Sources */,
+				FBD7C4052663D3A700F3C7B6 /* SaveAdvanced.swift in Sources */,
+				FBD7C4062663D3A700F3C7B6 /* SaveMeeting.swift in Sources */,
+				FBD7C4072663D3A700F3C7B6 /* SelectMemberFetchForMeeting.swift in Sources */,
+				FBD7C4082663D3A700F3C7B6 /* StatementQueueType.swift in Sources */,
+				FBD7C4092663D3A700F3C7B6 /* StatementQueueData.swift in Sources */,
+				FBD7C40A2663D3A700F3C7B6 /* StatementQueue.swift in Sources */,
+				FBD7C40B2663D3A700F3C7B6 /* MergeAudio.swift in Sources */,
+				FBD7C40C2663D3A700F3C7B6 /* MeetingCollectionDataProvider.swift in Sources */,
+				FBD7C40D2663D3A700F3C7B6 /* RepositoryDocumentChangeType.swift in Sources */,
+				FBD7C40E2663D3A700F3C7B6 /* RepositoryDocumentChange.swift in Sources */,
+				FBD7C40F2663D3A700F3C7B6 /* WorkspaceRepository.swift in Sources */,
+				FBD7C4102663D3A700F3C7B6 /* MeetingRepository.swift in Sources */,
+				FBD7C4112663D3A700F3C7B6 /* MeetingUserRepository.swift in Sources */,
+				FBD7C4122663D3A700F3C7B6 /* StatementRepository.swift in Sources */,
+				FBD7C4132663D3A700F3C7B6 /* VoiceprintStorage.swift in Sources */,
+				FBD7C4142663D3A700F3C7B6 /* AppScheme.swift in Sources */,
+				FBD7C4152663D3A700F3C7B6 /* Rms.swift in Sources */,
+				FBD7C4162663D3A700F3C7B6 /* AudioBufferSize.swift in Sources */,
+				FBD7C4172663D3A700F3C7B6 /* AudioSystem.swift in Sources */,
+				FBD7C4182663D3A700F3C7B6 /* AudioLocalUrl.swift in Sources */,
+				FBD7C4192663D3A700F3C7B6 /* AudioFile.swift in Sources */,
+				FBD7C41A2663D3A700F3C7B6 /* AudioRecorder.swift in Sources */,
+				FBD7C41B2663D3A700F3C7B6 /* AudioRecordData.swift in Sources */,
+				FBD7C41C2663D3A700F3C7B6 /* AudioUserDefault.swift in Sources */,
+				FBD7C41D2663D3A700F3C7B6 /* AudioUploaderQueue.swift in Sources */,
+				FBD7C41E2663D3A700F3C7B6 /* AudioUploader.swift in Sources */,
+				FBD7C41F2663D3A700F3C7B6 /* AudioExport.swift in Sources */,
+				FBD7C4202663D3A700F3C7B6 /* AudioConverter.swift in Sources */,
+				FBD7C4212663D3A700F3C7B6 /* SpeechRecognizerAmiVoice.swift in Sources */,
+				FBD7C4222663D3A700F3C7B6 /* RecognitionRequestAmiVoice.swift in Sources */,
+				FBD7C4232663D3A700F3C7B6 /* SpeechRecognizerApple.swift in Sources */,
+				FBD7C4242663D3A700F3C7B6 /* RecognitionRequestApple.swift in Sources */,
+				FBD7C4252663D3A700F3C7B6 /* AutoCalcRmsThreshold.swift in Sources */,
+				FBD7C4262663D3A700F3C7B6 /* ObserveBreakInStatements.swift in Sources */,
+				FBD7C4272663D3A700F3C7B6 /* SpeechRecognizerAuthorization.swift in Sources */,
+				FBD7C4282663D3A700F3C7B6 /* SpeechRecognizerDelegate.swift in Sources */,
+				FBD7C4292663D3A700F3C7B6 /* SpeechRecognizer.swift in Sources */,
 				FB64DB942635B12A00A3BA32 /* MLFileLocalUrl.swift in Sources */,
 				FB0D2FA526073947001403A5 /* SelectMemberFetchForPreferences.swift in Sources */,
 				FBF9A6152605BDD600AE78DF /* FirestoreWorkspace.swift in Sources */,

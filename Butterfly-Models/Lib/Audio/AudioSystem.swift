@@ -7,6 +7,7 @@
 
 import Foundation
 import AVFoundation
+import SwiftyBeaver
 
 protocol AudioSystemDelegate: class {
     func audioEngineStartError(obj: AudioSystem, error: Error)
@@ -51,9 +52,13 @@ class AudioSystem: NSObject {
     
     func setup() {
         #if os(iOS)
-        let audioSession = AVAudioSession.sharedInstance()
-        try audioSession.setCategory(.record, mode: .measurement, options: [.duckOthers, .allowBluetooth])
-        try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+        do {
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(.record, mode: .measurement, options: [.duckOthers, .allowBluetooth])
+            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+        } catch {
+            SwiftyBeaver.self.error(error)
+        }
         #endif
         
         inputNode.installTap(onBus: 0, bufferSize: bufferSize, format: nil) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
