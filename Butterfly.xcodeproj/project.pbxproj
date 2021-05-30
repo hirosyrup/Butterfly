@@ -100,7 +100,7 @@
 		FBA2884125F8896700D1B3BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBA2883F25F8896700D1B3BD /* Main.storyboard */; };
 		FBA5443225FA554200112066 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5443125FA554200112066 /* AppDelegate.swift */; };
 		FBA5443425FA554200112066 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5443325FA554200112066 /* SceneDelegate.swift */; };
-		FBA5443625FA554200112066 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5443525FA554200112066 /* ViewController.swift */; };
+		FBA5443625FA554200112066 /* MeetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA5443525FA554200112066 /* MeetingViewController.swift */; };
 		FBA5443925FA554200112066 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBA5443725FA554200112066 /* Main.storyboard */; };
 		FBA5443B25FA554200112066 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBA5443A25FA554200112066 /* Assets.xcassets */; };
 		FBA5443E25FA554200112066 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBA5443C25FA554200112066 /* LaunchScreen.storyboard */; };
@@ -221,6 +221,7 @@
 		FBD7C4272663D3A700F3C7B6 /* SpeechRecognizerAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83A882624853900989820 /* SpeechRecognizerAuthorization.swift */; };
 		FBD7C4282663D3A700F3C7B6 /* SpeechRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83A902624865C00989820 /* SpeechRecognizerDelegate.swift */; };
 		FBD7C4292663D3A700F3C7B6 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC83A8C262485EA00989820 /* SpeechRecognizer.swift */; };
+		FBD7C43A2663E4E000F3C7B6 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD7C4392663E4E000F3C7B6 /* PreferencesViewController.swift */; };
 		FBE3653E2616178200EA9471 /* AudioExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE3653D2616178200EA9471 /* AudioExport.swift */; };
 		FBF9A5BD26038A7100AE78DF /* MemberIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9A5BC26038A7100AE78DF /* MemberIconView.swift */; };
 		FBF9A5C126038A7E00AE78DF /* MemberIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBF9A5C026038A7E00AE78DF /* MemberIconView.xib */; };
@@ -330,7 +331,7 @@
 		FBA5442F25FA554200112066 /* Butterfly-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Butterfly-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA5443125FA554200112066 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBA5443325FA554200112066 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FBA5443525FA554200112066 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FBA5443525FA554200112066 /* MeetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewController.swift; sourceTree = "<group>"; };
 		FBA5443825FA554200112066 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FBA5443A25FA554200112066 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FBA5443D25FA554200112066 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -384,6 +385,7 @@
 		FBD1A83F26132243005BB323 /* AudioUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploader.swift; sourceTree = "<group>"; };
 		FBD1A843261322B6005BB323 /* AudioUploaderQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploaderQueue.swift; sourceTree = "<group>"; };
 		FBD1A8472613275B005BB323 /* AudioLocalUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLocalUrl.swift; sourceTree = "<group>"; };
+		FBD7C4392663E4E000F3C7B6 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		FBE3653D2616178200EA9471 /* AudioExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioExport.swift; sourceTree = "<group>"; };
 		FBF9A5BC26038A7100AE78DF /* MemberIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberIconView.swift; sourceTree = "<group>"; };
 		FBF9A5C026038A7E00AE78DF /* MemberIconView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemberIconView.xib; sourceTree = "<group>"; };
@@ -716,9 +718,9 @@
 		FBA5443025FA554200112066 /* Butterfly-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				FBD7C42C2663E42600F3C7B6 /* ViewController */,
 				FBA5443125FA554200112066 /* AppDelegate.swift */,
 				FBA5443325FA554200112066 /* SceneDelegate.swift */,
-				FBA5443525FA554200112066 /* ViewController.swift */,
 				FBA5443725FA554200112066 /* Main.storyboard */,
 				FBA5443A25FA554200112066 /* Assets.xcassets */,
 				FBA5443C25FA554200112066 /* LaunchScreen.storyboard */,
@@ -908,6 +910,31 @@
 				FBC83AA22624893F00989820 /* RecognitionRequestAmiVoice.swift */,
 			);
 			path = AmiVoice;
+			sourceTree = "<group>";
+		};
+		FBD7C42C2663E42600F3C7B6 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FBD7C4302663E49500F3C7B6 /* Preferences */,
+				FBD7C42D2663E43300F3C7B6 /* Meeting */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		FBD7C42D2663E43300F3C7B6 /* Meeting */ = {
+			isa = PBXGroup;
+			children = (
+				FBA5443525FA554200112066 /* MeetingViewController.swift */,
+			);
+			path = Meeting;
+			sourceTree = "<group>";
+		};
+		FBD7C4302663E49500F3C7B6 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				FBD7C4392663E4E000F3C7B6 /* PreferencesViewController.swift */,
+			);
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 		FBF9A5B926038A4E00AE78DF /* Shared */ = {
@@ -1365,6 +1392,7 @@
 				FB64DBC92642F80C00A3BA32 /* StatementShareViewControllerData.swift in Sources */,
 				FB64DB8E26346C6900A3BA32 /* MLStorage.swift in Sources */,
 				FB64DBD02644341200A3BA32 /* SpeechRecognizerType.swift in Sources */,
+				FBD7C43A2663E4E000F3C7B6 /* PreferencesViewController.swift in Sources */,
 				FBF9A6102605BD8A00AE78DF /* FirestoreWorkspaceData.swift in Sources */,
 				FBA545D925FFA3AA00112066 /* SignOut.swift in Sources */,
 				FBA545DF25FFA3D300112066 /* FirestoreUser.swift in Sources */,
@@ -1374,7 +1402,7 @@
 				FBA546242600F47700112066 /* UploadIconImage.swift in Sources */,
 				FB44D22A263BD11C008084C4 /* ExportLearningDataset.swift in Sources */,
 				FB64DBE8264C149E00A3BA32 /* VoiceprintPaddingType.swift in Sources */,
-				FBA5443625FA554200112066 /* ViewController.swift in Sources */,
+				FBA5443625FA554200112066 /* MeetingViewController.swift in Sources */,
 				FBF9A6292606302200AE78DF /* SaveWorkspace.swift in Sources */,
 				FBA5443225FA554200112066 /* AppDelegate.swift in Sources */,
 				FB64DBB7263D990000A3BA32 /* SpeakerRecognizer.swift in Sources */,

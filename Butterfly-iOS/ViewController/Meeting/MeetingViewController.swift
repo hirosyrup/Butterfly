@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MeetingViewController.swift
 //  Butterfly-iOS
 //
 //  Created by 岩井 宏晃 on 2021/03/11.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MeetingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
