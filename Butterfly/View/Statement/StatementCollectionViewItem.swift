@@ -61,7 +61,7 @@ class StatementCollectionViewItem: NSCollectionViewItem {
         self.iconView = iconView
     }
     
-    func updateView(presenter: StatementCollectionViewItemPresenter) {
+    func updateView(presenter: StatementCollectionViewItemPresenter, width: CGFloat) {
         onMouse(on: false)
         let isOnlyStatement = presenter.isOnlyStatement()
         headerContainer.isHidden = isOnlyStatement
@@ -71,6 +71,9 @@ class StatementCollectionViewItem: NSCollectionViewItem {
         }
         statementLabel.stringValue = presenter.statement()
         
+        let frame = view.frame
+        view.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: width, height: frame.height)
+        
         if let area = trackingArea {
             view.removeTrackingArea(area)
         }
@@ -79,8 +82,8 @@ class StatementCollectionViewItem: NSCollectionViewItem {
         view.addTrackingArea(trackingArea!)
     }
     
-    func calcSize(presenter: StatementCollectionViewItemPresenter) -> CGSize {
-        updateView(presenter: presenter)
+    func calcSize(presenter: StatementCollectionViewItemPresenter, width: CGFloat) -> CGSize {
+        updateView(presenter: presenter, width: width)
         view.layoutSubtreeIfNeeded()
         return view.bounds.size
     }

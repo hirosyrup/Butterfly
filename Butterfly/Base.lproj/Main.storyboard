@@ -1328,8 +1328,8 @@ DQ
                                         <rect key="frame" x="134" y="32" width="77" height="28"/>
                                         <datePickerCell key="cell" refusesFirstResponder="YES" alignment="left" drawsBackground="NO" useCurrentDate="YES" id="zNv-Ft-B1a">
                                             <font key="font" metaFont="system"/>
-                                            <date key="date" timeIntervalSinceReferenceDate="642869343.84705198">
-                                                <!--2021-05-16 14:49:03 +0000-->
+                                            <date key="date" timeIntervalSinceReferenceDate="644160329.79287601">
+                                                <!--2021-05-31 13:25:29 +0000-->
                                             </date>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1343,8 +1343,8 @@ DQ
                                                 <rect key="frame" x="0.0" y="0.0" width="97" height="28"/>
                                                 <datePickerCell key="cell" refusesFirstResponder="YES" alignment="left" drawsBackground="NO" useCurrentDate="YES" id="7FY-fL-gt8">
                                                     <font key="font" metaFont="system"/>
-                                                    <date key="date" timeIntervalSinceReferenceDate="642869343.84879398">
-                                                        <!--2021-05-16 14:49:03 +0000-->
+                                                    <date key="date" timeIntervalSinceReferenceDate="644160329.79479206">
+                                                        <!--2021-05-31 13:25:29 +0000-->
                                                     </date>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1362,8 +1362,8 @@ DQ
                                                 <rect key="frame" x="117" y="0.0" width="97" height="28"/>
                                                 <datePickerCell key="cell" refusesFirstResponder="YES" alignment="left" drawsBackground="NO" useCurrentDate="YES" id="bpb-Qk-LjI">
                                                     <font key="font" metaFont="system"/>
-                                                    <date key="date" timeIntervalSinceReferenceDate="642869343.850618">
-                                                        <!--2021-05-16 14:49:03 +0000-->
+                                                    <date key="date" timeIntervalSinceReferenceDate="644160329.79674006">
+                                                        <!--2021-05-31 13:25:29 +0000-->
                                                     </date>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1742,9 +1742,9 @@ DQ
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8d4-4n-qdV">
-                                <rect key="frame" x="14" y="477" width="132" height="19"/>
+                                <rect key="frame" x="14" y="477" width="164" height="19"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="160" id="So0-h7-SPa"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="So0-h7-SPa"/>
                                 </constraints>
                                 <textFieldCell key="cell" title="Title" id="XOb-na-sd5">
                                     <font key="font" metaFont="systemBold" size="16"/>
@@ -1754,7 +1754,7 @@ DQ
                             </textField>
                             <box boxType="custom" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="mJX-lg-u99" customClass="MeetingMemberIconContainer" customModule="Butterfly" customModuleProvider="target">
                                 <rect key="frame" x="152" y="469" width="100" height="36"/>
-                                <view key="contentView" id="SgE-r7-bpd">
+                                <view key="contentView" ambiguous="YES" id="SgE-r7-bpd">
                                     <rect key="frame" x="0.0" y="0.0" width="100" height="36"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
@@ -1785,6 +1785,7 @@ DQ
                                 </clipView>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="380" id="n68-1N-UsJ"/>
+                                    <constraint firstAttribute="width" constant="300" id="o8s-e0-pS7"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="QQ4-gZ-9xb">
                                     <rect key="frame" x="-100" y="-100" width="233" height="15"/>
@@ -1912,7 +1913,6 @@ DQ
                                     <constraint firstAttribute="trailing" secondItem="mOv-Q4-zeA" secondAttribute="trailing" id="41Y-jH-HfB"/>
                                     <constraint firstItem="mOv-Q4-zeA" firstAttribute="leading" secondItem="EGi-Mu-Bri" secondAttribute="leading" id="D4D-C4-qjI"/>
                                     <constraint firstItem="PN6-eO-k1c" firstAttribute="leading" secondItem="EGi-Mu-Bri" secondAttribute="leading" id="IEa-l6-67b"/>
-                                    <constraint firstAttribute="width" constant="300" id="U1h-2z-Hre"/>
                                     <constraint firstAttribute="trailing" secondItem="PN6-eO-k1c" secondAttribute="trailing" id="v8O-oC-XAS"/>
                                 </constraints>
                                 <visibilityPriorities>
@@ -1963,6 +1963,7 @@ DQ
                         <outlet property="collectionContainer" destination="SIB-OR-x3s" id="QgL-dF-Cxt"/>
                         <outlet property="collectionView" destination="vcA-km-RXn" id="UeY-De-Qks"/>
                         <outlet property="collectionViewHeightConstraint" destination="n68-1N-UsJ" id="WfG-H5-YX0"/>
+                        <outlet property="collectionViewWidthConstraint" destination="o8s-e0-pS7" id="Gpk-oD-xQI"/>
                         <outlet property="levelMeterContainer" destination="Vye-oK-bNJ" id="dqc-NL-dak"/>
                         <outlet property="recordAudioDownloadIndicator" destination="QVs-Du-Ts5" id="IN1-AA-Ber"/>
                         <outlet property="recordingLabel" destination="Y83-TD-fXx" id="sxB-3a-jVp"/>

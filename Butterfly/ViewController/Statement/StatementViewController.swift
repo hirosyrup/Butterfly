@@ -12,6 +12,7 @@ import AVKit
 class StatementViewController: NSViewController,
                                StatementCollectionDataProviderDelegate,
                                StatementControllerDelegate,
+                               AudioPlayerMenuDelegate,
                                NSCollectionViewDataSource,
                                NSCollectionViewDelegateFlowLayout {
     @IBOutlet weak var titleLabel: NSTextField!
@@ -26,7 +27,8 @@ class StatementViewController: NSViewController,
     @IBOutlet weak var speechRecognizerSegmentedControl: NSSegmentedControl!
     @IBOutlet weak var speechRecognizerControlContainer: NSView!
     @IBOutlet weak var showCollectionButton: NSButton!
-    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint?
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewWidthConstraint: NSLayoutConstraint!
     
     weak var levelMeter: StatementLevelMeter!
     
@@ -37,20 +39,23 @@ class StatementViewController: NSViewController,
     private var lastScrollIndex = 0
     private let calcHeightHelper = CalcStatementCollectionItemHeight()
     private var collectionViewHeightConstant: CGFloat = 0.0
+    private let audioPlayerMenu = AudioPlayerMenu()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        audioPlayerMenu.delegate = self
         collectionView.dataSource = self
         collectionView.delegate = self
         let nib = NSNib(nibNamed: "StatementCollectionViewItem", bundle: nil)
         collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId))
         audioPlayerView.isHidden = true
+        audioPlayerView.actionPopUpButtonMenu = audioPlayerMenu.createMenu()
         speechRecognizerControlContainer.isHidden = true
         levelMeter = StatementLevelMeter.createFromNib(owner: nil)
         levelMeter.frame = levelMeterContainer.bounds
         levelMeterContainer.addSubview(levelMeter)
-        collectionViewHeightConstant = collectionViewHeightConstraint?.constant ?? 0.0
-        collectionViewHeightConstraint?.constant = 0.0
+        collectionViewHeightConstant = collectionViewHeightConstraint.constant
+        collectionViewHeightConstraint.constant = 0.0
     }
 
     override func viewWillAppear() {
@@ -133,16 +138,16 @@ class StatementViewController: NSViewController,
         }
     }
     
-    private func setupCollectionViewHeight() {
+    private func setupCollectionViewSize() {
         let meetingData = statementController.meetingData
         if meetingData.isFinished() {
-            collectionViewHeightConstraint?.constant = collectionViewHeightConstant
+            collectionViewHeightConstraint.constant = collectionViewHeightConstant
+            collectionViewWidthConstraint.constant = 600.0
+            collectionContainer.layoutSubtreeIfNeeded()
+            reloadCollectionView()
             showCollectionButton.state = .on
-            if let constraint = collectionViewHeightConstraint {
-                collectionContainer.removeConstraint(constraint)
-            }
         } else {
-            collectionViewHeightConstraint?.constant = showCollectionButton.state == .on ? collectionViewHeightConstant : 0.0
+            collectionViewHeightConstraint.constant = showCollectionButton.state == .on ? collectionViewHeightConstant : 0.0
         }
     }
     
@@ -165,7 +170,7 @@ class StatementViewController: NSViewController,
         dataProvider.delegate = self
         updateViews()
         setupRecordAudioIfNeeded(isUploadingAudio: false)
-        setupCollectionViewHeight()
+        setupCollectionViewSize()
     }
     
     func didNotCreateRecognitionRequest(controller: StatementController, error: Error) {
@@ -180,7 +185,7 @@ class StatementViewController: NSViewController,
         let you = controller.you
         setupRecordAudioIfNeeded(isUploadingAudio: you != nil && you!.audioFileName == nil)
         updateViews()
-        setupCollectionViewHeight()
+        setupCollectionViewSize()
     }
     
     func didUpdateSpeechRecognizer(controller: StatementController, recognizerType: SpeechRecognizerType, canSelectRecognizer: Bool) {
@@ -210,6 +215,10 @@ class StatementViewController: NSViewController,
         }
     }
     
+    func didChangePlaybackRate(menu: AudioPlayerMenu, rate: Float) {
+        audioPlayerView.player?.rate = rate
+    }
+    
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataProvider.statementDataList.count
     }
@@ -217,7 +226,7 @@ class StatementViewController: NSViewController,
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId), for: indexPath) as! StatementCollectionViewItem
         let statementData = dataProvider.statementDataList[indexPath.item]
-        item.updateView(presenter: StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item)))
+        item.updateView(presenter: StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item)), width: collectionViewWidthConstraint.constant)
         return item
     }
     
@@ -233,7 +242,7 @@ class StatementViewController: NSViewController,
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
         let statementData = dataProvider.statementDataList[indexPath.item]
         let presenter = StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item))
-        return calcHeightHelper.calcSize(index: indexPath.item, presenter: presenter)
+        return calcHeightHelper.calcSize(index: indexPath.item, presenter: presenter, width: collectionViewWidthConstraint.constant)
     }
     
     @IBAction func pushStartEnd(_ sender: Any) {
@@ -257,7 +266,7 @@ class StatementViewController: NSViewController,
         NSAnimationContext.runAnimationGroup { (context) in
             context.duration = 0.25
             context.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-            self.collectionViewHeightConstraint?.animator().constant = buttonState == .on ? collectionViewHeightConstant : 0.0
+            self.collectionViewHeightConstraint.animator().constant = buttonState == .on ? collectionViewHeightConstant : 0.0
         } completionHandler: {
             if buttonState == .on {
                 self.reloadCollectionView()
