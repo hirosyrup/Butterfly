@@ -13,6 +13,7 @@ class StatementViewController: NSViewController,
                                StatementCollectionDataProviderDelegate,
                                StatementControllerDelegate,
                                AudioPlayerMenuDelegate,
+                               StatementSwitchesViewControllerDelegate,
                                NSCollectionViewDataSource,
                                NSCollectionViewDelegateFlowLayout {
     @IBOutlet weak var titleLabel: NSTextField!
@@ -24,8 +25,6 @@ class StatementViewController: NSViewController,
     @IBOutlet weak var recordAudioDownloadIndicator: NSProgressIndicator!
     @IBOutlet weak var audioPlayerView: AVPlayerView!
     @IBOutlet weak var levelMeterContainer: NSView!
-    @IBOutlet weak var speechRecognizerSegmentedControl: NSSegmentedControl!
-    @IBOutlet weak var speechRecognizerControlContainer: NSView!
     @IBOutlet weak var showCollectionButton: NSButton!
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionViewWidthConstraint: NSLayoutConstraint!
@@ -40,6 +39,7 @@ class StatementViewController: NSViewController,
     private let calcHeightHelper = CalcStatementCollectionItemHeight()
     private var collectionViewHeightConstant: CGFloat = 0.0
     private let audioPlayerMenu = AudioPlayerMenu()
+    private var canSelectRecognizer: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +50,6 @@ class StatementViewController: NSViewController,
         collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId))
         audioPlayerView.isHidden = true
         audioPlayerView.actionPopUpButtonMenu = audioPlayerMenu.createMenu()
-        speechRecognizerControlContainer.isHidden = true
         levelMeter = StatementLevelMeter.createFromNib(owner: nil)
         levelMeter.frame = levelMeterContainer.bounds
         levelMeterContainer.addSubview(levelMeter)
@@ -87,6 +86,9 @@ class StatementViewController: NSViewController,
                 audioComposition: audioComposition
             )
             vc.data = data
+        } else if let vc = segue.destinationController as? StatementSwitchesViewController {
+            vc.delegate = self
+            vc.setup(initialRecognizerType: statementController.recognizerType, canSelectRecognizer: canSelectRecognizer ?? false)
         }
     }
 
@@ -151,11 +153,6 @@ class StatementViewController: NSViewController,
         }
     }
     
-    private func updateSpeechRecognizer() {
-        guard let speechRecognizerType = SpeechRecognizerType(rawValue: speechRecognizerSegmentedControl.selectedSegment) else { return }
-        statementController.updateSpeechRecognizer(speechRecognizerType: speechRecognizerType)
-    }
-    
     private func reloadCollectionView() {
         collectionView.reloadData()
         if !dataProvider.statementDataList.isEmpty {
@@ -188,9 +185,8 @@ class StatementViewController: NSViewController,
         setupCollectionViewSize()
     }
     
-    func didUpdateSpeechRecognizer(controller: StatementController, recognizerType: SpeechRecognizerType, canSelectRecognizer: Bool) {
-        speechRecognizerControlContainer.isHidden = !canSelectRecognizer
-        speechRecognizerSegmentedControl.selectedSegment = recognizerType.rawValue
+    func didUpdateSpeechRecognizer(controller: StatementController, canSelectRecognizer: Bool) {
+        self.canSelectRecognizer = canSelectRecognizer
     }
     
     func didUpdateAudioInputState(controller: StatementController, isAudioInputStart: Bool) {
@@ -217,6 +213,10 @@ class StatementViewController: NSViewController,
     
     func didChangePlaybackRate(menu: AudioPlayerMenu, rate: Float) {
         audioPlayerView.player?.rate = rate
+    }
+    
+    func didChangeSpeechRecognizerType(vc: StatementSwitchesViewController, recognizerType: SpeechRecognizerType) {
+        statementController.updateSpeechRecognizer(speechRecognizerType: recognizerType)
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -255,10 +255,6 @@ class StatementViewController: NSViewController,
         } catch {
             AlertBuilder.createErrorAlert(title: "Error", message: error.localizedDescription).runModal()
         }
-    }
-    
-    @IBAction func changeSpeechRecognizerSetting(_ sender: Any) {
-        updateSpeechRecognizer()
     }
     
     @IBAction func pushShowCollectionButton(_ sender: Any) {

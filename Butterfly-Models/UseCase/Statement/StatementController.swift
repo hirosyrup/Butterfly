@@ -13,7 +13,7 @@ protocol StatementControllerDelegate: class {
     func didNotCreateRecognitionRequest(controller: StatementController, error: Error)
     func audioEngineStartError(controller: StatementController, error: Error)
     func didUpdateData(controller: StatementController)
-    func didUpdateSpeechRecognizer(controller: StatementController, recognizerType: SpeechRecognizerType, canSelectRecognizer: Bool)
+    func didUpdateSpeechRecognizer(controller: StatementController, canSelectRecognizer: Bool)
     func didUpdateAudioInputState(controller: StatementController, isAudioInputStart: Bool)
     func failedToUpdateAudioInputState(controller: StatementController, error: Error)
     func didUpdateRmsThreshold(controller: StatementController, threshold: Double)
@@ -43,6 +43,11 @@ class StatementController: SpeechRecognizerDelegate,
     private let statementQueue: StatementQueue
     private let meetingUser = MeetingUserRepository.User()
     private let meeting = MeetingRepository.Meeting()
+    var recognizerType: SpeechRecognizerType {
+        get {
+            return speechRecognizer is SpeechRecognizerAmiVoice ? .amiVoice : .apple
+        }
+    }
     
     init(workspaceId: String, workspaceMLFileName: String?, initialMeetingData: MeetingRepository.MeetingData) {
         self.autoCalcRmsThreshold = AutoCalcRmsThreshold(initialThreshold: observeBreakInStatements.rmsThreshold)
@@ -111,7 +116,7 @@ class StatementController: SpeechRecognizerDelegate,
             }
             SpeechRecognizerApple.shared.setupRecognizer(languageIdentifier: userData.language)
             self.updateSpeechRecognizer(speechRecognizerType: recognizerType)
-            self.delegate?.didUpdateSpeechRecognizer(controller: self, recognizerType: recognizerType, canSelectRecognizer: canSelectRecognizer)
+            self.delegate?.didUpdateSpeechRecognizer(controller: self, canSelectRecognizer: canSelectRecognizer)
         })
     }
     
