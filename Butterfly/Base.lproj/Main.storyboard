@@ -1944,28 +1944,70 @@ DQ
             <objects>
                 <viewController id="Vz1-Q2-rRS" customClass="StatementSwitchesViewController" customModule="Butterfly" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="iti-wk-BuR">
-                        <rect key="frame" x="0.0" y="0.0" width="296" height="124"/>
+                        <rect key="frame" x="0.0" y="0.0" width="408" height="144"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AVR-FV-F3f">
-                                <rect key="frame" x="14" y="81" width="268" height="24"/>
+                                <rect key="frame" x="226" y="100" width="168" height="24"/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="o5M-le-69B">
                                     <font key="font" metaFont="system"/>
                                     <segments>
-                                        <segment label="Apple" width="130" selected="YES"/>
-                                        <segment label="AmiVoice" width="129" tag="1"/>
+                                        <segment label="Apple" width="80" selected="YES"/>
+                                        <segment label="AmiVoice" width="79" tag="1"/>
                                     </segments>
                                 </segmentedCell>
                                 <connections>
                                     <action selector="changeSpeechRecognizerSetting:" target="Vz1-Q2-rRS" id="28Z-A0-Jim"/>
                                 </connections>
                             </segmentedControl>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Z6W-Ho-q3H">
+                                <rect key="frame" x="14" y="104" width="162" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Speech recognizer engine" id="fxz-Sh-Eor">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f8Z-ox-R8O">
+                                <rect key="frame" x="14" y="64" width="199" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Record by muting the silent part" id="mSW-QM-fge">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="BUK-hE-7pQ">
+                                <rect key="frame" x="352" y="59" width="42" height="25"/>
+                            </switch>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="v2I-H8-MY8">
+                                <rect key="frame" x="14" y="24" width="207" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Automatic scrolling to the bottom" id="ANw-lH-3xP">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="B8a-kg-0Xb">
+                                <rect key="frame" x="352" y="19" width="42" height="25"/>
+                            </switch>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="v2I-H8-MY8" secondAttribute="bottom" constant="24" id="8Gu-Gl-Vzr"/>
+                            <constraint firstItem="BUK-hE-7pQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="f8Z-ox-R8O" secondAttribute="trailing" constant="24" id="DZQ-Wc-2qs"/>
                             <constraint firstAttribute="trailing" secondItem="AVR-FV-F3f" secondAttribute="trailing" constant="16" id="Dim-0Q-1WS"/>
-                            <constraint firstItem="AVR-FV-F3f" firstAttribute="top" secondItem="iti-wk-BuR" secondAttribute="top" constant="20" id="U04-lP-in8"/>
-                            <constraint firstItem="AVR-FV-F3f" firstAttribute="leading" secondItem="iti-wk-BuR" secondAttribute="leading" constant="16" id="VKN-o9-9wi"/>
-                            <constraint firstAttribute="bottom" secondItem="AVR-FV-F3f" secondAttribute="bottom" constant="82" id="h7P-uN-5TC"/>
+                            <constraint firstItem="AVR-FV-F3f" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Z6W-Ho-q3H" secondAttribute="trailing" constant="24" id="Ehf-et-db5"/>
+                            <constraint firstItem="v2I-H8-MY8" firstAttribute="leading" secondItem="f8Z-ox-R8O" secondAttribute="leading" id="Ga8-06-EG2"/>
+                            <constraint firstItem="v2I-H8-MY8" firstAttribute="top" secondItem="f8Z-ox-R8O" secondAttribute="bottom" constant="24" id="P6g-bk-cUP"/>
+                            <constraint firstItem="f8Z-ox-R8O" firstAttribute="leading" secondItem="Z6W-Ho-q3H" secondAttribute="leading" id="Q9v-KE-LKJ"/>
+                            <constraint firstItem="BUK-hE-7pQ" firstAttribute="trailing" secondItem="AVR-FV-F3f" secondAttribute="trailing" id="Ugu-JK-vhv"/>
+                            <constraint firstItem="B8a-kg-0Xb" firstAttribute="trailing" secondItem="BUK-hE-7pQ" secondAttribute="trailing" id="X4D-UX-A7D"/>
+                            <constraint firstItem="B8a-kg-0Xb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="v2I-H8-MY8" secondAttribute="trailing" constant="24" id="eIK-6S-YSm"/>
+                            <constraint firstItem="B8a-kg-0Xb" firstAttribute="centerY" secondItem="v2I-H8-MY8" secondAttribute="centerY" id="fD2-Pc-crc"/>
+                            <constraint firstItem="AVR-FV-F3f" firstAttribute="centerY" secondItem="Z6W-Ho-q3H" secondAttribute="centerY" id="gPH-St-oat"/>
+                            <constraint firstItem="Z6W-Ho-q3H" firstAttribute="top" secondItem="iti-wk-BuR" secondAttribute="top" constant="24" id="mlx-vM-zgO"/>
+                            <constraint firstItem="BUK-hE-7pQ" firstAttribute="centerY" secondItem="f8Z-ox-R8O" secondAttribute="centerY" id="s3x-oE-2ED"/>
+                            <constraint firstItem="f8Z-ox-R8O" firstAttribute="top" secondItem="Z6W-Ho-q3H" secondAttribute="bottom" constant="24" id="xeb-r4-NcW"/>
+                            <constraint firstItem="Z6W-Ho-q3H" firstAttribute="leading" secondItem="iti-wk-BuR" secondAttribute="leading" constant="16" id="zzn-b9-VSZ"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1974,7 +2016,7 @@ DQ
                 </viewController>
                 <customObject id="3Z2-Tg-lFo" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2503" y="-416.5"/>
+            <point key="canvasLocation" x="2557" y="-412"/>
         </scene>
         <!--Statement Share View Controller-->
         <scene sceneID="bXC-He-p1F">
