@@ -42,6 +42,7 @@ class StatementViewController: NSViewController,
     private let audioPlayerMenu = AudioPlayerMenu()
     private var canSelectRecognizer: Bool?
     private var isAutoScroll = StatementOptionUserDefault.shared.isAutoScroll()
+    private var playerIsReadyForDisplayObserver: NSKeyValueObservation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,13 +133,18 @@ class StatementViewController: NSViewController,
             async({ _ -> AVMutableComposition in
                 return try await(MergeAudio(meetingData: meetingData, meetingUserDataList: userList).merge())
             }).then({ composition in
-                self.audioPlayerView.isHidden = false
-                self.audioPlayerView.player = AVPlayer(playerItem: AVPlayerItem(asset: composition))
-                self.audioComposition = composition
+                // 画面を開いてすぐplayerにセットすると何故か現在の再生時間が表示されなくなる
+                // 詳細な条件は不明。とりあえず少し間を置いてセットすることで回避。
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                    self.recordAudioDownloadIndicator.stopAnimation(self)
+                    self.audioPlayerView.isHidden = false
+                    let playerItem = AVPlayerItem(asset: composition)
+                    self.audioPlayerView.player = AVPlayer(playerItem: playerItem)
+                    self.audioComposition = composition
+                }
             }).catch { (error) in
-                AlertBuilder.createErrorAlert(title: "Error", message: "Failed to download audio files. \(error.localizedDescription)").runModal()
-            }.always(in: .main) {
                 self.recordAudioDownloadIndicator.stopAnimation(self)
+                AlertBuilder.createErrorAlert(title: "Error", message: "Failed to download audio files. \(error.localizedDescription)").runModal()
             }
         }
     }
