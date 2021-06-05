@@ -51,6 +51,10 @@ class StatementViewControllerPresenter {
         return meetingData.isFinished()
     }
     
+    func isHiddenSwitchOptionButton() -> Bool {
+        return meetingData.isFinished()
+    }
+    
     func startEndButtonState() -> NSControl.StateValue {
         if meetingData.isInMeeting() {
             return .on

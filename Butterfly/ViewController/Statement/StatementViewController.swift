@@ -28,6 +28,7 @@ class StatementViewController: NSViewController,
     @IBOutlet weak var showCollectionButton: NSButton!
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var switchOptionButton: NSButton!
     
     weak var levelMeter: StatementLevelMeter!
     
@@ -115,6 +116,7 @@ class StatementViewController: NSViewController,
         startEndButton.state = presenter.startEndButtonState()
         recordingLabel.isHidden = presenter.isHiddenRecordingLabel()
         showCollectionButton.isHidden = presenter.isHiddenOfShowCollectionButton()
+        switchOptionButton.isHidden = presenter.isHiddenSwitchOptionButton()
     }
     
     private func setupRecordAudioIfNeeded(isUploadingAudio: Bool) {

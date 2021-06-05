@@ -1933,6 +1933,7 @@ DQ
                         <outlet property="recordingLabel" destination="Y83-TD-fXx" id="sxB-3a-jVp"/>
                         <outlet property="showCollectionButton" destination="lkL-TU-EO7" id="IQF-aM-C6Y"/>
                         <outlet property="startEndButton" destination="8oK-Ne-dqQ" id="hlG-F5-iw4"/>
+                        <outlet property="switchOptionButton" destination="xxl-3p-ze5" id="bGo-cO-wBx"/>
                         <outlet property="titleLabel" destination="8d4-4n-qdV" id="jkS-aV-P7K"/>
                     </connections>
                 </viewController>
