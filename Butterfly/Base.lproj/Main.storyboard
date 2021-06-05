@@ -1978,6 +1978,9 @@ DQ
                             </textField>
                             <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="BUK-hE-7pQ">
                                 <rect key="frame" x="352" y="59" width="42" height="25"/>
+                                <connections>
+                                    <action selector="switchIsMutingSilentPart:" target="Vz1-Q2-rRS" id="roD-F1-Wye"/>
+                                </connections>
                             </switch>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="v2I-H8-MY8">
                                 <rect key="frame" x="14" y="24" width="207" height="16"/>
@@ -1989,6 +1992,9 @@ DQ
                             </textField>
                             <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="B8a-kg-0Xb">
                                 <rect key="frame" x="352" y="19" width="42" height="25"/>
+                                <connections>
+                                    <action selector="switchIsAutoScroll:" target="Vz1-Q2-rRS" id="23G-JU-dMj"/>
+                                </connections>
                             </switch>
                         </subviews>
                         <constraints>
@@ -2011,6 +2017,8 @@ DQ
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="isAutoScrollSwitch" destination="B8a-kg-0Xb" id="Dyi-uv-wrY"/>
+                        <outlet property="isMutingSilentPartSwitch" destination="BUK-hE-7pQ" id="49v-Ce-DVS"/>
                         <outlet property="speechRecognizerSegmentedControl" destination="AVR-FV-F3f" id="933-GY-LvT"/>
                     </connections>
                 </viewController>

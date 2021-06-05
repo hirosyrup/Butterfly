@@ -40,6 +40,7 @@ class StatementViewController: NSViewController,
     private var collectionViewHeightConstant: CGFloat = 0.0
     private let audioPlayerMenu = AudioPlayerMenu()
     private var canSelectRecognizer: Bool?
+    private var isAutoScroll = StatementOptionUserDefault.shared.isAutoScroll()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +89,7 @@ class StatementViewController: NSViewController,
             vc.data = data
         } else if let vc = segue.destinationController as? StatementSwitchesViewController {
             vc.delegate = self
-            vc.setup(initialRecognizerType: statementController.recognizerType, canSelectRecognizer: canSelectRecognizer ?? false)
+            vc.setup(initialRecognizerType: statementController.recognizerType, canSelectRecognizer: canSelectRecognizer ?? false, isMutingSilentPart: statementController.isMutingSilentPart, isAutoScroll: isAutoScroll)
         }
     }
 
@@ -155,13 +156,13 @@ class StatementViewController: NSViewController,
     
     private func reloadCollectionView() {
         collectionView.reloadData()
-        if !dataProvider.statementDataList.isEmpty {
+        if !dataProvider.statementDataList.isEmpty && isAutoScroll {
             collectionView.animator().scrollToItems(at: [IndexPath(item: dataProvider.statementDataList.count - 1, section: 0)], scrollPosition: .bottom)
         }
     }
     
     func setup(workspaceId: String, workspaceMLFileName: String?, meetingData: MeetingRepository.MeetingData) {
-        statementController = StatementController(workspaceId: workspaceId, workspaceMLFileName: workspaceMLFileName, initialMeetingData: meetingData)
+        statementController = StatementController(workspaceId: workspaceId, workspaceMLFileName: workspaceMLFileName, initialMeetingData: meetingData, isMutingSilentPart: StatementOptionUserDefault.shared.isMutingSilentPart())
         statementController.delegate = self
         dataProvider = StatementCollectionDataProvider(workspaceId: workspaceId, meetingId: meetingData.id)
         dataProvider.delegate = self
@@ -217,6 +218,16 @@ class StatementViewController: NSViewController,
     
     func didChangeSpeechRecognizerType(vc: StatementSwitchesViewController, recognizerType: SpeechRecognizerType) {
         statementController.updateSpeechRecognizer(speechRecognizerType: recognizerType)
+    }
+    
+    func didChangeIsMutingSilentPart(vc: StatementSwitchesViewController, isMutingSilentPart: Bool) {
+        StatementOptionUserDefault.shared.saveMutingSilentPart(isMutingSilentPart: isMutingSilentPart)
+        statementController.isMutingSilentPart = isMutingSilentPart
+    }
+    
+    func didChangeIsAutoScroll(vc: StatementSwitchesViewController, isAutoScroll: Bool) {
+        StatementOptionUserDefault.shared.saveAutoScroll(isAutoScroll: isAutoScroll)
+        self.isAutoScroll = isAutoScroll
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
