@@ -226,8 +226,13 @@ class MeetingRepository {
                     let meetingId = meetingData.original.id
                     let firestoreMeetingData = meetingData.toFirestoreData().copyCurrentAt()
                     let savedFirestoreMeetingData = try await(self.meeting.update(workspaceId: workspaceId, meetingId: meetingId, data: firestoreMeetingData))
-                    try await(self.meetingUser.deleteAll(workspaceId: workspaceId, meetingId: meetingData.id))
-                    let _ = try meetingData.iconList.map({ (user) -> FirestoreMeetingUserData in
+                    let currentUserList = try await(self.meetingUser.index(workspaceId: workspaceId, meetingId: meetingData.id))
+                    let currentUserListIds = currentUserList.map { $0.userId }
+                    let newUserIds = meetingData.iconList.map { $0.userId }
+                    let deleteUserList = currentUserList.filter { !newUserIds.contains($0.userId) }
+                    let addUserList = meetingData.iconList.filter { !currentUserListIds.contains($0.userId) }
+                    try await(self.meetingUser.deleteMultiple(workspaceId: workspaceId, meetingId: meetingData.id, meetingUserIds: deleteUserList.map { $0.id }))
+                    let _ = try addUserList.map({ (user) -> FirestoreMeetingUserData in
                         return try await(self.meetingUser.add(workspaceId: workspaceId, meetingId: savedFirestoreMeetingData.id, data: user.createMeetingUserData()))
                     })
                     return try await(self.createMeetingData(workspaceId: workspaceId, firestoreMeetingData: savedFirestoreMeetingData))

@@ -21,6 +21,7 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, 
     private var userDataList = [SelectMemberCollectionData]()
     private var initialSelectedUserList = [SelectMemberUserData]()
     
+    private var isSelectable = true
     private(set) var selectMemberFetch: SelectMemberFetchProtocol!
     private weak var delegate: SelectMemberViewControllerDelegate?
     
@@ -31,12 +32,15 @@ class SelectMemberViewController: NSViewController, NSCollectionViewDataSource, 
         memberCollectionView.dataSource = self
         memberCollectionView.delegate = self
         collectionClipView.offClipping()
+        memberCollectionView.isSelectable = isSelectable
+        memberCollectionView.alphaValue = isSelectable ? 1.0 : 0.5
         fetch()
     }
     
-    func setup(selectMemberFetch: SelectMemberFetchProtocol, userList: [SelectMemberUserData], delegate: SelectMemberViewControllerDelegate? = nil) {
+    func setup(selectMemberFetch: SelectMemberFetchProtocol, userList: [SelectMemberUserData], isSelectable: Bool = true, delegate: SelectMemberViewControllerDelegate? = nil) {
         self.selectMemberFetch = selectMemberFetch
         self.initialSelectedUserList = userList
+        self.isSelectable = isSelectable
         self.delegate = delegate
     }
     
