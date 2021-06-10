@@ -24,11 +24,16 @@ class StatementViewController: NSViewController,
     @IBOutlet weak var recordingLabel: NSBox!
     @IBOutlet weak var recordAudioDownloadIndicator: NSProgressIndicator!
     @IBOutlet weak var audioPlayerView: AVPlayerView!
+    @IBOutlet weak var searchFieldContainer: NSView!
     @IBOutlet weak var levelMeterContainer: NSView!
     @IBOutlet weak var showCollectionButton: NSButton!
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var switchOptionButton: NSButton!
+    @IBOutlet weak var filteringKeywordTextField: EditableNSTextField!
+    @IBOutlet weak var filterHitCountLabel: NSTextField!
+    @IBOutlet weak var filterResultUpButton: NSButton!
+    @IBOutlet weak var filterResultDownButton: NSButton!
     
     weak var levelMeter: StatementLevelMeter!
     
@@ -43,6 +48,7 @@ class StatementViewController: NSViewController,
     private var canSelectRecognizer: Bool?
     private var isAutoScroll = StatementOptionUserDefault.shared.isAutoScroll()
     private var playerIsReadyForDisplayObserver: NSKeyValueObservation?
+    private var filterCurrentIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,6 +124,8 @@ class StatementViewController: NSViewController,
         recordingLabel.isHidden = presenter.isHiddenRecordingLabel()
         showCollectionButton.isHidden = presenter.isHiddenOfShowCollectionButton()
         switchOptionButton.isHidden = presenter.isHiddenSwitchOptionButton()
+        levelMeterContainer.isHidden = presenter.isHiddenLevelMeter()
+        searchFieldContainer.isHidden = presenter.isHiddenSearchField()
     }
     
     private func setupRecordAudioIfNeeded(isUploadingAudio: Bool) {
@@ -167,6 +175,28 @@ class StatementViewController: NSViewController,
         if !dataProvider.statementDataList.isEmpty && isAutoScroll {
             collectionView.animator().scrollToItems(at: [IndexPath(item: dataProvider.statementDataList.count - 1, section: 0)], scrollPosition: .bottom)
         }
+    }
+    
+    private func scrollToItem(index: Int) {
+        let ctx = NSAnimationContext.current
+        ctx.allowsImplicitAnimation = true
+        collectionView.animator().scrollToItems(at: [IndexPath(item: index, section: 0)], scrollPosition: .top)
+    }
+    
+    private func addValueToFilterCurrentIndex(value: Int) {
+        let hitIndices = dataProvider.filterHitIndices
+        filterCurrentIndex = filterCurrentIndex + value
+        if filterCurrentIndex >= hitIndices.count {
+            filterCurrentIndex = 0
+        } else if filterCurrentIndex < 0 {
+            filterCurrentIndex = hitIndices.count - 1
+        }
+    }
+    
+    private func updateFilterHitCountLabel() {
+        let hitIndices = dataProvider.filterHitIndices
+        let hitCount = hitIndices.count
+        filterHitCountLabel.stringValue = hitCount == 0 ? "" : "\(filterCurrentIndex + 1) / \(hitCount)"
     }
     
     func setup(workspaceId: String, workspaceMLFileName: String?, meetingData: MeetingRepository.MeetingData) {
@@ -287,5 +317,32 @@ class StatementViewController: NSViewController,
                 self.reloadCollectionView()
             }
         }
+    }
+    
+    @IBAction func didEnterFilteringKeywords(_ sender: Any) {
+        let keyword = filteringKeywordTextField.stringValue
+        dataProvider.updateFilterHitIndices(keyword: keyword)
+        let hitIndices = dataProvider.filterHitIndices
+        let hitCount = hitIndices.count
+        filterCurrentIndex = 0
+        updateFilterHitCountLabel()
+        let isHit = hitCount != 0
+        if isHit {
+            scrollToItem(index: hitIndices[filterCurrentIndex])
+        }
+        filterResultUpButton.isEnabled = isHit
+        filterResultDownButton.isEnabled = isHit
+    }
+    
+    @IBAction func pushFilterResultUp(_ sender: Any) {
+        addValueToFilterCurrentIndex(value: -1)
+        scrollToItem(index: dataProvider.filterHitIndices[filterCurrentIndex])
+        updateFilterHitCountLabel()
+    }
+    
+    @IBAction func pushFilterResultDown(_ sender: Any) {
+        addValueToFilterCurrentIndex(value: 1)
+        scrollToItem(index: dataProvider.filterHitIndices[filterCurrentIndex])
+        updateFilterHitCountLabel()
     }
 }

@@ -66,4 +66,12 @@ class StatementViewControllerPresenter {
     func meetingMemberIconPresenters() -> [MeetingMemberIconViewPresenter] {
         return meetingUserDataList.map { StatementMemberIconViewPresenter(data: $0) }
     }
+    
+    func isHiddenLevelMeter() -> Bool {
+        return meetingData.isFinished()
+    }
+    
+    func isHiddenSearchField() -> Bool {
+        return !meetingData.isFinished()
+    }
 }
