@@ -69,7 +69,7 @@ class StatementCollectionViewItem: NSCollectionViewItem {
             iconView.updateView(imageUrl: presenter.iconImageUrl(), toolTip: "")
             userNameLabel.stringValue = presenter.userName()
         }
-        statementLabel.stringValue = presenter.statement()
+        statementLabel.attributedStringValue = presenter.statement()
         
         let frame = view.frame
         view.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: width, height: frame.height)

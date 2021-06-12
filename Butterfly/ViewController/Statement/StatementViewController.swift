@@ -275,7 +275,7 @@ class StatementViewController: NSViewController,
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId), for: indexPath) as! StatementCollectionViewItem
         let statementData = dataProvider.statementDataList[indexPath.item]
-        item.updateView(presenter: StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item)), width: collectionViewWidthConstraint.constant)
+        item.updateView(presenter: StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item), filterKeyword: filteringKeywordTextField.stringValue), width: collectionViewWidthConstraint.constant)
         return item
     }
     
@@ -290,7 +290,7 @@ class StatementViewController: NSViewController,
     
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
         let statementData = dataProvider.statementDataList[indexPath.item]
-        let presenter = StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item))
+        let presenter = StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item), filterKeyword: filteringKeywordTextField.stringValue)
         return calcHeightHelper.calcSize(index: indexPath.item, presenter: presenter, width: collectionViewWidthConstraint.constant)
     }
     
@@ -320,12 +320,17 @@ class StatementViewController: NSViewController,
     }
     
     @IBAction func didEnterFilteringKeywords(_ sender: Any) {
+        let previousHitIndices = dataProvider.filterHitIndices
         let keyword = filteringKeywordTextField.stringValue
         dataProvider.updateFilterHitIndices(keyword: keyword)
         let hitIndices = dataProvider.filterHitIndices
         let hitCount = hitIndices.count
         filterCurrentIndex = 0
         updateFilterHitCountLabel()
+        
+        collectionView.reloadItems(at: Set(previousHitIndices.map { IndexPath(item: $0, section: 0) }))
+        collectionView.reloadItems(at: Set(hitIndices.map { IndexPath(item: $0, section: 0) }))
+        
         let isHit = hitCount != 0
         if isHit {
             scrollToItem(index: hitIndices[filterCurrentIndex])
