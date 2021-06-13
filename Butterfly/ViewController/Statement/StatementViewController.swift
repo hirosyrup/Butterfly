@@ -275,7 +275,7 @@ class StatementViewController: NSViewController,
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId), for: indexPath) as! StatementCollectionViewItem
         let statementData = dataProvider.statementDataList[indexPath.item]
-        item.updateView(presenter: StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item), filterKeyword: filteringKeywordTextField.stringValue), width: collectionViewWidthConstraint.constant)
+        item.updateView(presenter: StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item), meetingData: statementController.meetingData, filterKeyword: filteringKeywordTextField.stringValue), width: collectionViewWidthConstraint.constant)
         return item
     }
     
@@ -290,7 +290,7 @@ class StatementViewController: NSViewController,
     
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
         let statementData = dataProvider.statementDataList[indexPath.item]
-        let presenter = StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item), filterKeyword: filteringKeywordTextField.stringValue)
+        let presenter = StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item), meetingData: statementController.meetingData, filterKeyword: filteringKeywordTextField.stringValue)
         return calcHeightHelper.calcSize(index: indexPath.item, presenter: presenter, width: collectionViewWidthConstraint.constant)
     }
     

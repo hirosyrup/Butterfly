@@ -12,6 +12,7 @@ class StatementCollectionViewItem: NSCollectionViewItem {
     @IBOutlet weak var iconImageContainer: NSView!
     @IBOutlet weak var headerContainer: NSBox!
     @IBOutlet weak var userNameLabel: NSTextField!
+    @IBOutlet weak var timeLabel: NSTextField!
     @IBOutlet weak var statementLabel: NSTextField!
     @IBOutlet weak var copyToClipboardButton: NSButton!
     weak var iconView: MemberIconView!
@@ -69,6 +70,7 @@ class StatementCollectionViewItem: NSCollectionViewItem {
             iconView.updateView(imageUrl: presenter.iconImageUrl(), toolTip: "")
             userNameLabel.stringValue = presenter.userName()
         }
+        timeLabel.stringValue = presenter.time()
         statementLabel.attributedStringValue = presenter.statement()
         
         let frame = view.frame

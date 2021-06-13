@@ -10,11 +10,13 @@ import Cocoa
 class StatementCollectionViewItemPresenter {
     private let data: StatementRepository.StatementData
     private let previousData: StatementRepository.StatementData?
+    private let meetingData: MeetingRepository.MeetingData
     private let filterKeyword: String
     
-    init(data: StatementRepository.StatementData, previousData: StatementRepository.StatementData?, filterKeyword: String) {
+    init(data: StatementRepository.StatementData, previousData: StatementRepository.StatementData?, meetingData: MeetingRepository.MeetingData, filterKeyword: String) {
         self.data = data
         self.previousData = previousData
+        self.meetingData = meetingData
         self.filterKeyword = filterKeyword
     }
     
@@ -32,6 +34,15 @@ class StatementCollectionViewItemPresenter {
         } else {
             return nil
         }
+    }
+    
+    func time() -> String {
+        guard let startedAt = meetingData.startedAt else { return "" }
+        let diff = Int(round(data.createdAt.timeIntervalSince1970 - startedAt.timeIntervalSince1970))
+        let hour = diff / 3600
+        let minutes = diff % 3600 / 60
+        let second = diff % 60
+        return "\(String(format: "%02d", hour)):\(String(format: "%02d", minutes)):\(String(format: "%02d", second))"
     }
     
     func statement() -> NSAttributedString {

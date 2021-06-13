@@ -13,26 +13,37 @@
                 <outlet property="headerContainer" destination="gTC-6W-gTl" id="VcH-vq-UNb"/>
                 <outlet property="iconImageContainer" destination="Iik-sh-Bgs" id="gHj-6s-Nqo"/>
                 <outlet property="statementLabel" destination="KuO-4t-JTr" id="DCf-rX-m8s"/>
+                <outlet property="timeLabel" destination="Eu0-uE-vXH" id="zNW-Ft-aRQ"/>
                 <outlet property="userNameLabel" destination="Wik-4O-H6A" id="Xkc-Lb-Tad"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="400" height="83"/>
+        <customView misplaced="YES" id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="97"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <box boxType="custom" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="WQ9-ek-OtK">
-                    <rect key="frame" x="0.0" y="0.0" width="400" height="83"/>
+                    <rect key="frame" x="0.0" y="0.0" width="400" height="97"/>
                     <view key="contentView" id="f7n-kk-DEq">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="83"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="97"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Eu0-uE-vXH">
+                                <rect key="frame" x="14" y="34" width="49" height="11"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="00:00:00" id="bES-IZ-zsz">
+                                    <font key="font" metaFont="systemBold" size="9"/>
+                                    <color key="textColor" white="0.59999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
                     </view>
                     <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                 </box>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qJ5-0y-Mnm">
-                    <rect key="frame" x="16" y="31" width="368" height="52"/>
+                    <rect key="frame" x="16" y="45" width="368" height="52"/>
                     <subviews>
                         <box boxType="custom" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="gTC-6W-gTl">
                             <rect key="frame" x="0.0" y="0.0" width="368" height="52"/>
@@ -91,7 +102,7 @@
                     </customSpacing>
                 </stackView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KuO-4t-JTr">
-                    <rect key="frame" x="14" y="4" width="344" height="23"/>
+                    <rect key="frame" x="14" y="4" width="344" height="26"/>
                     <textFieldCell key="cell" title="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" id="5Eg-4X-qPv">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -99,10 +110,10 @@
                     </textFieldCell>
                 </textField>
                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gW7-1h-bDL">
-                    <rect key="frame" x="364" y="8" width="32" height="15"/>
+                    <rect key="frame" x="364" y="8" width="32" height="18"/>
                     <subviews>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Gc2-ad-Whx">
-                            <rect key="frame" x="0.0" y="0.0" width="32" height="15"/>
+                            <rect key="frame" x="0.0" y="2" width="32" height="15"/>
                             <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="clip" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="qvs-HA-mLL">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -112,7 +123,7 @@
                             </connections>
                         </button>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="g18-3x-whX">
-                            <rect key="frame" x="32" y="0.0" width="0.0" height="15"/>
+                            <rect key="frame" x="32" y="0.0" width="0.0" height="18"/>
                             <constraints>
                                 <constraint firstAttribute="width" id="Kql-QG-Ljx"/>
                             </constraints>
@@ -141,15 +152,17 @@
                 <constraint firstAttribute="bottom" secondItem="WQ9-ek-OtK" secondAttribute="bottom" id="JJg-BB-BUI"/>
                 <constraint firstItem="qJ5-0y-Mnm" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="16" id="NA6-G9-8cZ"/>
                 <constraint firstItem="qJ5-0y-Mnm" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="O89-5u-aqV"/>
+                <constraint firstItem="KuO-4t-JTr" firstAttribute="top" secondItem="Eu0-uE-vXH" secondAttribute="bottom" constant="4" id="PaG-Gg-ukF"/>
                 <constraint firstItem="WQ9-ek-OtK" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="Plq-gh-jWm"/>
+                <constraint firstItem="Eu0-uE-vXH" firstAttribute="top" secondItem="qJ5-0y-Mnm" secondAttribute="bottom" id="SGs-lt-e8j"/>
                 <constraint firstItem="gW7-1h-bDL" firstAttribute="leading" secondItem="KuO-4t-JTr" secondAttribute="trailing" constant="8" id="TCJ-Mq-vDW"/>
-                <constraint firstItem="KuO-4t-JTr" firstAttribute="top" secondItem="qJ5-0y-Mnm" secondAttribute="bottom" constant="4" id="dcU-eT-UXz"/>
                 <constraint firstItem="qJ5-0y-Mnm" firstAttribute="leading" secondItem="KuO-4t-JTr" secondAttribute="leading" id="krz-h1-3EJ"/>
                 <constraint firstAttribute="trailing" secondItem="qJ5-0y-Mnm" secondAttribute="trailing" constant="16" id="shv-my-jUc"/>
+                <constraint firstItem="Eu0-uE-vXH" firstAttribute="leading" secondItem="Iik-sh-Bgs" secondAttribute="leading" id="ss5-TI-sK4"/>
                 <constraint firstItem="gW7-1h-bDL" firstAttribute="top" secondItem="KuO-4t-JTr" secondAttribute="top" constant="4" id="vXG-RA-jST"/>
                 <constraint firstItem="WQ9-ek-OtK" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="vcr-bh-95e"/>
             </constraints>
-            <point key="canvasLocation" x="-214" y="31"/>
+            <point key="canvasLocation" x="-214" y="30.5"/>
         </customView>
         <customObject id="sG5-c0-YOy" customClass="StatementCollectionViewItem" customModule="Butterfly" customModuleProvider="target"/>
     </objects>
