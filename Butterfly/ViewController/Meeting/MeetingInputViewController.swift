@@ -47,7 +47,7 @@ class MeetingInputViewController: NSViewController,
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let selectVc = segue.destinationController as? SelectMemberViewController {
-            selectVc.setup(selectMemberFetch: SelectMemberFetchForMeeting(workspaceId: workspaceId, meetingData: meetingData), userList: createInitialSelectedUserList(), delegate: self)
+            selectVc.setup(selectMemberFetch: SelectMemberFetchForMeeting(workspaceId: workspaceId, meetingData: meetingData), userList: createInitialSelectedUserList(), isSelectable: !meetingData.isFinished(), delegate: self)
         }
     }
     

@@ -18,6 +18,7 @@ class StatementCollectionDataProvider: StatementRepositoryDelegate {
     private(set) var statementDataList = [StatementRepository.StatementData]()
     private let workspaceId: String
     private let meetingId: String
+    private(set) var filterHitIndices = [Int]()
     
     init(workspaceId: String, meetingId: String) {
         self.workspaceId = workspaceId
@@ -31,6 +32,15 @@ class StatementCollectionDataProvider: StatementRepositoryDelegate {
     
     func unlistenData() {
         statement.unlisten()
+    }
+    
+    func updateFilterHitIndices(keyword: String) {
+        filterHitIndices = [Int]()
+        for (index, value) in statementDataList.enumerated() {
+            if value.statement.contains(keyword) {
+                filterHitIndices.append(index)
+            }
+        }
     }
     
     func didChangeStatementData(obj: StatementRepository.Statement, documentChanges: [RepositoryDocumentChange<StatementRepository.StatementData>]) {

@@ -101,12 +101,11 @@ class FirestoreMeetingUser {
         }
     }
     
-    func deleteAll(workspaceId: String, meetingId: String) -> Promise<Void> {
+    func deleteMultiple(workspaceId: String, meetingId: String, meetingUserIds: [String]) -> Promise<Void> {
         return Promise<Void>(in: .background, token: nil) { (resolve, reject, _) in
             do {
-                let userList = try await(self.index(workspaceId: workspaceId, meetingId: meetingId))
-                try userList.forEach({ (user) in
-                    try await(self.delete(workspaceId: workspaceId, meetingId: meetingId, meetingUserId: user.id))
+                try meetingUserIds.forEach({ (meetingUserId) in
+                    try await(self.delete(workspaceId: workspaceId, meetingId: meetingId, meetingUserId: meetingUserId))
                 })
                 resolve(())
             } catch {

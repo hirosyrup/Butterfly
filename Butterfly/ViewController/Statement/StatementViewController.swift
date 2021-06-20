@@ -12,6 +12,8 @@ import AVKit
 class StatementViewController: NSViewController,
                                StatementCollectionDataProviderDelegate,
                                StatementControllerDelegate,
+                               AudioPlayerMenuDelegate,
+                               StatementSwitchesViewControllerDelegate,
                                NSCollectionViewDataSource,
                                NSCollectionViewDelegateFlowLayout {
     @IBOutlet weak var titleLabel: NSTextField!
@@ -22,11 +24,16 @@ class StatementViewController: NSViewController,
     @IBOutlet weak var recordingLabel: NSBox!
     @IBOutlet weak var recordAudioDownloadIndicator: NSProgressIndicator!
     @IBOutlet weak var audioPlayerView: AVPlayerView!
+    @IBOutlet weak var searchFieldContainer: NSView!
     @IBOutlet weak var levelMeterContainer: NSView!
-    @IBOutlet weak var speechRecognizerSegmentedControl: NSSegmentedControl!
-    @IBOutlet weak var speechRecognizerControlContainer: NSView!
     @IBOutlet weak var showCollectionButton: NSButton!
-    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint?
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var switchOptionButton: NSButton!
+    @IBOutlet weak var filteringKeywordTextField: EditableNSTextField!
+    @IBOutlet weak var filterHitCountLabel: NSTextField!
+    @IBOutlet weak var filterResultUpButton: NSButton!
+    @IBOutlet weak var filterResultDownButton: NSButton!
     
     weak var levelMeter: StatementLevelMeter!
     
@@ -37,20 +44,26 @@ class StatementViewController: NSViewController,
     private var lastScrollIndex = 0
     private let calcHeightHelper = CalcStatementCollectionItemHeight()
     private var collectionViewHeightConstant: CGFloat = 0.0
+    private let audioPlayerMenu = AudioPlayerMenu()
+    private var canSelectRecognizer: Bool?
+    private var isAutoScroll = StatementOptionUserDefault.shared.isAutoScroll()
+    private var playerIsReadyForDisplayObserver: NSKeyValueObservation?
+    private var filterCurrentIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        audioPlayerMenu.delegate = self
         collectionView.dataSource = self
         collectionView.delegate = self
         let nib = NSNib(nibNamed: "StatementCollectionViewItem", bundle: nil)
         collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId))
         audioPlayerView.isHidden = true
-        speechRecognizerControlContainer.isHidden = true
+        audioPlayerView.actionPopUpButtonMenu = audioPlayerMenu.createMenu()
         levelMeter = StatementLevelMeter.createFromNib(owner: nil)
         levelMeter.frame = levelMeterContainer.bounds
         levelMeterContainer.addSubview(levelMeter)
-        collectionViewHeightConstant = collectionViewHeightConstraint?.constant ?? 0.0
-        collectionViewHeightConstraint?.constant = 0.0
+        collectionViewHeightConstant = collectionViewHeightConstraint.constant
+        collectionViewHeightConstraint.constant = 0.0
     }
 
     override func viewWillAppear() {
@@ -82,6 +95,9 @@ class StatementViewController: NSViewController,
                 audioComposition: audioComposition
             )
             vc.data = data
+        } else if let vc = segue.destinationController as? StatementSwitchesViewController {
+            vc.delegate = self
+            vc.setup(initialRecognizerType: statementController.recognizerType, canSelectRecognizer: canSelectRecognizer ?? false, isMutingSilentPart: statementController.isMutingSilentPart, isAutoScroll: isAutoScroll)
         }
     }
 
@@ -107,6 +123,9 @@ class StatementViewController: NSViewController,
         startEndButton.state = presenter.startEndButtonState()
         recordingLabel.isHidden = presenter.isHiddenRecordingLabel()
         showCollectionButton.isHidden = presenter.isHiddenOfShowCollectionButton()
+        switchOptionButton.isHidden = presenter.isHiddenSwitchOptionButton()
+        levelMeterContainer.isHidden = presenter.isHiddenLevelMeter()
+        searchFieldContainer.isHidden = presenter.isHiddenSearchField()
     }
     
     private func setupRecordAudioIfNeeded(isUploadingAudio: Bool) {
@@ -122,50 +141,72 @@ class StatementViewController: NSViewController,
             async({ _ -> AVMutableComposition in
                 return try await(MergeAudio(meetingData: meetingData, meetingUserDataList: userList).merge())
             }).then({ composition in
-                self.audioPlayerView.isHidden = false
-                self.audioPlayerView.player = AVPlayer(playerItem: AVPlayerItem(asset: composition))
-                self.audioComposition = composition
+                // 画面を開いてすぐplayerにセットすると何故か現在の再生時間が表示されなくなる
+                // 詳細な条件は不明。とりあえず少し間を置いてセットすることで回避。
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                    self.recordAudioDownloadIndicator.stopAnimation(self)
+                    self.audioPlayerView.isHidden = false
+                    let playerItem = AVPlayerItem(asset: composition)
+                    self.audioPlayerView.player = AVPlayer(playerItem: playerItem)
+                    self.audioComposition = composition
+                }
             }).catch { (error) in
-                AlertBuilder.createErrorAlert(title: "Error", message: "Failed to download audio files. \(error.localizedDescription)").runModal()
-            }.always(in: .main) {
                 self.recordAudioDownloadIndicator.stopAnimation(self)
+                AlertBuilder.createErrorAlert(title: "Error", message: "Failed to download audio files. \(error.localizedDescription)").runModal()
             }
         }
     }
     
-    private func setupCollectionViewHeight() {
+    private func setupCollectionViewSize() {
         let meetingData = statementController.meetingData
         if meetingData.isFinished() {
-            collectionViewHeightConstraint?.constant = collectionViewHeightConstant
+            collectionViewHeightConstraint.constant = collectionViewHeightConstant
+            collectionViewWidthConstraint.constant = 600.0
+            collectionContainer.layoutSubtreeIfNeeded()
+            reloadCollectionView()
             showCollectionButton.state = .on
-            if let constraint = collectionViewHeightConstraint {
-                collectionContainer.removeConstraint(constraint)
-            }
         } else {
-            collectionViewHeightConstraint?.constant = showCollectionButton.state == .on ? collectionViewHeightConstant : 0.0
+            collectionViewHeightConstraint.constant = showCollectionButton.state == .on ? collectionViewHeightConstant : 0.0
         }
-    }
-    
-    private func updateSpeechRecognizer() {
-        guard let speechRecognizerType = SpeechRecognizerType(rawValue: speechRecognizerSegmentedControl.selectedSegment) else { return }
-        statementController.updateSpeechRecognizer(speechRecognizerType: speechRecognizerType)
     }
     
     private func reloadCollectionView() {
         collectionView.reloadData()
-        if !dataProvider.statementDataList.isEmpty {
+        if !dataProvider.statementDataList.isEmpty && isAutoScroll {
             collectionView.animator().scrollToItems(at: [IndexPath(item: dataProvider.statementDataList.count - 1, section: 0)], scrollPosition: .bottom)
         }
     }
     
+    private func scrollToItem(index: Int) {
+        let ctx = NSAnimationContext.current
+        ctx.allowsImplicitAnimation = true
+        collectionView.animator().scrollToItems(at: [IndexPath(item: index, section: 0)], scrollPosition: .top)
+    }
+    
+    private func addValueToFilterCurrentIndex(value: Int) {
+        let hitIndices = dataProvider.filterHitIndices
+        filterCurrentIndex = filterCurrentIndex + value
+        if filterCurrentIndex >= hitIndices.count {
+            filterCurrentIndex = 0
+        } else if filterCurrentIndex < 0 {
+            filterCurrentIndex = hitIndices.count - 1
+        }
+    }
+    
+    private func updateFilterHitCountLabel() {
+        let hitIndices = dataProvider.filterHitIndices
+        let hitCount = hitIndices.count
+        filterHitCountLabel.stringValue = hitCount == 0 ? "" : "\(filterCurrentIndex + 1) / \(hitCount)"
+    }
+    
     func setup(workspaceId: String, workspaceMLFileName: String?, meetingData: MeetingRepository.MeetingData) {
-        statementController = StatementController(workspaceId: workspaceId, workspaceMLFileName: workspaceMLFileName, initialMeetingData: meetingData)
+        statementController = StatementController(workspaceId: workspaceId, workspaceMLFileName: workspaceMLFileName, initialMeetingData: meetingData, isMutingSilentPart: StatementOptionUserDefault.shared.isMutingSilentPart())
         statementController.delegate = self
         dataProvider = StatementCollectionDataProvider(workspaceId: workspaceId, meetingId: meetingData.id)
         dataProvider.delegate = self
         updateViews()
         setupRecordAudioIfNeeded(isUploadingAudio: false)
-        setupCollectionViewHeight()
+        setupCollectionViewSize()
     }
     
     func didNotCreateRecognitionRequest(controller: StatementController, error: Error) {
@@ -180,12 +221,11 @@ class StatementViewController: NSViewController,
         let you = controller.you
         setupRecordAudioIfNeeded(isUploadingAudio: you != nil && you!.audioFileName == nil)
         updateViews()
-        setupCollectionViewHeight()
+        setupCollectionViewSize()
     }
     
-    func didUpdateSpeechRecognizer(controller: StatementController, recognizerType: SpeechRecognizerType, canSelectRecognizer: Bool) {
-        speechRecognizerControlContainer.isHidden = !canSelectRecognizer
-        speechRecognizerSegmentedControl.selectedSegment = recognizerType.rawValue
+    func didUpdateSpeechRecognizer(controller: StatementController, canSelectRecognizer: Bool) {
+        self.canSelectRecognizer = canSelectRecognizer
     }
     
     func didUpdateAudioInputState(controller: StatementController, isAudioInputStart: Bool) {
@@ -210,6 +250,24 @@ class StatementViewController: NSViewController,
         }
     }
     
+    func didChangePlaybackRate(menu: AudioPlayerMenu, rate: Float) {
+        audioPlayerView.player?.rate = rate
+    }
+    
+    func didChangeSpeechRecognizerType(vc: StatementSwitchesViewController, recognizerType: SpeechRecognizerType) {
+        statementController.updateSpeechRecognizer(speechRecognizerType: recognizerType)
+    }
+    
+    func didChangeIsMutingSilentPart(vc: StatementSwitchesViewController, isMutingSilentPart: Bool) {
+        StatementOptionUserDefault.shared.saveMutingSilentPart(isMutingSilentPart: isMutingSilentPart)
+        statementController.isMutingSilentPart = isMutingSilentPart
+    }
+    
+    func didChangeIsAutoScroll(vc: StatementSwitchesViewController, isAutoScroll: Bool) {
+        StatementOptionUserDefault.shared.saveAutoScroll(isAutoScroll: isAutoScroll)
+        self.isAutoScroll = isAutoScroll
+    }
+    
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataProvider.statementDataList.count
     }
@@ -217,7 +275,7 @@ class StatementViewController: NSViewController,
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellId), for: indexPath) as! StatementCollectionViewItem
         let statementData = dataProvider.statementDataList[indexPath.item]
-        item.updateView(presenter: StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item)))
+        item.updateView(presenter: StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item), meetingData: statementController.meetingData, filterKeyword: filteringKeywordTextField.stringValue), width: collectionViewWidthConstraint.constant)
         return item
     }
     
@@ -232,8 +290,8 @@ class StatementViewController: NSViewController,
     
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
         let statementData = dataProvider.statementDataList[indexPath.item]
-        let presenter = StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item))
-        return calcHeightHelper.calcSize(index: indexPath.item, presenter: presenter)
+        let presenter = StatementCollectionViewItemPresenter(data: statementData, previousData: previousData(currentIndex: indexPath.item), meetingData: statementController.meetingData, filterKeyword: filteringKeywordTextField.stringValue)
+        return calcHeightHelper.calcSize(index: indexPath.item, presenter: presenter, width: collectionViewWidthConstraint.constant)
     }
     
     @IBAction func pushStartEnd(_ sender: Any) {
@@ -248,20 +306,48 @@ class StatementViewController: NSViewController,
         }
     }
     
-    @IBAction func changeSpeechRecognizerSetting(_ sender: Any) {
-        updateSpeechRecognizer()
-    }
-    
     @IBAction func pushShowCollectionButton(_ sender: Any) {
         let buttonState = showCollectionButton.state
         NSAnimationContext.runAnimationGroup { (context) in
             context.duration = 0.25
             context.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-            self.collectionViewHeightConstraint?.animator().constant = buttonState == .on ? collectionViewHeightConstant : 0.0
+            self.collectionViewHeightConstraint.animator().constant = buttonState == .on ? collectionViewHeightConstant : 0.0
         } completionHandler: {
             if buttonState == .on {
                 self.reloadCollectionView()
             }
         }
+    }
+    
+    @IBAction func didEnterFilteringKeywords(_ sender: Any) {
+        let previousHitIndices = dataProvider.filterHitIndices
+        let keyword = filteringKeywordTextField.stringValue
+        dataProvider.updateFilterHitIndices(keyword: keyword)
+        let hitIndices = dataProvider.filterHitIndices
+        let hitCount = hitIndices.count
+        filterCurrentIndex = 0
+        updateFilterHitCountLabel()
+        
+        collectionView.reloadItems(at: Set(previousHitIndices.map { IndexPath(item: $0, section: 0) }))
+        collectionView.reloadItems(at: Set(hitIndices.map { IndexPath(item: $0, section: 0) }))
+        
+        let isHit = hitCount != 0
+        if isHit {
+            scrollToItem(index: hitIndices[filterCurrentIndex])
+        }
+        filterResultUpButton.isEnabled = isHit
+        filterResultDownButton.isEnabled = isHit
+    }
+    
+    @IBAction func pushFilterResultUp(_ sender: Any) {
+        addValueToFilterCurrentIndex(value: -1)
+        scrollToItem(index: dataProvider.filterHitIndices[filterCurrentIndex])
+        updateFilterHitCountLabel()
+    }
+    
+    @IBAction func pushFilterResultDown(_ sender: Any) {
+        addValueToFilterCurrentIndex(value: 1)
+        scrollToItem(index: dataProvider.filterHitIndices[filterCurrentIndex])
+        updateFilterHitCountLabel()
     }
 }

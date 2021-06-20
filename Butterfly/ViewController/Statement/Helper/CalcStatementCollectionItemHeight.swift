@@ -16,14 +16,14 @@ class CalcStatementCollectionItemHeight {
         calcHeightView.instantiateFromNib()
     }
     
-    func calcSize(index: Int, presenter: StatementCollectionViewItemPresenter) -> CGSize {
+    func calcSize(index: Int, presenter: StatementCollectionViewItemPresenter, width: CGFloat) -> CGSize {
         if index < didCalcHeightList.count {
             let prevPresenter = didCalcHeightList[index].0
-            if prevPresenter.isOnlyStatement() == presenter.isOnlyStatement() && prevPresenter.statement() == presenter.statement() {
+            if prevPresenter.isOnlyStatement() == presenter.isOnlyStatement() && prevPresenter.statement() == presenter.statement() && didCalcHeightList[index].1.width == width {
                 return didCalcHeightList[index].1
             }
         }
-        let size = calcHeightView.calcSize(presenter: presenter)
+        let size = calcHeightView.calcSize(presenter: presenter, width: width)
         if index < didCalcHeightList.count {
             didCalcHeightList[index] = (presenter, size)
         } else {

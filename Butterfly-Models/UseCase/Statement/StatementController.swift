@@ -13,7 +13,7 @@ protocol StatementControllerDelegate: class {
     func didNotCreateRecognitionRequest(controller: StatementController, error: Error)
     func audioEngineStartError(controller: StatementController, error: Error)
     func didUpdateData(controller: StatementController)
-    func didUpdateSpeechRecognizer(controller: StatementController, recognizerType: SpeechRecognizerType, canSelectRecognizer: Bool)
+    func didUpdateSpeechRecognizer(controller: StatementController, canSelectRecognizer: Bool)
     func didUpdateAudioInputState(controller: StatementController, isAudioInputStart: Bool)
     func failedToUpdateAudioInputState(controller: StatementController, error: Error)
     func didUpdateRmsThreshold(controller: StatementController, threshold: Double)
@@ -43,8 +43,14 @@ class StatementController: SpeechRecognizerDelegate,
     private let statementQueue: StatementQueue
     private let meetingUser = MeetingUserRepository.User()
     private let meeting = MeetingRepository.Meeting()
+    var isMutingSilentPart: Bool
+    var recognizerType: SpeechRecognizerType {
+        get {
+            return speechRecognizer is SpeechRecognizerAmiVoice ? .amiVoice : .apple
+        }
+    }
     
-    init(workspaceId: String, workspaceMLFileName: String?, initialMeetingData: MeetingRepository.MeetingData) {
+    init(workspaceId: String, workspaceMLFileName: String?, initialMeetingData: MeetingRepository.MeetingData, isMutingSilentPart: Bool) {
         self.autoCalcRmsThreshold = AutoCalcRmsThreshold(initialThreshold: observeBreakInStatements.rmsThreshold)
         self.workspaceId = workspaceId
         var _speakerRecognizer: SpeakerRecognizer? = nil
@@ -58,6 +64,7 @@ class StatementController: SpeechRecognizerDelegate,
         self.speakerRecognizer = _speakerRecognizer
         self.meetingData = initialMeetingData
         self.statementQueue = StatementQueue(workspaceId: workspaceId, meetingId: initialMeetingData.id)
+        self.isMutingSilentPart = isMutingSilentPart
     }
     
     private func enter() {
@@ -111,7 +118,7 @@ class StatementController: SpeechRecognizerDelegate,
             }
             SpeechRecognizerApple.shared.setupRecognizer(languageIdentifier: userData.language)
             self.updateSpeechRecognizer(speechRecognizerType: recognizerType)
-            self.delegate?.didUpdateSpeechRecognizer(controller: self, recognizerType: recognizerType, canSelectRecognizer: canSelectRecognizer)
+            self.delegate?.didUpdateSpeechRecognizer(controller: self, canSelectRecognizer: canSelectRecognizer)
         })
     }
     
@@ -284,11 +291,18 @@ class StatementController: SpeechRecognizerDelegate,
         observeBreakInStatements.checkBreakInStatements(buffer: buffer, when: when)
         if observeBreakInStatements.isSpeeking {
             speakerRecognizer?.analyze(buffer: buffer, when: when)
-            audioRecorder?.write(buffer: buffer)
+        }
+        
+        if isMutingSilentPart {
+            if observeBreakInStatements.isSpeeking {
+                audioRecorder?.write(buffer: buffer)
+            } else {
+                let emptyBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameCapacity)
+                emptyBuffer?.frameLength = buffer.frameLength
+                audioRecorder?.write(buffer: emptyBuffer!)
+            }
         } else {
-            let emptyBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameCapacity)
-            emptyBuffer?.frameLength = buffer.frameLength
-            audioRecorder?.write(buffer: emptyBuffer!)
+            audioRecorder?.write(buffer: buffer)
         }
         
         if observeBreakInStatements.isOverThreshold() {

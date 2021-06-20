@@ -12,6 +12,7 @@ class StatementCollectionViewItem: NSCollectionViewItem {
     @IBOutlet weak var iconImageContainer: NSView!
     @IBOutlet weak var headerContainer: NSBox!
     @IBOutlet weak var userNameLabel: NSTextField!
+    @IBOutlet weak var timeLabel: NSTextField!
     @IBOutlet weak var statementLabel: NSTextField!
     @IBOutlet weak var copyToClipboardButton: NSButton!
     weak var iconView: MemberIconView!
@@ -61,7 +62,7 @@ class StatementCollectionViewItem: NSCollectionViewItem {
         self.iconView = iconView
     }
     
-    func updateView(presenter: StatementCollectionViewItemPresenter) {
+    func updateView(presenter: StatementCollectionViewItemPresenter, width: CGFloat) {
         onMouse(on: false)
         let isOnlyStatement = presenter.isOnlyStatement()
         headerContainer.isHidden = isOnlyStatement
@@ -69,7 +70,11 @@ class StatementCollectionViewItem: NSCollectionViewItem {
             iconView.updateView(imageUrl: presenter.iconImageUrl(), toolTip: "")
             userNameLabel.stringValue = presenter.userName()
         }
-        statementLabel.stringValue = presenter.statement()
+        timeLabel.stringValue = presenter.time()
+        statementLabel.attributedStringValue = presenter.statement()
+        
+        let frame = view.frame
+        view.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: width, height: frame.height)
         
         if let area = trackingArea {
             view.removeTrackingArea(area)
@@ -79,8 +84,8 @@ class StatementCollectionViewItem: NSCollectionViewItem {
         view.addTrackingArea(trackingArea!)
     }
     
-    func calcSize(presenter: StatementCollectionViewItemPresenter) -> CGSize {
-        updateView(presenter: presenter)
+    func calcSize(presenter: StatementCollectionViewItemPresenter, width: CGFloat) -> CGSize {
+        updateView(presenter: presenter, width: width)
         view.layoutSubtreeIfNeeded()
         return view.bounds.size
     }
