@@ -1,0 +1,9 @@
+/* 
+  infoPlist.strings
+  Butterfly
+
+  Created by 岩井 宏晃 on 2021/06/23.
+  
+*/
+NSMicrophoneUsageDescription = "For Speech Recognition.";
+NSSpeechRecognitionUsageDescription = "For Speech Recognition.";

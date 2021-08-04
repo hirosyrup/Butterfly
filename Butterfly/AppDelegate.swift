@@ -73,7 +73,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if let workspaceId = params.first(where: { $0.name == appScheme.openMeetingPathWorkspaceIdKey })?.value,
                let meetingId = params.first(where: { $0.name == appScheme.openMeetingPathMeetingIdKey })?.value,
                let vc = popover.contentViewController as? MainViewController {
-                vc.openMeeting(workspaceId: workspaceId, meetingId: meetingId)
+                //vc.openMeeting(workspaceId: workspaceId, meetingId: meetingId)
             }
         default:
             return
